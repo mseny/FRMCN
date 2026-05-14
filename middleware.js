@@ -9,7 +9,6 @@ const PUBLIC_PATHS = ['/login.html', '/api/login', '/api/logout'];
 
 // Pages restricted to full-access users only
 const FULL_ACCESS_ONLY = [
-    '/modulo3-clase3.html',
     '/modulo3-clase4.html',
     '/modulo3-clase5.html',
 ];
