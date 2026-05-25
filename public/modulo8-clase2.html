@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Módulo Extra: Desarrollo y Automatización con IA - [m].seny [labs]">
-    <title>Módulo Extra: Desarrollo y Automatización - [m].seny [labs]</title>
+    <meta name="description" content="Guía Completa de Claude Cowork - [m].seny [labs]">
+    <title>Módulo 8: Guía Claude Cowork (Clase 2) - [m].seny [labs]</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -31,9 +31,10 @@
                             accent: '#F59E0B',
                             light: '#F8FAFC'
                         },
-                        code: {
-                            bg: '#1E293B',
-                            text: '#E2E8F0'
+                        claude: {
+                            DEFAULT: '#D97757',
+                            light: '#FDF3F0',
+                            dark: '#B05D40'
                         }
                     }
                 }
@@ -82,7 +83,7 @@
         .card-hover { transition: all 0.3s ease; }
         .card-hover:hover {
             transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.1);
+            box-shadow: 0 20px 25px -5px rgba(217, 119, 87, 0.15);
         }
 
         /* Progress Bar */
@@ -91,9 +92,37 @@
             top: 0;
             left: 0;
             height: 3px;
-            background: linear-gradient(90deg, #4F46E5, #10B981);
+            background: linear-gradient(90deg, #4F46E5, #D97757);
             z-index: 1000;
             transition: width 0.2s ease;
+        }
+
+        /* Tree Styles */
+        .tree-line {
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        .tree-line::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: -0.5rem;
+            bottom: 0;
+            width: 1px;
+            background-color: #4b5563; /* gray-600 */
+        }
+        .tree-line::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.75rem;
+            width: 1rem;
+            height: 1px;
+            background-color: #4b5563;
+        }
+        .tree-line:last-child::before {
+            bottom: auto;
+            height: 1.25rem;
         }
 
         /* Quiz Styles */
@@ -107,8 +136,8 @@
             color: #e2e8f0;
         }
         .quiz-option:hover {
-            border-color: #4F46E5;
-            background-color: rgba(79, 70, 229, 0.1);
+            border-color: #D97757;
+            background-color: rgba(217, 119, 87, 0.1);
         }
         .quiz-option.selected {
             border-color: #F59E0B;
@@ -132,337 +161,1084 @@
 
     <!-- Navigation Header -->
     <header class="bg-white/90 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+        <!-- Consistent max-w-5xl container for unified margins -->
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center">
-                <h1 class="text-xl font-bold tracking-tight text-brand-dark">
-                    <span class="text-brand-accent">[m]</span>.seny <span class="text-brand-accent">[labs]</span>
-                </h1>
-            </div>
-            <nav class="hidden lg:flex items-center space-x-5 text-xs font-bold text-gray-500 uppercase tracking-wider">
-                <a href="#ide" class="hover:text-brand-primary transition-colors">1. AntiGravity (IDE)</a>
-                <a href="#api" class="hover:text-brand-primary transition-colors">2. APIs y CLI</a>
-                <a href="#mcp" class="hover:text-brand-primary transition-colors">3. Protocolo MCP</a>
-                <a href="#practica" class="hover:text-brand-primary transition-colors text-brand-accent">4. Laboratorio</a>
-                
-                <a href="/login.html" onclick="document.cookie='sb-ftpywhemyizucquurslo-auth-token=;path=/;max-age=0';localStorage.clear()"
-                    class="hidden md:flex items-center gap-1.5 text-xs font-semibold text-gray-400 hover:text-red-500 transition-colors ml-4"
-                    title="Cerrar sesión">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                        <polyline points="16 17 21 12 16 7" />
-                        <line x1="21" y1="12" x2="9" y2="12" />
-                    </svg>
-                    Salir
+                <a href="index.html" class="no-underline group">
+                    <h1 class="text-xl font-bold tracking-tight text-brand-dark group-hover:text-brand-primary transition-colors cursor-pointer">
+                        <span class="text-brand-accent">[m]</span>.seny <span class="text-brand-accent">[labs]</span>
+                    </h1>
                 </a>
+            </div>
+            <!-- Cohesive md:flex Navigation Menu -->
+            <nav class="hidden md:flex items-center space-x-4 text-xs font-bold text-gray-500 uppercase tracking-wider">
+                <a href="#ecosistema" class="hover:text-claude transition-colors">1. COWORK</a>
+                <a href="#skill" class="hover:text-claude transition-colors">2. SKILL</a>
+                <a href="#agent" class="hover:text-claude transition-colors">3. AGENT</a>
+                <a href="#hooks" class="hover:text-claude transition-colors">4. HOOKS</a>
+                <a href="#arquitectura" class="hover:text-claude transition-colors">5. RESUMEN</a>
+                <a href="#contexto" class="hover:text-claude transition-colors">6. CONTEXT</a>
+                <a href="#disclosure" class="hover:text-claude transition-colors text-claude">7. TOKENS</a>
+                <a href="#scripts" class="hover:text-claude transition-colors">8. SCRIPTS</a>
             </nav>
+            <!-- Cohesive "Salir" session button -->
+            <a href="/login.html" onclick="document.cookie='sb-ftpywhemyizucquurslo-auth-token=;path=/;max-age=0';localStorage.clear()"
+                class="hidden md:flex items-center gap-1.5 text-xs font-semibold text-gray-400 hover:text-red-500 transition-colors ml-4"
+                title="Cerrar sesión">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                    <polyline points="16 17 21 12 16 7" />
+                    <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+                Salir
+            </a>
         </div>
     </header>
 
     <!-- Presentation Title (Hero) -->
-    <section class="bg-[#0f172a] text-white py-32 border-b-8 border-brand-primary relative overflow-hidden">
+    <section class="bg-[#0f172a] text-white py-32 border-b-8 border-claude relative overflow-hidden">
         <div class="absolute inset-0 opacity-20">
-            <div class="absolute top-0 right-0 w-[40rem] h-[40rem] bg-indigo-600 rounded-full blur-[150px]"></div>
-            <div class="absolute bottom-[-10rem] left-0 w-[30rem] h-[30rem] bg-emerald-500 rounded-full blur-[150px]"></div>
+            <div class="absolute top-0 right-0 w-[40rem] h-[40rem] bg-claude rounded-full blur-[150px]"></div>
+            <div class="absolute bottom-0 left-0 w-[30rem] h-[30rem] bg-blue-600 rounded-full blur-[150px]"></div>
         </div>
         <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
             <span class="inline-block py-1 px-3 bg-white/10 text-white border border-white/20 font-mono text-sm font-bold uppercase tracking-widest mb-6 rounded">
-                Módulo Extra • Construcción Agentic
+                Módulo 8 • Clase 2
             </span>
             <h1 class="text-5xl lg:text-7xl font-extrabold mb-6 leading-tight">
-                Desarrollo y<br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-emerald-400">Automatización con IA</span>
+                Claude Cowork:<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-claude to-orange-300">Guía de Referencia</span>
             </h1>
             <p class="text-xl text-gray-300 font-serif max-w-2xl mx-auto italic text-center">
-                De escribir código a orquestar sistemas. Dominando los IDEs, APIs y el estándar MCP para conectar la IA al mundo real.
+                Todo lo que puedes crear para automatizar tu trabajo: componentes, diferencias y gestión de contexto avanzado.
             </p>
-            <div class="mt-10 flex items-center justify-center space-x-6 text-sm text-gray-400 font-mono">
-                <span><i class="fa-solid fa-book-open mr-2 text-indigo-400"></i> Teoría: 130 min</span>
-                <span>•</span>
-                <span><i class="fa-solid fa-laptop-code mr-2 text-emerald-400"></i> Práctica: 140 min</span>
+            <div class="mt-8 flex flex-wrap items-center justify-center gap-2 text-xs font-mono font-bold">
+                <span class="px-3 py-1 bg-blue-500/20 text-blue-300 border border-blue-500/30 rounded-full">SKILL.md</span>
+                <span class="px-3 py-1 bg-purple-500/20 text-purple-300 border border-purple-500/30 rounded-full">AGENT.md</span>
+                <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded-full">Hooks</span>
+                <span class="px-3 py-1 bg-orange-500/20 text-orange-300 border border-orange-500/30 rounded-full">Plugin</span>
+                <span class="px-3 py-1 bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 rounded-full">Context Window</span>
             </div>
         </div>
     </section>
 
-    <!-- 1. AntiGravity (IDE) -->
-    <section id="ide" class="py-20 bg-white">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row items-center mb-16 fade-in-on-scroll">
-                <div class="md:w-1/2 pr-0 md:pr-10 mb-8 md:mb-0">
-                    <h2 class="text-3xl font-bold text-brand-dark mb-4 flex items-center">
-                        <span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">1</span>
-                        AntiGravity: Programar con IA en el IDE
-                    </h2>
-                    <p class="prose-text text-gray-600 mb-6">
-                        Un <strong>IDE</strong> (Integrated Development Environment) es el software donde los desarrolladores escriben código (ej. VS Code, Cursor). <strong>AntiGravity</strong> representa la nueva generación de IDEs con IA integrada nativamente, permitiendo autocompletar código, chatear con el proyecto y generar funciones enteras desde lenguaje natural.
-                    </p>
-                    <p class="font-bold text-brand-dark mb-2">¿Para qué sirve en este curso?</p>
-                    <p class="font-serif text-gray-600 text-sm mb-6">Para construir el <em>AI Decision Hub</em>: scripts de conexión a APIs, procesamiento de datos locales y generación de reportes automáticos sin necesidad de ser un programador experto.</p>
-                    
-                    <div class="bg-amber-50 p-5 rounded-xl border-l-4 border-brand-accent">
-                        <p class="font-serif text-amber-900 text-sm m-0">
-                            <i class="fa-solid fa-utensils mr-2 text-brand-accent"></i> <strong>Analogía:</strong> Si el código es una receta de cocina, el IDE es la cocina completa. AntiGravity añade un <em>chef asistente</em> que te sugiere los ingredientes, te avisa si vas a quemar algo y puede cocinar partes enteras del plato por ti.
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="md:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 card-hover">
-                        <div class="text-indigo-500 mb-3 text-2xl"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                        <h4 class="font-bold text-brand-dark mb-2">Autocompletado</h4>
-                        <p class="text-xs text-gray-500 font-serif">La IA predice y sugiere la siguiente línea o bloque entero mientras escribes, basándose en el contexto del archivo. (Como el autocorrector del móvil, pero súper inteligente).</p>
-                    </div>
-                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 card-hover">
-                        <div class="text-emerald-500 mb-3 text-2xl"><i class="fa-regular fa-comments"></i></div>
-                        <h4 class="font-bold text-brand-dark mb-2">Chat con Codebase</h4>
-                        <p class="text-xs text-gray-500 font-serif">Permite hacer preguntas al IDE: <em>"¿Qué hace esta función?"</em> o <em>"Refactoriza esto para que sea limpio"</em>, dándole acceso de lectura a todo tu proyecto.</p>
-                    </div>
-                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 card-hover">
-                        <div class="text-purple-500 mb-3 text-2xl"><i class="fa-solid fa-pen-to-square"></i></div>
-                        <h4 class="font-bold text-brand-dark mb-2">Inline Editing</h4>
-                        <p class="text-xs text-gray-500 font-serif">Seleccionas un bloque de código y le pides a la IA que lo modifique directamente allí mismo, sin tener que salir a una ventana de chat externa.</p>
-                    </div>
-                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 card-hover">
-                        <div class="text-rose-500 mb-3 text-2xl"><i class="fa-solid fa-folder-tree"></i></div>
-                        <h4 class="font-bold text-brand-dark mb-2">Contexto Total</h4>
-                        <p class="text-xs text-gray-500 font-serif">El IDE con IA "lee" todos los archivos de tu proyecto simultáneamente para dar sugerencias que sean coherentes con la arquitectura y variables que ya existen.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 2. APIs y CLI -->
-    <section id="api" class="py-20 bg-brand-light border-t border-gray-200">
+    <!-- 1. El Ecosistema -->
+    <section id="ecosistema" class="py-20 bg-white">
         <div class="max-w-6xl mx-auto px-6">
             <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll">
-                <span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">2</span>
-                APIs y CLI: Hablar con las Herramientas
+                <span class="w-10 h-10 bg-claude text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">1</span>
+                El Ecosistema Completo
             </h2>
             
-            <!-- Conceptos -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 fade-in-on-scroll">
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                    <h3 class="text-lg font-bold text-brand-dark mb-2"><i class="fa-solid fa-plug text-blue-500 mr-2"></i> API</h3>
-                    <p class="text-xs text-gray-500 font-serif mb-3">Application Programming Interface. Contrato que permite a dos programas comunicarse.</p>
-                    <p class="text-xs text-blue-800 bg-blue-50 p-2 rounded"><strong>Símil:</strong> El menú del restaurante. Pides algo (al camarero/API) y la cocina (sistema) te trae el plato.</p>
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">
+                Qué puede crear y configurar un usuario dentro del entorno operativo de Cowork. La jerarquía de complejidad va desde una simple instrucción (Skill) hasta la conexión con aplicaciones externas (Connector).
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 fade-in-on-scroll">
+                <!-- Skill -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 card-hover flex items-start">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-2xl mr-4 shrink-0"><i class="fa-solid fa-brain"></i></div>
+                    <div>
+                        <h3 class="font-bold text-blue-600 mb-1">SKILL.md</h3>
+                        <p class="text-xs font-serif text-gray-600 leading-relaxed">Instrucciones especializadas que Claude carga bajo demanda. El "manual de trabajo" para una tarea concreta.</p>
+                    </div>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                    <h3 class="text-lg font-bold text-brand-dark mb-2"><i class="fa-solid fa-network-wired text-emerald-500 mr-2"></i> REST</h3>
-                    <p class="text-xs text-gray-500 font-serif mb-3">Estilo de comunicación para APIs web. Usa peticiones HTTP (GET, POST, PUT, DELETE).</p>
-                    <p class="text-xs text-emerald-800 bg-emerald-50 p-2 rounded">El estándar de la industria para enviar y recibir datos en la web moderna.</p>
+                <!-- Agent -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 card-hover flex items-start">
+                    <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center text-2xl mr-4 shrink-0"><i class="fa-solid fa-robot"></i></div>
+                    <div>
+                        <h3 class="font-bold text-purple-600 mb-1">AGENT.md</h3>
+                        <p class="text-xs font-serif text-gray-600 leading-relaxed">Subagente con su propio sistema de instrucciones, modelo y herramientas. Una instancia Claude separada con personalidad propia.</p>
+                    </div>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                    <h3 class="text-lg font-bold text-brand-dark mb-2"><i class="fa-solid fa-brackets-curly text-amber-500 mr-2"></i> JSON</h3>
-                    <p class="text-xs text-gray-500 font-serif mb-3">Formato ligero de texto para estructurar datos (JavaScript Object Notation).</p>
-                    <p class="text-xs text-amber-800 bg-amber-50 p-2 rounded"><strong>Símil:</strong> Un formulario bien rellenado. Campos claros y valores definidos, legible por máquinas.</p>
+                <!-- Hooks -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 card-hover flex items-start">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-2xl mr-4 shrink-0"><i class="fa-solid fa-bolt"></i></div>
+                    <div>
+                        <h3 class="font-bold text-emerald-600 mb-1">Hooks</h3>
+                        <p class="text-xs font-serif text-gray-600 leading-relaxed">Automatizaciones que se disparan en eventos del sistema. El mecanismo real de "workflows" automáticos en Cowork.</p>
+                    </div>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                    <h3 class="text-lg font-bold text-brand-dark mb-2"><i class="fa-solid fa-terminal text-purple-500 mr-2"></i> CLI</h3>
-                    <p class="text-xs text-gray-500 font-serif mb-3">Command Line Interface. Interfaz donde ejecutas comandos escribiendo texto.</p>
-                    <p class="text-xs text-purple-800 bg-purple-50 p-2 rounded"><strong>Símil:</strong> La interfaz visual es un coche automático; la CLI es uno manual. Más control y velocidad.</p>
+                <!-- Plugin -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 card-hover flex items-start">
+                    <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-xl flex items-center justify-center text-2xl mr-4 shrink-0"><i class="fa-solid fa-box-open"></i></div>
+                    <div>
+                        <h3 class="font-bold text-orange-600 mb-1">Plugin (.plugin)</h3>
+                        <p class="text-xs font-serif text-gray-600 leading-relaxed">Paquete instalable que agrupa Skills + Agents + Hooks + MCP. Un módulo que amplía Cowork con nuevas capacidades.</p>
+                    </div>
+                </div>
+                <!-- Connector -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 card-hover flex items-start">
+                    <div class="w-12 h-12 bg-red-100 text-red-600 rounded-xl flex items-center justify-center text-2xl mr-4 shrink-0"><i class="fa-solid fa-plug"></i></div>
+                    <div>
+                        <h3 class="font-bold text-red-600 mb-1">Connector (MCP)</h3>
+                        <p class="text-xs font-serif text-gray-600 leading-relaxed">Conexión a una herramienta externa (Slack, Notion, HubSpot…). Da a Claude acceso real a tus datos y apps.</p>
+                    </div>
+                </div>
+                <!-- Project -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 card-hover flex items-start">
+                    <div class="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-xl flex items-center justify-center text-2xl mr-4 shrink-0"><i class="fa-solid fa-folder-tree"></i></div>
+                    <div>
+                        <h3 class="font-bold text-yellow-600 mb-1">Project / Workspace</h3>
+                        <p class="text-xs font-serif text-gray-600 leading-relaxed">Carpeta local montada en Cowork. Claude puede leer y escribir todos los archivos que contiene de forma nativa.</p>
+                    </div>
+                </div>
+                <!-- Scheduled Task -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 card-hover flex items-start">
+                    <div class="w-12 h-12 bg-cyan-100 text-cyan-600 rounded-xl flex items-center justify-center text-2xl mr-4 shrink-0"><i class="fa-regular fa-clock"></i></div>
+                    <div>
+                        <h3 class="font-bold text-cyan-600 mb-1">Scheduled Task</h3>
+                        <p class="text-xs font-serif text-gray-600 leading-relaxed">Tarea que corre automáticamente según un calendario (cron). Claude ejecuta un prompt sin intervención del usuario.</p>
+                    </div>
+                </div>
+                <!-- Artifact -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 card-hover flex items-start">
+                    <div class="w-12 h-12 bg-fuchsia-100 text-fuchsia-600 rounded-xl flex items-center justify-center text-2xl mr-4 shrink-0"><i class="fa-solid fa-image"></i></div>
+                    <div>
+                        <h3 class="font-bold text-fuchsia-600 mb-1">Artifact</h3>
+                        <p class="text-xs font-serif text-gray-600 leading-relaxed">Página HTML persistente con datos en vivo de conectores. Un dashboard que el usuario puede reabrir cuando quiera.</p>
+                    </div>
+                </div>
+                <!-- Memory -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 card-hover flex items-start">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-2xl mr-4 shrink-0"><i class="fa-solid fa-puzzle-piece"></i></div>
+                    <div>
+                        <h3 class="font-bold text-emerald-600 mb-1">Memory (CLAUDE.md)</h3>
+                        <p class="text-xs font-serif text-gray-600 leading-relaxed">Archivo de memoria persistente entre sesiones. Almacena preferencias, contexto de equipo y hechos duraderos.</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- API Key y Anthropic -->
-            <div class="bg-brand-dark rounded-3xl p-8 lg:p-12 shadow-xl fade-in-on-scroll relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl"></div>
-                <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg" alt="Anthropic" class="w-6 h-6 mr-3 filter invert opacity-80">
-                    Integrando la API de Anthropic
-                </h3>
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-xl fade-in-on-scroll">
+                <p class="font-serif text-blue-900 text-sm m-0">
+                    <i class="fa-solid fa-lightbulb text-blue-500 mr-2"></i> <strong>La jerarquía de complejidad:</strong> Skill (instrucciones) &rarr; Agent (instancia propia) &rarr; Plugin (bundle de todo) &rarr; Connector (acceso a apps externas) &rarr; Scheduled Task (automatización temporal).
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. SKILL.md -->
+    <section id="skill" class="py-20 bg-brand-light border-t border-gray-200">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-brand-dark mb-6 flex items-center fade-in-on-scroll">
+                <span class="w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">2</span>
+                SKILL.md — Conocimiento bajo demanda
+            </h2>
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">
+                Una <strong>Skill</strong> es un archivo Markdown que le dice a Claude <em>cómo</em> hacer algo específico. Claude lo lee automáticamente cuando detecta que la petición del usuario encaja con la descripción del skill, sin que el usuario tenga que invocarlo explícitamente.
+            </p>
+
+            <div class="bg-amber-50 border-l-4 border-brand-accent p-5 rounded-r-xl mb-12 fade-in-on-scroll">
+                <p class="font-serif text-amber-900 text-sm m-0">
+                    <i class="fa-solid fa-bullseye text-brand-accent mr-2"></i> <strong>Analogía:</strong> Un skill es como el manual de procedimientos de un departamento. Cuando Claude detecta que tiene que hacer algo del ámbito del skill, saca el manual del cajón y lo consulta antes de actuar.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 fade-in-on-scroll mb-16">
+                <!-- Anatomy Code -->
+                <div class="bg-[#0f172a] rounded-xl border border-gray-700 shadow-xl overflow-hidden flex flex-col">
+                    <div class="bg-black/40 px-4 py-3 border-b border-white/5 flex items-center text-xs text-blue-400 font-bold uppercase tracking-wider">
+                        <i class="fa-brands fa-markdown mr-2 text-lg"></i> Anatomía del Archivo
+                    </div>
+                    <div id="code-skill" class="p-6 font-mono text-gray-300 text-[13px] flex-grow whitespace-pre-wrap leading-relaxed overflow-x-auto"><span class="text-gray-500">--- &larr; PARTE 1: FRONTMATTER YAML (Puerta de entrada) ---</span>
+<span class="text-blue-400">name</span>: <span class="text-green-400">nombre-del-skill</span>
+<span class="text-blue-400">description</span>: <span class="text-green-400">"Cuándo activar este skill. Claude lee este texto
+  para decidir si el skill aplica. Aquí van los TRIGGERS:
+  'analiza mis campañas', 'qué ROAS tengo', 'dame insights'.
+  También actívalo cuando el archivo tenga columnas de CTR..."</span>
+<span class="text-gray-500">---</span>
+
+<span class="text-gray-500"># PARTE 2: CUERPO MARKDOWN (Instrucciones reales)</span>
+
+<span class="text-blue-400">## Qué hacer cuando el skill se activa</span>
+<span class="text-gray-300">Instrucciones paso a paso para Claude...</span>
+
+<span class="text-blue-400">## Código de referencia</span>
+<span class="text-gray-500">```python
+# Snippets que Claude usará directamente
+```</span>
+
+<span class="text-blue-400">## Output obligatorio</span>
+<span class="text-gray-300">Qué generar, en qué formato, qué archivos crear...</span></div>
+                    <div class="bg-black/30 px-4 py-3 border-t border-white/5 flex justify-end">
+                        <button onclick="copyToClipboard('code-skill', this)" class="flex items-center text-xs font-bold text-gray-400 hover:text-white transition-colors border border-gray-600 hover:border-gray-400 rounded px-4 py-1.5">
+                            <i class="fa-regular fa-copy mr-2"></i> Copiar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Progressive Disclosure & Structure -->
+                <div class="space-y-8">
+                    <div>
+                        <h4 class="font-bold text-brand-dark mb-4 text-lg">Los 3 niveles de carga (Progressive Disclosure)</h4>
+                        <p class="font-serif text-sm text-gray-600 mb-4">Esta es la clave para entender cómo afectan los skills al consumo de tokens de la ventana de contexto:</p>
+                        
+                        <div class="space-y-3">
+                            <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg flex items-start">
+                                <div class="w-8 h-8 bg-blue-200 text-blue-700 font-bold flex items-center justify-center rounded-full mr-4 shrink-0">1</div>
+                                <div>
+                                    <h5 class="font-bold text-blue-800 text-sm">Metadata <span class="font-normal text-xs text-blue-600 ml-2">(Siempre en contexto)</span></h5>
+                                    <p class="text-xs font-serif text-gray-600 mt-1">Solo <code>name</code> + <code>description</code> (~100 palabras). Costo mínimo. Claude siempre lo tiene disponible para decidir si activar.</p>
+                                </div>
+                            </div>
+                            <div class="bg-purple-50 border border-purple-200 p-4 rounded-lg flex items-start">
+                                <div class="w-8 h-8 bg-purple-200 text-purple-700 font-bold flex items-center justify-center rounded-full mr-4 shrink-0">2</div>
+                                <div>
+                                    <h5 class="font-bold text-purple-800 text-sm">SKILL.md Body <span class="font-normal text-xs text-purple-600 ml-2">(Solo al activarse)</span></h5>
+                                    <p class="text-xs font-serif text-gray-600 mt-1">Las instrucciones detalladas (&lt;5.000 palabras). Solo consumen tokens cuando Claude decide que el skill aplica a la tarea actual.</p>
+                                </div>
+                            </div>
+                            <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-lg flex items-start">
+                                <div class="w-8 h-8 bg-emerald-200 text-emerald-700 font-bold flex items-center justify-center rounded-full mr-4 shrink-0">3</div>
+                                <div>
+                                    <h5 class="font-bold text-emerald-800 text-sm">references/ <span class="font-normal text-xs text-emerald-600 ml-2">(Bajo demanda)</span></h5>
+                                    <p class="text-xs font-serif text-gray-600 mt-1">Docs adicionales o scripts. Claude los lee solo si los necesita. Nunca ocupan contexto innecesariamente.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 border border-gray-200 rounded-xl shadow-sm">
+                        <h4 class="font-bold text-brand-dark mb-4 text-sm uppercase tracking-wider">Estructura de carpetas completa</h4>
+                        <div class="font-mono text-xs text-gray-700 leading-loose bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <span class="text-blue-600 font-bold">skill-name/</span><br>
+                            <span class="text-gray-400">├──</span> SKILL.md              <span class="text-gray-400 italic">&larr; obligatorio</span><br>
+                            <span class="text-gray-400">├──</span> <span class="text-blue-600 font-bold">references/</span>           <span class="text-gray-400 italic">&larr; documentación (bajo demanda)</span><br>
+                            <span class="text-gray-400">│   ├──</span> guia-avanzada.md<br>
+                            <span class="text-gray-400">│   └──</span> casos-de-uso.md<br>
+                            <span class="text-gray-400">├──</span> <span class="text-blue-600 font-bold">scripts/</span>              <span class="text-gray-400 italic">&larr; código reutilizable (ejecutable)</span><br>
+                            <span class="text-gray-400">│   └──</span> procesar.py<br>
+                            <span class="text-gray-400">└──</span> <span class="text-blue-600 font-bold">examples/</span>             <span class="text-gray-400 italic">&larr; ejemplos de input/output</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. AGENT.md y Soul -->
+    <section id="agent" class="py-20 bg-white border-t border-gray-200">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-brand-dark mb-6 flex items-center fade-in-on-scroll">
+                <span class="w-10 h-10 bg-purple-500 text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">3</span>
+                AGENT.md y Soul (Personalidad)
+            </h2>
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">
+                Un <strong>Agent</strong> es más que un skill: es una instancia de Claude separada con su propia ventana de contexto, su propio <em>system prompt</em> y acceso restringido a herramientas específicas.
+            </p>
+
+            <div class="bg-orange-50 border-l-4 border-orange-500 p-5 rounded-r-xl mb-12 fade-in-on-scroll flex items-start">
+                <i class="fa-solid fa-triangle-exclamation text-orange-500 text-xl mr-3 mt-1"></i>
+                <div>
+                    <strong class="text-orange-900 block mb-1">Skill vs Agent — La diferencia clave:</strong>
+                    <p class="text-sm font-serif text-orange-800 m-0">Un <strong>Skill</strong> inyecta instrucciones en el Claude principal (mismo contexto).<br>Un <strong>Agent</strong> es una instancia Claude <em>nueva</em> con su propio contexto. Consume más tokens pero tiene más independencia.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 fade-in-on-scroll mb-16">
+                <!-- Anatomy -->
+                <div class="bg-[#0f172a] rounded-xl border border-gray-700 shadow-xl overflow-hidden flex flex-col">
+                    <div class="bg-black/40 px-4 py-3 border-b border-white/5 flex items-center text-xs text-purple-400 font-bold uppercase tracking-wider">
+                        <i class="fa-brands fa-markdown mr-2 text-lg"></i> Anatomía de AGENT.md
+                    </div>
+                    <div id="code-agent" class="p-6 font-mono text-gray-300 text-[13px] flex-grow whitespace-pre-wrap leading-relaxed overflow-x-auto"><span class="text-gray-500">---</span>
+<span class="text-purple-400">name</span>: <span class="text-green-400">nombre-del-agente</span>          <span class="text-gray-500"># kebab-case, 3-50 chars</span>
+<span class="text-purple-400">description</span>: <span class="text-green-400">"Cuándo activar este agente. Debe incluir
+  bloques &lt;example&gt; con contexto + diálogo."</span>
+
+<span class="text-blue-400">&lt;example&gt;</span>
+<span class="text-amber-400">Context:</span> <span class="text-gray-300">El usuario tiene datos de ventas del mes</span>
+<span class="text-amber-400">user:</span> <span class="text-green-400">"Analiza estas cifras a fondo"</span>
+<span class="text-amber-400">assistant:</span> <span class="text-green-400">"Usaré el agente de análisis para..."</span>
+<span class="text-blue-400">&lt;/example&gt;</span>
+
+<span class="text-purple-400">model</span>: <span class="text-green-400">inherit</span>                     <span class="text-gray-500"># inherit | sonnet | opus | haiku</span>
+<span class="text-purple-400">color</span>: <span class="text-green-400">blue</span>                        <span class="text-gray-500"># blue|cyan|green|yellow|magenta|red</span>
+<span class="text-purple-400">tools</span>: <span class="text-gray-300">[</span><span class="text-green-400">"Read"</span><span class="text-gray-300">,</span> <span class="text-green-400">"Bash"</span><span class="text-gray-300">,</span> <span class="text-green-400">"Write"</span><span class="text-gray-300">]</span>   <span class="text-gray-500"># restringir herramientas</span>
+<span class="text-gray-500">---</span>
+
+<span class="text-gray-500"># System Prompt del Agente (aquí va su "Soul")</span>
+
+<span class="text-gray-300">Eres un especialista en análisis de datos de marketing...</span>
+
+<span class="text-purple-400">## Cómo comportarte</span>
+<span class="text-gray-300">- Solo trabaja con datos reales del usuario
+- Empieza siempre por el hallazgo más importante</span></div>
+                    <div class="bg-black/30 px-4 py-3 border-t border-white/5 flex justify-end">
+                        <button onclick="copyToClipboard('code-agent', this)" class="flex items-center text-xs font-bold text-gray-400 hover:text-white transition-colors border border-gray-600 hover:border-gray-400 rounded px-4 py-1.5">
+                            <i class="fa-regular fa-copy mr-2"></i> Copiar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Soul / Options -->
+                <div class="space-y-8">
+                    <!-- Soul Definition -->
+                    <div>
+                        <h4 class="font-bold text-brand-dark mb-4 text-lg">El concepto de "Soul / Persona"</h4>
+                        <p class="font-serif text-sm text-gray-600 mb-4">No existe un <code>Souls.md</code> oficial. El "alma" de un agente vive dentro del cuerpo del <code>AGENT.md</code> (es su <em>system prompt</em>). Define lo siguiente:</p>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-gray-50 border border-gray-200 p-4 rounded-lg">
+                                <h5 class="font-bold text-purple-600 text-xs uppercase mb-1 flex items-center"><i class="fa-solid fa-masks-theater mr-2"></i> Rol</h5>
+                                <p class="text-xs font-serif text-gray-500">Quién es y desde qué perspectiva responde.</p>
+                            </div>
+                            <div class="bg-gray-50 border border-gray-200 p-4 rounded-lg">
+                                <h5 class="font-bold text-emerald-600 text-xs uppercase mb-1 flex items-center"><i class="fa-solid fa-scale-balanced mr-2"></i> Valores</h5>
+                                <p class="text-xs font-serif text-gray-500">Qué puede y no puede hacer. Líneas rojas.</p>
+                            </div>
+                            <div class="bg-gray-50 border border-gray-200 p-4 rounded-lg">
+                                <h5 class="font-bold text-blue-600 text-xs uppercase mb-1 flex items-center"><i class="fa-solid fa-bullhorn mr-2"></i> Tono</h5>
+                                <p class="text-xs font-serif text-gray-500">Cómo se comunica, qué formato usa, qué evita.</p>
+                            </div>
+                            <div class="bg-gray-50 border border-gray-200 p-4 rounded-lg">
+                                <h5 class="font-bold text-orange-600 text-xs uppercase mb-1 flex items-center"><i class="fa-solid fa-gears mr-2"></i> Proceso</h5>
+                                <p class="text-xs font-serif text-gray-500">Secuencia de pensamiento paso a paso.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Model Options -->
+                    <div>
+                        <h4 class="font-bold text-brand-dark mb-3 text-sm uppercase tracking-wider">Opciones de Modelo por Agente</h4>
+                        <div class="overflow-x-auto bg-white border border-gray-200 rounded-xl shadow-sm">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-gray-50 text-xs uppercase tracking-wider text-gray-500">
+                                        <th class="p-3 border-b border-gray-200 font-bold">Valor</th>
+                                        <th class="p-3 border-b border-gray-200 font-bold">Uso Ideal</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-sm font-serif text-gray-600">
+                                    <tr>
+                                        <td class="p-3 border-b border-gray-100"><code class="bg-gray-100 px-2 py-1 rounded text-purple-600 font-sans font-bold">inherit</code></td>
+                                        <td class="p-3 border-b border-gray-100">Usa el mismo de la sesión. Por defecto.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 border-b border-gray-100"><code class="bg-gray-100 px-2 py-1 rounded text-purple-600 font-sans font-bold">opus</code></td>
+                                        <td class="p-3 border-b border-gray-100">Razonamiento profundo (más lento/caro).</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 border-b border-gray-100"><code class="bg-gray-100 px-2 py-1 rounded text-purple-600 font-sans font-bold">sonnet</code></td>
+                                        <td class="p-3 border-b border-gray-100">Balance perfecto rendimiento/velocidad.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3"><code class="bg-gray-100 px-2 py-1 rounded text-purple-600 font-sans font-bold">haiku</code></td>
+                                        <td class="p-3">Rápido y barato para clasificar/filtrar.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Hooks -->
+    <section id="hooks" class="py-20 bg-brand-light border-t border-gray-200">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-brand-dark mb-6 flex items-center fade-in-on-scroll">
+                <span class="w-10 h-10 bg-emerald-500 text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">4</span>
+                Hooks — Automatización Basada en Eventos
+            </h2>
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">
+                Lo que en otros sistemas se llama "Workflows". Son acciones automáticas que se disparan solas (se definen en <code>hooks/hooks.json</code> dentro de un plugin). <strong>No existe un <code>Workflows.md</code> en Cowork.</strong>
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 fade-in-on-scroll">
+                <!-- Events Table -->
+                <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden flex flex-col">
+                    <div class="bg-emerald-50 p-4 border-b border-emerald-100">
+                        <h4 class="font-bold text-emerald-800 flex items-center"><i class="fa-solid fa-list-check mr-2 text-emerald-600"></i> Eventos Principales</h4>
+                    </div>
+                    <div class="overflow-x-auto flex-grow">
+                        <table class="w-full text-left border-collapse">
+                            <tbody class="text-sm font-serif text-gray-600">
+                                <tr>
+                                    <td class="p-3 border-b border-gray-100 w-1/3"><span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded font-sans font-bold text-xs">SessionStart</span></td>
+                                    <td class="p-3 border-b border-gray-100">Cargar contexto al inicio de sesión.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 border-b border-gray-100"><span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded font-sans font-bold text-xs">UserPromptSubmit</span></td>
+                                    <td class="p-3 border-b border-gray-100">Enriquecer el mensaje antes de procesar.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 border-b border-gray-100"><span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded font-sans font-bold text-xs">PreToolUse</span></td>
+                                    <td class="p-3 border-b border-gray-100">Validar seguridad antes de ejecutar tool.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 border-b border-gray-100"><span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded font-sans font-bold text-xs">PostToolUse</span></td>
+                                    <td class="p-3 border-b border-gray-100">Loguear acciones de herramientas.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 border-b border-gray-100"><span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded font-sans font-bold text-xs">PreCompact</span></td>
+                                    <td class="p-3 border-b border-gray-100">Guardar info antes de que la memoria se comprima.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3"><span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded font-sans font-bold text-xs">SessionEnd</span></td>
+                                    <td class="p-3">Guardar notas y actualizar memoria base.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Hook Types & Example -->
+                <div class="space-y-6 flex flex-col">
+                    <div class="grid grid-cols-2 gap-4 flex-grow">
+                        <div class="bg-white border border-blue-200 p-5 rounded-xl shadow-sm">
+                            <h5 class="font-bold text-blue-700 text-sm mb-2"><i class="fa-solid fa-brain mr-2"></i> Prompt-Based</h5>
+                            <p class="text-xs font-serif text-gray-600 mb-2">Claude evalúa y decide (approve/block). Bueno para lógica compleja.</p>
+                            <code class="text-[10px] bg-gray-100 px-2 py-1 rounded text-gray-700 font-mono block">"type": "prompt"</code>
+                        </div>
+                        <div class="bg-white border border-gray-300 p-5 rounded-xl shadow-sm">
+                            <h5 class="font-bold text-gray-700 text-sm mb-2"><i class="fa-solid fa-terminal mr-2"></i> Command-Based</h5>
+                            <p class="text-xs font-serif text-gray-600 mb-2">Ejecuta script bash directo (determinista). Bueno para checks fijos.</p>
+                            <code class="text-[10px] bg-gray-100 px-2 py-1 rounded text-gray-700 font-mono block">"type": "command"</code>
+                        </div>
+                    </div>
+
+                    <!-- JSON Example -->
+                    <div class="bg-[#0f172a] rounded-xl border border-gray-700 shadow-lg overflow-hidden flex flex-col flex-grow">
+                        <div class="bg-black/40 px-4 py-2 border-b border-white/5 flex items-center text-[10px] text-emerald-400 font-bold uppercase tracking-wider">
+                            <i class="fa-solid fa-code mr-2 text-sm"></i> hooks.json
+                        </div>
+                        <div id="code-hooks" class="p-4 font-mono text-gray-300 text-xs flex-grow whitespace-pre-wrap leading-relaxed overflow-x-auto"><span class="text-gray-400">{</span>
+  <span class="text-emerald-400">"PreToolUse"</span><span class="text-gray-400">: [{</span>
+    <span class="text-blue-400">"matcher"</span><span class="text-gray-400">:</span> <span class="text-green-300">"Write|Edit"</span><span class="text-gray-400">,</span> <span class="text-gray-500">// Solo para escribir</span>
+    <span class="text-blue-400">"hooks"</span><span class="text-gray-400">: [{</span>
+      <span class="text-blue-400">"type"</span><span class="text-gray-400">:</span> <span class="text-green-300">"prompt"</span><span class="text-gray-400">,</span>
+      <span class="text-blue-400">"prompt"</span><span class="text-gray-400">:</span> <span class="text-green-300">"Verifica convención proyecto"</span>
+    <span class="text-gray-400">}]</span>
+  <span class="text-gray-400">}]</span>
+<span class="text-gray-400">}</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Arquitectura Expandible -->
+    <section id="arquitectura" class="py-20 bg-white border-t border-gray-200">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-brand-dark mb-6 flex items-center fade-in-on-scroll">
+                <span class="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">5</span>
+                Arquitectura: Formas de Ampliar Cowork
+            </h2>
+            <p class="prose-text mb-12 text-gray-600 fade-in-on-scroll">Plugin, Connector, Project y Scheduled Task son herramientas completamente diferentes para propósitos distintos.</p>
+
+            <!-- Comparison Table -->
+            <div class="overflow-x-auto bg-white border border-gray-200 rounded-2xl shadow-sm mb-12 fade-in-on-scroll">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50 text-xs uppercase tracking-wider text-gray-500">
+                            <th class="p-4 border-b border-gray-200 font-bold">Concepto</th>
+                            <th class="p-4 border-b border-gray-200 font-bold">Qué es</th>
+                            <th class="p-4 border-b border-gray-200 font-bold">Qué resuelve</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm font-serif text-gray-600">
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="p-4 border-b border-gray-100"><strong class="text-orange-600 font-sans">Plugin</strong></td>
+                            <td class="p-4 border-b border-gray-100">Bundle instalable (Skills+Agents+Hooks+MCP).</td>
+                            <td class="p-4 border-b border-gray-100">"Quiero que Claude sepa hacer X tipo de trabajo"</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="p-4 border-b border-gray-100"><strong class="text-red-600 font-sans">Connector (MCP)</strong></td>
+                            <td class="p-4 border-b border-gray-100">Conexión a app externa (Slack, HubSpot…).</td>
+                            <td class="p-4 border-b border-gray-100">"Quiero que Claude acceda a mis herramientas"</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="p-4 border-b border-gray-100"><strong class="text-yellow-600 font-sans">Project / Workspace</strong></td>
+                            <td class="p-4 border-b border-gray-100">Carpeta local montada. Claude lee/escribe ahí.</td>
+                            <td class="p-4 border-b border-gray-100">"Quiero que Claude trabaje en mis documentos locales"</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="p-4 border-b border-gray-100"><strong class="text-cyan-600 font-sans">Scheduled Task</strong></td>
+                            <td class="p-4 border-b border-gray-100">Prompt que corre por horario (cron).</td>
+                            <td class="p-4 border-b border-gray-100">"Que Claude haga esto cada día automáticamente"</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="p-4"><strong class="text-emerald-600 font-sans">Memory (CLAUDE.md)</strong></td>
+                            <td class="p-4">Contexto persistente entre sesiones.</td>
+                            <td class="p-4">"Que Claude recuerde quién soy a largo plazo"</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Scheduled Tasks Note -->
+            <div class="bg-cyan-50 border-l-4 border-cyan-500 p-6 rounded-r-xl fade-in-on-scroll">
+                <h4 class="font-bold text-cyan-800 mb-2 flex items-center"><i class="fa-solid fa-clock text-cyan-600 mr-2"></i> Clave sobre Scheduled Tasks</h4>
+                <p class="font-serif text-cyan-900 text-sm">
+                    Cada ejecución arranca como una sesión <strong>completamente nueva</strong> sin memoria de ejecuciones anteriores. El prompt debe ser totalmente autocontenido. 
+                    <br><br>
+                    <span class="text-emerald-600"><i class="fa-solid fa-check mr-1"></i> Bien:</span> <em>"Abre ventas.xlsx, analiza y envía email."</em><br>
+                    <span class="text-red-500"><i class="fa-solid fa-xmark mr-1"></i> Mal:</span> <em>"Continúa con el análisis que hicimos ayer..."</em> (No hay "ayer").
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Contexto y Tokens -->
+    <section id="contexto" class="py-20 bg-brand-dark text-white border-t border-gray-800">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-6 flex items-center fade-in-on-scroll">
+                <span class="w-10 h-10 bg-cyan-500 text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">6</span>
+                Contexto, Persistencia y Tokens
+            </h2>
+            <p class="prose-text mb-12 text-gray-300 fade-in-on-scroll">
+                La ventana de contexto es la memoria activa de Claude en una sesión (su "pizarra"). Cuando se llena, activa la Compactación (<em>Context Compaction</em>) y resume historial perdiendo detalles.
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 fade-in-on-scroll">
                 
-                <div class="mb-8">
-                    <p class="font-serif text-gray-300 text-sm mb-2"><strong>API Key:</strong> Credencial única que identifica quién hace cada petición. Es como tu DNI para el servicio.</p>
-                    <p class="font-serif text-gray-300 text-sm"><strong>Endpoint principal:</strong> <code class="bg-black/50 text-emerald-400 px-2 py-1 rounded">https://api.anthropic.com/v1/messages</code></p>
-                    <p class="font-serif text-gray-300 text-sm mt-2"><strong>Parámetros:</strong> <code>model</code>, <code>max_tokens</code>, <code>messages</code>, <code>system</code>.</p>
+                <!-- Diagrama Visual de Contexto -->
+                <div class="bg-gray-900 border border-gray-700 rounded-2xl p-8 shadow-xl">
+                    <h4 class="font-bold text-white mb-6 text-sm uppercase tracking-wider text-center">Peso en la Ventana de Contexto</h4>
+                    
+                    <div class="space-y-4">
+                        <!-- Archivos leidos -->
+                        <div>
+                            <div class="flex justify-between text-xs font-serif text-gray-400 mb-1">
+                                <span>Archivos leídos (Bajo demanda)</span>
+                                <span>~50%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-4 overflow-hidden flex">
+                                <div class="bg-red-400 h-4" style="width: 50%"></div>
+                            </div>
+                        </div>
+                        <!-- Historial -->
+                        <div>
+                            <div class="flex justify-between text-xs font-serif text-gray-400 mb-1">
+                                <span>Historial de Mensajes (Acumulativo)</span>
+                                <span>~40%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-4 overflow-hidden flex">
+                                <div class="bg-orange-400 h-4" style="width: 40%"></div>
+                            </div>
+                        </div>
+                        <!-- Results -->
+                        <div>
+                            <div class="flex justify-between text-xs font-serif text-gray-400 mb-1">
+                                <span>Resultados de Tools (Variables)</span>
+                                <span>~30%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-4 overflow-hidden flex">
+                                <div class="bg-yellow-400 h-4" style="width: 30%"></div>
+                            </div>
+                        </div>
+                        <!-- Body skill -->
+                        <div>
+                            <div class="flex justify-between text-xs font-serif text-gray-400 mb-1">
+                                <span>Skill Body (Solo si activo)</span>
+                                <span>~25%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-4 overflow-hidden flex">
+                                <div class="bg-purple-400 h-4" style="width: 25%"></div>
+                            </div>
+                        </div>
+                        <!-- System -->
+                        <div>
+                            <div class="flex justify-between text-xs font-serif text-gray-400 mb-1">
+                                <span>System Prompt (Fijo)</span>
+                                <span>~20%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-4 overflow-hidden flex">
+                                <div class="bg-blue-500 h-4" style="width: 20%"></div>
+                            </div>
+                        </div>
+                        <!-- Memory -->
+                        <div>
+                            <div class="flex justify-between text-xs font-serif text-gray-400 mb-1">
+                                <span>Memory / Metadata (Fijo)</span>
+                                <span>~10%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-4 overflow-hidden flex">
+                                <div class="bg-emerald-400 h-4" style="width: 10%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reglas de Persistencia -->
+                <div class="space-y-6">
+                    <div class="bg-red-900/20 border-l-4 border-red-500 p-6 rounded-r-xl">
+                        <h4 class="font-bold text-red-400 mb-2"><i class="fa-solid fa-circle-exclamation mr-2"></i> Por defecto: NO SE GUARDA</h4>
+                        <p class="font-serif text-gray-300 text-sm">Al cerrar sesión, el contexto desaparece. La siguiente sesión empieza de cero. Tampoco se guarda el contexto propio de los subagentes (solo devuelven el resultado final al padre).</p>
+                    </div>
+
+                    <div class="bg-emerald-900/20 border-l-4 border-emerald-500 p-6 rounded-r-xl">
+                        <h4 class="font-bold text-emerald-400 mb-2"><i class="fa-solid fa-hard-drive mr-2"></i> Lo que sí sobrevive</h4>
+                        <ul class="font-serif text-gray-300 text-sm space-y-2 list-disc ml-4">
+                            <li><strong>Memory (CLAUDE.md):</strong> Preferencias y estilo.</li>
+                            <li><strong>Workspace:</strong> Archivos físicos escritos en disco.</li>
+                            <li><strong>Artifacts:</strong> Páginas HTML generadas.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white/5 border border-white/10 p-6 rounded-xl">
+                        <h4 class="font-bold text-white mb-3 text-sm uppercase tracking-wider">Estrategias de Eficiencia</h4>
+                        <ul class="font-serif text-gray-400 text-sm space-y-3">
+                            <li><span class="text-brand-accent">Haiku para tareas simples:</span> Usar modelo rápido y 10x más barato para clasificar.</li>
+                            <li><span class="text-brand-accent">Delegar a Subagentes:</span> No contamina el chat principal con el proceso.</li>
+                            <li><span class="text-brand-accent">Leer archivos parciales:</span> Usar <code>offset/limit</code> en archivos gigantes.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Progressive Disclosure -->
+    <section id="disclosure" class="py-24 bg-brand-dark text-white border-t-8 border-claude">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in-on-scroll">
+                <span class="text-brand-accent font-bold tracking-widest text-xs uppercase mb-3 block"><i class="fa-solid fa-layer-group mr-2"></i> Arquitectura Avanzada</span>
+                <h2 class="text-3xl lg:text-4xl font-extrabold mb-4">Progressive Disclosure</h2>
+                <p class="text-gray-400 font-serif text-lg max-w-3xl mx-auto">
+                    Uno de los conceptos más importantes para entender cómo escalar plugins sin que se disparen los costes ni se contamine el contexto.
+                </p>
+            </div>
+
+            <!-- El Problema -->
+            <div class="bg-gray-900 border-l-4 border-red-500 rounded-2xl p-8 shadow-xl mb-16 fade-in-on-scroll flex flex-col md:flex-row gap-8 items-center">
+                <div class="md:w-2/3">
+                    <h3 class="text-2xl font-bold text-white mb-4"><i class="fa-solid fa-triangle-exclamation text-red-500 mr-2"></i> El problema que resuelve</h3>
+                    <p class="font-serif text-gray-300 text-sm leading-relaxed mb-4">
+                        Imagina que tienes un plugin con 10 <em>skills</em> instalados. Si cada <code>SKILL.md</code> ocupa 2.000 palabras (~2.600 tokens), en cada mensaje del usuario Claude tendría que cargar <strong>26.000 tokens extra</strong> solo para "tener los skills disponibles".
+                    </p>
+                    <p class="font-serif text-gray-300 text-sm leading-relaxed">
+                        Con un modelo de alto rendimiento como Sonnet, eso son céntimos por mensaje que se acumulan muy rápido. Además, llenas la ventana de contexto con información técnica que quizás no necesitas en esa sesión. La Progressive Disclosure soluciona esto con tres capas de carga.
+                    </p>
+                </div>
+                <div class="md:w-1/3 w-full bg-black/50 p-6 rounded-xl border border-red-500/20 text-center shadow-inner">
+                    <span class="block text-red-400 font-mono text-sm uppercase tracking-wider mb-2">Diseño Ingenuo</span>
+                    <span class="block text-4xl font-black text-white mb-1">30.000</span>
+                    <span class="block text-sm text-gray-500 font-serif">Tokens cargados SIEMPRE</span>
+                </div>
+            </div>
+
+            <!-- Las 3 Capas -->
+            <h3 class="text-2xl font-bold text-white mb-8 text-center fade-in-on-scroll">Las 3 Capas en Detalle</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 fade-in-on-scroll">
+                
+                <!-- Capa 1 -->
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-blue-500/50 transition-colors flex flex-col shadow-lg">
+                    <div class="w-12 h-12 bg-blue-500/20 text-blue-400 rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-tags"></i></div>
+                    <h4 class="font-bold text-lg text-white mb-2">Capa 1 — Metadata</h4>
+                    <p class="text-[10px] text-blue-300 uppercase tracking-widest font-bold mb-4">Siempre en contexto (Coste mínimo)</p>
+                    <p class="font-serif text-gray-400 text-sm flex-grow mb-4">Solo el <code>name</code> y la <code>description</code> del frontmatter YAML. Son los ~100 tokens que Claude necesita para decidir si el skill aplica. Nada más.</p>
+                    <div class="bg-black/40 p-4 rounded-lg font-mono text-[11px] text-gray-300 mb-4 border border-white/5 shadow-inner">
+<span class="text-gray-500">---</span>
+<span class="text-blue-400">name:</span> <span class="text-green-300">campaign-analyzer</span>
+<span class="text-blue-400">description:</span> <span class="text-green-300">"Analiza archivos..."</span>
+<span class="text-gray-500">---</span>
+                    </div>
+                    <p class="text-xs font-mono text-emerald-400 bg-emerald-400/10 p-2 rounded text-center">10 skills × 100t = 1.000 tokens</p>
+                </div>
+
+                <!-- Capa 2 -->
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-purple-500/50 transition-colors flex flex-col shadow-lg">
+                    <div class="w-12 h-12 bg-purple-500/20 text-purple-400 rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-file-lines"></i></div>
+                    <h4 class="font-bold text-lg text-white mb-2">Capa 2 — Body</h4>
+                    <p class="text-[10px] text-purple-300 uppercase tracking-widest font-bold mb-4">Solo cuando se activa</p>
+                    <p class="font-serif text-gray-400 text-sm flex-grow mb-4">El cuerpo completo del <code>SKILL.md</code>. Solo se carga en el contexto cuando Claude decide que ese skill específico aplica a la petición actual del usuario.</p>
+                    <div class="bg-black/40 p-4 rounded-lg font-mono text-[11px] text-gray-300 mb-4 border border-white/5 shadow-inner">
+<span class="text-gray-500">10 skills × 100t (meta) = 1.000t</span>
+<span class="text-purple-400">+</span>
+<span class="text-gray-500">1 skill activo × 3.000t = 3.000t</span>
+<span class="text-gray-500 border-t border-gray-600 block mt-1 pt-1">Total en contexto       = <strong class="text-white">4.000t</strong></span>
+                    </div>
+                    <p class="text-xs font-serif text-gray-400 text-center">Frente a los 30.000 del diseño ingenuo.</p>
+                </div>
+
+                <!-- Capa 3 -->
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-brand-accent/50 transition-colors flex flex-col shadow-lg">
+                    <div class="w-12 h-12 bg-amber-500/20 text-brand-accent rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-folder-tree"></i></div>
+                    <h4 class="font-bold text-lg text-white mb-2">Capa 3 — References</h4>
+                    <p class="text-[10px] text-brand-accent uppercase tracking-widest font-bold mb-4">Bajo demanda explícita</p>
+                    <p class="font-serif text-gray-400 text-sm flex-grow mb-4">Los archivos en <code>references/</code> nunca entran automáticamente. Claude usa la herramienta <em>Read</em> para leerlos solo si el SKILL.md se lo indica.</p>
+                    <div class="bg-black/40 p-4 rounded-lg font-mono text-[11px] text-gray-300 mb-4 border border-white/5 shadow-inner">
+<span class="text-blue-300 font-bold">campaign-analyzer/</span>
+├── SKILL.md
+└── <span class="text-blue-300 font-bold">references/</span>
+    ├── roas-avanz.md <span class="text-gray-500 italic">← bajo demanda</span>
+    └── casos-edge.md <span class="text-gray-500 italic">← bajo demanda</span>
+                    </div>
+                    <p class="text-xs font-serif text-gray-400 text-center">Puede que nunca se carguen en el 90% de los casos.</p>
+                </div>
+
+            </div>
+
+            <!-- Cómo diseñar un skill -->
+            <div class="bg-gray-900 rounded-3xl p-8 lg:p-12 border border-gray-700 shadow-2xl mb-16 fade-in-on-scroll">
+                <h3 class="text-2xl font-bold text-white mb-2">Cómo diseñar un skill correctamente</h3>
+                <p class="font-serif text-gray-400 text-sm mb-8">La regla práctica es: pon en el <em>body</em> solo lo que se necesita en el caso más común. Todo lo demás va a <code>references/</code>. El truco está en que el SKILL.md diga explícitamente cuándo leer cada referencia:</p>
+                
+                <div class="bg-black/50 rounded-xl p-5 mb-8 border border-white/5 shadow-inner">
+                    <p class="font-mono text-sm text-gray-300 whitespace-pre-wrap"><span class="text-blue-400 font-bold">## Análisis estándar</span>
+[instrucciones para el 90% de casos]
+
+<span class="text-blue-400 font-bold">## Casos avanzados (ROAS multi-touch, atribución)</span>
+Si el usuario menciona atribución o multi-touch, lee <code class="text-emerald-400 bg-emerald-400/10 px-1 rounded">references/roas-avanzado.md</code> antes de continuar.</p>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <!-- CURL Example -->
-                    <div class="bg-[#0f172a] rounded-xl border border-gray-700 overflow-hidden flex flex-col">
-                        <div class="bg-black/50 px-4 py-2 border-b border-gray-700 flex justify-between items-center">
-                            <span class="text-xs text-gray-400 font-mono uppercase">1. Llamada por Terminal (cURL)</span>
-                            <button onclick="copyToClipboard('code-curl', this)" class="text-xs text-gray-500 hover:text-white transition-colors"><i class="fa-regular fa-copy"></i> Copiar</button>
+                    <!-- Bad Design -->
+                    <div class="bg-[#1E1E24] rounded-xl border border-red-500/30 p-6 shadow-md">
+                        <h4 class="font-bold text-red-400 mb-4 flex items-center"><i class="fa-solid fa-xmark mr-2 text-lg"></i> Mal Diseño</h4>
+                        <p class="text-xs text-gray-500 font-mono mb-4 uppercase tracking-wider">Todo en SKILL.md (3.800 tokens siempre)</p>
+                        <div class="font-mono text-[11px] text-gray-300 leading-relaxed bg-black/40 p-4 rounded-lg border border-red-500/10">
+                            <span class="text-white font-bold">SKILL.md</span> <span class="text-red-300">(3.800 tokens)</span><br>
+                            ├── instrucciones básicas<br>
+                            ├── casos edge poco frecuentes<br>
+                            ├── guía completa de fórmulas Excel<br>
+                            ├── lista de todos los benchmarks del sector<br>
+                            └── ejemplos detallados de cada output posible
                         </div>
-                        <div id="code-curl" class="p-5 font-mono text-gray-300 text-xs flex-grow whitespace-pre-wrap overflow-x-auto"><span class="text-emerald-400">curl</span> https://api.anthropic.com/v1/messages \
-  <span class="text-blue-400">--header</span> <span class="text-amber-300">"x-api-key: $ANTHROPIC_API_KEY"</span> \
-  <span class="text-blue-400">--header</span> <span class="text-amber-300">"anthropic-version: 2023-06-01"</span> \
-  <span class="text-blue-400">--header</span> <span class="text-amber-300">"content-type: application/json"</span> \
-  <span class="text-blue-400">--data</span> <span class="text-amber-300">'{
-    "model": "claude-3-5-sonnet-20241022",
-    "max_tokens": 1024,
-    "messages": [
-      {"role": "user", "content": "Analiza estos KPIs..."}
-    ]
-  }'</span></div>
                     </div>
 
-                    <!-- Python Example -->
-                    <div class="bg-[#0f172a] rounded-xl border border-gray-700 overflow-hidden flex flex-col">
-                        <div class="bg-black/50 px-4 py-2 border-b border-gray-700 flex justify-between items-center">
-                            <span class="text-xs text-gray-400 font-mono uppercase">2. Llamada con Python (SDK)</span>
-                            <button onclick="copyToClipboard('code-python', this)" class="text-xs text-gray-500 hover:text-white transition-colors"><i class="fa-regular fa-copy"></i> Copiar</button>
+                    <!-- Good Design -->
+                    <div class="bg-[#16221F] rounded-xl border border-emerald-500/30 p-6 shadow-md">
+                        <h4 class="font-bold text-emerald-400 mb-4 flex items-center"><i class="fa-solid fa-check mr-2 text-lg"></i> Buen Diseño</h4>
+                        <p class="text-xs text-gray-500 font-mono mb-4 uppercase tracking-wider">Body Lean + References (800 tokens)</p>
+                        <div class="font-mono text-[11px] text-gray-300 leading-relaxed bg-black/40 p-4 rounded-lg border border-emerald-500/10">
+                            <span class="text-white font-bold">SKILL.md</span> <span class="text-emerald-300">(800 tokens)</span><br>
+                            ├── instrucciones para el 90% de casos<br>
+                            └── <span class="text-emerald-300 italic">"Lee references/X si el usuario pide Y"</span><br>
+                            <br>
+                            <span class="text-blue-300 font-bold">references/</span><br>
+                            ├── formulas-excel.md       <span class="text-gray-500 italic">← solo si genera Excel avanzado</span><br>
+                            ├── benchmarks-sector.md    <span class="text-gray-500 italic">← solo si pide comparativa</span><br>
+                            └── casos-edge.md           <span class="text-gray-500 italic">← solo si hay datos atípicos</span>
                         </div>
-                        <div id="code-python" class="p-5 font-mono text-gray-300 text-xs flex-grow whitespace-pre-wrap overflow-x-auto"><span class="text-purple-400">import</span> anthropic
-
-client = anthropic.Anthropic(
-    api_key=<span class="text-amber-300">"TU_API_KEY"</span>,
-)
-
-message = client.messages.create(
-    model=<span class="text-amber-300">"claude-3-5-sonnet-20241022"</span>,
-    max_tokens=<span class="text-purple-400">1024</span>,
-    system=<span class="text-amber-300">"Eres el AI Decision Hub."</span>,
-    messages=[
-        {<span class="text-amber-300">"role"</span>: <span class="text-amber-300">"user"</span>, <span class="text-amber-300">"content"</span>: <span class="text-amber-300">"Calcula el revenue..."</span>}
-    ]
-)
-<span class="text-blue-400">print</span>(message.content[<span class="text-purple-400">0</span>].text)</div>
                     </div>
                 </div>
             </div>
+
+            <!-- Efecto Compuesto y Resumen -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 fade-in-on-scroll">
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-4">El efecto compuesto</h3>
+                    <p class="font-serif text-gray-400 text-sm leading-relaxed mb-4">
+                        Hay un efecto compuesto que mucha gente no ve: en una conversación larga, el <em>body</em> del skill activado permanece en el contexto durante <strong>todos los mensajes siguientes de esa sesión</strong>. Si el skill body es grande, contamina toda la conversación.
+                    </p>
+                    <p class="font-serif text-gray-400 text-sm leading-relaxed mb-4">
+                        Con references bien usadas, Claude carga una referencia, la usa, y aunque permanezca en el historial, al menos solo está ahí porque fue necesaria, no porque estaba siempre.
+                    </p>
+                    <p class="font-serif text-gray-400 text-sm leading-relaxed">
+                        La otra gran ventaja es el mantenimiento: cuando el skill tiene 10 archivos en <code>references/</code> bien nombrados, es fácil actualizar. Si cambian los benchmarks del sector, solo tocas <code>benchmarks-sector.md</code> sin abrir ni romper el SKILL.md principal.
+                    </p>
+                </div>
+
+                <div class="bg-gradient-to-br from-brand-primary/20 to-purple-900/30 border border-brand-primary/30 p-8 rounded-2xl shadow-lg relative overflow-hidden flex flex-col justify-center">
+                    <div class="absolute -right-4 -bottom-4 text-8xl text-white opacity-5"><i class="fa-solid fa-book"></i></div>
+                    <h4 class="text-xl font-bold text-white mb-6 flex items-center"><i class="fa-solid fa-lightbulb text-brand-accent mr-3"></i> Resumen Mental: La Biblioteca</h4>
+                    <ul class="space-y-5">
+                        <li class="flex items-start">
+                            <div class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs font-bold shrink-0 mr-3 mt-0.5"><i class="fa-solid fa-tags"></i></div>
+                            <p class="font-serif text-gray-300 text-sm">La <strong>ficha de catálogo</strong> (metadata) siempre está disponible, ocupa nada.</p>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center text-xs font-bold shrink-0 mr-3 mt-0.5"><i class="fa-solid fa-file-lines"></i></div>
+                            <p class="font-serif text-gray-300 text-sm">El <strong>índice y primer capítulo</strong> (body) los lees cuando el título te interesa.</p>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-6 h-6 rounded-full bg-brand-accent/20 text-brand-accent flex items-center justify-center text-xs font-bold shrink-0 mr-3 mt-0.5"><i class="fa-solid fa-folder-tree"></i></div>
+                            <p class="font-serif text-gray-300 text-sm">Los <strong>apéndices técnicos</strong> (references) los consultas solo si necesitas ese detalle concreto.</p>
+                        </li>
+                    </ul>
+                    <p class="text-sm font-bold text-emerald-400 mt-6 pt-4 border-t border-white/10">
+                        Tú controlas exactamente qué va en cada capa. No es automático — es una decisión de diseño que tiene un impacto real en coste y rendimiento.
+                    </p>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <!-- 3. Protocolo MCP -->
-    <section id="mcp" class="py-20 bg-white">
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="text-center mb-16 fade-in-on-scroll">
-                <span class="text-brand-primary font-bold tracking-widest text-xs uppercase mb-3 block">Interoperabilidad</span>
-                <h2 class="text-3xl lg:text-4xl font-extrabold text-brand-dark flex items-center justify-center mb-3">
-                    <i class="fa-solid fa-plug-circle-bolt text-brand-primary mr-3"></i> MCP: Conectar el Mundo Real
-                </h2>
-                <p class="text-gray-600 font-serif max-w-3xl mx-auto">
-                    <strong>Model Context Protocol (MCP)</strong> es un estándar abierto creado por Anthropic que permite a los modelos de IA conectarse de forma segura y estructurada con herramientas externas, bases de datos, APIs y sistemas de archivos.
-                </p>
-            </div>
-
-            <div class="bg-indigo-50 border-l-4 border-brand-primary p-6 rounded-r-xl mb-12 fade-in-on-scroll">
-                <p class="font-serif text-indigo-900 text-base m-0">
-                    <i class="fa-solid fa-bolt mr-2 text-brand-primary"></i> <strong>Analogía:</strong> MCP es como un <em>adaptador universal de enchufes</em> para la IA. Cada herramienta (Slack, Sheets, SAP) tiene su propio "enchufe", y MCP proporciona el adaptador para que Claude pueda conectarse a todas ellas usando el mismo estándar.
-                </p>
-            </div>
-
-            <!-- Conceptos MCP -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 fade-in-on-scroll">
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                    <h4 class="text-lg font-bold text-brand-dark mb-2 border-b border-gray-100 pb-2">¿Por qué MCP y no una API normal?</h4>
-                    <p class="font-serif text-gray-600 text-sm">Las APIs requieren que construyas la integración manualmente paso a paso. MCP define un protocolo estándar para que las herramientas se "expongan" directamente al modelo, permitiéndole llamarlas de forma autónoma cuando las necesite.</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                    <h4 class="text-lg font-bold text-brand-dark mb-2 border-b border-gray-100 pb-2">El Agente Verdadero</h4>
-                    <p class="font-serif text-gray-600 text-sm">Si Claude sin herramientas es un consultor que solo puede hablar, con MCP es un consultor que además puede abrir tu CRM, leer tus datos en vivo, enviar emails y actualizar tu base de datos de forma autónoma.</p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 fade-in-on-scroll">
-                <div class="bg-gray-800 text-white p-5 rounded-xl border-t-4 border-blue-500">
-                    <h4 class="font-bold text-blue-400 mb-2">MCP Server</h4>
-                    <p class="text-xs font-serif text-gray-300">Programa que expone capacidades. Ej: Un servidor MCP de Google Sheets permite leer/escribir hojas.</p>
-                </div>
-                <div class="bg-gray-800 text-white p-5 rounded-xl border-t-4 border-emerald-500">
-                    <h4 class="font-bold text-emerald-400 mb-2">MCP Client</h4>
-                    <p class="text-xs font-serif text-gray-300">El modelo o agente (ej. Claude) que consume las herramientas expuestas por los servidores.</p>
-                </div>
-                <div class="bg-gray-800 text-white p-5 rounded-xl border-t-4 border-amber-500">
-                    <h4 class="font-bold text-amber-400 mb-2">Tools</h4>
-                    <p class="text-xs font-serif text-gray-300">Funciones específicas que el servidor permite ejecutar. Ej: <code>read_file</code>, <code>search_slack</code>.</p>
-                </div>
-                <div class="bg-gray-800 text-white p-5 rounded-xl border-t-4 border-purple-500">
-                    <h4 class="font-bold text-purple-400 mb-2">Resources</h4>
-                    <p class="text-xs font-serif text-gray-300">Datos o contexto que el servidor pone a disposición (archivos locales, URLs, bases de datos).</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. Laboratorio Práctico Integrado -->
-    <section id="practica" class="py-24 bg-brand-light border-t border-gray-200">
+    <!-- 8. Scripts y Determinismo -->
+    <section id="scripts" class="py-20 bg-brand-light border-t border-gray-200">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-16 fade-in-on-scroll">
-                <span class="text-brand-accent font-bold tracking-widest text-xs uppercase mb-3 block"><i class="fa-solid fa-flask mr-2"></i> Práctica Integrada</span>
-                <h2 class="text-4xl lg:text-5xl font-extrabold mb-6 text-brand-dark">Laboratorio Agentic</h2>
-                <p class="text-gray-500 font-serif text-xl max-w-3xl mx-auto">Ejecución secuencial: Del IDE al Agente conectado.</p>
+                <span class="text-claude font-bold tracking-widest text-xs uppercase mb-3 block"><i class="fa-solid fa-code mr-2"></i> Estrategia Avanzada</span>
+                <h2 class="text-3xl lg:text-4xl font-extrabold text-brand-dark flex items-center justify-center mb-3">
+                    Determinismo vs Instrucciones en Texto
+                </h2>
+                <p class="text-gray-600 font-serif max-w-3xl mx-auto text-lg text-center">
+                    Esta es una de las estrategias más potentes y menos obvias del sistema. Consiste en delegar la lógica algorítmica y repetitiva a scripts deterministas externos en lugar de forzar a Claude a interpretarla y programarla en cada ejecución.
+                </p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 fade-in-on-scroll">
-                <!-- Fase 1 -->
-                <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow relative overflow-hidden group">
-                    <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
-                    <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-solid fa-code"></i></div>
-                    <h3 class="text-xl font-bold text-brand-dark mb-3">1. Despliegue del IDE</h3>
-                    <ul class="text-sm font-serif text-gray-600 space-y-3">
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Instala y configura AntiGravity.</li>
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Conéctalo con la carpeta de tu proyecto local.</li>
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> <strong>Ejercicio:</strong> Pide al Chat del IDE: <em>"Crea un script en Python que lea el archivo data.csv y calcule el revenue total."</em></li>
-                    </ul>
+            <!-- El problema con explicar procesos en texto -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-16 fade-in-on-scroll">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold text-brand-dark mb-4 flex items-center">
+                            <i class="fa-solid fa-file-invoice text-rose-500 mr-3"></i> El Problema con Explicar Procesos en Texto
+                        </h3>
+                        <p class="font-serif text-gray-600 text-sm leading-relaxed mb-6">
+                            Cuando intentas describir un flujo algorítmico (por ejemplo, cómo estructurar, calcular un CPA y ordenar un DataFrame Excel) mediante instrucciones en el cuerpo del <code class="bg-gray-100 text-rose-600 px-1.5 py-0.5 rounded font-mono text-xs">SKILL.md</code>:
+                        </p>
+                        <!-- Code container -->
+                        <div class="bg-gray-900 rounded-xl font-mono text-[11px] text-gray-300 p-5 mb-6 border border-gray-800 leading-relaxed shadow-inner">
+                            <span class="text-rose-400 font-bold">## Cómo generar el ranking de campañas</span><br>
+                            1. Lee el archivo Excel con pandas<br>
+                            2. Detecta si existen las columnas 'spend' y 'conversions'<br>
+                            3. Si existen, calcula el CPA dividiendo spend entre conversions<br>
+                            4. Si conversions es 0, pon NaN para evitar división por cero<br>
+                            5. Ordena el dataframe por CPA ascendente...
+                        </div>
+                    </div>
+                    <div class="bg-rose-50 border-l-4 border-rose-500 p-4 rounded-r-xl">
+                        <h4 class="font-bold text-rose-900 text-xs uppercase mb-1">Impacto negativo:</h4>
+                        <ul class="text-xs font-serif text-rose-800 space-y-1">
+                            <li><strong>Consumo de tokens:</strong> Claude "piensa" en cómo implementar en vez de ejecutar.</li>
+                            <li><strong>Variabilidad:</strong> Distintos nombres, estilos y manejo de errores en cada chat.</li>
+                            <li><strong>Bugs invisibles:</strong> Imposible depurar un código que cambia dinámicamente.</li>
+                        </ul>
+                    </div>
                 </div>
 
-                <!-- Fase 2 -->
-                <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow relative overflow-hidden group">
-                    <div class="absolute top-0 left-0 w-2 h-full bg-emerald-500"></div>
-                    <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-solid fa-terminal"></i></div>
-                    <h3 class="text-xl font-bold text-brand-dark mb-3">2. Conexión API</h3>
-                    <ul class="text-sm font-serif text-gray-600 space-y-3">
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Obtén tu API Key de Anthropic Console.</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Ejecuta la primera llamada por terminal (cURL) comprobando la respuesta cruda en JSON.</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> <strong>Ejercicio:</strong> Diseña el script en Python que envíe los datos calculados en el paso 1 a Claude para que redacte un análisis.</li>
-                    </ul>
-                </div>
-
-                <!-- Fase 3 -->
-                <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow relative overflow-hidden group">
-                    <div class="absolute top-0 left-0 w-2 h-full bg-purple-500"></div>
-                    <div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-solid fa-network-wired"></i></div>
-                    <h3 class="text-xl font-bold text-brand-dark mb-3">3. Autonomía MCP</h3>
-                    <ul class="text-sm font-serif text-gray-600 space-y-3">
-                        <li><i class="fa-solid fa-check text-purple-500 mr-2"></i> Instala el MCP Server de *filesystem* (para que la IA pueda leer tu disco duro).</li>
-                        <li><i class="fa-solid fa-check text-purple-500 mr-2"></i> Configura el archivo MCP en Claude Cowork.</li>
-                        <li><i class="fa-solid fa-check text-purple-500 mr-2"></i> <strong>Ejercicio:</strong> Pide a Claude que lea un Google Sheet y genere el reporte mensual de forma 100% autónoma.</li>
-                    </ul>
+                <!-- La alternativa: el script ya escrito -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-bold text-brand-dark mb-4 flex items-center">
+                            <i class="fa-solid fa-terminal text-emerald-500 mr-3"></i> La Alternativa: El Script Ya Escrito
+                        </h3>
+                        <p class="font-serif text-gray-600 text-sm leading-relaxed mb-6">
+                            En vez de intentar describir la lógica para que Claude la construya, almacenas el script completo directamente en la carpeta <code class="bg-gray-100 text-emerald-600 px-1.5 py-0.5 rounded font-mono text-xs">scripts/</code> y le ordenas a Claude que simplemente lo ejecute:
+                        </p>
+                        <!-- Code container -->
+                        <div class="bg-[#0f172a] rounded-xl font-mono text-[11px] text-gray-300 p-5 mb-6 border border-gray-800 leading-relaxed shadow-inner">
+                            <span class="text-emerald-400 font-bold">## Generar el ranking de campañas</span><br>
+                            Ejecuta el script de análisis:<br>
+                            <span class="text-gray-500">```bash</span><br>
+                            python scripts/analizar_campañas.py --input "$ARCHIVO" --output "$SALIDA"<br>
+                            <span class="text-gray-500">```</span><br>
+                            El script devuelve un JSON con el ranking y los semáforos. Interpreta y resume.
+                        </div>
+                    </div>
+                    <div class="bg-emerald-50 border-l-4 border-emerald-500 p-4 rounded-r-xl">
+                        <h4 class="font-bold text-emerald-900 text-xs uppercase mb-1">Impacto positivo:</h4>
+                        <ul class="text-xs font-serif text-emerald-800 space-y-1">
+                            <li><strong>Código robusto:</strong> Escrito, testeado previamente y con logs de error.</li>
+                            <li><strong>Rapidez:</strong> Ejecución instantánea sin tokens de razonamiento extra.</li>
+                            <li><strong>Determinismo:</strong> Siempre devolverá exactamente la misma estructura de datos.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Quiz Interactivo -->
-    <section class="py-24 bg-brand-dark text-white border-t-8 border-brand-accent">
-        <div class="max-w-4xl mx-auto px-6 fade-in-on-scroll">
-            <h3 class="text-3xl font-bold mb-8 text-center"><i class="fa-solid fa-clipboard-question text-brand-accent mr-3"></i> Test de Conocimientos Técnicos</h3>
-            <div class="bg-gray-900 border border-gray-700 rounded-2xl p-8 lg:p-12 shadow-2xl">
-                <div id="quizContainer">
-                    <!-- Quiz se renderiza vía JS aquí -->
+            <!-- Qué cambia exactamente -->
+            <div class="bg-white border border-gray-200 rounded-3xl p-8 lg:p-10 shadow-sm mb-16 fade-in-on-scroll">
+                <h3 class="text-2xl font-bold text-brand-dark mb-6 flex items-center"><i class="fa-solid fa-right-left text-brand-primary mr-3"></i> Comparativa de Flujos Operativos</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-slate-50 p-6 rounded-xl border border-gray-200">
+                        <span class="bg-rose-100 text-rose-700 px-2 py-1 rounded font-sans font-bold text-xs uppercase tracking-wide">Flujo Tradicional (Instrucciones)</span>
+                        <div class="mt-6 space-y-4 font-mono text-xs text-gray-600">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-arrow-right text-rose-400"></i> Petición del usuario</div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-arrow-right text-rose-400"></i> Claude lee las instrucciones (Tokens)</div>
+                            <div class="flex items-center gap-2 font-bold text-rose-600"><i class="fa-solid fa-arrow-right text-rose-500"></i> Claude razona cómo codificarlas</div>
+                            <div class="flex items-center gap-2 font-bold text-rose-600"><i class="fa-solid fa-arrow-right text-rose-500"></i> Claude genera el código en vivo</div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-arrow-right text-rose-400"></i> Claude ejecuta el script generado</div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-arrow-right text-rose-400"></i> Interpretación del resultado</div>
+                        </div>
+                    </div>
+                    <div class="bg-indigo-50/50 p-6 rounded-xl border border-brand-primary/20">
+                        <span class="bg-brand-primary/10 text-brand-primary px-2 py-1 rounded font-sans font-bold text-xs uppercase tracking-wide">Flujo Optimizado (Scripts Deterministas)</span>
+                        <div class="mt-6 space-y-4 font-mono text-xs text-gray-700">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-arrow-right text-brand-primary"></i> Petición del usuario</div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-arrow-right text-brand-primary"></i> Claude lee una línea de ejecución rápida</div>
+                            <div class="flex items-center gap-2 font-bold text-emerald-600"><i class="fa-solid fa-arrow-right text-emerald-500"></i> Claude ejecuta el script directamente</div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-arrow-right text-brand-primary"></i> Interpretación del resultado</div>
+                            <div class="text-[10px] text-emerald-600 font-bold bg-emerald-50 p-2 rounded border border-emerald-100 flex items-center gap-1.5"><i class="fa-solid fa-bolt"></i> ¡Elimina por completo el razonamiento e implementación mecánica de código en vivo!</div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Cuándo tiene sentido un script -->
+            <div class="mb-16 fade-in-on-scroll">
+                <h3 class="text-2xl font-bold text-brand-dark mb-6 flex items-center justify-center"><i class="fa-solid fa-table-list text-claude mr-3"></i> Cuándo usar Scripts vs Instrucciones</h3>
+                <p class="font-serif text-gray-500 text-sm text-center max-w-2xl mx-auto mb-8">
+                    La regla es simple: si el proceso es <strong>algorítmico y determinista</strong>, debe ser un script. Si requiere <strong>criterio, juicio o adaptación estratégica</strong>, se definirá mediante instrucciones en texto en el SKILL.md.
+                </p>
+                <div class="overflow-x-auto bg-white border border-gray-200 rounded-2xl shadow-sm">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-50 text-xs uppercase tracking-wider text-gray-500">
+                                <th class="p-4 border-b border-gray-200 font-bold">Tarea / Proceso</th>
+                                <th class="p-4 border-b border-gray-200 font-bold text-center">Script ✅ (Mecánico)</th>
+                                <th class="p-4 border-b border-gray-200 font-bold text-center">Instrucciones ✅ (Criterio)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm font-serif text-gray-600">
+                            <tr class="hover:bg-gray-50/50">
+                                <td class="p-4 border-b border-gray-100 font-sans font-semibold text-gray-800">Calcular ROAS, CPA, CTR de un Excel</td>
+                                <td class="p-4 border-b border-gray-100 text-center text-emerald-500 text-lg"><i class="fa-solid fa-circle-check"></i></td>
+                                <td class="p-4 border-b border-gray-100 text-center"></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50/50">
+                                <td class="p-4 border-b border-gray-100 font-sans font-semibold text-gray-800">Recalcular fórmulas de hojas de cálculo</td>
+                                <td class="p-4 border-b border-gray-100 text-center text-emerald-500 text-lg"><i class="fa-solid fa-circle-check"></i></td>
+                                <td class="p-4 border-b border-gray-100 text-center"></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50/50">
+                                <td class="p-4 border-b border-gray-100 font-sans font-semibold text-gray-800">Detectar anomalías estadísticas mecánicamente</td>
+                                <td class="p-4 border-b border-gray-100 text-center text-emerald-500 text-lg"><i class="fa-solid fa-circle-check"></i></td>
+                                <td class="p-4 border-b border-gray-100 text-center"></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50/50">
+                                <td class="p-4 border-b border-gray-100 font-sans font-semibold text-gray-800">Interpretar qué significan esas anomalías para el negocio</td>
+                                <td class="p-4 border-b border-gray-100 text-center"></td>
+                                <td class="p-4 border-b border-gray-100 text-center text-blue-500 text-lg"><i class="fa-solid fa-circle-check"></i></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50/50">
+                                <td class="p-4 border-b border-gray-100 font-sans font-semibold text-gray-800">Generar colores de un semáforo según umbrales fijos</td>
+                                <td class="p-4 border-b border-gray-100 text-center text-emerald-500 text-lg"><i class="fa-solid fa-circle-check"></i></td>
+                                <td class="p-4 border-b border-gray-100 text-center"></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50/50">
+                                <td class="p-4 border-b border-gray-100 font-sans font-semibold text-gray-800">Redactar recomendaciones del informe final</td>
+                                <td class="p-4 border-b border-gray-100 text-center"></td>
+                                <td class="p-4 border-b border-gray-100 text-center text-blue-500 text-lg"><i class="fa-solid fa-circle-check"></i></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50/50">
+                                <td class="p-4 border-b border-gray-100 font-sans font-semibold text-gray-800">Validar mecánicamente si existen ciertas columnas</td>
+                                <td class="p-4 border-b border-gray-100 text-center text-emerald-500 text-lg"><i class="fa-solid fa-circle-check"></i></td>
+                                <td class="p-4 border-b border-gray-100 text-center"></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50/50">
+                                <td class="p-4 font-sans font-semibold text-gray-800">Decidir qué campañas de marketing pausar</td>
+                                <td class="p-4 text-center"></td>
+                                <td class="p-4 text-center text-blue-500 text-lg"><i class="fa-solid fa-circle-check"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 p-4 bg-indigo-50 border-l-2 border-brand-primary text-xs font-serif text-brand-dark">
+                    <strong>Patrón Híbrido Recomendado:</strong> El script realiza el trabajo mecánico y determinista, y el cuerpo del SKILL.md guía el criterio cognitivo e interpretación.
+                </div>
+            </div>
+
+            <!-- Ejemplo real: así lo hace el skill de xlsx -->
+            <div class="bg-brand-dark text-white rounded-3xl p-8 lg:p-12 border border-gray-800 shadow-2xl mb-16 fade-in-on-scroll relative overflow-hidden">
+                <div class="absolute -right-4 -bottom-4 text-8xl text-white opacity-5"><i class="fa-solid fa-file-excel"></i></div>
+                <h3 class="text-2xl font-bold mb-4 flex items-center"><i class="fa-solid fa-lightbulb text-brand-accent mr-3"></i> Ejemplo real: El Skill de Excel (xlsx)</h3>
+                <p class="font-serif text-gray-400 text-sm mb-8">
+                    El skill de Excel que tienes instalado utiliza exactamente esta estrategia mediante un script llamado <code class="bg-gray-800 text-emerald-400 px-1 rounded">scripts/recalc.py</code>. En vez de que Claude intente adivinar el cálculo de fórmulas Excel internamente (lo cual es impreciso y lento), el SKILL.md simplemente ordena ejecutar el script usando LibreOffice por debajo:
+                </p>
+                <!-- Code blocks -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 font-mono text-xs">
+                    <div class="bg-black/40 p-5 rounded-xl border border-white/5">
+                        <span class="text-blue-400 font-bold block mb-2"># Lógica dentro del SKILL.md</span>
+                        <span class="text-gray-400">## Recalcular fórmulas (OBLIGATORIO si usas fórmulas)</span><br>
+                        <span class="text-gray-500">```bash</span><br>
+                        python scripts/recalc.py output.xlsx<br>
+                        <span class="text-gray-500">```</span><br>
+                        <br>
+                        El script devuelve un JSON con los errores detectados:<br>
+                        <span class="text-gray-500">```json</span><br>
+                        {"status": "errors_found", "total_errors": 2,<br>
+                        &nbsp;"error_summary": {"#REF!": {"locations": ["Sheet1!B5"]}}}<br>
+                        <span class="text-gray-500">```</span>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <h4 class="font-bold text-white mb-2 text-sm font-sans"><i class="fa-solid fa-circle-check text-emerald-400 mr-2"></i> Determinismo Absoluto</h4>
+                        <p class="font-serif text-gray-400 text-xs leading-relaxed mb-4 font-sans">
+                            Con instrucciones en texto, ejecutar el mismo prompt 10 veces con el mismo archivo Excel puede generar 10 outputs distintos con lógicas cambiantes (diferentes formas de manejar NaN, uso de <code class="font-mono">cut</code> vs <code class="font-mono">qcut</code>).
+                        </p>
+                        <p class="font-serif text-gray-400 text-xs leading-relaxed font-sans">
+                            Con un script determinista, <strong>10 ejecuciones siempre devolverán 10 resultados exactamente idénticos</strong>. Esto es clave en un entorno corporativo donde el equipo que audita o lee el informe del lunes necesita recibir siempre la misma estructura de datos exacta.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cómo referenciar el script desde el SKILL.md -->
+            <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-16 fade-in-on-scroll">
+                <h3 class="text-2xl font-bold text-brand-dark mb-6"><i class="fa-solid fa-code text-brand-primary mr-3"></i> Cómo Referenciar el Script desde el SKILL.md</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 font-mono text-[11px] leading-relaxed text-gray-700">
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                        <span class="text-blue-600 font-bold block mb-3 font-sans text-xs uppercase tracking-wide">Forma Directa (Script Autocontenido)</span>
+                        Ejecuta el análisis completo:<br>
+                        <span class="text-gray-400">```bash</span><br>
+                        python ${CLAUDE_PLUGIN_ROOT}/scripts/analizar.py \<br>
+                        &nbsp;&nbsp;--input "$ARCHIVO" \<br>
+                        &nbsp;&nbsp;--output "analisis_resultado.xlsx"<br>
+                        <span class="text-gray-400">```</span>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                        <span class="text-blue-600 font-bold block mb-3 font-sans text-xs uppercase tracking-wide">Forma Condicional (Script Opcional)</span>
+                        <span class="text-gray-400">## Validación de columnas (siempre)</span><br>
+                        Lee el archivo y verifica que existen las columnas requeridas.<br><br>
+                        <span class="text-gray-400">## Análisis estadístico (si es correcto)</span><br>
+                        Si la validación es correcta, ejecuta el análisis:<br>
+                        <span class="text-gray-400">```bash</span><br>
+                        python scripts/stats_marketing.py --file "$ARCHIVO"<br>
+                        <span class="text-gray-400">```</span><br><br>
+                        <span class="text-gray-400">## Interpretación de negocio (siempre)</span><br>
+                        Independientemente del resultado, explica qué significan.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Importancia de CLAUDE_PLUGIN_ROOT -->
+            <div class="bg-amber-50 border-l-4 border-brand-accent p-6 rounded-r-xl fade-in-on-scroll flex items-start">
+                <i class="fa-solid fa-circle-exclamation text-brand-accent text-2xl mr-4 shrink-0 mt-0.5"></i>
+                <div>
+                    <h4 class="font-bold text-brand-dark text-sm uppercase mb-1">Importancia de <code class="font-mono bg-white px-1 border border-brand-accent/20 rounded">${CLAUDE_PLUGIN_ROOT}</code></h4>
+                    <p class="font-serif text-gray-700 text-sm leading-relaxed m-0">
+                        Utiliza siempre esta variable de entorno para referenciar scripts internos dentro de tus plugins. <strong>Nunca uses rutas absolutas</strong>. Al usar esta variable, cuando el plugin se instale en otro ordenador o en un servidor de producción de un tercero, el sistema sabrá localizar dinámicamente y ejecutar el script sin romper las rutas de importación.
+                    </p>
+                </div>
+            </div>
+
         </div>
     </section>
 
     <!-- Navegación entre Clases -->
     <section class="py-12 bg-white border-t border-gray-200">
         <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <a href="modulo8-clase1.html" class="flex items-center px-6 py-3 text-gray-600 border border-gray-300 rounded-xl font-bold hover:text-brand-primary hover:border-brand-primary transition-all bg-white shadow-sm">
+            <a href="modulo8-clase1.html"
+                class="flex items-center px-6 py-3 text-gray-600 border border-gray-300 rounded-xl font-bold hover:text-brand-primary hover:border-brand-primary transition-all bg-white shadow-sm w-full sm:w-auto justify-center">
                 <i class="fa-solid fa-arrow-left mr-2"></i> Anterior: Clase 1
             </a>
-            <a href="index.html" class="flex items-center px-6 py-3 bg-brand-primary text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors shadow-lg">
-                Finalizar Módulo <i class="fa-solid fa-flag-checkered ml-2"></i>
+            <a href="index.html"
+                class="flex items-center px-6 py-3 text-gray-600 border border-gray-300 rounded-xl font-bold hover:text-brand-primary hover:border-brand-primary transition-all bg-white shadow-sm w-full sm:w-auto justify-center">
+                <i class="fa-solid fa-home mr-2"></i> Volver al Temario
+            </a>
+            <a href="modulo8-clase3.html"
+                class="flex items-center px-6 py-3 bg-brand-primary text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors shadow-lg w-full sm:w-auto justify-center">
+                Siguiente: Clase 3 <i class="fa-solid fa-arrow-right ml-2"></i>
             </a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-[#050B14] text-white py-12 border-t border-gray-800">
-        <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
-            <h2 class="text-xl font-bold mb-4 md:mb-0">
+    <footer class="bg-brand-dark text-white py-16 border-t border-gray-800">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-4">
                 <span class="text-brand-accent">[m]</span>.seny <span class="text-brand-accent">[labs]</span>
             </h2>
-            <p class="text-sm text-gray-500 font-sans">Material de Apoyo Formativo - Módulo Extra © 2026</p>
+            <p class="text-gray-400 mb-10 max-w-lg mx-auto font-serif text-center">
+                Empoderando a la próxima generación de empresas con inteligencia artificial práctica y estratégica.
+            </p>
+            <div class="w-12 h-px bg-gray-800 mx-auto my-6"></div>
+            <p class="text-xs text-gray-500 font-sans text-center">
+                Material de Apoyo Formativo - Módulo 8 (Clase 2)<br>
+                © 2026 [m].seny [labs]. Todos los derechos reservados.
+            </p>
         </div>
     </footer>
 
     <!-- Lógica de Interactividad -->
     <script>
-        // Copiar Portapapeles
+        // Funciones de Copiado de Código
         function copyToClipboard(elementId, btn) {
             const el = document.getElementById(elementId);
             let text = el.innerText || el.textContent;
@@ -479,14 +1255,14 @@ message = client.messages.create(
                 document.execCommand('copy');
                 const originalHTML = btn.innerHTML;
                 
-                btn.innerHTML = '<i class="fa-solid fa-check mr-1"></i> Copiado';
+                btn.innerHTML = '<i class="fa-solid fa-check mr-2"></i> Copiado';
                 btn.classList.add('text-emerald-400');
-                btn.classList.remove('text-gray-500', 'hover:text-white');
+                btn.classList.remove('text-gray-400', 'hover:text-white');
                 
                 setTimeout(() => {
                     btn.innerHTML = originalHTML;
                     btn.classList.remove('text-emerald-400');
-                    btn.classList.add('text-gray-500', 'hover:text-white');
+                    btn.classList.add('text-gray-400', 'hover:text-white');
                 }, 2000);
             } catch (err) {
                 console.error('Error al copiar', err);
@@ -494,205 +1270,8 @@ message = client.messages.create(
             document.body.removeChild(textArea);
         }
 
-        // Quiz Data
-        const quizData = [
-            {
-                question: "¿Qué es un IDE (Integrated Development Environment)?",
-                options: [
-                    { text: "Un protocolo para conectar APIs de forma segura en la nube.", correct: false },
-                    { text: "Un software que agrupa editor de código, terminal y gestor de archivos en un solo lugar.", correct: true },
-                    { text: "Un modelo de inteligencia artificial entrenado para hacer traducciones.", correct: false },
-                    { text: "El formato en el que se envían las respuestas de una API web.", correct: false }
-                ]
-            },
-            {
-                question: "En un IDE con IA, ¿qué diferencia al 'Autocompletado' del 'Chat con el codebase'?",
-                options: [
-                    { text: "El autocompletado predice la siguiente línea mientras escribes; el chat permite hacerle preguntas complejas sobre toda la arquitectura.", correct: true },
-                    { text: "El chat es gratis, el autocompletado requiere pagar la API.", correct: false },
-                    { text: "No hay diferencia, son dos nombres para la misma función.", correct: false },
-                    { text: "El autocompletado solo funciona con Python, el chat funciona con todos los idiomas.", correct: false }
-                ]
-            },
-            {
-                question: "¿Cuál de las siguientes definiciones describe mejor una API (Application Programming Interface)?",
-                options: [
-                    { text: "Un hardware físico para guardar claves secretas.", correct: false },
-                    { text: "El lenguaje de programación utilizado por la empresa OpenAI.", correct: false },
-                    { text: "Un contrato que define cómo dos programas pueden comunicarse entre sí, estableciendo qué puedes pedir y cómo recibirás la respuesta.", correct: true },
-                    { text: "La interfaz gráfica (botones y menús) que ve el usuario final en una web.", correct: false }
-                ]
-            },
-            {
-                question: "En el contexto de APIs REST, ¿qué es JSON?",
-                options: [
-                    { text: "Un formato de texto ligero y estructurado, legible por humanos y máquinas, usado para enviar y recibir datos.", correct: true },
-                    { text: "Un protocolo de seguridad para encriptar contraseñas.", correct: false },
-                    { text: "Un comando de terminal para instalar paquetes.", correct: false },
-                    { text: "El nombre del modelo de IA que utiliza Anthropic.", correct: false }
-                ]
-            },
-            {
-                question: "Según la analogía vista en clase, si la Interfaz Visual (GUI) es un coche automático, ¿qué es la CLI (Command Line Interface)?",
-                options: [
-                    { text: "Un coche eléctrico.", correct: false },
-                    { text: "Un coche manual: ofrece más control y velocidad, pero requiere mayor conocimiento técnico para operarlo.", correct: true },
-                    { text: "Una bicicleta: es lenta pero segura.", correct: false },
-                    { text: "Un tren sobre raíles: no puedes cambiar su dirección.", correct: false }
-                ]
-            },
-            {
-                question: "¿Qué es el MCP (Model Context Protocol)?",
-                options: [
-                    { text: "Un estándar abierto de Anthropic que permite a los modelos conectarse de forma estructurada con herramientas externas y bases de datos.", correct: true },
-                    { text: "Una tarjeta gráfica especializada en procesar inteligencia artificial.", correct: false },
-                    { text: "El nuevo nombre del lenguaje de programación Python.", correct: false },
-                    { text: "Un límite de facturación (Rate limit) impuesto por las plataformas de IA.", correct: false }
-                ]
-            },
-            {
-                question: "¿Por qué se utiliza el protocolo MCP en lugar de construir una API tradicional manual?",
-                options: [
-                    { text: "Porque MCP es el único que funciona sin conexión a internet.", correct: false },
-                    { text: "Porque MCP define un protocolo estándar para que las herramientas se expongan directamente al modelo, permitiéndole usarlas de forma autónoma sin programar la integración paso a paso.", correct: true },
-                    { text: "Porque la API tradicional cuesta dinero y MCP es siempre gratuito por ley.", correct: false },
-                    { text: "MCP y API son exactamente lo mismo, solo cambia el nombre comercial.", correct: false }
-                ]
-            },
-            {
-                question: "Dentro de la arquitectura MCP, ¿cuál es la función de un 'MCP Server'?",
-                options: [
-                    { text: "Es el modelo de Inteligencia Artificial que piensa y toma decisiones (ej. Claude).", correct: false },
-                    { text: "Es la pantalla donde el usuario lee los resultados.", correct: false },
-                    { text: "Es el programa que expone las capacidades y datos de una herramienta específica (ej. Google Sheets) hacia la IA.", correct: true },
-                    { text: "Es el archivo donde se guardan las contraseñas del usuario.", correct: false }
-                ]
-            },
-            {
-                question: "¿Cómo se autentica típicamente una llamada a la API de Anthropic (como vimos en el ejemplo de cURL)?",
-                options: [
-                    { text: "Enviando un email a soporte técnico.", correct: false },
-                    { text: "A través del parámetro 'password' en el cuerpo del JSON.", correct: false },
-                    { text: "Usando un nombre de usuario y un captcha.", correct: false },
-                    { text: "Incluyendo una credencial única (API Key) en el header de la petición (ej. x-api-key).", correct: true }
-                ]
-            },
-            {
-                question: "En un entorno IDE, ¿qué significa 'Inline editing' aplicado por IA?",
-                options: [
-                    { text: "Seleccionar un bloque de código y pedir a la IA que lo modifique directamente allí mismo, sin tener que salir a un chat externo.", correct: true },
-                    { text: "Que la IA escriba todo el código en una sola línea muy larga.", correct: false },
-                    { text: "Corregir errores de ortografía en los comentarios del código.", correct: false },
-                    { text: "Poner el IDE en modo 'pantalla completa'.", correct: false }
-                ]
-            }
-        ];
-
-        function renderQuiz() {
-            const container = document.getElementById('quizContainer');
-            container.innerHTML = '';
-            
-            quizData.forEach((q, idx) => {
-                const qDiv = document.createElement('div');
-                qDiv.className = 'mb-8';
-                qDiv.innerHTML = `
-                    <h4 class="text-xl font-bold text-white mb-4"><span class="text-brand-accent">${idx + 1}.</span> ${q.question}</h4>
-                    <div class="space-y-3">
-                        ${q.options.map((opt, optIdx) => `
-                            <div class="quiz-option group flex items-center" onclick="selectAnswer(event, ${idx}, ${optIdx})">
-                                <input type="radio" name="q${idx}" value="${optIdx}" class="hidden">
-                                <div class="w-6 h-6 rounded-full border-2 border-gray-500 mr-4 flex-shrink-0 group-hover:border-brand-primary radio-custom transition-colors"></div>
-                                <span class="font-serif text-sm md:text-base">${opt.text}</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-                container.appendChild(qDiv);
-            });
-            
-            const btnDiv = document.createElement('div');
-            btnDiv.className = "mt-10 pt-8 border-t border-gray-700 text-center";
-            btnDiv.innerHTML = `
-                <button onclick="submitQuiz()" class="px-10 py-4 bg-brand-primary text-white font-bold rounded-xl hover:bg-indigo-500 transition-colors shadow-lg text-lg uppercase tracking-wider">
-                    Validar Respuestas
-                </button>
-            `;
-            container.appendChild(btnDiv);
-        }
-
-        function selectAnswer(e, qIdx, optIdx) {
-            const optionContainer = e.currentTarget;
-            const parentDiv = optionContainer.closest('.space-y-3');
-            
-            const allOptions = parentDiv.querySelectorAll('.quiz-option');
-            allOptions.forEach(opt => {
-                opt.classList.remove('selected');
-                opt.querySelector('.radio-custom').classList.remove('bg-brand-accent', 'border-brand-accent');
-                opt.querySelector('.radio-custom').classList.add('border-gray-500');
-            });
-            
-            optionContainer.classList.add('selected');
-            const radioCustom = optionContainer.querySelector('.radio-custom');
-            radioCustom.classList.remove('border-gray-500');
-            radioCustom.classList.add('bg-brand-accent', 'border-brand-accent');
-            
-            const input = optionContainer.querySelector('input');
-            input.checked = true;
-        }
-
-        function submitQuiz() {
-            let correctCount = 0;
-            let answeredCount = 0;
-            
-            quizData.forEach((q, idx) => {
-                const selected = document.querySelector(`input[name="q${idx}"]:checked`);
-                if (selected) {
-                    answeredCount++;
-                    const optIdx = selected.value;
-                    const isCorrect = q.options[optIdx].correct;
-                    const optionDiv = selected.closest('.quiz-option');
-                    const parentDiv = optionDiv.parentElement;
-                    
-                    parentDiv.style.pointerEvents = "none";
-                    
-                    if (isCorrect) {
-                        correctCount++;
-                        optionDiv.classList.remove('selected');
-                        optionDiv.classList.add('correct');
-                        optionDiv.querySelector('.radio-custom').className = "w-6 h-6 rounded-full bg-emerald-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-xs fa-solid fa-check";
-                    } else {
-                        optionDiv.classList.remove('selected');
-                        optionDiv.classList.add('incorrect');
-                        optionDiv.querySelector('.radio-custom').className = "w-6 h-6 rounded-full bg-red-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-xs fa-solid fa-xmark";
-                        
-                        const allOptions = parentDiv.querySelectorAll('.quiz-option');
-                        q.options.forEach((opt, oIdx) => {
-                            if(opt.correct) {
-                                allOptions[oIdx].classList.add('border-emerald-500', 'text-emerald-400');
-                            }
-                        });
-                    }
-                }
-            });
-            
-            if (answeredCount < quizData.length) {
-                alert("Por favor, responde a todas las preguntas antes de validar.");
-                return;
-            }
-            
-            const percentage = Math.round((correctCount / quizData.length) * 100);
-            let message = "";
-            if (percentage === 100) message = "🏆 ¡Excelente! Eres un arquitecto de automatización completo.";
-            else if (percentage >= 80) message = "👍 ¡Muy bien! Has asimilado los conceptos técnicos core.";
-            else if (percentage >= 60) message = "✅ ¡Aprobado! Repasa las diferencias entre MCP Server y Client.";
-            else message = "📚 Te recomendamos releer los fundamentos de las APIs y el protocolo MCP.";
-            
-            alert(`Puntuación Final: ${correctCount}/${quizData.length} (${percentage}%)\n\n${message}`);
-        }
-
-        // Initialize features
+        // Inicialización
         document.addEventListener('DOMContentLoaded', () => {
-            renderQuiz();
             
             // Scroll Observer for Fade-ins
             const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
