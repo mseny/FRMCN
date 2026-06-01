@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Módulo Extra: Automatización con n8n - [m].seny [labs]">
+    <title>Módulo Extra: Introducción a n8n - [m].seny [labs]</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0F172A',
+                            primary: '#4F46E5',
+                            accent: '#F59E0B',
+                            light: '#F8FAFC'
+                        },
+                        n8n: {
+                            DEFAULT: '#FF6D5A', // Color oficial de n8n
+                            light: '#FFF0EE',
+                            dark: '#CC5748'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F8FAFC;
+            color: #334155;
+            scroll-behavior: smooth;
+        }
+        
+        h1, h2, h3, h4, h5, h6, button, .nav-link {
+            font-family: 'Inter', sans-serif;
+        }
+
+        p, li, .prose-text {
+            font-family: 'Merriweather', serif;
+            line-height: 1.6;
+            font-size: 1.125rem;
+            text-align: justify;
+        }
+
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Animations */
+        .fade-in-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+        }
+        .fade-in-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(255, 109, 90, 0.15); /* Sombra n8n */
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #4F46E5, #FF6D5A);
+            z-index: 1000;
+            transition: width 0.2s ease;
+        }
+
+        /* Quiz Styles */
+        .quiz-option {
+            padding: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #e2e8f0;
+        }
+        .quiz-option:hover {
+            border-color: #4F46E5;
+            background-color: rgba(79, 70, 229, 0.1);
+        }
+        .quiz-option.selected {
+            border-color: #F59E0B;
+            background-color: rgba(245, 158, 11, 0.1);
+        }
+        .quiz-option.correct {
+            border-color: #10b981;
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+        .quiz-option.incorrect {
+            border-color: #ef4444;
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Navigation Header -->
+    <header class="bg-white/90 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="hover:opacity-80 transition-opacity">
+                    <h1 class="text-xl font-bold tracking-tight text-brand-dark">
+                        <span class="text-brand-accent">[m]</span>.seny <span class="text-brand-accent">[labs]</span>
+                    </h1>
+                </a>
+            </div>
+            <nav class="hidden lg:flex items-center space-x-5 text-xs font-bold text-gray-500 uppercase tracking-wider">
+                <a href="#intro" class="hover:text-n8n transition-colors">1. Introducción</a>
+                <a href="#datos" class="hover:text-n8n transition-colors">2. Datos Itemizados</a>
+                <a href="#nodos" class="hover:text-n8n transition-colors">3. Nodos & Parseo</a>
+                <a href="#despliegue" class="hover:text-n8n transition-colors">4. Despliegue</a>
+                <a href="#pricing" class="hover:text-n8n transition-colors">5. Licencia & Costes</a>
+                <a href="#practica" class="hover:text-n8n transition-colors text-n8n">6. Práctica</a>
+                
+                <a href="/login.html" onclick="document.cookie='sb-ftpywhemyizucquurslo-auth-token=;path=/;max-age=0';localStorage.clear()"
+                    class="hidden md:flex items-center gap-1.5 text-xs font-semibold text-gray-400 hover:text-red-500 transition-colors ml-4"
+                    title="Cerrar sesión">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    Salir
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Presentation Title (Hero) -->
+    <section class="bg-[#0f172a] text-white py-32 border-b-8 border-n8n relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-0 right-0 w-[40rem] h-[40rem] bg-n8n rounded-full blur-[150px]"></div>
+        </div>
+        <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
+            <span class="inline-block py-1 px-3 bg-white/10 text-white border border-white/20 font-mono text-sm font-bold uppercase tracking-widest mb-6 rounded">
+                Módulo Extra • Integración
+            </span>
+            <h1 class="text-5xl lg:text-7xl font-extrabold mb-6 leading-tight">
+                n8n: El Motor de la<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-n8n to-rose-400">Automatización Visual</span>
+            </h1>
+            <p class="text-xl text-gray-300 font-serif max-w-2xl mx-auto italic text-center">
+                Escalabilidad sin límites. Conecta APIs, IA y bases de datos a través de nodos programables de última generación.
+            </p>
+            <div class="mt-10 flex items-center justify-center space-x-6 text-sm text-gray-400 font-mono">
+                <span><i class="fa-solid fa-book-open mr-2 text-n8n"></i> Teoría: 45 min</span>
+                <span>•</span>
+                <span><i class="fa-solid fa-laptop-code mr-2 text-n8n"></i> Práctica: 60 min</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 1. Introducción y Paradigma -->
+    <section id="intro" class="py-20 bg-white">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll">
+                <span class="w-10 h-10 bg-n8n text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">1</span>
+                ¿Qué es n8n y por qué usarlo?
+            </h2>
+            
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">
+                <strong>n8n</strong> (pronunciado "nodemation") es una plataforma de automatización de flujos de trabajo basada en nodos. Al igual que Zapier o Make, permite conectar diferentes aplicaciones (Gmail, Slack, OpenAI, bases de datos) sin necesidad de escribir código complejo desde cero.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 fade-in-on-scroll">
+                <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl shadow-sm">
+                    <h3 class="text-xl font-bold text-brand-dark mb-3 flex items-center"><i class="fa-solid fa-code-branch text-n8n mr-3"></i> Paradigma Visual</h3>
+                    <p class="font-serif text-sm text-gray-600">
+                        Los flujos se construyen uniendo "nodos" con cables. Cada nodo es un paso lógico: uno extrae datos, otro los procesa con JavaScript (si quieres) y el último los envía a otra plataforma.
+                    </p>
+                </div>
+                <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl shadow-sm">
+                    <h3 class="text-xl font-bold text-brand-dark mb-3 flex items-center"><i class="fa-solid fa-bolt text-n8n mr-3"></i> La Diferencia Técnica</h3>
+                    <p class="font-serif text-sm text-gray-600">
+                        A diferencia de Zapier (enfocado al usuario final), n8n está pensado para perfiles técnicos y operaciones complejas: permite escribir código dentro de los nodos, gestionar bucles complejos y autoalojarse.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Conceptos Core -->
+            <div class="bg-n8n-light/50 border border-n8n/20 p-8 rounded-2xl fade-in-on-scroll">
+                <h3 class="text-2xl font-bold text-n8n mb-6">Los Bloques de Construcción</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div class="bg-white p-5 rounded-xl border border-n8n/10 shadow-sm">
+                        <h4 class="font-bold text-gray-800 mb-2">Triggers (Gatillos)</h4>
+                        <p class="text-sm font-serif text-gray-500">Nodos especiales que inician el flujo. Ej: "Cuando llegue un email nuevo" o un Webhook que espera un aviso de otra app.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-n8n/10 shadow-sm">
+                        <h4 class="font-bold text-gray-800 mb-2">Actions (Acciones)</h4>
+                        <p class="text-sm font-serif text-gray-500">Nodos que hacen cosas: crear una fila en Google Sheets, mandar un mensaje a Slack, pedir un texto a OpenAI.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-n8n/10 shadow-sm">
+                        <h4 class="font-bold text-gray-800 mb-2">Core/Logic Nodos</h4>
+                        <p class="text-sm font-serif text-gray-500">Nodos que modifican los datos: IF (condicionales), Switch, Code (escribir JavaScript para filtrar datos).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Datos Itemizados (Concepto Crítico) -->
+    <section id="datos" class="py-20 bg-brand-light border-t border-gray-200">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in-on-scroll">
+                <span class="text-n8n font-bold tracking-widest text-xs uppercase mb-3 block"><i class="fa-solid fa-layer-group mr-2"></i> El Secreto de n8n</span>
+                <h2 class="text-3xl lg:text-4xl font-extrabold text-brand-dark flex items-center justify-center mb-3">
+                    <span class="w-10 h-10 bg-n8n text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">2</span>
+                    La Lógica de los "Datos Itemizados"
+                </h2>
+                <p class="text-gray-600 font-serif max-w-3xl mx-auto">
+                    Si no entiendes cómo fluyen los datos en n8n, no podrás construir automatizaciones avanzadas. Todo en n8n es una matriz (Array) de objetos JSON.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 fade-in-on-scroll">
+                <div>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed mb-6">
+                        En plataformas como Zapier, si pides "Dame los clientes de la base de datos", recibes un bloque gigante de texto. En n8n, la información fluye como una cinta transportadora de cajas independientes.
+                    </p>
+                    
+                    <div class="bg-white border-l-4 border-n8n p-6 rounded-r-xl shadow-sm mb-6">
+                        <h4 class="font-bold text-brand-dark mb-2">Ejecución Automática por Item</h4>
+                        <p class="font-serif text-gray-600 text-sm">
+                            Si un nodo produce <strong>3 items</strong> (ej: 3 correos sin leer), el siguiente nodo al que esté conectado <strong>se ejecutará 3 veces de forma automática</strong>, una vez por cada item. No tienes que programar un bucle manual (Loop/For-each); n8n lo hace por diseño.
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
+                        <p class="text-sm text-gray-700 font-serif m-0">
+                            <i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i> <strong>Símil:</strong> Piensa en n8n como una fábrica de embotellado. El nodo Trigger vierte 5 botellas vacías en la cinta. El siguiente nodo (Llenar Botella) no actúa sobre el "grupo", actúa individualmente sobre la botella 1, luego la 2, luego la 3...
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Code Block Explanation -->
+                <div class="bg-[#0f172a] rounded-xl shadow-xl overflow-hidden flex flex-col">
+                    <div class="bg-black/40 px-4 py-3 border-b border-white/5 flex items-center text-xs text-gray-400 font-bold uppercase tracking-wider">
+                        <i class="fa-solid fa-code mr-2"></i> Estructura JSON de Items en n8n
+                    </div>
+                    <div id="code-itemized" class="p-6 font-mono text-gray-300 text-[13px] flex-grow whitespace-pre-wrap leading-relaxed"><span class="text-gray-500">// Así viajan los datos por el "cable" entre nodos:
+// Un Array [] que contiene 2 Objetos JSON {} (Items)</span>
+
+<span class="text-blue-400">[</span>
+  <span class="text-amber-400">{</span>
+    <span class="text-purple-400">"json"</span><span class="text-gray-300">:</span> <span class="text-green-400">{</span>
+      <span class="text-cyan-300">"nombre"</span><span class="text-gray-300">:</span> <span class="text-emerald-300">"Carlos"</span><span class="text-gray-300">,</span>
+      <span class="text-cyan-300">"email"</span><span class="text-gray-300">:</span> <span class="text-emerald-300">"carlos@mail.com"</span>
+    <span class="text-green-400">}</span>
+  <span class="text-amber-400">}</span><span class="text-gray-300">,</span>
+  <span class="text-amber-400">{</span>
+    <span class="text-purple-400">"json"</span><span class="text-gray-300">:</span> <span class="text-green-400">{</span>
+      <span class="text-cyan-300">"nombre"</span><span class="text-gray-300">:</span> <span class="text-emerald-300">"Elena"</span><span class="text-gray-300">,</span>
+      <span class="text-cyan-300">"email"</span><span class="text-gray-300">:</span> <span class="text-emerald-300">"elena@mail.com"</span>
+    <span class="text-green-400">}</span>
+  <span class="text-amber-400">}</span>
+<span class="text-blue-400">]</span>
+
+<span class="text-gray-500">// El siguiente nodo "Enviar Email" se ejecutará
+// automáticamente 2 veces.</span></div>
+                    <div class="bg-black/30 px-4 py-3 border-t border-white/5 flex justify-end">
+                        <button onclick="copyToClipboard('code-itemized', this)" class="flex items-center text-xs font-bold text-gray-400 hover:text-white transition-colors border border-gray-600 hover:border-gray-400 rounded px-4 py-1.5">
+                            <i class="fa-regular fa-copy mr-2"></i> Copiar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Nodos Comunes y Parseo -->
+    <section id="nodos" class="py-20 bg-white border-t border-gray-200">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in-on-scroll">
+                <span class="text-n8n font-bold tracking-widest text-xs uppercase mb-3 block"><i class="fa-solid fa-screwdriver-wrench mr-2"></i> Caja de Herramientas</span>
+                <h2 class="text-3xl lg:text-4xl font-extrabold text-brand-dark flex items-center justify-center mb-3">
+                    <span class="w-10 h-10 bg-n8n text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">3</span>
+                    Nodos Esenciales y el Arte de "Parsear"
+                </h2>
+                <p class="text-gray-600 font-serif max-w-3xl mx-auto">
+                    Conocer los nodos principales te permite construir el 80% de las automatizaciones. Pero antes, debes entender cómo traducir la información.
+                </p>
+            </div>
+
+            <!-- Parsear -->
+            <div class="bg-indigo-50 border-l-4 border-brand-primary p-8 rounded-r-2xl shadow-sm mb-16 fade-in-on-scroll flex flex-col md:flex-row items-center gap-8">
+                <div class="md:w-1/3 text-center">
+                    <i class="fa-solid fa-language text-6xl text-brand-primary mb-4"></i>
+                    <h3 class="text-2xl font-bold text-brand-dark">¿Qué es Parsear?</h3>
+                </div>
+                <div class="md:w-2/3">
+                    <p class="font-serif text-gray-700 text-sm leading-relaxed mb-4">
+                        <strong>"Parsear" (del inglés <em>Parsing</em>)</strong> es el proceso de analizar una cadena de texto sin formato y convertirla en una estructura de datos organizada (como los objetos JSON que acabamos de ver) para que n8n pueda leerla y manipularla.
+                    </p>
+                    <p class="font-serif text-gray-700 text-sm leading-relaxed">
+                        Si recibes un archivo CSV gigante o la respuesta en texto plano de una IA, n8n solo ve una "caja de letras". Al pasarlo por un nodo que lo <em>parsea</em>, n8n extrae mágicamente las columnas y filas convirtiéndolas en "Items" individuales. Es el traductor universal entre sistemas.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Nodos Comunes -->
+            <h3 class="text-2xl font-bold text-brand-dark mb-8 text-center fade-in-on-scroll">Los Nodos más Comunes</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in-on-scroll">
+                
+                <!-- Webhook -->
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-lg mr-3"><i class="fa-solid fa-satellite-dish"></i></div>
+                        <h4 class="font-bold text-brand-dark">Webhook</h4>
+                    </div>
+                    <p class="text-xs text-gray-500 font-serif">El Trigger por excelencia. Crea una URL pública que se queda "escuchando". Cuando otra app envía datos a esa URL, el flujo se dispara instantáneamente.</p>
+                </div>
+
+                <!-- HTTP Request -->
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-lg mr-3"><i class="fa-solid fa-globe"></i></div>
+                        <h4 class="font-bold text-brand-dark">HTTP Request</h4>
+                    </div>
+                    <p class="text-xs text-gray-500 font-serif">La navaja suiza. Sirve para conectarse a CUALQUIER API de internet (GET, POST), incluso si n8n no tiene un nodo oficial para esa aplicación.</p>
+                </div>
+
+                <!-- Edit Fields -->
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-lg mr-3"><i class="fa-solid fa-pen-to-square"></i></div>
+                        <h4 class="font-bold text-brand-dark">Edit Fields (Set)</h4>
+                    </div>
+                    <p class="text-xs text-gray-500 font-serif">Mutador de datos. Permite crear, renombrar o borrar campos dentro de un Item. Ideal para limpiar los datos antes de guardarlos en tu base de datos.</p>
+                </div>
+
+                <!-- Switch -->
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center text-lg mr-3"><i class="fa-solid fa-code-branch"></i></div>
+                        <h4 class="font-bold text-brand-dark">Switch / If</h4>
+                    </div>
+                    <p class="text-xs text-gray-500 font-serif">Enrutadores lógicos. "Si el email contiene la palabra 'Urgente', envíalo por la ruta A hacia Slack. Si no, envíalo por la ruta B hacia el archivo de Excel".</p>
+                </div>
+
+                <!-- Code -->
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 bg-gray-800 text-white rounded-lg flex items-center justify-center text-lg mr-3"><i class="fa-brands fa-js"></i></div>
+                        <h4 class="font-bold text-brand-dark">Code</h4>
+                    </div>
+                    <p class="text-xs text-gray-500 font-serif">El nodo sin límites. Escribe JavaScript o Python puro para procesar arrays complejos, parsear datos propietarios o aplicar lógicas matemáticas.</p>
+                </div>
+
+                <!-- Schedule -->
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm card-hover">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 bg-rose-100 text-rose-600 rounded-lg flex items-center justify-center text-lg mr-3"><i class="fa-solid fa-clock"></i></div>
+                        <h4 class="font-bold text-brand-dark">Schedule Trigger</h4>
+                    </div>
+                    <p class="text-xs text-gray-500 font-serif">El temporizador automático (Cron job). Inicia un flujo todos los lunes a las 9:00 AM o cada 15 minutos exactos sin intervención humana.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Despliegue y Arquitectura -->
+    <section id="despliegue" class="py-20 bg-brand-dark text-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in-on-scroll">
+                <h2 class="text-3xl lg:text-4xl font-extrabold flex items-center justify-center mb-4">
+                    <span class="w-12 h-12 bg-n8n text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">4</span>
+                    Formas de Ejecución (Despliegue)
+                </h2>
+                <p class="text-gray-300 font-serif max-w-3xl mx-auto text-lg">
+                    La mayor ventaja competitiva de n8n es dónde se ejecuta. Puedes delegarlo en sus servidores o tener el control absoluto de tus datos en los tuyos.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 fade-in-on-scroll">
+                
+                <!-- Cloud -->
+                <div class="bg-gray-800 p-8 rounded-2xl border-t-8 border-blue-500 shadow-xl relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
+                    <div class="text-blue-400 text-4xl mb-6"><i class="fa-solid fa-cloud"></i></div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">n8n Cloud</h3>
+                    <p class="text-xs text-blue-400 font-bold uppercase tracking-wider mb-4">SaaS Gestionado</p>
+                    <p class="font-serif text-sm text-gray-300 mb-6">La versión tradicional de software como servicio. Pagas una suscripción mensual, te registras en su web y empiezas a automatizar. Ellos mantienen los servidores.</p>
+                    <ul class="text-sm font-sans space-y-2 text-gray-400">
+                        <li><i class="fa-solid fa-check text-blue-400 mr-2"></i> Cero mantenimiento.</li>
+                        <li><i class="fa-solid fa-check text-blue-400 mr-2"></i> Soporte técnico oficial.</li>
+                        <li><i class="fa-solid fa-xmark text-red-400 mr-2"></i> Límites de ejecuciones al mes.</li>
+                    </ul>
+                </div>
+
+                <!-- Desktop -->
+                <div class="bg-gray-800 p-8 rounded-2xl border-t-8 border-amber-500 shadow-xl relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
+                    <div class="text-amber-400 text-4xl mb-6"><i class="fa-solid fa-laptop-code"></i></div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">n8n Desktop</h3>
+                    <p class="text-xs text-amber-400 font-bold uppercase tracking-wider mb-4">Local & Gratuito</p>
+                    <p class="font-serif text-sm text-gray-300 mb-6">Una aplicación que descargas (Mac/Windows). Convierte tu ordenador en el servidor. Excelente para aprender y hacer prototipos sin pagar.</p>
+                    <ul class="text-sm font-sans space-y-2 text-gray-400">
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> 100% Gratuito y fácil de instalar.</li>
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Datos se quedan en tu PC.</li>
+                        <li><i class="fa-solid fa-xmark text-red-400 mr-2"></i> Si apagas el PC, se apaga la automatización.</li>
+                    </ul>
+                </div>
+
+                <!-- Self-Hosted -->
+                <div class="bg-gray-800 p-8 rounded-2xl border-t-8 border-emerald-500 shadow-xl relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
+                    <div class="text-emerald-400 text-4xl mb-6"><i class="fa-solid fa-server"></i></div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">Self-Hosted</h3>
+                    <p class="text-xs text-emerald-400 font-bold uppercase tracking-wider mb-4">Máximo Control</p>
+                    <p class="font-serif text-sm text-gray-300 mb-6">Instalas el código de n8n en tu propio servidor (AWS, DigitalOcean) mediante Docker o npm. Es la opción preferida por empresas tecnológicas y bancos.</p>
+                    <ul class="text-sm font-sans space-y-2 text-gray-400">
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Privacidad total (ideal GDPR/HIPAA).</li>
+                        <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Sin límites de ejecución artificiales.</li>
+                        <li><i class="fa-solid fa-triangle-exclamation text-amber-400 mr-2"></i> Requiere conocimientos de DevOps.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Licencia y Pricing -->
+    <section id="pricing" class="py-20 bg-white border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in-on-scroll">
+                <span class="text-purple-600 font-bold tracking-widest text-xs uppercase mb-3 block"><i class="fa-solid fa-scale-balanced mr-2"></i> Modelo de Negocio</span>
+                <h2 class="text-3xl font-extrabold text-brand-dark flex items-center justify-center mb-3">
+                    <span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">5</span>
+                    La Licencia "Fair-Code"
+                </h2>
+                <p class="text-gray-600 font-serif max-w-2xl mx-auto">
+                    ¿Por qué puedo instalar n8n gratis en mi servidor empresarial?
+                </p>
+            </div>
+
+            <div class="bg-purple-50 border border-purple-100 p-8 rounded-2xl shadow-sm fade-in-on-scroll">
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="md:w-1/3 text-center">
+                        <i class="fa-solid fa-file-signature text-7xl text-purple-400 mb-4"></i>
+                        <h3 class="text-xl font-bold text-brand-dark">Código Abierto vs. Fair-Code</h3>
+                    </div>
+                    <div class="md:w-2/3 space-y-4">
+                        <p class="font-serif text-sm text-gray-700 leading-relaxed">
+                            n8n <strong>no es Open Source (Código Abierto) estricto</strong> (como Linux o WordPress), aunque su código fuente es visible en GitHub. Utiliza una licencia llamada <strong>Fair-Code</strong>.
+                        </p>
+                        <ul class="font-serif text-sm text-gray-700 space-y-3 bg-white p-5 rounded-xl border border-purple-100">
+                            <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> <strong>Lo que PUEDES hacer gratis:</strong> Descargar el código, instalarlo en tu servidor privado y usarlo internamente en tu empresa para automatizar todas las tareas que quieras sin pagar un céntimo en suscripciones.</li>
+                            <li><i class="fa-solid fa-ban text-red-500 mr-2"></i> <strong>Lo que NO puedes hacer:</strong> Coger el código de n8n, meterlo en tu propia web y vender la automatización como un servicio (SaaS) a tus clientes para competir contra ellos, a menos que adquieras una licencia de pago corporativa.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Práctica -->
+    <section id="practica" class="py-24 bg-brand-light border-t border-gray-200">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in-on-scroll">
+                <span class="text-n8n font-bold tracking-widest text-xs uppercase mb-3 block"><i class="fa-solid fa-desktop mr-2"></i> Parte Práctica</span>
+                <h2 class="text-4xl lg:text-5xl font-extrabold mb-6 text-brand-dark">Laboratorio de Conexión y Migración</h2>
+                <p class="text-gray-500 font-serif text-xl max-w-3xl mx-auto">Vamos a construir tu primer flujo leyendo datos de una tabla y enviándolos procesados a otra.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 fade-in-on-scroll">
+                
+                <!-- Ejercicio 1 -->
+                <div class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow relative overflow-hidden flex flex-col">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-n8n"></div>
+                    <h3 class="text-2xl font-bold text-brand-dark mb-4 flex items-center">
+                        <i class="fa-solid fa-play text-n8n mr-3"></i> 1. El Flujo de Sincronización (Sheets)
+                    </h3>
+                    <p class="font-serif text-gray-600 text-sm mb-6">
+                        Conectaremos una tabla de origen con una tabla de destino para automatizar el trasvase de información corporativa.
+                    </p>
+                    <ul class="text-sm font-sans space-y-4 text-gray-700 flex-grow">
+                        <li class="flex items-start">
+                            <span class="bg-n8n/20 text-n8n px-2 py-0.5 rounded text-xs font-bold mr-3 mt-0.5">A</span>
+                            <div><strong>Leer Datos (Origen):</strong> Añade un nodo de <em>Google Sheets</em> y configúralo como "Get Many Rows". Dile que lea los datos de una hoja llamada 'Nuevos Leads'. n8n extraerá cada fila como un Item individual.</div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-n8n/20 text-n8n px-2 py-0.5 rounded text-xs font-bold mr-3 mt-0.5">B</span>
+                            <div><strong>Limpiar / Mapear:</strong> Conecta un nodo <em>Edit Fields (Set)</em>. Úsalo para asegurarte de que solo pasas el "Nombre" y el "Email", descartando columnas innecesarias o cambiando el nombre del campo.</div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-n8n/20 text-n8n px-2 py-0.5 rounded text-xs font-bold mr-3 mt-0.5">C</span>
+                            <div><strong>Escribir Datos (Destino):</strong> Conecta otro nodo de <em>Google Sheets</em>. Configúralo como "Append Row" (Añadir fila) apuntando a una hoja llamada 'CRM Central'. Ejecuta el flujo y observa la magia.</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Ejercicio 2 -->
+                <div class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow relative overflow-hidden flex flex-col">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-indigo-400"></div>
+                    <h3 class="text-2xl font-bold text-brand-dark mb-4 flex items-center">
+                        <i class="fa-solid fa-code-compare text-indigo-500 mr-3"></i> 2. Transformación Avanzada (Code Node)
+                    </h3>
+                    <p class="font-serif text-gray-600 text-sm mb-6">
+                        A veces los datos no llegan en el formato correcto (ej. necesitas parsear un texto y transformarlo). Usaremos JavaScript básico en el nodo Code.
+                    </p>
+                    
+                    <!-- Code Block con botón -->
+                    <div class="bg-[#0f172a] rounded-lg border-l-4 border-indigo-500 shadow-inner overflow-hidden flex flex-col flex-grow">
+                        <div class="bg-black/40 px-4 py-2 border-b border-white/5 flex items-center text-xs text-indigo-400 font-bold uppercase tracking-wider">
+                            <i class="fa-brands fa-js mr-2"></i> Code Node (JavaScript)
+                        </div>
+                        <div id="code-practice" class="p-5 font-mono text-gray-300 text-[12px] flex-grow whitespace-pre-wrap leading-relaxed"><span class="text-gray-500">// Iteramos sobre los datos recibidos de la hoja (Items)</span>
+<span class="text-purple-400">for</span> (<span class="text-purple-400">const</span> item <span class="text-purple-400">of</span> <span class="text-blue-300">$input</span>.<span class="text-blue-300">all</span>()) {
+  <span class="text-gray-500">// Creamos un "saludo" uniendo "Hola " y la columna "nombre"</span>
+  item.<span class="text-blue-300">json</span>.<span class="text-cyan-300">saludo_personalizado</span> = <span class="text-amber-300">"Hola "</span> + item.<span class="text-blue-300">json</span>.<span class="text-cyan-300">nombre</span>;
+  
+  <span class="text-gray-500">// Convertimos el email a minúsculas para estandarizar</span>
+  <span class="text-purple-400">if</span> (item.<span class="text-blue-300">json</span>.<span class="text-cyan-300">email</span>) {
+      item.<span class="text-blue-300">json</span>.<span class="text-cyan-300">email</span> = item.<span class="text-blue-300">json</span>.<span class="text-cyan-300">email</span>.<span class="text-blue-300">toLowerCase</span>();
+  }
+}
+
+<span class="text-gray-500">// Devolvemos el array modificado al siguiente nodo (Destino)</span>
+<span class="text-purple-400">return</span> <span class="text-blue-300">$input</span>.<span class="text-blue-300">all</span>();</div>
+                        <div class="bg-black/30 px-4 py-2 border-t border-white/5 flex justify-end">
+                            <button onclick="copyToClipboard('code-practice', this)" class="flex items-center text-xs font-bold text-gray-400 hover:text-white transition-colors border border-gray-600 hover:border-gray-400 rounded px-3 py-1">
+                                <i class="fa-regular fa-copy mr-2"></i> Copiar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Interactivo -->
+    <section class="py-24 bg-brand-dark text-white border-t-8 border-n8n">
+        <div class="max-w-4xl mx-auto px-6 fade-in-on-scroll">
+            <h3 class="text-3xl font-bold mb-8 text-center"><i class="fa-solid fa-clipboard-question text-n8n mr-3"></i> Autodiagnóstico de Conceptos</h3>
+            <div class="bg-gray-900 border border-gray-700 rounded-2xl p-8 lg:p-12 shadow-2xl">
+                <div id="quizContainer">
+                    <!-- Quiz se renderiza vía JS aquí -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navegación entre Clases -->
+    <section class="py-12 bg-white border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <a href="modulo8-clase2.html" class="flex items-center px-6 py-3 text-gray-600 border border-gray-300 rounded-xl font-bold hover:text-n8n hover:border-n8n transition-all bg-white shadow-sm">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Anterior: Clase 2
+            </a>
+            <a href="index.html" class="flex items-center px-6 py-3 bg-n8n text-white rounded-xl font-bold hover:bg-rose-500 transition-colors shadow-lg">
+                Finalizar Módulo <i class="fa-solid fa-flag-checkered ml-2"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#050B14] text-white py-12 border-t border-gray-800">
+        <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+            <h2 class="text-xl font-bold mb-4 md:mb-0">
+                <span class="text-brand-accent">[m]</span>.seny <span class="text-brand-accent">[labs]</span>
+            </h2>
+            <p class="text-sm text-gray-500 font-sans">Material de Apoyo Formativo - Módulo Extra n8n © 2026</p>
+        </div>
+    </footer>
+
+    <!-- Lógica de Interactividad -->
+    <script>
+        // Copiar Portapapeles
+        function copyToClipboard(elementId, btn) {
+            const el = document.getElementById(elementId);
+            let text = el.innerText || el.textContent;
+            
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                document.execCommand('copy');
+                const originalHTML = btn.innerHTML;
+                
+                btn.innerHTML = '<i class="fa-solid fa-check mr-1"></i> Copiado';
+                btn.classList.add('text-emerald-400');
+                btn.classList.remove('text-gray-500', 'hover:text-white');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.classList.remove('text-emerald-400');
+                    btn.classList.add('text-gray-500', 'hover:text-white');
+                }, 2000);
+            } catch (err) {
+                console.error('Error al copiar', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        // Quiz Data
+        const quizData = [
+            {
+                question: "¿Qué es principalmente n8n?",
+                options: [
+                    { text: "Un modelo de inteligencia artificial como ChatGPT.", correct: false },
+                    { text: "Una plataforma de automatización de flujos de trabajo basada en nodos.", correct: true },
+                    { text: "Un servidor de bases de datos SQL.", correct: false },
+                    { text: "Una herramienta de diseño gráfico UI/UX.", correct: false }
+                ]
+            },
+            {
+                question: "¿Qué significa el concepto de 'Parsear' en el contexto de n8n?",
+                options: [
+                    { text: "Borrar los datos de la base de datos de forma segura.", correct: false },
+                    { text: "Analizar una cadena de texto sin formato (ej. CSV) y convertirla en una estructura de datos organizada (JSON) que n8n pueda manipular.", correct: true },
+                    { text: "Programar el flujo para que se detenga a una hora concreta.", correct: false },
+                    { text: "Traducir automáticamente los datos del inglés al español.", correct: false }
+                ]
+            },
+            {
+                question: "Si quieres conectarte a una API de internet que no tiene un nodo oficial en n8n, ¿cuál es el nodo comodín que utilizarías?",
+                options: [
+                    { text: "Edit Fields (Set)", correct: false },
+                    { text: "Switch", correct: false },
+                    { text: "HTTP Request", correct: true },
+                    { text: "Webhook", correct: false }
+                ]
+            },
+            {
+                question: "¿Qué significa que la información en n8n se procese como 'Datos Itemizados'?",
+                options: [
+                    { text: "Que los datos viajan encriptados por defecto.", correct: false },
+                    { text: "Que la información viaja como un texto gigante sin formato.", correct: false },
+                    { text: "Que no se pueden usar números, solo letras.", correct: false },
+                    { text: "Que los datos fluyen como un listado (Array) de objetos individuales (Items) a través del cable.", correct: true }
+                ]
+            },
+            {
+                question: "Si un nodo A extrae 5 filas de un Google Sheet y se las pasa al nodo B (Enviar mensaje Slack)... ¿qué hace n8n por defecto?",
+                options: [
+                    { text: "Solo procesa la primera fila y descarta el resto.", correct: false },
+                    { text: "El nodo B se ejecutará 5 veces automáticamente, una vez por cada item recibido.", correct: true },
+                    { text: "Manda un solo mensaje a Slack con todo el texto mezclado.", correct: false },
+                    { text: "Da un error de bucle infinito.", correct: false }
+                ]
+            },
+            {
+                question: "¿Para qué sirve el nodo 'Edit Fields' (Set) en n8n?",
+                options: [
+                    { text: "Para diseñar la interfaz visual de una página web.", correct: false },
+                    { text: "Para ejecutar código Python puro en la nube.", correct: false },
+                    { text: "Para mutar datos: permite crear, renombrar o borrar campos dentro de un Item antes de pasarlo al siguiente nodo.", correct: true },
+                    { text: "Para iniciar un flujo de forma manual con un botón.", correct: false }
+                ]
+            },
+            {
+                question: "Si tu empresa maneja datos de salud extremadamente confidenciales (HIPAA), ¿qué modelo de despliegue de n8n elegirías?",
+                options: [
+                    { text: "n8n Cloud en el plan básico.", correct: false },
+                    { text: "n8n Cloud, porque los servidores en la nube son in-hackeables.", correct: false },
+                    { text: "Self-Hosted (servidor propio), ya que garantiza que los datos nunca salen de la infraestructura privada de la empresa.", correct: true },
+                    { text: "n8n Desktop instalado en el portátil de la recepcionista.", correct: false }
+                ]
+            },
+            {
+                question: "¿Qué permite la licencia 'Fair-code' de n8n?",
+                options: [
+                    { text: "Que es totalmente cerrado y no puedes ver el código fuente en GitHub.", correct: false },
+                    { text: "Que puedes ver el código, instalarlo y usarlo gratis para uso interno, pero NO puedes comercializarlo empaquetado como tu propio SaaS para clientes sin una licencia.", correct: true },
+                    { text: "Que solo puedes usarlo gratis si eres una ONG.", correct: false },
+                    { text: "Que es de código abierto (Open Source) estricto, puedes revenderlo como quieras.", correct: false }
+                ]
+            },
+            {
+                question: "En un nodo 'Code' de n8n, ¿qué lenguaje de programación se utiliza principalmente para transformar los datos?",
+                options: [
+                    { text: "Python", correct: false },
+                    { text: "C++", correct: false },
+                    { text: "JavaScript / TypeScript", correct: true },
+                    { text: "Ruby", correct: false }
+                ]
+            },
+            {
+                question: "Dentro de la estructura JSON de n8n, ¿bajo qué propiedad clave se agrupan los datos principales de un Item?",
+                options: [
+                    { text: "metadata", correct: false },
+                    { text: "json", correct: true },
+                    { text: "payload", correct: false },
+                    { text: "headers", correct: false }
+                ]
+            }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = '';
+            
+            quizData.forEach((q, idx) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'mb-8';
+                qDiv.innerHTML = `
+                    <h4 class="text-xl font-bold text-white mb-4"><span class="text-n8n">${idx + 1}.</span> ${q.question}</h4>
+                    <div class="space-y-3">
+                        ${q.options.map((opt, optIdx) => `
+                            <div class="quiz-option group flex items-center" onclick="selectAnswer(event, ${idx}, ${optIdx})">
+                                <input type="radio" name="q${idx}" value="${optIdx}" class="hidden">
+                                <div class="w-6 h-6 rounded-full border-2 border-gray-500 mr-4 flex-shrink-0 group-hover:border-n8n radio-custom transition-colors"></div>
+                                <span class="font-serif text-sm md:text-base">${opt.text}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(qDiv);
+            });
+            
+            const btnDiv = document.createElement('div');
+            btnDiv.className = "mt-10 pt-8 border-t border-gray-700 text-center";
+            btnDiv.innerHTML = `
+                <button onclick="submitQuiz()" class="px-10 py-4 bg-n8n text-white font-bold rounded-xl hover:bg-rose-500 transition-colors shadow-lg text-lg uppercase tracking-wider">
+                    Validar Respuestas
+                </button>
+            `;
+            container.appendChild(btnDiv);
+        }
+
+        function selectAnswer(e, qIdx, optIdx) {
+            const optionContainer = e.currentTarget;
+            const parentDiv = optionContainer.closest('.space-y-3');
+            
+            const allOptions = parentDiv.querySelectorAll('.quiz-option');
+            allOptions.forEach(opt => {
+                opt.classList.remove('selected');
+                opt.querySelector('.radio-custom').classList.remove('bg-n8n', 'border-n8n');
+                opt.querySelector('.radio-custom').classList.add('border-gray-500');
+            });
+            
+            optionContainer.classList.add('selected');
+            const radioCustom = optionContainer.querySelector('.radio-custom');
+            radioCustom.classList.remove('border-gray-500');
+            radioCustom.classList.add('bg-n8n', 'border-n8n');
+            
+            const input = optionContainer.querySelector('input');
+            input.checked = true;
+        }
+
+        function submitQuiz() {
+            let correctCount = 0;
+            let answeredCount = 0;
+            
+            quizData.forEach((q, idx) => {
+                const selected = document.querySelector(`input[name="q${idx}"]:checked`);
+                if (selected) {
+                    answeredCount++;
+                    const optIdx = selected.value;
+                    const isCorrect = q.options[optIdx].correct;
+                    const optionDiv = selected.closest('.quiz-option');
+                    const parentDiv = optionDiv.parentElement;
+                    
+                    parentDiv.style.pointerEvents = "none";
+                    
+                    if (isCorrect) {
+                        correctCount++;
+                        optionDiv.classList.remove('selected');
+                        optionDiv.classList.add('correct');
+                        optionDiv.querySelector('.radio-custom').className = "w-6 h-6 rounded-full bg-emerald-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-xs fa-solid fa-check border-emerald-500";
+                    } else {
+                        optionDiv.classList.remove('selected');
+                        optionDiv.classList.add('incorrect');
+                        optionDiv.querySelector('.radio-custom').className = "w-6 h-6 rounded-full bg-red-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-xs fa-solid fa-xmark border-red-500";
+                        
+                        const allOptions = parentDiv.querySelectorAll('.quiz-option');
+                        q.options.forEach((opt, oIdx) => {
+                            if(opt.correct) {
+                                allOptions[oIdx].classList.add('border-emerald-500', 'text-emerald-400');
+                            }
+                        });
+                    }
+                }
+            });
+            
+            if (answeredCount < quizData.length) {
+                alert("Por favor, responde a todas las preguntas antes de validar.");
+                return;
+            }
+            
+            const percentage = Math.round((correctCount / quizData.length) * 100);
+            let message = "";
+            if (percentage === 100) message = "🏆 ¡Excelente! Dominas la arquitectura base de n8n.";
+            else if (percentage >= 80) message = "👍 ¡Muy bien! Has asimilado los conceptos de nodos y datos itemizados.";
+            else if (percentage >= 60) message = "✅ ¡Aprobado! Repasa cómo funcionan los arrays JSON en el flujo.";
+            else message = "📚 Te recomendamos releer la teoría sobre el despliegue y los Triggers.";
+            
+            alert(`Puntuación Final: ${correctCount}/${quizData.length} (${percentage}%)\n\n${message}`);
+        }
+
+        // Initialize features
+        document.addEventListener('DOMContentLoaded', () => {
+            renderQuiz();
+            
+            // Scroll Observer for Fade-ins
+            const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in-on-scroll').forEach(el => observer.observe(el));
+            
+            // Progress Bar
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrolled = (scrollTop / docHeight) * 100;
+                document.getElementById('progressBar').style.width = scrolled + '%';
+            });
+        });
+    </script>
+</body>
+</html>
