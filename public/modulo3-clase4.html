@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Módulo 3 Clase 4: Ecosistema de Campaña y Síntesis Visual - [m].seny [labs]">
+    <meta name="description" content="Módulo 3 Clase 4: Freepik Spaces y Nodos - [m].seny [labs]">
     <title>Módulo 3: Estudio Creativo (Clase 4) - [m].seny [labs]</title>
 
     <!-- Tailwind CSS -->
@@ -33,6 +33,11 @@
                             primary: '#4F46E5',
                             accent: '#F59E0B',
                             light: '#F8FAFC'
+                        },
+                        claude: {
+                            DEFAULT: '#D97757',
+                            light: '#FDF3F0',
+                            dark: '#B05D40'
                         }
                     }
                 }
@@ -47,66 +52,25 @@
             scroll-behavior: smooth;
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        button,
-        .nav-link {
+        h1, h2, h3, h4, h5, h6, button, .nav-link {
             font-family: 'Inter', sans-serif;
         }
 
-        p,
-        li,
-        .prose-text {
+        p, li, .prose-text {
             font-family: 'Merriweather', serif;
             line-height: 1.6;
             font-size: 1.125rem;
             text-align: justify;
         }
 
-        .text-center {
-            text-align: center;
-        }
-
-        .text-left {
-            text-align: left;
-        }
-
-        /* Callout Boxes */
-        .callout-analogy {
-            background-color: #FEF3C7;
-            /* Amber 50 */
-            border-left: 4px solid #F59E0B;
-            /* Amber 500 */
-        }
-
-        .callout-phrase {
-            background-color: #EEF2FF;
-            /* Indigo 50 */
-            border-left: 4px solid #4F46E5;
-            /* Indigo 600 */
-        }
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
 
         /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
         /* Animations */
         .fade-in-on-scroll {
@@ -155,22 +119,10 @@
             border-color: #4F46E5;
             background-color: rgba(79, 70, 229, 0.1);
         }
-
+        
         .quiz-option.selected {
             border-color: #F59E0B;
             background-color: rgba(245, 158, 11, 0.1);
-        }
-
-        .quiz-option.correct {
-            border-color: #10b981;
-            background-color: rgba(16, 185, 129, 0.1);
-            color: #10b981;
-        }
-
-        .quiz-option.incorrect {
-            border-color: #ef4444;
-            background-color: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
         }
     </style>
 </head>
@@ -181,24 +133,24 @@
 
     <!-- Navigation Header -->
     <header class="bg-white/90 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center">
-                <a href="index.html" class="no-underline">
-                    <h1
-                        class="text-xl font-bold tracking-tight text-brand-dark hover:text-brand-primary transition-colors cursor-pointer">
+                <a href="index.html" class="no-underline group">
+                    <h1 class="text-xl font-bold tracking-tight text-brand-dark group-hover:text-brand-primary transition-colors cursor-pointer">
                         <span class="text-brand-accent">[m]</span>.seny <span class="text-brand-accent">[labs]</span>
                     </h1>
                 </a>
             </div>
-            <nav class="hidden lg:flex space-x-5 text-xs font-bold text-gray-500 uppercase tracking-wider">
-                <a href="#intro" class="hover:text-brand-primary transition-colors">1. Introducción</a>
-                <a href="#herramientas" class="hover:text-brand-primary transition-colors">2. Agencias AI</a>
-                <a href="#concepto" class="hover:text-brand-primary transition-colors">3. Consistencia</a>
-                <a href="#practica" class="hover:text-brand-primary transition-colors text-brand-accent">4. Práctica &
-                    PFC</a>
+            <nav class="hidden md:flex items-center space-x-4 text-xs font-bold text-gray-500 uppercase tracking-wider">
+                <a href="#intro" class="hover:text-brand-primary transition-colors">1. Paradigma</a>
+                <a href="#anatomia" class="hover:text-brand-primary transition-colors">2. Anatomía</a>
+                <a href="#upscaler" class="hover:text-brand-primary transition-colors">3. Upscaler</a>
+                <a href="#gen-img-vid" class="hover:text-brand-primary transition-colors">4. Imagen/Video</a>
+                <a href="#logica" class="hover:text-brand-primary transition-colors">5. Lógica</a>
+                <a href="#practica" class="hover:text-brand-primary transition-colors text-brand-accent">6. PFC</a>
             </nav>
             <a href="/login.html" onclick="document.cookie='sb-ftpywhemyizucquurslo-auth-token=;path=/;max-age=0';localStorage.clear()"
-                class="hidden lg:flex items-center gap-1.5 text-xs font-semibold text-gray-400 hover:text-red-500 transition-colors"
+                class="hidden md:flex items-center gap-1.5 text-xs font-semibold text-gray-400 hover:text-red-500 transition-colors ml-4"
                 title="Cerrar sesión">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -214,523 +166,500 @@
     <!-- Presentation Title (Hero) -->
     <section class="bg-brand-dark text-white py-32 border-b-8 border-brand-primary relative overflow-hidden">
         <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-10 right-10 w-96 h-96 bg-brand-primary rounded-full blur-3xl"></div>
-            <div class="absolute bottom-10 left-20 w-[30rem] h-[30rem] bg-brand-accent rounded-full blur-3xl"></div>
+            <div class="absolute top-10 left-10 w-96 h-96 bg-brand-primary rounded-full blur-3xl"></div>
+            <div class="absolute bottom-10 right-20 w-[30rem] h-[30rem] bg-brand-accent rounded-full blur-3xl"></div>
         </div>
         <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
-            <span
-                class="inline-block py-1 px-3 bg-brand-primary/20 text-brand-primary font-mono text-sm font-bold uppercase tracking-widest mb-6 rounded">
+            <span class="inline-block py-1 px-3 bg-brand-primary/20 text-brand-primary font-mono text-sm font-bold uppercase tracking-widest mb-6 rounded">
                 Módulo 3 • Clase 4
             </span>
             <h1 class="text-5xl lg:text-7xl font-extrabold mb-6 leading-tight">
-                El Ecosistema de Campaña<br>
-                <span class="text-brand-accent text-4xl lg:text-5xl">y Síntesis Visual</span>
+                Freepik Spaces:<br>
+                <span class="text-brand-accent text-4xl lg:text-5xl">La Anatomía de los Nodos</span>
             </h1>
             <p class="text-xl text-gray-300 font-serif max-w-2xl mx-auto italic text-center">
-                De la imagen aislada a la campaña cohesiva. Herramientas de agencia digital en la nube.
+                Del lienzo interactivo a la automatización masiva. Comprendiendo la simplificación modular frente a las herramientas independientes.
             </p>
             <div class="mt-10 flex items-center justify-center space-x-4 text-sm text-gray-400 font-mono">
-                <span><i class="fa-regular fa-clock mr-2"></i> 1 Hora</span>
+                <span><i class="fa-regular fa-clock mr-2"></i> 45 Minutos</span>
                 <span>•</span>
-                <span><i class="fa-solid fa-layer-group mr-2"></i> Producción a Escala</span>
+                <span><i class="fa-solid fa-diagram-project mr-2"></i> Procesamiento en Lote (Batch)</span>
             </div>
         </div>
     </section>
 
-    <!-- 1. Introducción -->
+    <!-- 1. El Paradigma -->
     <section id="intro" class="py-20 bg-white">
         <div class="max-w-5xl mx-auto px-6">
             <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll">
-                <span
-                    class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">1</span>
-                De la Imagen Aislada a la Campaña Cohesiva
+                <span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">1</span>
+                El Paradigma: Nodos vs. Herramientas Independientes
             </h2>
 
             <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">
-                En las tres clases anteriores hemos dominado la generación fotorrealista (Clase 1), la iteración ágil
-                (Clase 2) y el control estructural milimétrico (Clase 3). Ahora nos enfrentamos al último gran reto del
-                Director de Arte Corporativo: <strong>la cohesión y la síntesis a escala</strong>.
+                Es muy común en plataformas modulares como <strong>Freepik Spaces</strong> que la versión en "nodo" de una herramienta esté algo más simplificada o adaptada respecto a su equivalente web independiente (standalone). Esto no es un error, es una decisión de diseño arquitectónico.
             </p>
 
-            <div class="bg-indigo-50 border border-brand-primary/30 p-8 rounded-2xl mb-12 fade-in-on-scroll shadow-sm">
-                <h3 class="text-xl font-bold text-brand-dark mb-6 flex items-center">
-                    <i class="fa-solid fa-bullseye text-brand-primary mr-3"></i> Los 3 Desafíos de Producción
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-white p-5 rounded-xl border border-indigo-100">
-                        <div
-                            class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-3">
-                            <i class="fa-solid fa-magnifying-glass-chart"></i>
-                        </div>
-                        <h4 class="font-bold text-gray-800 mb-2">1. Investigación</h4>
-                        <p class="text-sm font-serif text-gray-600">¿Cómo analizamos rápidamente las tendencias visuales
-                            de la competencia antes de diseñar?</p>
-                    </div>
-                    <div class="bg-white p-5 rounded-xl border border-indigo-100">
-                        <div
-                            class="w-10 h-10 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center mb-3">
-                            <i class="fa-solid fa-clone"></i>
-                        </div>
-                        <h4 class="font-bold text-gray-800 mb-2">2. Consistencia</h4>
-                        <p class="text-sm font-serif text-gray-600">¿Cómo nos aseguramos de que el mismo modelo aparezca
-                            inalterable en 50 banners diferentes?</p>
-                    </div>
-                    <div class="bg-white p-5 rounded-xl border border-indigo-100">
-                        <div
-                            class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-3">
-                            <i class="fa-solid fa-film"></i>
-                        </div>
-                        <h4 class="font-bold text-gray-800 mb-2">3. Prototipado Ágil</h4>
-                        <p class="text-sm font-serif text-gray-600">¿Cómo creamos borradores de vídeo o animatics sin
-                            invertir horas de renderizado?</p>
-                    </div>
+            <div class="grid md:grid-cols-2 gap-8 mb-12 fade-in-on-scroll">
+                <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                    <h4 class="font-bold text-gray-400 uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-window-maximize mr-2"></i> Standalone (App Web)</h4>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Controles milimétricos, pinceles de máscara manuales, interfaces complejas. Diseñado para trabajar <strong>una sola imagen a la vez</strong> con máxima atención al detalle manual.</p>
+                </div>
+                <div class="bg-indigo-50 border border-brand-primary/30 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                    <h4 class="font-bold text-brand-primary uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-diagram-project mr-2"></i> Versión Nodo (Spaces)</h4>
+                    <p class="font-serif text-gray-800 text-sm leading-relaxed">Sacrifica el control manual para evitar sobrecargar el lienzo (canvas) y respetar los límites técnicos del servidor al procesar <strong>flujos en lote (batch processing) y pipelines automáticos</strong>.</p>
                 </div>
             </div>
 
-            <p class="prose-text text-gray-600 fade-in-on-scroll">
-                Esta clase actúa como puente definitivo entre el diseño gráfico puro y la producción de campañas (Módulo
-                4: Generación de Vídeo). Introducimos plataformas diseñadas para el trabajo de agencia y marketing.
-            </p>
-        </div>
-    </section>
-
-    <!-- 2. Herramientas: Agencias Digitales -->
-    <section id="herramientas" class="py-20 bg-brand-light border-t border-gray-200">
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="text-center mb-16 fade-in-on-scroll">
-                <h3 class="text-3xl font-extrabold text-brand-dark flex items-center justify-center mb-3">
-                    <span
-                        class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">2</span>
-                    Agencias Digitales en la Nube
-                </h3>
-                <p class="text-gray-500 font-serif">Plataformas para estructurar campañas visuales y sintetizar
-                    información a velocidades inéditas.</p>
-            </div>
-
-            <div class="flex flex-col space-y-10 fade-in-on-scroll">
-
-                <!-- 1. Genspark -->
-                <div
-                    class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-all card-hover">
-                    <div class="border-l-8 border-[#0EA5E9] p-8 lg:p-10">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
-                            <div class="flex items-center">
-                                <div
-                                    class="w-16 h-16 bg-sky-50 text-[#0EA5E9] rounded-xl flex items-center justify-center text-3xl mr-5 shrink-0">
-                                    <i class="fa-solid fa-sparkles"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-extrabold text-brand-dark text-2xl mb-1">Genspark</h4>
-                                    <p class="text-[#0EA5E9] font-bold text-xs uppercase tracking-widest">Motor de
-                                        Inteligencia Visual</p>
-                                </div>
-                            </div>
-                            <a href="https://www.genspark.ai/" target="_blank" rel="noopener"
-                                class="inline-flex items-center justify-center bg-gray-100 hover:bg-[#0EA5E9] hover:text-white text-gray-700 font-bold py-3 px-6 rounded-lg transition-colors text-sm shadow-sm shrink-0">
-                                Abrir Genspark <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
-                            </a>
-                        </div>
-                        <p class="text-gray-600 font-serif text-lg mb-6 leading-relaxed">
-                            A diferencia de los buscadores que devuelven enlaces, es un "Motor de Respuestas" que
-                            sintetiza información en <strong>Sparkpages</strong> (páginas interactivas, dinámicas y
-                            ricas en contenido multimedia).
-                        </p>
-                        <div class="bg-amber-50 p-4 rounded-lg border-l-4 border-brand-accent mb-4">
-                            <p class="text-sm text-amber-900 font-serif m-0"><i
-                                    class="fa-solid fa-lightbulb mr-2 text-brand-accent"></i><strong>Analogía:</strong>
-                                Es tu investigador junior. En vez de abrir 10 webs de "tendencias de diseño", la IA lee
-                                las 10, extrae conclusiones, descarga imágenes de referencia y te monta una presentación
-                                web resumida al instante.</p>
-                        </div>
-                        <p class="text-sm text-gray-500"><strong class="text-gray-700">Uso Corporativo:</strong>
-                            Moodboards ultrarrápidos, dossiers visuales de competencia y resúmenes ejecutivos.</p>
-                    </div>
-                </div>
-
-                <!-- 2. Pomelli -->
-                <div
-                    class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-all card-hover">
-                    <div class="border-l-8 border-[#F43F5E] p-8 lg:p-10">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
-                            <div class="flex items-center">
-                                <div
-                                    class="w-16 h-16 bg-rose-50 text-[#F43F5E] rounded-xl flex items-center justify-center text-3xl mr-5 shrink-0">
-                                    <i class="fa-solid fa-id-card-clip"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-extrabold text-brand-dark text-2xl mb-1">Pomelli</h4>
-                                    <p class="text-[#F43F5E] font-bold text-xs uppercase tracking-widest">La
-                                        Consistencia de Marca como Servicio</p>
-                                </div>
-                            </div>
-                            <a href="https://pomelli.ai/" target="_blank" rel="noopener"
-                                class="inline-flex items-center justify-center bg-gray-100 hover:bg-[#F43F5E] hover:text-white text-gray-700 font-bold py-3 px-6 rounded-lg transition-colors text-sm shadow-sm shrink-0">
-                                Abrir Pomelli <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
-                            </a>
-                        </div>
-                        <p class="text-gray-600 font-serif text-lg mb-6 leading-relaxed">
-                            Plataforma enfocada en resolver el mayor dolor de cabeza comercial de la IA: la
-                            inconsistencia. Diseñada para que un modelo humano o estilo se mantenga matemáticamente
-                            inalterable en decenas de imágenes.
-                        </p>
-                        <div class="bg-amber-50 p-4 rounded-lg border-l-4 border-brand-accent mb-4">
-                            <p class="text-sm text-amber-900 font-serif m-0"><i
-                                    class="fa-solid fa-lightbulb mr-2 text-brand-accent"></i><strong>Analogía:</strong>
-                                Es un "Libro de Estilo" digital inquebrantable. Le inyectas la cara de tu modelo
-                                contratado y obliga a la IA a no salirse jamás de esos márgenes, ya esté el modelo en
-                                París o en la Luna.</p>
-                        </div>
-                        <p class="text-sm text-gray-500"><strong class="text-gray-700">Uso Corporativo:</strong>
-                            Catálogos e-commerce, campañas anuales de redes y creación de influencers virtuales de
-                            marca.</p>
-                    </div>
-                </div>
-
-                <!-- 3. Opus Clip -->
-                <div
-                    class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-all card-hover">
-                    <div class="border-l-8 border-[#8B5CF6] p-8 lg:p-10">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
-                            <div class="flex items-center">
-                                <div
-                                    class="w-16 h-16 bg-purple-50 text-[#8B5CF6] rounded-xl flex items-center justify-center text-3xl mr-5 shrink-0">
-                                    <i class="fa-solid fa-scissors"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-extrabold text-brand-dark text-2xl mb-1">Opus Clip</h4>
-                                    <p class="text-[#8B5CF6] font-bold text-xs uppercase tracking-widest">La Máquina del
-                                        Micro-Contenido</p>
-                                </div>
-                            </div>
-                            <a href="https://www.opus.pro/" target="_blank" rel="noopener"
-                                class="inline-flex items-center justify-center bg-gray-100 hover:bg-[#8B5CF6] hover:text-white text-gray-700 font-bold py-3 px-6 rounded-lg transition-colors text-sm shadow-sm shrink-0">
-                                Abrir Opus Clip <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
-                            </a>
-                        </div>
-                        <p class="text-gray-600 font-serif text-lg mb-6 leading-relaxed">
-                            IA especializada en "repurposing" (reutilización de contenido). Analiza vídeos largos,
-                            extrae automáticamente los clips más virales, añade subtítulos dinámicos y re-encuadra a
-                            formato vertical.
-                        </p>
-                        <div class="bg-amber-50 p-4 rounded-lg border-l-4 border-brand-accent mb-4">
-                            <p class="text-sm text-amber-900 font-serif m-0"><i
-                                    class="fa-solid fa-lightbulb mr-2 text-brand-accent"></i><strong>Analogía:</strong>
-                                Editor de vídeo trabajando a cámara rápida. Entregas la aburrida conferencia de 1 hora
-                                del CEO, y él corta los 5 momentos clave, los pone en vertical y les pone letras
-                                brillantes para captar atención.</p>
-                        </div>
-                        <p class="text-sm text-gray-500"><strong class="text-gray-700">Uso Corporativo:</strong>
-                            Alimentar redes sociales de la empresa aprovechando el contenido institucional ya existente.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- 4. Higgsfield -->
-                <div
-                    class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-all card-hover">
-                    <div class="border-l-8 border-[#10B981] p-8 lg:p-10">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
-                            <div class="flex items-center">
-                                <div
-                                    class="w-16 h-16 bg-emerald-50 text-[#10B981] rounded-xl flex items-center justify-center text-3xl mr-5 shrink-0">
-                                    <i class="fa-solid fa-person-running"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-extrabold text-brand-dark text-2xl mb-1">Higgsfield AI</h4>
-                                    <p class="text-[#10B981] font-bold text-xs uppercase tracking-widest">El Laboratorio
-                                        de Movimiento Dinámico</p>
-                                </div>
-                            </div>
-                            <a href="https://higgsfield.ai/" target="_blank" rel="noopener"
-                                class="inline-flex items-center justify-center bg-gray-100 hover:bg-[#10B981] hover:text-white text-gray-700 font-bold py-3 px-6 rounded-lg transition-colors text-sm shadow-sm shrink-0">
-                                Abrir Higgsfield <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
-                            </a>
-                        </div>
-                        <p class="text-gray-600 font-serif text-lg mb-6 leading-relaxed">
-                            Plataforma de creación audiovisual altamente dinámica. Destaca por su capacidad para generar
-                            movimientos fluidos, complejos y personalizados a partir de una sola foto estática.
-                        </p>
-                        <div class="bg-amber-50 p-4 rounded-lg border-l-4 border-brand-accent mb-4">
-                            <p class="text-sm text-amber-900 font-serif m-0"><i
-                                    class="fa-solid fa-lightbulb mr-2 text-brand-accent"></i><strong>Analogía:</strong>
-                                Si Midjourney es tu fotógrafo de estudio, Higgsfield es tu director de coreografía. Le
-                                pasas tu foto y le dices "Haz que esta persona baile este ritmo", y aplica la cinemática
-                                realista.</p>
-                        </div>
-                        <p class="text-sm text-gray-500"><strong class="text-gray-700">Uso Corporativo:</strong>
-                            Contenido muy "engaging" B2C, viralización de mascotas corporativas o teasers dinámicos.</p>
-                    </div>
-                </div>
-
+            <!-- Analogía Component -->
+            <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed">
+                    <i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i> 
+                    <strong>El Panel de Propiedades:</strong> Para ser 100% precisos con la realidad actual de Freepik Spaces, recuerda que la interfaz se divide. En el <em>bloque del lienzo</em> ves entradas/salidas y previsualizaciones, pero la verdadera configuración de cada nodo vive en el <strong>Panel de Propiedades (Barra lateral derecha)</strong> cuando haces clic sobre él.
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- 3. Concepto Técnico -->
-    <section id="concepto" class="py-20 bg-white border-t border-gray-200">
+    <!-- 2. Anatomía de un Nodo -->
+    <section id="anatomia" class="py-20 bg-brand-light border-t border-gray-200">
         <div class="max-w-5xl mx-auto px-6">
             <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll">
-                <span
-                    class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">3</span>
-                El Concepto Técnico: Consistencia de Personaje
+                <span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">2</span>
+                Anatomía Visual de un Nodo
             </h2>
-
             <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">
-                El hilo conductor de esta clase es la <strong>consistencia</strong>. Una empresa no puede permitirse que
-                la protagonista de su anuncio cambie de facciones de un post a otro.
+                Observa cómo se estructura la interfaz base de un nodo (en este caso de generación) dentro del lienzo interactivo de Freepik Spaces.
+            </p>
+            <div class="bg-white p-4 rounded-2xl shadow-md border border-gray-200 fade-in-on-scroll max-w-2xl mx-auto">
+                <img src="Captura de pantalla 2026-06-04 010521.png" alt="Anatomía del Nodo en Freepik Spaces" class="w-full h-auto rounded-xl border border-gray-100">
+                <p class="text-center text-sm font-serif text-gray-500 mt-4 italic">El panel principal contiene el cuadro de prompt directo, controles rápidos (como el escalado o ratio) y opciones base del modelo.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Nodo Upscaler -->
+    <section id="upscaler" class="py-20 bg-white border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll">
+                <span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">3</span>
+                El Nodo Upscaler (Tecnología Magnific)
+            </h2>
+            <p class="prose-text mb-12 text-gray-600 fade-in-on-scroll">
+                A diferencia de la web de Magnific donde puedes encadenar escalados enormes libremente, el nodo en Spaces está optimizado para flujos continuos y posee límites de seguridad.
             </p>
 
-            <div class="bg-brand-dark rounded-2xl overflow-hidden shadow-2xl fade-in-on-scroll">
-                <div class="p-8 lg:p-12 text-white">
-                    <h3 class="text-2xl font-bold mb-6 text-brand-accent">¿Cómo logran esto las herramientas?</h3>
-                    <p class="font-serif text-gray-300 mb-8">
-                        A diferencia del <em>Seed</em> (que guarda la composición general) o <em>ControlNet</em> (que
-                        guarda la pose), el entrenamiento de <strong>Character Consistency</strong> funciona mapeando
-                        matemáticamente los rasgos faciales clave (distancia entre los ojos, forma de la mandíbula).
-                    </p>
+            <div class="space-y-6 fade-in-on-scroll">
+                <div class="bg-indigo-50 p-6 rounded-2xl shadow-sm border border-indigo-100 flex items-start">
+                    <div class="w-10 h-10 bg-white text-brand-primary rounded-full flex items-center justify-center text-lg mr-4 shrink-0 shadow-sm">
+                        <i class="fa-solid fa-magnifying-glass-plus"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-brand-dark mb-2 text-base">Límites de Escalado</h4>
+                        <p class="font-serif text-gray-600 text-sm leading-relaxed">El factor está limitado a opciones predefinidas (habitualmente <strong>2x</strong> o <strong>4x</strong>) dependiendo de la resolución original, acotando el tope máximo para que el lienzo no colapse durante el procesamiento.</p>
+                    </div>
+                </div>
 
-                    <div class="bg-white/10 border border-white/20 p-6 rounded-xl relative">
-                        <div class="absolute -right-4 -top-4 text-5xl text-brand-accent opacity-20"><i
-                                class="fa-solid fa-fingerprint"></i></div>
-                        <h4 class="font-bold text-lg mb-2 text-white"><i
-                                class="fa-solid fa-code text-brand-primary mr-2"></i> El Token Único</h4>
-                        <p class="font-serif text-sm text-gray-300">
-                            La plataforma crea un token único (ej. <code
-                                class="bg-black/50 px-2 py-1 rounded text-brand-accent">@Modelo_Acme_01</code>) que
-                            invocas en tus prompts. Cuando la IA ve ese token, ignora su base de datos general de
-                            rostros y <strong>proyecta la malla facial exacta</strong> de tu modelo sobre el nuevo
-                            personaje generado.
-                        </p>
+                <div class="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-200">
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 bg-white text-brand-accent rounded-full flex items-center justify-center text-lg mr-4 shrink-0 shadow-sm">
+                            <i class="fa-solid fa-sliders"></i>
+                        </div>
+                        <h4 class="font-bold text-brand-dark text-base">Sliders del Motor</h4>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                            <h5 class="font-bold text-gray-800 text-sm mb-2">Creativity</h5>
+                            <p class="font-serif text-gray-600 text-sm leading-relaxed">Define cuánta libertad tiene la IA para inventar e interpretar detalles nuevos que no estaban en la imagen original.</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                            <h5 class="font-bold text-gray-800 text-sm mb-2">HDR</h5>
+                            <p class="font-serif text-gray-600 text-sm leading-relaxed">Parámetro fundamental en Magnific. Controla el microcontraste y la agresividad visual de las texturas resultantes.</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                            <h5 class="font-bold text-gray-800 text-sm mb-2">Resemblance</h5>
+                            <p class="font-serif text-gray-600 text-sm leading-relaxed">Fuerza a la IA a mantenerse estrictamente fiel a la paleta de colores y las formas base de la imagen de entrada.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-2xl shadow-sm border border-gray-200 flex items-start">
+                    <div class="w-10 h-10 bg-white text-claude rounded-full flex items-center justify-center text-lg mr-4 shrink-0 shadow-sm">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-brand-dark mb-2 text-base">Presets y Prompts</h4>
+                        <p class="font-serif text-gray-600 text-sm leading-relaxed">Cuenta con un menú 'Optimize for' (Portraits, Art, Nature, Films...) y una caja de <strong>Prompt Interno</strong> para guiar directamente el escalado sin necesitar conectar un nodo de texto externo.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 4. Práctica y PFC -->
-    <section id="practica" class="py-24 bg-brand-dark text-white border-t-8 border-brand-accent">
+    <!-- 4. Imagen y Video -->
+    <section id="gen-img-vid" class="py-20 bg-brand-light border-t border-gray-200">
         <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16 fade-in-on-scroll">
-                <span class="text-brand-accent font-bold tracking-widest text-xs uppercase mb-3 block"><i
-                        class="fa-solid fa-desktop mr-2"></i> Parte Práctica</span>
-                <h2 class="text-4xl lg:text-5xl font-extrabold mb-6">De la Investigación a la Campaña
-                </h2>
-                <p class="text-gray-400 font-serif text-xl max-w-3xl mx-auto">Vamos a orquestar el flujo completo de una
-                    agencia utilizando las herramientas de hoy.</p>
+            <h2 class="text-3xl font-bold text-brand-dark mb-12 flex items-center fade-in-on-scroll">
+                <span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">4</span>
+                Generadores de Imagen y Video
+            </h2>
+
+            <!-- Image Generator Section -->
+            <div class="mb-16 fade-in-on-scroll">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-indigo-100 text-brand-primary rounded-xl flex items-center justify-center text-2xl mr-4">
+                        <i class="fa-solid fa-image"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-brand-dark">Image Generator</h3>
+                </div>
+                <p class="font-serif text-gray-600 text-base mb-6">El bloque en el lienzo incluye una caja principal para teclear tu prompt directamente. Sus propiedades principales incluyen:</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:border-brand-primary transition-colors">
+                        <h4 class="font-bold text-brand-dark text-sm uppercase tracking-wider mb-3 flex items-center"><i class="fa-solid fa-robot text-brand-primary mr-2"></i> Selector de Modelo</h4>
+                        <p class="font-serif text-gray-600 text-sm leading-relaxed">Desplegable con los modelos integrados en la plataforma (Mystic, Flux, Nano Banana, Freepik Core).</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:border-brand-primary transition-colors">
+                        <h4 class="font-bold text-brand-dark text-sm uppercase tracking-wider mb-3 flex items-center"><i class="fa-solid fa-crop text-brand-primary mr-2"></i> Aspect Ratio</h4>
+                        <p class="font-serif text-gray-600 text-sm leading-relaxed">Botones visuales de proporción (16:9, 1:1, 9:16...) para adaptar de forma rápida el lienzo final al formato necesario.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:border-brand-primary transition-colors">
+                        <h4 class="font-bold text-brand-dark text-sm uppercase tracking-wider mb-3 flex items-center"><i class="fa-solid fa-layer-group text-brand-primary mr-2"></i> Number / Batch</h4>
+                        <p class="font-serif text-gray-600 text-sm leading-relaxed">Selector visual integrado que te permite generar de 1 a 4 variantes de imagen simultáneamente en la misma ejecución.</p>
+                    </div>
+                </div>
             </div>
 
-            <!-- Ejercicios -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-24 fade-in-on-scroll">
-                <div class="bg-white/5 border border-white/10 rounded-xl p-8 hover:bg-white/10 transition-colors">
-                    <div
-                        class="w-12 h-12 bg-sky-500/20 text-sky-400 rounded-xl flex items-center justify-center mb-6 text-xl">
-                        <i class="fa-solid fa-magnifying-glass-chart"></i>
+            <hr class="border-gray-200 mb-16">
+
+            <!-- Video Generator Section -->
+            <div class="fade-in-on-scroll">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-amber-100 text-brand-accent rounded-xl flex items-center justify-center text-2xl mr-4">
+                        <i class="fa-solid fa-film"></i>
                     </div>
-                    <h4 class="font-bold text-xl mb-3 text-white">Ej. 1: Analista Visual</h4>
-                    <p class="font-serif text-gray-400 text-sm">Entra en <strong>Genspark</strong>. Busca: <em>"Análisis
-                            visual de paletas de colores en campañas de perfumes de lujo 2026"</em>. Usa la
-                        <em>Sparkpage</em> generada como tu "Moodboard" base.
-                    </p>
+                    <h3 class="text-2xl font-bold text-brand-dark">Video Generator</h3>
                 </div>
-                <div class="bg-white/5 border border-white/10 rounded-xl p-8 hover:bg-white/10 transition-colors">
-                    <div
-                        class="w-12 h-12 bg-rose-500/20 text-rose-400 rounded-xl flex items-center justify-center mb-6 text-xl">
-                        <i class="fa-solid fa-user-check"></i>
+                <p class="font-serif text-gray-600 text-base mb-6">Aquí la simplificación es más evidente respecto a plataformas web de vídeo independientes. Las propiedades clave son:</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:border-brand-accent transition-colors">
+                        <h4 class="font-bold text-brand-dark text-sm uppercase tracking-wider mb-3 flex items-center"><i class="fa-solid fa-robot text-brand-accent mr-2"></i> Selector de Modelo</h4>
+                        <p class="font-serif text-gray-600 text-sm leading-relaxed">Acceso a motores líderes de generación de video generativo como Luma, Kling, Runway o Minimax.</p>
                     </div>
-                    <h4 class="font-bold text-xl mb-3 text-white">Ej. 2: El Embajador</h4>
-                    <p class="font-serif text-gray-400 text-sm">Genera un rostro en primer plano en Midjourney. Luego
-                        investiga cómo usar el parámetro de consistencia (<code>--cref</code>) o
-                        <strong>Pomelli</strong> para generar a esa MISMA persona caminando por la calle.
-                    </p>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:border-brand-accent transition-colors">
+                        <h4 class="font-bold text-brand-dark text-sm uppercase tracking-wider mb-3 flex items-center"><i class="fa-solid fa-plug text-brand-accent mr-2"></i> Conectores Físicos</h4>
+                        <p class="font-serif text-gray-600 text-sm leading-relaxed">Acepta entradas directas visuales desde otros nodos mediante puertos específicos de <em>"Start Frame"</em> o <em>"End Frame"</em>.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:border-brand-accent transition-colors">
+                        <h4 class="font-bold text-brand-dark text-sm uppercase tracking-wider mb-3 flex items-center"><i class="fa-solid fa-video text-brand-accent mr-2"></i> Camera Motions</h4>
+                        <p class="font-serif text-gray-600 text-sm leading-relaxed">Opciones en la barra lateral para <em>Pan</em> (paneo horizontal), <em>Tilt</em> (inclinación) y <em>Zoom</em> (siempre y cuando el modelo subyacente lo soporte).</p>
+                    </div>
                 </div>
-                <div class="bg-white/5 border border-white/10 rounded-xl p-8 hover:bg-white/10 transition-colors">
-                    <div
-                        class="w-12 h-12 bg-purple-500/20 text-purple-400 rounded-xl flex items-center justify-center mb-6 text-xl">
-                        <i class="fa-solid fa-recycle"></i>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 5. Lógica: Listas y Asistentes -->
+    <section id="logica" class="py-20 bg-white border-t border-gray-200">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-brand-dark mb-12 flex items-center fade-in-on-scroll">
+                <span class="w-10 h-10 bg-claude text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">5</span>
+                Nodos de Lógica: Automatización y Cerebros
+            </h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 fade-in-on-scroll mb-10">
+                <!-- List Node -->
+                <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200 shadow-sm flex flex-col">
+                    <div class="flex items-center mb-6">
+                        <div class="w-14 h-14 bg-orange-100 text-claude rounded-xl flex items-center justify-center text-2xl mr-4">
+                            <i class="fa-solid fa-list-ul"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-brand-dark">List Node (Listas)</h3>
                     </div>
-                    <h4 class="font-bold text-xl mb-3 text-white">Ej. 3: Reciclaje Táctico</h4>
-                    <p class="font-serif text-gray-400 text-sm">Pega el enlace de una charla TED de tu sector en
-                        <strong>Opus Clip</strong>. Observa cómo recorta los mejores momentos en vertical y añade
-                        subtítulos en 3 minutos.
+                    <p class="font-serif text-gray-600 text-sm mb-6 leading-relaxed">El motor primario para gestionar colecciones de datos. Aporta la información base que estructurará tus flujos y generaciones en lote a lo largo de todo el pipeline.</p>
+                    
+                    <div class="bg-white rounded-xl p-5 border border-gray-100 flex-grow">
+                        <h4 class="font-bold text-brand-dark text-sm uppercase tracking-wider mb-3">Celdas de Texto Manuales</h4>
+                        <p class="font-serif text-gray-600 text-sm leading-relaxed">Puedes hacer clic en <strong>"Add Row" (Añadir fila)</strong> y escribir manualmente tus variables (ej. "Rojo", "Azul", "Verde") directamente en el nodo. Esta información se empaqueta y puede ser conectada a otros nodos para iterar los procesos de forma automatizada.</p>
+                    </div>
+                </div>
+
+                <!-- Assistant Node -->
+                <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200 shadow-sm flex flex-col">
+                    <div class="flex items-center mb-6">
+                        <div class="w-14 h-14 bg-indigo-100 text-brand-primary rounded-xl flex items-center justify-center text-2xl mr-4">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-brand-dark">Assistant Node (LLM)</h3>
+                    </div>
+                    <p class="font-serif text-gray-600 text-sm mb-6 leading-relaxed">El "cerebro" analítico y conversacional. Actúa como director de operaciones integrado directamente dentro de tu pipeline visual.</p>
+                    
+                    <div class="bg-white rounded-xl p-5 border border-gray-100 flex-grow">
+                        <h4 class="font-bold text-brand-dark text-sm uppercase tracking-wider mb-3">Panel de Propiedades</h4>
+                        <div class="space-y-4">
+                            <p class="font-serif text-gray-600 text-sm leading-relaxed"><strong>Selector de Modelo:</strong> Te permite elegir el cerebro detrás del asistente, variando entre modelos ágiles y rápidos o modelos de razonamiento profundo.</p>
+                            <p class="font-serif text-gray-600 text-sm leading-relaxed"><strong>System Prompt:</strong> Campo donde defines la instrucción base, otorgándole el "rol perpetuo" al nodo de forma independiente al texto que le llega por el conector.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Premium Code Box Component (Full Width) -->
+                <div class="col-span-1 lg:col-span-2 fade-in-on-scroll">
+                    <div class="bg-slate-900 text-white rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                        <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+                            <span class="text-sm font-mono text-brand-accent font-bold uppercase tracking-wider">
+                                <i class="fa-solid fa-terminal mr-2"></i> Ejemplo de System_Prompt.md (Assistant Node)
+                            </span>
+                            <button onclick="copyToClipboard('sys-prompt', this)" class="text-xs font-bold text-slate-400 hover:text-white transition-colors border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg bg-slate-900 flex items-center">
+                                <i class="fa-regular fa-copy mr-2"></i> Copiar Código
+                            </button>
+                        </div>
+                        <div id="sys-prompt" class="p-6 font-mono text-gray-300 text-sm md:text-base leading-relaxed whitespace-pre overflow-x-auto"><span class="text-brand-primary"># ROL PERPETUO DEL NODO (System Prompt)</span>
+Actúa como un Director Creativo experto en moda retail.
+Tu objetivo es evaluar el texto de entrada (variables) y transformarlo 
+en un prompt descriptivo en inglés, altamente optimizado para la IA visual.
+
+<span class="text-claude"># REGLAS ESTRUCTURALES</span>
+1. Responde ÚNICAMENTE con el prompt en inglés resultante.
+2. Añade siempre al final los términos técnicos: "cinematic lighting, photorealistic, 8k".</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Práctica y Quiz (Dark Section) -->
+    <section id="practica" class="py-24 bg-brand-dark text-white border-t-8 border-brand-accent">
+        <div class="max-w-6xl mx-auto px-6">
+            <!-- Proyecto Fin de Curso (PFC) -->
+            <div class="bg-slate-900/80 border border-slate-800 rounded-3xl p-10 lg:p-16 shadow-2xl relative overflow-hidden fade-in-on-scroll mb-20">
+                <div class="absolute top-0 right-0 w-80 h-80 bg-brand-primary/20 rounded-bl-full -z-0 blur-2xl"></div>
+                <div class="flex items-center mb-8 relative z-10">
+                    <div class="w-16 h-16 bg-brand-primary text-white rounded-2xl flex items-center justify-center text-3xl shadow-lg mr-6 shrink-0">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                    <div>
+                        <span class="text-brand-accent font-bold tracking-widest text-xs uppercase mb-1 block">Transversal</span>
+                        <h3 class="text-3xl lg:text-4xl font-extrabold text-white">PFC: Tu Primer Pipeline Automático</h3>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/60 border border-slate-700/50 rounded-2xl p-8 relative z-10">
+                    <h4 class="font-bold text-white text-xl mb-4 flex items-center">
+                        <i class="fa-solid fa-bullseye text-brand-accent mr-3"></i> Tarea: Procesamiento de Prompts en Lote
+                    </h4>
+                    <p class="font-serif text-slate-300 mb-8 text-lg">
+                        Diseña un flujo visual (pipeline) en Freepik Spaces que alimente al generador de imágenes usando variables personalizadas de texto. De esta forma construirás una campaña con múltiples variaciones de tu producto base en una sola ejecución.
                     </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-700 hover:border-brand-accent transition-colors">
+                            <div class="w-12 h-12 bg-indigo-500/20 text-indigo-300 rounded-xl flex items-center justify-center mb-5 text-xl font-bold">
+                                <i class="fa-solid fa-robot"></i>
+                            </div>
+                            <h5 class="font-bold text-white mb-2">1. Asistente Redactor</h5>
+                            <p class="text-sm font-serif text-slate-400">Crear un <em>Assistant Node</em> en el lienzo y configurar su System Prompt interno para que actúe exclusivamente como redactor experto de prompts fotográficos.</p>
+                        </div>
+                        <div class="bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-700 hover:border-brand-accent transition-colors">
+                            <div class="w-12 h-12 bg-amber-500/20 text-amber-300 rounded-xl flex items-center justify-center mb-5 text-xl font-bold">
+                                <i class="fa-solid fa-image"></i>
+                            </div>
+                            <h5 class="font-bold text-white mb-2">2. Creación Visual</h5>
+                            <p class="text-sm font-serif text-slate-400">Conectar la salida de texto al <em>Image Generator</em> para crear las diferentes imágenes a partir de los inputs y listas de referencias proporcionadas.</p>
+                        </div>
+                        <div class="bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-700 hover:border-brand-accent transition-colors">
+                            <div class="w-12 h-12 bg-emerald-500/20 text-emerald-300 rounded-xl flex items-center justify-center mb-5 text-xl font-bold">
+                                <i class="fa-solid fa-diagram-project"></i>
+                            </div>
+                            <h5 class="font-bold text-white mb-2">3. Renderizado y Expansión</h5>
+                            <p class="text-sm font-serif text-slate-400">Renderizar los primeros resultados visuales y repetir el proceso, haciendo crecer el flujo o añadiendo nuevas ramas paralelas a tu gusto.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Quiz Interactivo -->
-            <div class="border-t border-gray-700 pt-16 mb-24 fade-in-on-scroll">
-                <h3 class="text-3xl font-bold mb-8 text-white text-center"><i
-                        class="fa-solid fa-clipboard-question text-brand-accent mr-3"></i> Autodiagnóstico de la Clase 4
+            <div class="border-t border-slate-800 pt-16 mb-12 fade-in-on-scroll">
+                <h3 class="text-3xl font-bold mb-8 text-white text-center">
+                    <i class="fa-solid fa-clipboard-check text-brand-accent mr-3"></i> Cuestionario de Evaluación (Clase 4)
                 </h3>
-                <div class="bg-gray-900 border border-gray-700 rounded-2xl p-8 lg:p-12 shadow-2xl">
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 lg:p-12 shadow-2xl text-white">
                     <div id="quizContainer">
-                        <!-- Quiz se renderiza vía JS aquí -->
+                        <!-- Quiz renderizado por JS -->
+                    </div>
+                    
+                    <div class="text-center mt-10 pt-8 border-t border-slate-800">
+                        <button id="validateBtn" onclick="submitQuiz()" class="px-10 py-4 bg-brand-primary hover:bg-indigo-600 text-white font-bold rounded-xl transition-all shadow-lg uppercase tracking-wider text-sm">
+                            Validar Respuestas
+                        </button>
+                        <div id="quiz-result" class="hidden mt-6 p-5 rounded-xl font-bold font-sans text-center transition-all"></div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Proyecto Fin de Curso (PFC) -->
-            <div
-                class="border-t-8 border-brand-primary bg-white rounded-3xl p-10 lg:p-16 shadow-2xl relative overflow-hidden fade-in-on-scroll text-gray-800">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-brand-primary/5 rounded-bl-full -z-10"></div>
-                <div class="flex items-center mb-6">
-                    <div
-                        class="w-16 h-16 bg-brand-primary text-white rounded-2xl flex items-center justify-center text-3xl shadow-lg mr-6 shrink-0">
-                        <i class="fa-solid fa-rocket"></i>
-                    </div>
-                    <div>
-                        <span class="text-brand-accent font-bold tracking-widest text-xs uppercase mb-1 block">Proyecto
-                            Fin de Curso</span>
-                        <h3 class="text-3xl lg:text-4xl font-extrabold text-brand-dark">El Moodboard y el Embajador</h3>
-                    </div>
-                </div>
-
-                <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-8">
-                    <p class="font-serif text-gray-700 mb-8 text-lg">
-                        Tu campaña necesita fundamentos sólidos antes de pasar a la producción de vídeo final.
-                    </p>
-
-                    <div class="space-y-6">
-                        <div class="flex items-start">
-                            <div
-                                class="w-8 h-8 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center font-bold mr-4 shrink-0 mt-1">
-                                1</div>
-                            <div>
-                                <h5 class="font-bold text-gray-800 text-lg">Investigación de Competencia (Genspark)</h5>
-                                <p class="font-serif text-gray-600 text-sm mt-1">Realiza una búsqueda profunda sobre la
-                                    publicidad visual de tu competencia directa. Extrae las 3 conclusiones visuales más
-                                    importantes e incorpóralas a tu Business Plan.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <div
-                                class="w-8 h-8 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center font-bold mr-4 shrink-0 mt-1">
-                                2</div>
-                            <div>
-                                <h5 class="font-bold text-gray-800 text-lg">Creación de tu Embajador (Consistencia)</h5>
-                                <p class="font-serif text-gray-600 text-sm mt-1">Define al "Embajador" de tu marca.
-                                    Genera <strong>3 fotografías fotorrealistas de la misma persona</strong> en
-                                    situaciones distintas (Primer plano, usando el producto, trabajando) usando
-                                    herramientas de consistencia.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start border-t border-gray-200 pt-6 mt-4">
-                            <div
-                                class="w-8 h-8 bg-brand-primary/10 text-brand-primary rounded-full flex items-center justify-center font-bold mr-4 shrink-0 mt-1">
-                                <i class="fa-solid fa-save"></i>
-                            </div>
-                            <div>
-                                <h5 class="font-bold text-gray-800 text-lg">Entregable</h5>
-                                <p class="font-serif text-gray-600 text-sm mt-1">Guarda el resumen de conclusiones de
-                                    Genspark y el tríptico de fotos consistentes de tu embajador/a.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+    <!-- Navegación entre Clases -->
+    <section class="py-12 bg-white border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <a href="modulo3-clase3.html"
+                class="flex items-center px-6 py-3 text-gray-600 border border-gray-300 rounded-xl font-bold hover:text-brand-primary hover:border-brand-primary transition-all bg-white shadow-sm w-full sm:w-auto justify-center">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Anterior: Clase 3
+            </a>
+            <a href="index.html"
+                class="flex items-center px-6 py-3 text-gray-600 border border-gray-300 rounded-xl font-bold hover:text-brand-primary hover:border-brand-primary transition-all bg-white shadow-sm w-full sm:w-auto justify-center">
+                <i class="fa-solid fa-home mr-2"></i> Volver al Temario
+            </a>
+            <a href="modulo3-clase5.html"
+                class="flex items-center px-6 py-3 bg-brand-primary text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors shadow-lg w-full sm:w-auto justify-center">
+                Siguiente: Clase 5 <i class="fa-solid fa-arrow-right ml-2"></i>
+            </a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-[#050B14] text-white py-12 border-t border-gray-800">
-        <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
-            <h2 class="text-xl font-bold mb-4 md:mb-0">
+    <footer class="bg-brand-dark text-white py-16 border-t border-gray-800">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-4">
                 <span class="text-brand-accent">[m]</span>.seny <span class="text-brand-accent">[labs]</span>
             </h2>
-            <p class="text-sm text-gray-500 font-sans">Material de Apoyo Formativo - Módulo 3 (Clase 4) © 2026</p>
+            <p class="text-gray-400 mb-10 max-w-lg mx-auto font-serif text-center">
+                Empoderando a la próxima generación de empresas con inteligencia artificial práctica y estratégica.
+            </p>
+            <div class="w-12 h-px bg-gray-800 mx-auto my-6"></div>
+            <p class="text-xs text-gray-500 font-sans text-center">
+                Material de Apoyo Formativo - Módulo 3 (Clase 4)<br>
+                © 2026 [m].seny [labs]. Todos los derechos reservados.
+            </p>
         </div>
     </footer>
 
     <!-- Lógica de Interactividad -->
     <script>
-        // Lógica Quiz Interactivo (10 Preguntas Módulo 3 Clase 4)
+        // 1. Lógica de Copiado Portapapeles (Fallback document.execCommand)
+        function copyToClipboard(elementId, btn) {
+            const el = document.getElementById(elementId);
+            let text = el.innerText || el.textContent;
+            
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = text;
+            tempTextArea.style.position = "fixed";
+            tempTextArea.style.left = "-9999px";
+            document.body.appendChild(tempTextArea);
+            tempTextArea.focus();
+            tempTextArea.select();
+            
+            try {
+                document.execCommand('copy');
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-check mr-2"></i> Copiado';
+                btn.classList.add('text-emerald-400');
+                btn.classList.remove('text-slate-400');
+                
+                setTimeout(() => { 
+                    btn.innerHTML = originalHTML; 
+                    btn.classList.remove('text-emerald-400');
+                    btn.classList.add('text-slate-400');
+                }, 2000);
+            } catch (err) {
+                console.error('No se pudo copiar', err);
+            }
+            document.body.removeChild(tempTextArea);
+        }
+
+        // 2. Lógica del Quiz (Renderizado y Validación IN-DOM)
         const quizData = [
             {
-                question: "¿Cuál es la diferencia fundamental entre una búsqueda en Google tradicional y una búsqueda en Genspark?",
+                question: "¿Cuál es el motivo principal por el que los nodos en Freepik Spaces están simplificados respecto a sus aplicaciones web independientes?",
                 options: [
-                    { text: "Genspark solo busca imágenes sin derechos de autor.", correct: false },
-                    { text: "Google da una lista de enlaces, Genspark lee los artículos y genera una presentación o 'Sparkpage' sintetizada.", correct: true },
-                    { text: "Google es más rápido pero Genspark es más seguro.", correct: false },
-                    { text: "No hay diferencia, ambos usan el mismo algoritmo base.", correct: false }
+                    { text: "Para forzar a los usuarios a comprar suscripciones premium.", correct: false },
+                    { text: "Para evitar sobrecargar el lienzo y respetar los límites técnicos al procesar flujos en lote (pipelines).", correct: true },
+                    { text: "Porque la tecnología de nodos aún está en fase beta experimental.", correct: false },
+                    { text: "Para hacer la interfaz más atractiva visualmente a nivel de código.", correct: false }
                 ]
             },
             {
-                question: "Si necesitas generar 20 fotos para un catálogo asegurándote de que la modelo se vea exactamente igual en todas, ¿qué necesitas?",
+                question: "En Freepik Spaces, ¿dónde encuentras la verdadera configuración y opciones avanzadas de un nodo?",
                 options: [
-                    { text: "Herramientas de 'Character Consistency' (como Pomelli) o el parámetro --cref.", correct: true },
-                    { text: "Usar siempre el mismo prompt de iluminación.", correct: false },
-                    { text: "Subir la resolución (Upscaling) a todas las fotos por igual.", correct: false },
-                    { text: "Pedirle a ChatGPT que escriba el prompt muy detallado.", correct: false }
+                    { text: "Están siempre ocultas en el código fuente de la página.", correct: false },
+                    { text: "Exclusivamente escritas sobre el bloque del lienzo (canvas).", correct: false },
+                    { text: "Se despliegan en el menú superior izquierdo al hacer doble clic.", correct: false },
+                    { text: "En el Panel de Propiedades (Barra lateral derecha) al hacer clic sobre el nodo.", correct: true }
                 ]
             },
             {
-                question: "En la analogía de las herramientas, ¿qué plataforma se describe como un 'maquetador e investigador junior'?",
+                question: "A diferencia de la web oficial de Magnific, ¿qué limitación tiene el Nodo Upscaler en Spaces?",
                 options: [
-                    { text: "Opus Clip", correct: false },
-                    { text: "Higgsfield", correct: false },
-                    { text: "Genspark", correct: true },
-                    { text: "Midjourney", correct: false }
+                    { text: "El factor de escalado está limitado a opciones predefinidas por el sistema (como 2x o 4x).", correct: true },
+                    { text: "No permite introducir ningún tipo de prompt para guiar la imagen.", correct: false },
+                    { text: "Solo funciona con imágenes en blanco y negro.", correct: false },
+                    { text: "Carece de controles de creatividad o de fidelidad a la imagen original.", correct: false }
                 ]
             },
             {
-                question: "¿Para qué tarea corporativa específica es ideal utilizar Opus Clip?",
+                question: "Dentro del Nodo Upscaler, ¿qué función cumple el control de 'HDR'?",
                 options: [
-                    { text: "Para traducir textos legales complejos a varios idiomas.", correct: false },
-                    { text: "Para diseñar logotipos vectoriales escalables.", correct: false },
-                    { text: "Para recortar y reciclar vídeos largos (como webinars) en clips verticales cortos y virales para redes sociales.", correct: true },
-                    { text: "Para crear hojas de cálculo automatizadas.", correct: false }
+                    { text: "Cambia el formato de salida a video.", correct: false },
+                    { text: "Controla el microcontraste y la agresividad de las texturas.", correct: true },
+                    { text: "Fuerza a la IA a mantener exactamente la misma paleta de colores.", correct: false },
+                    { text: "Aumenta la resolución exclusivamente en rostros humanos.", correct: false }
                 ]
             },
             {
-                question: "¿Qué diferencia técnica hay entre guardar el número de Seed y utilizar herramientas de Character Consistency?",
+                question: "¿Qué propiedad principal encuentras en el Panel de Propiedades del Generador de Imágenes para elegir su comportamiento?",
                 options: [
-                    { text: "El Seed guarda la composición general de la imagen; Character Consistency mapea y proyecta matemáticamente los rasgos faciales exactos.", correct: true },
-                    { text: "El Seed es de pago y Character Consistency es gratuito.", correct: false },
-                    { text: "El Seed es para vídeo y Character Consistency es para fotos.", correct: false },
-                    { text: "Ninguna, son exactamente la misma tecnología con distinto nombre.", correct: false }
+                    { text: "El botón exclusivo de 'Negative Prompt'.", correct: false },
+                    { text: "Un nodo de texto externo de conexión obligatoria.", correct: false },
+                    { text: "El Selector de Modelo (Mystic, Flux, Nano Banana, Freepik Core).", correct: true },
+                    { text: "La barra de línea de tiempo de fotogramas.", correct: false }
                 ]
             },
             {
-                question: "Si quieres que una fotografía estática de tu mascota corporativa realice un movimiento o coreografía dinámica, ¿qué herramienta explorarías?",
+                question: "Si deseas realizar Inpainting manual (usar pinceles de máscara) en Freepik Spaces, ¿puedes hacerlo dentro del Nodo Generador de Imágenes estándar?",
                 options: [
-                    { text: "Genspark", correct: false },
-                    { text: "Pomelli", correct: false },
-                    { text: "Higgsfield", correct: true },
-                    { text: "Leonardo AI", correct: false }
+                    { text: "Sí, la herramienta de pincel se despliega en el Panel de Propiedades.", correct: false },
+                    { text: "No, las herramientas de edición manual requieren nodos separados (como el Image Editor Node).", correct: true },
+                    { text: "Sí, pero solo si utilizas el modelo Mystic.", correct: false },
+                    { text: "No, el Inpainting está completamente prohibido en entornos modulares.", correct: false }
                 ]
             },
             {
-                question: "VERDADERO o FALSO: Genspark solo devuelve enlaces a páginas web, no redacta ni sintetiza información propia.",
+                question: "En el Nodo Generador de Video, ¿cómo se introducen las imágenes de inicio o fin para animar?",
                 options: [
-                    { text: "Verdadero", correct: false },
-                    { text: "Falso. Genera Sparkpages que consolidan y sintetizan la información extraída de los enlaces.", correct: true }
+                    { text: "Usando los puertos físicos de conexión 'Start Frame' y 'End Frame'.", correct: true },
+                    { text: "Subiendo los archivos manualmente en el Panel de Propiedades.", correct: false },
+                    { text: "Poniendo la URL de la imagen en el System Prompt.", correct: false },
+                    { text: "Este nodo solo genera video desde texto, no admite imágenes base.", correct: false }
                 ]
             },
             {
-                question: "¿Por qué el 'repurposing' (reutilización) de herramientas como Opus es económicamente vital para los departamentos de marketing?",
+                question: "Según el manual, ¿qué herramientas avanzadas suelen estar ausentes o reducidas en el Nodo Generador de Video (ej. Kling/Luma) dentro de Spaces?",
                 options: [
-                    { text: "Porque permite alimentar las redes sociales exprimiendo contenido institucional que ya existe, ahorrando costes de nuevos rodajes.", correct: true },
-                    { text: "Porque elimina la necesidad de pagar derechos de autor musicales.", correct: false },
-                    { text: "Porque reduce el coste de los servidores web.", correct: false },
-                    { text: "Porque escribe los correos de los clientes automáticamente.", correct: false }
+                    { text: "El selector de ratio de aspecto.", correct: false },
+                    { text: "Los parámetros de Paneo (Pan) y Zoom.", correct: false },
+                    { text: "Los pinceles de movimiento (Motion Brush) y extensiones complejas.", correct: true },
+                    { text: "La capacidad de usar una caja de texto para el prompt.", correct: false }
                 ]
             },
             {
-                question: "¿Qué es una 'Sparkpage'?",
+                question: "¿Cómo se introducen los datos manualmente en el 'List Node' (Nodo de Listas)?",
                 options: [
-                    { text: "Un filtro de color para Instagram.", correct: false },
-                    { text: "El menú de inicio de ChatGPT.", correct: false },
-                    { text: "Una página interactiva y multimedia generada por IA como respuesta consolidada a una investigación.", correct: true },
-                    { text: "Un formato de archivo de vídeo de alta compresión.", correct: false }
+                    { text: "Conectando obligatoriamente un archivo de Excel externo.", correct: false },
+                    { text: "Haciendo clic en 'Add Row' (Añadir fila) y escribiendo las variables directamente.", correct: true },
+                    { text: "Usando el modo 'Cross-product / Matrix' en el panel izquierdo.", correct: false },
+                    { text: "Las listas en Spaces solo se pueden autogenerar con IA.", correct: false }
                 ]
             },
             {
-                question: "¿Por qué las marcas están empezando a crear 'Embajadores Virtuales' generados por IA en lugar de modelos reales?",
+                question: "En el 'Assistant Node' (LLM), ¿para qué sirve el campo 'System Prompt / Instrucción base'?",
                 options: [
-                    { text: "Porque los modelos virtuales siempre hablan más idiomas.", correct: false },
-                    { text: "Para evitar pagar impuestos comerciales.", correct: false },
-                    { text: "Porque las herramientas de consistencia permiten usar la imagen de marca de forma ilimitada y controlada, sin depender de la disponibilidad o contratos de un humano.", correct: true },
-                    { text: "Porque la calidad de resolución de la IA siempre es mayor que la de una cámara real.", correct: false }
+                    { text: "Para definir el 'rol' perpetuo del nodo, independientemente del texto que reciba por el conector de entrada.", correct: true },
+                    { text: "Para generar el Negative Prompt de las imágenes.", correct: false },
+                    { text: "Para escribir los datos que luego serán transformados en listas.", correct: false },
+                    { text: "Para seleccionar la versión de ChatGPT o Claude que procesará el texto.", correct: false }
                 ]
             }
         ];
@@ -743,100 +672,116 @@
                 const qDiv = document.createElement('div');
                 qDiv.className = 'mb-8';
                 qDiv.innerHTML = `
-                    <h4 class="text-xl font-bold text-white mb-4"><span class="text-brand-accent">${idx + 1}.</span> ${q.question}</h4>
+                    <h4 class="text-xl font-bold text-white mb-4">
+                        <span class="text-brand-accent">${idx + 1}.</span> ${q.question}
+                    </h4>
                     <div class="space-y-3">
                         ${q.options.map((opt, optIdx) => `
-                            <div class="quiz-option group flex items-center" onclick="selectAnswer(event, ${idx}, ${optIdx})">
+                            <div class="quiz-option flex items-center p-4 rounded-xl border border-slate-700 bg-slate-800/40 cursor-pointer transition-colors" onclick="selectAnswer(event, ${idx}, ${optIdx})">
                                 <input type="radio" name="q${idx}" value="${optIdx}" class="hidden">
-                                <div class="w-6 h-6 rounded-full border-2 border-gray-500 mr-4 flex-shrink-0 group-hover:border-brand-primary radio-custom transition-colors"></div>
-                                <span class="font-serif text-sm md:text-base">${opt.text}</span>
+                                <div class="w-5 h-5 rounded-full border-2 border-slate-500 mr-4 radio-custom flex-shrink-0 transition-colors"></div>
+                                <span class="font-serif text-sm">${opt.text}</span>
                             </div>
                         `).join('')}
                     </div>
                 `;
                 container.appendChild(qDiv);
             });
-
-            const btnDiv = document.createElement('div');
-            btnDiv.className = "mt-10 pt-8 border-t border-gray-700 text-center";
-            btnDiv.innerHTML = `
-                <button onclick="submitQuiz()" class="px-10 py-4 bg-brand-primary text-white font-bold rounded-xl hover:bg-indigo-500 transition-colors shadow-lg text-lg uppercase tracking-wider">
-                    Validar Respuestas
-                </button>
-            `;
-            container.appendChild(btnDiv);
         }
 
         function selectAnswer(e, qIdx, optIdx) {
             const optionContainer = e.currentTarget;
             const parentDiv = optionContainer.closest('.space-y-3');
 
-            const allOptions = parentDiv.querySelectorAll('.quiz-option');
-            allOptions.forEach(opt => {
-                opt.classList.remove('selected');
-                opt.querySelector('.radio-custom').classList.remove('bg-brand-accent', 'border-brand-accent');
-                opt.querySelector('.radio-custom').classList.add('border-gray-500');
+            // Limpiar selección previa
+            parentDiv.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('border-brand-accent', 'bg-brand-primary/10');
+                opt.classList.add('border-slate-700', 'bg-slate-800/40');
+                const radio = opt.querySelector('.radio-custom');
+                radio.className = "w-5 h-5 rounded-full border-2 border-slate-500 mr-4 radio-custom flex-shrink-0 transition-colors";
             });
 
-            optionContainer.classList.add('selected');
-            const radioCustom = optionContainer.querySelector('.radio-custom');
-            radioCustom.classList.remove('border-gray-500');
-            radioCustom.classList.add('bg-brand-accent', 'border-brand-accent');
-
+            // Aplicar nueva selección
+            optionContainer.classList.remove('border-slate-700', 'bg-slate-800/40');
+            optionContainer.classList.add('border-brand-accent', 'bg-brand-primary/10');
+            
+            const radio = optionContainer.querySelector('.radio-custom');
+            radio.className = "w-5 h-5 rounded-full border-2 border-brand-accent bg-brand-accent mr-4 radio-custom flex-shrink-0 transition-colors";
+            
             const input = optionContainer.querySelector('input');
             input.checked = true;
         }
 
         function submitQuiz() {
             let correctCount = 0;
-            let answeredCount = 0;
+            let answered = true;
 
+            // Validación de si se respondieron todas
             quizData.forEach((q, idx) => {
                 const selected = document.querySelector(`input[name="q${idx}"]:checked`);
-                if (selected) {
-                    answeredCount++;
-                    const optIdx = selected.value;
-                    const isCorrect = q.options[optIdx].correct;
-                    const optionDiv = selected.closest('.quiz-option');
-                    const parentDiv = optionDiv.parentElement;
-
-                    parentDiv.style.pointerEvents = "none";
-
-                    if (isCorrect) {
-                        correctCount++;
-                        optionDiv.classList.remove('selected');
-                        optionDiv.classList.add('correct');
-                        optionDiv.querySelector('.radio-custom').className = "w-6 h-6 rounded-full bg-emerald-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-xs fa-solid fa-check";
-                    } else {
-                        optionDiv.classList.remove('selected');
-                        optionDiv.classList.add('incorrect');
-                        optionDiv.querySelector('.radio-custom').className = "w-6 h-6 rounded-full bg-red-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-xs fa-solid fa-xmark";
-
-                        const allOptions = parentDiv.querySelectorAll('.quiz-option');
-                        q.options.forEach((opt, oIdx) => {
-                            if (opt.correct) {
-                                allOptions[oIdx].classList.remove('selected');
-                                allOptions[oIdx].classList.add('correct');
-                                allOptions[oIdx].querySelector('.radio-custom').className = "w-6 h-6 rounded-full bg-emerald-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-xs fa-solid fa-check";
-                            }
-                        });
-                    }
-                }
+                if (!selected) answered = false;
             });
 
-            if (answeredCount < quizData.length) {
-                alert("Por favor, responde a todas las preguntas antes de validar.");
+            const resultDiv = document.getElementById('quiz-result');
+
+            if (!answered) {
+                resultDiv.className = "mt-6 p-4 rounded-xl font-bold font-sans text-center bg-red-900/30 text-red-400 border border-red-500/50 block";
+                resultDiv.innerHTML = "<i class='fa-solid fa-triangle-exclamation mr-2'></i> Por favor, responde a todas las preguntas antes de validar.";
                 return;
             }
 
-            const percentage = Math.round((correctCount / quizData.length) * 100);
-            let message = "";
-            if (percentage === 100) message = "🏆 ¡Excelente! Has dominado el Módulo 3 al completo.";
-            else if (percentage >= 80) message = "👍 ¡Muy bien! Estás listo para saltar a la producción de vídeo.";
-            else if (percentage >= 60) message = "✅ ¡Aprobado! Pero repasa los conceptos de Consistencia de Personaje.";
-            else message = "📚 Te recomendamos releer las diferencias entre Seed y Character Consistency.";
+            // Bloquear botón
+            const btn = document.getElementById('validateBtn');
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
 
-            alert(`Puntuación Final: ${correctCount}/${quizData.length} (${percentage}%)\n\n${message}`);
+            // Calificar
+            quizData.forEach((q, idx) => {
+                const selected = document.querySelector(`input[name="q${idx}"]:checked`);
+                const optIdx = parseInt(selected.value);
+                const isCorrect = q.options[optIdx].correct;
+                
+                const optionDiv = selected.closest('.quiz-option');
+                const parentDiv = optionDiv.parentElement;
+
+                // Bloquear clicks
+                parentDiv.style.pointerEvents = "none";
+
+                if (isCorrect) {
+                    correctCount++;
+                    optionDiv.classList.remove('border-brand-accent', 'bg-brand-primary/10');
+                    optionDiv.classList.add('border-emerald-500', 'bg-emerald-500/20', 'text-emerald-300');
+                    optionDiv.querySelector('.radio-custom').className = "w-5 h-5 rounded-full bg-emerald-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-[10px] fa-solid fa-check border-emerald-500";
+                } else {
+                    optionDiv.classList.remove('border-brand-accent', 'bg-brand-primary/10');
+                    optionDiv.classList.add('border-red-500', 'bg-red-500/20', 'text-red-300');
+                    optionDiv.querySelector('.radio-custom').className = "w-5 h-5 rounded-full bg-red-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-[10px] fa-solid fa-xmark border-red-500";
+
+                    // Mostrar la correcta
+                    const allOptions = parentDiv.querySelectorAll('.quiz-option');
+                    q.options.forEach((opt, oIdx) => {
+                        if (opt.correct) {
+                            const correctDiv = allOptions[oIdx];
+                            correctDiv.classList.remove('border-slate-700', 'bg-slate-800/40');
+                            correctDiv.classList.add('border-emerald-500', 'bg-emerald-500/20', 'text-emerald-300');
+                        }
+                    });
+                }
+            });
+
+            // Mostrar resultado en DOM
+            resultDiv.className = "mt-8 p-6 rounded-2xl font-sans text-center bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 block";
+            
+            const percentage = Math.round((correctCount / quizData.length) * 100);
+            let feedback = "";
+            if(percentage === 100) feedback = "¡Perfecto! Dominas la anatomía de los nodos.";
+            else if (percentage >= 70) feedback = "¡Gran trabajo! Has comprendido los conceptos clave de la automatización.";
+            else feedback = "Te recomendamos repasar las diferencias entre el lienzo y el Panel de Propiedades.";
+
+            resultDiv.innerHTML = `
+                <div class="text-3xl mb-3 font-bold"><i class="fa-solid fa-ranking-star mr-2"></i> Puntuación: ${correctCount} / ${quizData.length}</div>
+                <div class="text-base font-serif text-emerald-100/80">${feedback}</div>
+            `;
         }
 
         // Initialize features
@@ -864,30 +809,6 @@
             });
         });
     </script>
-
-    <!-- Navegación entre Clases -->
-    <section class="py-12 bg-white border-t border-gray-200">
-        <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <a href="modulo3-clase3.html"
-                class="flex items-center px-6 py-3 text-gray-600 border border-gray-300 rounded-xl font-bold hover:text-brand-primary hover:border-brand-primary transition-all bg-white shadow-sm">
-                <i class="fa-solid fa-arrow-left mr-2"></i> Anterior: Clase 3
-            </a>
-            <a href="index.html"
-                class="flex items-center px-6 py-3 bg-brand-primary text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors shadow-lg">
-                Finalizar Módulo <i class="fa-solid fa-check ml-2"></i>
-            </a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-[#050B14] text-white py-12 border-t border-gray-800">
-        <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
-            <h2 class="text-xl font-bold mb-4 md:mb-0">
-                <span class="text-brand-accent">[m]</span>.seny <span class="text-brand-accent">[labs]</span>
-            </h2>
-            <p class="text-sm text-gray-500 font-sans">Material de Apoyo Formativo - Módulo 3 (Clase 4) © 2026</p>
-        </div>
-    </footer>
 </body>
 
 </html>
