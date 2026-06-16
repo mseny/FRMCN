@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Módulo Extra: Desarrollo y Automatización con IA - [m].seny [labs]">
-    <title>Módulo Extra: Desarrollo y Automatización - [m].seny [labs]</title>
-    
+    <meta name="description" content="Módulo 8 Clase 4: El Cerebro Local Autónomo - [m].seny [labs]">
+    <title>Módulo 8: Estudio Creativo (Clase 4) - [m].seny [labs]</title>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
@@ -13,8 +14,10 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap"
+        rel="stylesheet">
+
     <script>
         tailwind.config = {
             theme: {
@@ -31,9 +34,10 @@
                             accent: '#F59E0B',
                             light: '#F8FAFC'
                         },
-                        code: {
-                            bg: '#1E293B',
-                            text: '#E2E8F0'
+                        claude: {
+                            DEFAULT: '#D97757',
+                            light: '#FDF3F0',
+                            dark: '#B05D40'
                         }
                     }
                 }
@@ -47,7 +51,7 @@
             color: #334155;
             scroll-behavior: smooth;
         }
-        
+
         h1, h2, h3, h4, h5, h6, button, .nav-link {
             font-family: 'Inter', sans-serif;
         }
@@ -74,12 +78,16 @@
             transform: translateY(20px);
             transition: all 0.8s ease-out;
         }
+
         .fade-in-on-scroll.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        .card-hover { transition: all 0.3s ease; }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
         .card-hover:hover {
             transform: translateY(-4px);
             box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.1);
@@ -91,7 +99,7 @@
             top: 0;
             left: 0;
             height: 3px;
-            background: linear-gradient(90deg, #4F46E5, #10B981);
+            background: linear-gradient(90deg, #4F46E5, #D97757);
             z-index: 1000;
             transition: width 0.2s ease;
         }
@@ -106,333 +114,533 @@
             background-color: rgba(255, 255, 255, 0.05);
             color: #e2e8f0;
         }
+
         .quiz-option:hover {
-            border-color: #4F46E5;
-            background-color: rgba(79, 70, 229, 0.1);
+            border-color: #D97757;
+            background-color: rgba(217, 119, 87, 0.1);
         }
+
         .quiz-option.selected {
             border-color: #F59E0B;
             background-color: rgba(245, 158, 11, 0.1);
         }
-        .quiz-option.correct {
-            border-color: #10b981;
-            background-color: rgba(16, 185, 129, 0.1);
-            color: #10b981;
-        }
-        .quiz-option.incorrect {
-            border-color: #ef4444;
-            background-color: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
-        }
     </style>
 </head>
+
 <body class="antialiased">
 
     <div class="progress-bar" id="progressBar"></div>
 
     <!-- Navigation Header -->
     <header class="bg-white/90 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+        <!-- Consistent max-w-5xl container for unified margins -->
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center">
-                <h1 class="text-xl font-bold tracking-tight text-brand-dark">
-                    <span class="text-brand-accent">[m]</span>.seny <span class="text-brand-accent">[labs]</span>
-                </h1>
-            </div>
-            <nav class="hidden lg:flex items-center space-x-5 text-xs font-bold text-gray-500 uppercase tracking-wider">
-                <a href="#ide" class="hover:text-brand-primary transition-colors">1. AntiGravity (IDE)</a>
-                <a href="#api" class="hover:text-brand-primary transition-colors">2. APIs y CLI</a>
-                <a href="#mcp" class="hover:text-brand-primary transition-colors">3. Protocolo MCP</a>
-                <a href="#practica" class="hover:text-brand-primary transition-colors text-brand-accent">4. Laboratorio</a>
-                
-                <a href="/login.html" onclick="document.cookie='sb-ftpywhemyizucquurslo-auth-token=;path=/;max-age=0';localStorage.clear()"
-                    class="hidden md:flex items-center gap-1.5 text-xs font-semibold text-gray-400 hover:text-red-500 transition-colors ml-4"
-                    title="Cerrar sesión">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                        <polyline points="16 17 21 12 16 7" />
-                        <line x1="21" y1="12" x2="9" y2="12" />
-                    </svg>
-                    Salir
+                <a href="index.html" class="no-underline group">
+                    <h1 class="text-xl font-bold tracking-tight text-brand-dark group-hover:text-brand-primary transition-colors cursor-pointer">
+                        <span class="text-brand-accent">[m]</span>.seny <span class="text-brand-accent">[labs]</span>
+                    </h1>
                 </a>
+            </div>
+            <!-- Cohesive md:flex Navigation Menu -->
+            <nav class="hidden md:flex items-center space-x-4 text-xs font-bold text-gray-500 uppercase tracking-wider">
+                <a href="#paradigma" class="hover:text-claude transition-colors">1. PARADIGMA</a>
+                <a href="#pilares" class="hover:text-claude transition-colors">2. PIEZAS</a>
+                <a href="#ingesta" class="hover:text-claude transition-colors">3. INGESTA</a>
+                <a href="#enlazador" class="hover:text-claude transition-colors">4. AGENTE</a>
+                <a href="#seguridad" class="hover:text-claude transition-colors">5. SEGURIDAD</a>
+                <a href="#practica" class="hover:text-claude transition-colors text-claude">6. PRÁCTICA</a>
             </nav>
+            <!-- Cohesive "Salir" session button -->
+            <a href="/login.html" onclick="document.cookie='sb-ftpywhemyizucquurslo-auth-token=;path=/;max-age=0';localStorage.clear()"
+                class="hidden md:flex items-center gap-1.5 text-xs font-semibold text-gray-400 hover:text-red-500 transition-colors ml-4"
+                title="Cerrar sesión">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                    <polyline points="16 17 21 12 16 7" />
+                    <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+                Salir
+            </a>
         </div>
     </header>
 
     <!-- Presentation Title (Hero) -->
-    <section class="bg-[#0f172a] text-white py-32 border-b-8 border-brand-primary relative overflow-hidden">
+    <section class="bg-[#0f172a] text-white py-32 border-b-8 border-claude relative overflow-hidden">
         <div class="absolute inset-0 opacity-20">
-            <div class="absolute top-0 right-0 w-[40rem] h-[40rem] bg-indigo-600 rounded-full blur-[150px]"></div>
-            <div class="absolute bottom-[-10rem] left-0 w-[30rem] h-[30rem] bg-emerald-500 rounded-full blur-[150px]"></div>
+            <div class="absolute top-0 right-0 w-[40rem] h-[40rem] bg-claude rounded-full blur-[150px]"></div>
+            <div class="absolute bottom-0 left-0 w-[30rem] h-[30rem] bg-blue-600 rounded-full blur-[150px]"></div>
         </div>
         <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
             <span class="inline-block py-1 px-3 bg-white/10 text-white border border-white/20 font-mono text-sm font-bold uppercase tracking-widest mb-6 rounded">
-                Módulo Extra • Construcción Agentic
+                Módulo 8 • Clase 4
             </span>
             <h1 class="text-5xl lg:text-7xl font-extrabold mb-6 leading-tight">
-                Desarrollo y<br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-emerald-400">Automatización con IA</span>
+                El Cerebro Local Autónomo:<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-claude to-orange-300">Ingesta Segura a Obsidian</span>
             </h1>
             <p class="text-xl text-gray-300 font-serif max-w-2xl mx-auto italic text-center">
-                De escribir código a orquestar sistemas. Dominando los IDEs, APIs y el estándar MCP para conectar la IA al mundo real.
+                Convierte tus Excels de ventas, exports del CRM, informes de campaña y facturación en una base de conocimiento privada, conectada y navegable — 100% en tu máquina, sin subir datos sensibles de clientes a otra nube.
             </p>
-            <div class="mt-10 flex items-center justify-center space-x-6 text-sm text-gray-400 font-mono">
-                <span><i class="fa-solid fa-book-open mr-2 text-indigo-400"></i> Teoría: 130 min</span>
-                <span>•</span>
-                <span><i class="fa-solid fa-laptop-code mr-2 text-emerald-400"></i> Práctica: 140 min</span>
+            <div class="mt-8 flex flex-wrap items-center justify-center gap-2 text-xs font-mono font-bold">
+                <span class="px-3 py-1 bg-orange-500/20 text-orange-300 border border-orange-500/30 rounded-full">Obsidian Vault</span>
+                <span class="px-3 py-1 bg-blue-500/20 text-blue-300 border border-blue-500/30 rounded-full">MarkItDown</span>
+                <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded-full">Tesseract OCR</span>
+                <span class="px-3 py-1 bg-purple-500/20 text-purple-300 border border-purple-500/30 rounded-full">Claude Code</span>
+                <span class="px-3 py-1 bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 rounded-full">Local-First</span>
             </div>
         </div>
     </section>
 
-    <!-- 1. AntiGravity (IDE) -->
-    <section id="ide" class="py-20 bg-white">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row items-center mb-16 fade-in-on-scroll">
-                <div class="md:w-1/2 pr-0 md:pr-10 mb-8 md:mb-0">
-                    <h2 class="text-3xl font-bold text-brand-dark mb-4 flex items-center">
-                        <span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">1</span>
-                        AntiGravity: Programar con IA en el IDE
-                    </h2>
-                    <p class="prose-text text-gray-600 mb-6">
-                        Un <strong>IDE</strong> (Integrated Development Environment) es el software donde los desarrolladores escriben código (ej. VS Code, Cursor). <strong>AntiGravity</strong> representa la nueva generación de IDEs con IA integrada nativamente, permitiendo autocompletar código, chatear con el proyecto y generar funciones enteras desde lenguaje natural.
-                    </p>
-                    <p class="font-bold text-brand-dark mb-2">¿Para qué sirve en este curso?</p>
-                    <p class="font-serif text-gray-600 text-sm mb-6">Para construir el <em>AI Decision Hub</em>: scripts de conexión a APIs, procesamiento de datos locales y generación de reportes automáticos sin necesidad de ser un programador experto.</p>
-                    
-                    <div class="bg-amber-50 p-5 rounded-xl border-l-4 border-brand-accent">
-                        <p class="font-serif text-amber-900 text-sm m-0">
-                            <i class="fa-solid fa-utensils mr-2 text-brand-accent"></i> <strong>Analogía:</strong> Si el código es una receta de cocina, el IDE es la cocina completa. AntiGravity añade un <em>chef asistente</em> que te sugiere los ingredientes, te avisa si vas a quemar algo y puede cocinar partes enteras del plato por ti.
-                        </p>
-                    </div>
+    <!-- 1. El Paradigma Local-First -->
+    <section id="paradigma" class="py-20 bg-white">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll">
+                <span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">1</span>
+                El Paradigma de la Gestión Cognitiva Local-First
+            </h2>
+
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">
+                Delegar toda tu información a la nube (SaaS) tiene un coste oculto: dependes de servidores ajenos, de APIs que cambian y de la promesa de que "nadie mirará" tus datos. El movimiento <strong>Local-First</strong> da la vuelta a eso: tus archivos viven en tu disco, en texto plano, y las herramientas inteligentes trabajan <em>sobre</em> ellos sin sacarlos de tu máquina. Ganas velocidad, privacidad y control total.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12 fade-in-on-scroll">
+                <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                    <h4 class="font-bold text-gray-400 uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-cloud-slash mr-2"></i> Privacidad y soberanía</h4>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Tus notas, contratos y secretos comerciales nunca abandonan tu equipo. Al no exponer tu Vault a APIs externas, eliminas la principal vía de fuga de información.</p>
                 </div>
-                
-                <div class="md:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 card-hover">
-                        <div class="text-indigo-500 mb-3 text-2xl"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                        <h4 class="font-bold text-brand-dark mb-2">Autocompletado</h4>
-                        <p class="text-xs text-gray-500 font-serif">La IA predice y sugiere la siguiente línea o bloque entero mientras escribes, basándose en el contexto del archivo. (Como el autocorrector del móvil, pero súper inteligente).</p>
-                    </div>
-                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 card-hover">
-                        <div class="text-emerald-500 mb-3 text-2xl"><i class="fa-regular fa-comments"></i></div>
-                        <h4 class="font-bold text-brand-dark mb-2">Chat con Codebase</h4>
-                        <p class="text-xs text-gray-500 font-serif">Permite hacer preguntas al IDE: <em>"¿Qué hace esta función?"</em> o <em>"Refactoriza esto para que sea limpio"</em>, dándole acceso de lectura a todo tu proyecto.</p>
-                    </div>
-                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 card-hover">
-                        <div class="text-purple-500 mb-3 text-2xl"><i class="fa-solid fa-pen-to-square"></i></div>
-                        <h4 class="font-bold text-brand-dark mb-2">Inline Editing</h4>
-                        <p class="text-xs text-gray-500 font-serif">Seleccionas un bloque de código y le pides a la IA que lo modifique directamente allí mismo, sin tener que salir a una ventana de chat externa.</p>
-                    </div>
-                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 card-hover">
-                        <div class="text-rose-500 mb-3 text-2xl"><i class="fa-solid fa-folder-tree"></i></div>
-                        <h4 class="font-bold text-brand-dark mb-2">Contexto Total</h4>
-                        <p class="text-xs text-gray-500 font-serif">El IDE con IA "lee" todos los archivos de tu proyecto simultáneamente para dar sugerencias que sean coherentes con la arquitectura y variables que ya existen.</p>
-                    </div>
+                <div class="bg-indigo-50 border border-brand-primary/30 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                    <h4 class="font-bold text-brand-primary uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-bolt mr-2"></i> Velocidad y formato abierto</h4>
+                    <p class="font-serif text-gray-800 text-sm leading-relaxed">Markdown plano (`.md`) se lee y escribe a la velocidad de tu disco, y seguirá siendo legible dentro de cincuenta años con cualquier editor de texto. Cero <em>lock-in</em>.</p>
+                </div>
+            </div>
+
+            <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed">
+                    <i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i>
+                    <strong>La metáfora del archivo físico:</strong> no guardes tus ideas bajo llave en el almacén de otro. Si las tienes en folios de texto plano en tu propio despacho, podrás leerlas siempre y dejar que cualquier ayudante inteligente (un agente de IA) las ordene <em>sin llevárselas</em>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Diccionario rápido (glosario) -->
+    <section id="diccionario" class="py-16 bg-white border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-2xl font-bold text-brand-dark mb-2 flex items-center fade-in-on-scroll">
+                <i class="fa-solid fa-book-bookmark text-brand-primary mr-3"></i> Diccionario rápido de Obsidian
+            </h2>
+            <p class="prose-text text-gray-500 text-base mb-8 fade-in-on-scroll">Cinco minutos de vocabulario para que el resto de la clase se entienda a la primera. Lo traducimos a tu día a día con datos, Excels y CRM.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 fade-in-on-scroll">
+                <div class="bg-gray-50 border border-gray-200 p-5 rounded-xl">
+                    <h5 class="font-bold text-brand-dark text-sm mb-1"><i class="fa-solid fa-vault text-brand-primary mr-2"></i> Vault (bóveda)</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed m-0">La carpeta de tu disco con TODAS tus notas. Como tu carpeta de informes en Drive, pero 100% local.</p>
+                </div>
+                <div class="bg-gray-50 border border-gray-200 p-5 rounded-xl">
+                    <h5 class="font-bold text-brand-dark text-sm mb-1"><i class="fa-solid fa-file-lines text-brand-primary mr-2"></i> Nota (.md)</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed m-0">Un archivo de texto plano (Markdown). Ligero, abrible en cualquier sitio y legible para siempre.</p>
+                </div>
+                <div class="bg-gray-50 border border-gray-200 p-5 rounded-xl">
+                    <h5 class="font-bold text-brand-dark text-sm mb-1"><i class="fa-solid fa-link text-brand-primary mr-2"></i> WikiLink <code>[[ ]]</code></h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed m-0">Un enlace entre dos notas. Como un VLOOKUP que te lleva de "Cliente X" a su ficha o a sus facturas con un clic.</p>
+                </div>
+                <div class="bg-gray-50 border border-gray-200 p-5 rounded-xl">
+                    <h5 class="font-bold text-brand-dark text-sm mb-1"><i class="fa-solid fa-tags text-brand-primary mr-2"></i> Frontmatter (YAML)</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed m-0">La cabecera de metadatos de la nota (etiquetas, fecha, tipo). Como las columnas de cabecera de un dataset: sirve para filtrar y clasificar.</p>
+                </div>
+                <div class="bg-gray-50 border border-gray-200 p-5 rounded-xl">
+                    <h5 class="font-bold text-brand-dark text-sm mb-1"><i class="fa-solid fa-hashtag text-brand-primary mr-2"></i> Etiqueta <code>#tag</code></h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed m-0">Una clasificación transversal. Como un segmento o categoría en tu CRM (#vip, #devolucion, #campaña-Q2).</p>
+                </div>
+                <div class="bg-gray-50 border border-gray-200 p-5 rounded-xl">
+                    <h5 class="font-bold text-brand-dark text-sm mb-1"><i class="fa-solid fa-circle-nodes text-brand-primary mr-2"></i> Grafo · nodo · arista</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed m-0">El mapa visual de tu bóveda. Cada <strong>nodo</strong> es una nota; cada <strong>arista</strong> (línea) es un enlace entre dos notas.</p>
+                </div>
+                <div class="bg-gray-50 border border-gray-200 p-5 rounded-xl">
+                    <h5 class="font-bold text-brand-dark text-sm mb-1"><i class="fa-solid fa-ghost text-brand-primary mr-2"></i> Nodo huérfano</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed m-0">Una nota sin ningún enlace (ni entrante ni saliente): aparece suelta y aislada. Conocimiento que nadie volverá a encontrar por asociación.</p>
+                </div>
+                <div class="bg-gray-50 border border-gray-200 p-5 rounded-xl">
+                    <h5 class="font-bold text-brand-dark text-sm mb-1"><i class="fa-solid fa-sitemap text-brand-primary mr-2"></i> Nota índice (MOC) · Hub</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed m-0">Una nota que agrupa y enlaza a otras (un "Map of Content"). Como una hoja "índice" o un dashboard que enlaza a todos tus reports. Un <strong>hub</strong> es una nota muy enlazada.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 2. APIs y CLI -->
-    <section id="api" class="py-20 bg-brand-light border-t border-gray-200">
-        <div class="max-w-6xl mx-auto px-6">
+    <!-- 2. Arquitectura: las piezas reales -->
+    <section id="pilares" class="py-20 bg-brand-light border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-6">
             <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll">
                 <span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">2</span>
-                APIs y CLI: Hablar con las Herramientas
+                La Arquitectura: las piezas reales del sistema
             </h2>
-            
-            <!-- Conceptos -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 fade-in-on-scroll">
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                    <h3 class="text-lg font-bold text-brand-dark mb-2"><i class="fa-solid fa-plug text-blue-500 mr-2"></i> API</h3>
-                    <p class="text-xs text-gray-500 font-serif mb-3">Application Programming Interface. Contrato que permite a dos programas comunicarse.</p>
-                    <p class="text-xs text-blue-800 bg-blue-50 p-2 rounded"><strong>Símil:</strong> El menú del restaurante. Pides algo (al camarero/API) y la cocina (sistema) te trae el plato.</p>
+            <p class="prose-text mb-10 text-gray-600 fade-in-on-scroll">
+                El sistema coordina varias herramientas, cada una con un único trabajo claro. Ninguna manda tus documentos a la nube por su cuenta, y conviene <strong>auditar cada una antes de instalarla</strong> (lo vemos en la sección 5).
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 fade-in-on-scroll">
+                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+                    <h5 class="font-bold text-brand-dark text-base mb-2"><i class="fa-solid fa-box-open text-brand-primary mr-2"></i> 1. Obsidian — el almacén y visor</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">No es una IA: es un lector visual de tus archivos `.md` en una carpeta local (el <em>Vault</em>). Dibuja de forma nativa las conexiones que existen físicamente entre notas mediante `[[WikiLinks]]`.</p>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                    <h3 class="text-lg font-bold text-brand-dark mb-2"><i class="fa-solid fa-network-wired text-emerald-500 mr-2"></i> REST</h3>
-                    <p class="text-xs text-gray-500 font-serif mb-3">Estilo de comunicación para APIs web. Usa peticiones HTTP (GET, POST, PUT, DELETE).</p>
-                    <p class="text-xs text-emerald-800 bg-emerald-50 p-2 rounded">El estándar de la industria para enviar y recibir datos en la web moderna.</p>
+                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+                    <h5 class="font-bold text-brand-dark text-base mb-2"><i class="fa-solid fa-shuffle text-brand-primary mr-2"></i> 2. MarkItDown — el conversor</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Herramienta de Microsoft que traduce PDF, Word, Excel, PowerPoint, CSV o HTML a Markdown limpio. Conviene instalarla <strong>solo con los formatos necesarios</strong> (sin el extra `[all]`), sin conectores de nube ni de audio.</p>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                    <h3 class="text-lg font-bold text-brand-dark mb-2"><i class="fa-solid fa-brackets-curly text-amber-500 mr-2"></i> JSON</h3>
-                    <p class="text-xs text-gray-500 font-serif mb-3">Formato ligero de texto para estructurar datos (JavaScript Object Notation).</p>
-                    <p class="text-xs text-amber-800 bg-amber-50 p-2 rounded"><strong>Símil:</strong> Un formulario bien rellenado. Campos claros y valores definidos, legible por máquinas.</p>
+                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+                    <h5 class="font-bold text-brand-dark text-base mb-2"><i class="fa-solid fa-eye text-brand-primary mr-2"></i> 3. Tesseract OCR — los ojos</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Motor de OCR <strong>100% local</strong> (con idioma español instalado) que extrae el texto de imágenes y escaneos. <em>Importante:</em> es OCR local, <strong>no</strong> una descripción por un LLM en la nube — tus imágenes no salen del equipo.</p>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                    <h3 class="text-lg font-bold text-brand-dark mb-2"><i class="fa-solid fa-terminal text-purple-500 mr-2"></i> CLI</h3>
-                    <p class="text-xs text-gray-500 font-serif mb-3">Command Line Interface. Interfaz donde ejecutas comandos escribiendo texto.</p>
-                    <p class="text-xs text-purple-800 bg-purple-50 p-2 rounded"><strong>Símil:</strong> La interfaz visual es un coche automático; la CLI es uno manual. Más control y velocidad.</p>
+                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+                    <h5 class="font-bold text-brand-dark text-base mb-2"><i class="fa-solid fa-robot text-brand-primary mr-2"></i> 4. Claude Code + subagente — el cerebro</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">El agente de terminal que orquesta el flujo y razona: detecta el archivo, añade metadatos y decide qué notas están relacionadas para inyectar los enlaces. Empaquetado como una <em>Skill</em> + un subagente enlazador.</p>
                 </div>
             </div>
 
-            <!-- API Key y Anthropic -->
-            <div class="bg-brand-dark rounded-3xl p-8 lg:p-12 shadow-xl fade-in-on-scroll relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl"></div>
-                <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg" alt="Anthropic" class="w-6 h-6 mr-3 filter invert opacity-80">
-                    Integrando la API de Anthropic
-                </h3>
-                
-                <div class="mb-8">
-                    <p class="font-serif text-gray-300 text-sm mb-2"><strong>API Key:</strong> Credencial única que identifica quién hace cada petición. Es como tu DNI para el servicio.</p>
-                    <p class="font-serif text-gray-300 text-sm"><strong>Endpoint principal:</strong> <code class="bg-black/50 text-emerald-400 px-2 py-1 rounded">https://api.anthropic.com/v1/messages</code></p>
-                    <p class="font-serif text-gray-300 text-sm mt-2"><strong>Parámetros:</strong> <code>model</code>, <code>max_tokens</code>, <code>messages</code>, <code>system</code>.</p>
-                </div>
+            <div class="bg-indigo-50/60 p-6 rounded-2xl border border-indigo-100 my-8 fade-in-on-scroll">
+                <h4 class="font-bold text-brand-dark text-sm uppercase mb-3"><i class="fa-solid fa-map-location-dot mr-2 text-indigo-600"></i> ¿Y el "mapa" para que Claude navegue rápido?</h4>
+                <p class="font-serif text-gray-700 text-sm leading-relaxed mb-0">
+                    En lugar de instalar un paquete externo de dudosa procedencia (lo vemos en la sección 5), puedes pedirle a Claude un <strong>mapa del Vault con un script propio y transparente</strong>: un `GRAPH_REPORT.md` y un pequeño consultor que le permiten moverse por estructura sin leer todas las notas una a una.
+                </p>
+            </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <!-- CURL Example -->
-                    <div class="bg-[#0f172a] rounded-xl border border-gray-700 overflow-hidden flex flex-col">
-                        <div class="bg-black/50 px-4 py-2 border-b border-gray-700 flex justify-between items-center">
-                            <span class="text-xs text-gray-400 font-mono uppercase">1. Llamada por Terminal (cURL)</span>
-                            <button onclick="copyToClipboard('code-curl', this)" class="text-xs text-gray-500 hover:text-white transition-colors"><i class="fa-regular fa-copy"></i> Copiar</button>
-                        </div>
-                        <div id="code-curl" class="p-5 font-mono text-gray-300 text-xs flex-grow whitespace-pre-wrap overflow-x-auto"><span class="text-emerald-400">curl</span> https://api.anthropic.com/v1/messages \
-  <span class="text-blue-400">--header</span> <span class="text-amber-300">"x-api-key: $ANTHROPIC_API_KEY"</span> \
-  <span class="text-blue-400">--header</span> <span class="text-amber-300">"anthropic-version: 2023-06-01"</span> \
-  <span class="text-blue-400">--header</span> <span class="text-amber-300">"content-type: application/json"</span> \
-  <span class="text-blue-400">--data</span> <span class="text-amber-300">'{
-    "model": "claude-3-5-sonnet-20241022",
-    "max_tokens": 1024,
-    "messages": [
-      {"role": "user", "content": "Analiza estos KPIs..."}
-    ]
-  }'</span></div>
-                    </div>
-
-                    <!-- Python Example -->
-                    <div class="bg-[#0f172a] rounded-xl border border-gray-700 overflow-hidden flex flex-col">
-                        <div class="bg-black/50 px-4 py-2 border-b border-gray-700 flex justify-between items-center">
-                            <span class="text-xs text-gray-400 font-mono uppercase">2. Llamada con Python (SDK)</span>
-                            <button onclick="copyToClipboard('code-python', this)" class="text-xs text-gray-500 hover:text-white transition-colors"><i class="fa-regular fa-copy"></i> Copiar</button>
-                        </div>
-                        <div id="code-python" class="p-5 font-mono text-gray-300 text-xs flex-grow whitespace-pre-wrap overflow-x-auto"><span class="text-purple-400">import</span> anthropic
-
-client = anthropic.Anthropic(
-    api_key=<span class="text-amber-300">"TU_API_KEY"</span>,
-)
-
-message = client.messages.create(
-    model=<span class="text-amber-300">"claude-3-5-sonnet-20241022"</span>,
-    max_tokens=<span class="text-purple-400">1024</span>,
-    system=<span class="text-amber-300">"Eres el AI Decision Hub."</span>,
-    messages=[
-        {<span class="text-amber-300">"role"</span>: <span class="text-amber-300">"user"</span>, <span class="text-amber-300">"content"</span>: <span class="text-amber-300">"Calcula el revenue..."</span>}
-    ]
-)
-<span class="text-blue-400">print</span>(message.content[<span class="text-purple-400">0</span>].text)</div>
-                    </div>
-                </div>
+            <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed">
+                    <i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i>
+                    <strong>El ecosistema en una frase:</strong> MarkItDown convierte, Tesseract lee las imágenes, el agente de Claude interconecta, Obsidian almacena y dibuja, y nuestro mapa local es el GPS que hace al agente rápido y barato cuando hay muchas notas.
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- 3. Protocolo MCP -->
-    <section id="mcp" class="py-20 bg-white">
+    <!-- 3. Ingesta Local -->
+    <section id="ingesta" class="py-20 bg-white border-t border-gray-200">
         <div class="max-w-5xl mx-auto px-6">
-            <div class="text-center mb-16 fade-in-on-scroll">
-                <span class="text-brand-primary font-bold tracking-widest text-xs uppercase mb-3 block">Interoperabilidad</span>
-                <h2 class="text-3xl lg:text-4xl font-extrabold text-brand-dark flex items-center justify-center mb-3">
-                    <i class="fa-solid fa-plug-circle-bolt text-brand-primary mr-3"></i> MCP: Conectar el Mundo Real
-                </h2>
-                <p class="text-gray-600 font-serif max-w-3xl mx-auto">
-                    <strong>Model Context Protocol (MCP)</strong> es un estándar abierto creado por Anthropic que permite a los modelos de IA conectarse de forma segura y estructurada con herramientas externas, bases de datos, APIs y sistemas de archivos.
+            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll">
+                <span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">3</span>
+                El Pipeline de Ingesta: de un archivo suelto a una nota conectada
+            </h2>
+
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">
+                El corazón del sistema es un flujo automático que vive en su propia carpeta (separada de tus proyectos). Dejas caer un archivo y el sistema hace el resto:
+            </p>
+
+            <!-- Directorios visuales -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 fade-in-on-scroll text-center">
+                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200 shadow-sm">
+                    <div class="w-12 h-12 bg-indigo-50 text-brand-primary rounded-xl flex items-center justify-center mx-auto text-xl mb-4">
+                        <i class="fa-solid fa-folder-open"></i>
+                    </div>
+                    <h5 class="font-bold text-gray-800 text-sm mb-1">RAW/</h5>
+                    <p class="font-serif text-gray-500 text-xs">El buzón de entrada. Sueltas aquí tus Excels de ventas, exports del CRM, fichas de cliente, PDFs de facturación, informes de campaña...</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200 shadow-sm">
+                    <div class="w-12 h-12 bg-amber-50 text-brand-accent rounded-xl flex items-center justify-center mx-auto text-xl mb-4">
+                        <i class="fa-solid fa-arrows-spin"></i>
+                    </div>
+                    <h5 class="font-bold text-gray-800 text-sm mb-1">Watcher + Conversión</h5>
+                    <p class="font-serif text-gray-500 text-xs">Un vigilante en Python (watchdog) detecta el archivo y lo convierte con MarkItDown (u OCR con Tesseract si es imagen).</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200 shadow-sm">
+                    <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center mx-auto text-xl mb-4">
+                        <i class="fa-solid fa-box-archive"></i>
+                    </div>
+                    <h5 class="font-bold text-gray-800 text-sm mb-1">_procesados/</h5>
+                    <p class="font-serif text-gray-500 text-xs">El original se archiva aquí (nunca se borra) y RAW/ queda vacía. El proceso se registra en un log.</p>
+                </div>
+            </div>
+
+            <!-- Frontmatter real -->
+            <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm mb-10 fade-in-on-scroll">
+                <h4 class="font-bold text-brand-dark text-xs uppercase tracking-widest mb-4 flex items-center"><i class="fa-solid fa-tags mr-2 text-brand-primary"></i> La nota resultante: frontmatter YAML + cuerpo + enlaces</h4>
+                <p class="prose-text text-gray-600 mb-4 text-sm">
+                    Cada nota nace con una cabecera de metadatos (YAML) que herramientas y agentes pueden filtrar, más el contenido convertido y una sección de enlaces. Por ejemplo:
+                </p>
+                <div class="bg-slate-900 text-gray-300 rounded-xl p-5 font-mono text-xs leading-relaxed whitespace-pre overflow-x-auto">---
+titulo: "Ventas Mayo 2026"
+archivo_origen: "Ventas_Mayo_2026.xlsx"
+fecha_ingesta: 2026-06-16T18:42:10
+tipo: excel
+tags:
+  - ingesta
+  - tipo/excel
+  - ventas
+hash_origen: "942d7994..."   <span class="text-gray-500"># huella SHA-256 = idempotencia</span>
+---
+
+# Ventas Mayo 2026
+
+...el Excel convertido a tablas Markdown limpias...
+
+## Relacionado
+- [[Campaña Primavera 2026]]
+- [[Clientes VIP]]</div>
+            </div>
+
+            <!-- Idempotencia -->
+            <div class="bg-emerald-50 p-6 rounded-r-xl border-l-4 border-emerald-500 shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-emerald-900 text-sm m-0 leading-relaxed">
+                    <i class="fa-solid fa-circle-check text-emerald-500 mr-2"></i>
+                    <strong>Idempotencia (no repetir trabajo):</strong> a cada archivo se le calcula una huella única (hash SHA-256) de su contenido. Si vuelves a soltar el mismo archivo, el sistema lo reconoce como <em>duplicado</em> y no crea una nota repetida. Así puedes ejecutar el flujo mil veces sin ensuciar el Vault.
                 </p>
             </div>
 
-            <div class="bg-indigo-50 border-l-4 border-brand-primary p-6 rounded-r-xl mb-12 fade-in-on-scroll">
-                <p class="font-serif text-indigo-900 text-base m-0">
-                    <i class="fa-solid fa-bolt mr-2 text-brand-primary"></i> <strong>Analogía:</strong> MCP es como un <em>adaptador universal de enchufes</em> para la IA. Cada herramienta (Slack, Sheets, SAP) tiene su propio "enchufe", y MCP proporciona el adaptador para que Claude pueda conectarse a todas ellas usando el mismo estándar.
+            <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed">
+                    <i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i>
+                    <strong>Analogía:</strong> Obsidian es tu despacho; MarkItDown y Tesseract son el escáner inteligente que toma libros, hojas de cálculo y fotos y los transcribe a folios legibles; el agente es el archivero que, además de archivar, <em>entiende</em> y grapa hilos entre los folios relacionados.
                 </p>
-            </div>
-
-            <!-- Conceptos MCP -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 fade-in-on-scroll">
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                    <h4 class="text-lg font-bold text-brand-dark mb-2 border-b border-gray-100 pb-2">¿Por qué MCP y no una API normal?</h4>
-                    <p class="font-serif text-gray-600 text-sm">Las APIs requieren que construyas la integración manualmente paso a paso. MCP define un protocolo estándar para que las herramientas se "expongan" directamente al modelo, permitiéndole llamarlas de forma autónoma cuando las necesite.</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                    <h4 class="text-lg font-bold text-brand-dark mb-2 border-b border-gray-100 pb-2">El Agente Verdadero</h4>
-                    <p class="font-serif text-gray-600 text-sm">Si Claude sin herramientas es un consultor que solo puede hablar, con MCP es un consultor que además puede abrir tu CRM, leer tus datos en vivo, enviar emails y actualizar tu base de datos de forma autónoma.</p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 fade-in-on-scroll">
-                <div class="bg-gray-800 text-white p-5 rounded-xl border-t-4 border-blue-500">
-                    <h4 class="font-bold text-blue-400 mb-2">MCP Server</h4>
-                    <p class="text-xs font-serif text-gray-300">Programa que expone capacidades. Ej: Un servidor MCP de Google Sheets permite leer/escribir hojas.</p>
-                </div>
-                <div class="bg-gray-800 text-white p-5 rounded-xl border-t-4 border-emerald-500">
-                    <h4 class="font-bold text-emerald-400 mb-2">MCP Client</h4>
-                    <p class="text-xs font-serif text-gray-300">El modelo o agente (ej. Claude) que consume las herramientas expuestas por los servidores.</p>
-                </div>
-                <div class="bg-gray-800 text-white p-5 rounded-xl border-t-4 border-amber-500">
-                    <h4 class="font-bold text-amber-400 mb-2">Tools</h4>
-                    <p class="text-xs font-serif text-gray-300">Funciones específicas que el servidor permite ejecutar. Ej: <code>read_file</code>, <code>search_slack</code>.</p>
-                </div>
-                <div class="bg-gray-800 text-white p-5 rounded-xl border-t-4 border-purple-500">
-                    <h4 class="font-bold text-purple-400 mb-2">Resources</h4>
-                    <p class="text-xs font-serif text-gray-300">Datos o contexto que el servidor pone a disposición (archivos locales, URLs, bases de datos).</p>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- 4. Laboratorio Práctico Integrado -->
-    <section id="practica" class="py-24 bg-brand-light border-t border-gray-200">
+    <!-- 4. El Agente Enlazador -->
+    <section id="enlazador" class="py-20 bg-brand-light border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll">
+                <span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">4</span>
+                El Agente en Claude Code: el Enlazador Semántico
+            </h2>
+
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">
+                El verdadero cerebro no es un plugin visual: es un <strong>subagente local</strong> definido en `.claude/agents/enlazador-semantico.md`. Su trabajo es decidir, con criterio, qué notas existentes están relacionadas con la nota recién ingerida e inyectar los `[[WikiLinks]]` que las conectan.
+            </p>
+
+            <!-- Enlazado híbrido -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10 fade-in-on-scroll">
+                <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm">
+                    <h4 class="font-bold text-brand-dark text-xs uppercase tracking-widest mb-4 flex items-center"><i class="fa-solid fa-bolt mr-2 text-brand-primary"></i> Capa local (gratis, sin nube)</h4>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">El watcher enlaza una base de forma offline: por etiquetas compartidas y, en proyectos de código, por <strong>dependencias reales</strong> (los `import` entre ficheros). Preciso, instantáneo y privado.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm">
+                    <h4 class="font-bold text-brand-dark text-xs uppercase tracking-widest mb-4 flex items-center"><i class="fa-solid fa-brain mr-2 text-brand-primary"></i> Capa semántica (Claude)</h4>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Cuando ejecutas la Skill, Claude lee el contenido y añade enlaces de calidad entre conceptos (un doc con su tabla de BD, un mockup con su página...). Calidad sobre cantidad.</p>
+                </div>
+            </div>
+
+            <!-- Premium Code Box: subagente -->
+            <div class="col-span-1 lg:col-span-2 fade-in-on-scroll mb-8">
+                <div class="bg-slate-900 text-white rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                    <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+                        <span class="text-sm font-mono text-brand-accent font-bold uppercase tracking-wider">
+                            <i class="fa-solid fa-robot mr-2"></i> Subagente: .claude/agents/enlazador-semantico.md
+                        </span>
+                        <button onclick="copyToClipboard('subagent-md', this)" class="text-xs font-bold text-slate-400 hover:text-white transition-colors border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg bg-slate-900 flex items-center">
+                            <i class="fa-regular fa-copy mr-2"></i> Copiar
+                        </button>
+                    </div>
+                    <div id="subagent-md" class="p-6 font-mono text-gray-300 text-xs md:text-sm leading-relaxed whitespace-pre overflow-x-auto"><span class="text-brand-primary"># ENLAZADOR SEMÁNTICO LOCAL</span>
+Eres el mantenedor cognitivo de mi Vault de Obsidian.
+Conecta cada nota nueva con las notas existentes realmente relacionadas.
+
+<span class="text-claude"># REGLAS</span>
+1. Navega por ESTRUCTURA: consulta primero el mapa (GRAPH_REPORT.md y
+   graph_query.py) en vez de leer todas las notas a lo bruto.
+2. Elige 3-8 notas genuinamente relacionadas (tema, entidad, dependencia).
+   Calidad sobre cantidad: cada enlace debe poder justificarse.
+3. Añade una sección "## Relacionado" con enlaces [[Título exacto]].
+4. No destruyas contenido existente: solo añades enlaces.
+5. Todo local: nunca uses servicios externos para procesar el contenido.</div>
+                </div>
+            </div>
+
+            <!-- Nota de privacidad honesta -->
+            <div class="bg-white p-6 rounded-r-xl border-l-4 border-claude shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-gray-700 text-sm m-0 leading-relaxed">
+                    <i class="fa-solid fa-circle-info text-claude mr-2"></i>
+                    <strong>Honestidad sobre la nube:</strong> la conversión, el OCR y el watcher son 100% locales. El <em>enlazado semántico</em>, en cambio, lo hace Claude leyendo el contenido: en esa sesión, esas notas pasan por la nube de Anthropic, como en cualquier uso de Claude Code. Por eso es una decisión consciente, y siempre tienes la alternativa de quedarte solo con la capa local.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Seguridad y el Mapa Local -->
+    <section id="seguridad" class="py-20 bg-white border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll">
+                <span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">5</span>
+                Buenas prácticas: herramientas de terceros y salud de tu grafo
+            </h2>
+
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">
+                Para sacar partido a Obsidian acabarás queriendo instalar plugins o pequeñas herramientas que encuentras en internet (GitHub, PyPI, npm). Regla de oro: <strong>una herramienta de terceros puede leer y escribir en tu equipo con tus permisos.</strong> Antes de instalar nada, conviene saber qué hace y de dónde viene.
+            </p>
+
+            <!-- Mito vs realidad (genérico) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 fade-in-on-scroll">
+                <div class="bg-red-50 border border-red-200 p-6 rounded-2xl">
+                    <h4 class="font-bold text-red-700 text-xs uppercase tracking-widest mb-3"><i class="fa-solid fa-circle-xmark mr-2"></i> El mito peligroso</h4>
+                    <p class="font-serif text-red-900 text-sm leading-relaxed m-0">"Tiene miles de estrellas en GitHub y mucha gente la usa, así que es segura."</p>
+                </div>
+                <div class="bg-emerald-50 border border-emerald-200 p-6 rounded-2xl">
+                    <h4 class="font-bold text-emerald-700 text-xs uppercase tracking-widest mb-3"><i class="fa-solid fa-circle-check mr-2"></i> La realidad</h4>
+                    <p class="font-serif text-emerald-900 text-sm leading-relaxed m-0">La popularidad no garantiza seguridad: las estrellas se pueden inflar y un repositorio muy nuevo puede no haberlo revisado nadie. Lo que importa es qué hace el código y quién lo mantiene.</p>
+                </div>
+            </div>
+
+            <!-- Riesgos reales de instalar a ciegas -->
+            <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-triangle-exclamation text-brand-accent mr-2"></i> Qué puede salir mal al instalar a ciegas</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 fade-in-on-scroll">
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <h5 class="font-bold text-gray-800 text-sm mb-2"><i class="fa-solid fa-clone text-red-500 mr-2"></i> Suplantación (typosquatting)</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed m-0">Un paquete impostor con un nombre casi idéntico al real (una letra de diferencia). Instalas el falso pensando que es el bueno.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <h5 class="font-bold text-gray-800 text-sm mb-2"><i class="fa-solid fa-bomb text-red-500 mr-2"></i> Código que se ejecuta al instalar</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed m-0">El simple acto de instalar puede lanzar scripts. Una herramienta maliciosa puede leer tus archivos y enviarlos fuera sin que lo veas.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <h5 class="font-bold text-gray-800 text-sm mb-2"><i class="fa-solid fa-user-secret text-red-500 mr-2"></i> Mantenedor desconocido</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed m-0">Si no sabes quién hay detrás ni puedes leer qué hace, le estás dando acceso a tus datos a un extraño.</p>
+                </div>
+            </div>
+            <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed">
+                    <i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i>
+                    <strong>Un ejemplo de libro:</strong> una herramienta de grafos llamada <em>"Graphify"</em> tiene un gemelo con un nombre a una sola letra de distancia que cualquiera podría registrar para suplantarla. Es la misma trampa que sufren paquetes muy conocidos: el atacante apuesta a que alguien escriba el nombre "casi bien".
+                </p>
+            </div>
+            <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-shield-halved text-brand-primary mr-2"></i> Reglas de oro antes de instalar</h3>
+            <ul class="space-y-2 mb-2 fade-in-on-scroll list-none pl-0">
+                <li class="font-serif text-gray-700 text-sm leading-relaxed"><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Comprueba el nombre EXACTO y la fuente oficial; desconfía de nombres casi idénticos.</li>
+                <li class="font-serif text-gray-700 text-sm leading-relaxed"><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Mira quién lo mantiene, cuánto lleva publicado y si el código es legible.</li>
+                <li class="font-serif text-gray-700 text-sm leading-relaxed"><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Si es algo sencillo, pídele a Claude que te lo implemente en local en vez de instalar un paquete externo.</li>
+                <li class="font-serif text-gray-700 text-sm leading-relaxed"><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Ante la duda, no instales: ningún plugin vale el riesgo de filtrar datos de clientes o de ventas.</li>
+            </ul>
+
+            <!-- Qué hacer en su lugar: alternativa local -->
+            <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-wand-magic-sparkles text-brand-primary mr-2"></i> Qué hacer en su lugar: pídeselo a Claude en local</h3>
+            <p class="prose-text text-gray-600 text-sm leading-relaxed mb-6 fade-in-on-scroll">
+                Muchas funciones útiles (por ejemplo, "un mapa de mis notas para moverme rápido entre cientos de informes") no necesitan un paquete externo: Claude puede generarte un pequeño script <strong>propio y transparente</strong>, que tú puedes leer, que vive en tu equipo y no depende de nadie. Mismo resultado, sin el riesgo. Este es el prompt:
+            </p>
+
+            <!-- Prompt: instalar con cabeza / alternativa local -->
+            <div class="col-span-1 lg:col-span-2 fade-in-on-scroll mb-8">
+                <div class="bg-slate-900 text-white rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                    <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+                        <span class="text-sm font-mono text-brand-accent font-bold uppercase tracking-wider">
+                            <i class="fa-solid fa-shield-halved mr-2"></i> Prompt: instalar con cabeza (o pedir alternativa local)
+                        </span>
+                        <button onclick="copyToClipboard('prompt-auditoria', this)" class="text-xs font-bold text-slate-400 hover:text-white transition-colors border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg bg-slate-900 flex items-center">
+                            <i class="fa-regular fa-copy mr-2"></i> Copiar prompt
+                        </button>
+                    </div>
+                    <div id="prompt-auditoria" class="p-6 font-mono text-gray-200 text-xs md:text-sm leading-relaxed whitespace-pre-wrap">Quiero usar [describe la funcionalidad, p. ej. "un mapa visual de mis informes"]. Antes de instalar cualquier herramienta de terceros (de GitHub, PyPI o npm), audítala por mí: quién la mantiene, qué hace al instalarse, si envía datos fuera, y si existen paquetes con nombres casi idénticos que puedan ser suplantaciones.
+
+Si tiene cualquier riesgo o no es de una fuente oficial y reputada, NO la instales: impleméntamelo en local con un script propio y transparente que yo pueda revisar, sin dependencias externas. Ninguno de mis datos (ventas, clientes, facturación) debe salir de mi equipo.</div>
+                </div>
+            </div>
+
+            <!-- 5b. Salud del grafo: nodos huérfanos (genérico) -->
+            <h3 class="text-2xl font-bold text-brand-dark mt-14 mb-4 flex items-center fade-in-on-scroll"><i class="fa-solid fa-ghost text-brand-primary mr-3"></i> Salud del grafo: ¿y si tengo muchos nodos huérfanos?</h3>
+            <p class="prose-text text-gray-600 fade-in-on-scroll mb-6">
+                Un <strong>nodo huérfano</strong> es una nota sin ningún enlace. Aparecen en CUALQUIER tipo de proyecto, no solo de código: suelen surgir al volcar muchos archivos de golpe (por ejemplo, 300 Excels de ventas y 150 fichas de cliente) sin que ninguno haga referencia a otro. El resultado es un grafo lleno de "polvo": cientos de islas inconexas.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 fade-in-on-scroll">
+                <div class="bg-red-50 border border-red-200 p-6 rounded-2xl">
+                    <h5 class="font-bold text-red-700 text-sm mb-2"><i class="fa-solid fa-circle-exclamation mr-2"></i> Por qué es un problema</h5>
+                    <p class="font-serif text-red-900 text-sm leading-relaxed m-0">Pierdes lo mejor de Obsidian: la navegación por asociación. No puedes saltar de "Cliente VIP" a sus facturas, a la campaña que lo convirtió y al informe de ventas del mes. El conocimiento aislado no se reutiliza.</p>
+                </div>
+                <div class="bg-indigo-50 border border-indigo-200 p-6 rounded-2xl">
+                    <h5 class="font-bold text-brand-primary text-sm mb-2"><i class="fa-solid fa-screwdriver-wrench mr-2"></i> Cómo se arregla</h5>
+                    <p class="font-serif text-gray-800 text-sm leading-relaxed m-0">Dos movimientos: (1) <strong>conectar</strong> cada nota suelta con las más relacionadas mediante <code>[[enlaces]]</code>; (2) crear <strong>notas índice</strong> que agrupen por cliente, campaña, producto o periodo. Claude puede hacer ambas cosas leyendo tus notas.</p>
+                </div>
+            </div>
+
+            <!-- Prompt: acabar con los huérfanos -->
+            <div class="col-span-1 lg:col-span-2 fade-in-on-scroll mb-6">
+                <div class="bg-slate-900 text-white rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                    <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+                        <span class="text-sm font-mono text-brand-accent font-bold uppercase tracking-wider">
+                            <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Prompt: acabar con los nodos huérfanos (cualquier proyecto)
+                        </span>
+                        <button onclick="copyToClipboard('prompt-huerfanos', this)" class="text-xs font-bold text-slate-400 hover:text-white transition-colors border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg bg-slate-900 flex items-center">
+                            <i class="fa-regular fa-copy mr-2"></i> Copiar prompt
+                        </button>
+                    </div>
+                    <div id="prompt-huerfanos" class="p-6 font-mono text-gray-200 text-xs md:text-sm leading-relaxed whitespace-pre-wrap">Revisa mi vault de Obsidian y elimina los nodos huérfanos (notas sin ningún enlace entrante ni saliente).
+
+Para cada nota suelta: lee su contenido y conéctala con las notas existentes más relacionadas mediante enlaces [[ ]], de forma bidireccional cuando tenga sentido (por tema, cliente, campaña, producto, periodo, etc.).
+
+Cuando un grupo de notas comparta un eje común (un cliente, una campaña, un mes de ventas), crea o reutiliza una "nota índice" que las agrupe y enlace, para que el grafo quede como un árbol navegable y no como islas sueltas.
+
+Reglas: no borres ni reescribas contenido, solo añade enlaces; trabaja en local sobre mis archivos .md; al terminar, dime cuántos huérfanos había y cómo los conectaste.</div>
+                </div>
+            </div>
+            <p class="prose-text text-gray-500 text-sm fade-in-on-scroll">
+                No hace falta darle scripts: con este lenguaje natural, Claude decide la mejor forma de conectar y, si tu bóveda es enorme, incluso de crear las notas índice por sí mismo.
+            </p>
+        </div>
+    </section>
+
+    <!-- 6. Práctica y Quiz (Dark Section) -->
+    <section id="practica" class="py-24 bg-brand-dark text-white border-t-8 border-brand-accent">
         <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16 fade-in-on-scroll">
-                <span class="text-brand-accent font-bold tracking-widest text-xs uppercase mb-3 block"><i class="fa-solid fa-flask mr-2"></i> Práctica Integrada</span>
-                <h2 class="text-4xl lg:text-5xl font-extrabold mb-6 text-brand-dark">Laboratorio Agentic</h2>
-                <p class="text-gray-500 font-serif text-xl max-w-3xl mx-auto">Ejecución secuencial: Del IDE al Agente conectado.</p>
+            <!-- Proyecto Fin de Curso (PFC) -->
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-10 lg:p-16 shadow-2xl relative overflow-hidden fade-in-on-scroll mb-20">
+                <div class="absolute top-0 right-0 w-80 h-80 bg-brand-primary/20 rounded-bl-full -z-0 blur-2xl"></div>
+                <div class="flex items-center mb-8 relative z-10">
+                    <div class="w-16 h-16 bg-brand-primary text-white rounded-2xl flex items-center justify-center text-3xl shadow-lg mr-6 shrink-0">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                    <div>
+                        <span class="text-brand-accent font-bold tracking-widest text-xs uppercase mb-1 block">Proyecto Fin de Curso (PFC)</span>
+                        <h3 class="text-3xl lg:text-4xl font-extrabold text-white">El Oráculo de Conocimiento Local</h3>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/60 border border-slate-700/50 rounded-2xl p-8 relative z-10">
+                    <h4 class="font-bold text-white text-xl mb-4 flex items-center">
+                        <i class="fa-solid fa-bullseye text-brand-accent mr-3"></i> Tarea: monta tu pipeline de ingesta segura
+                    </h4>
+                    <p class="font-serif text-gray-300 mb-8 text-lg">
+                        Construye un sistema local que ingiera tus documentos, los interconecte y los mantenga navegables — todo auditado y sin dependencias peligrosas.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-slate-900/90 p-6 rounded-xl shadow-sm border border-slate-800 hover:border-brand-accent transition-colors">
+                            <div class="w-12 h-12 bg-indigo-500/20 text-indigo-300 rounded-xl flex items-center justify-center mb-5 text-xl font-bold">
+                                <i class="fa-solid fa-shuffle"></i>
+                            </div>
+                            <h5 class="font-bold text-white mb-2">1. Ingesta y conversión</h5>
+                            <p class="text-sm font-serif text-slate-400">Un watcher en Python vigila <code>RAW/</code>, convierte con <strong>MarkItDown</strong> (y OCR <strong>Tesseract</strong> para imágenes), añade frontmatter YAML y archiva el original en <code>_procesados/</code>. Idempotente por hash.</p>
+                        </div>
+                        <div class="bg-slate-900/90 p-6 rounded-xl shadow-sm border border-slate-800 hover:border-brand-accent transition-colors">
+                            <div class="w-12 h-12 bg-amber-500/20 text-amber-300 rounded-xl flex items-center justify-center mb-5 text-xl font-bold">
+                                <i class="fa-solid fa-robot"></i>
+                            </div>
+                            <h5 class="font-bold text-white mb-2">2. El agente enlazador</h5>
+                            <p class="text-sm font-serif text-slate-400">Define el subagente <code>enlazador-semantico.md</code>: que consulte el mapa, elija notas relacionadas con criterio e inyecte <code>[[WikiLinks]]</code> de calidad sin romper nada.</p>
+                        </div>
+                        <div class="bg-slate-900/90 p-6 rounded-xl shadow-sm border border-slate-800 hover:border-brand-accent transition-colors">
+                            <div class="w-12 h-12 bg-emerald-500/20 text-emerald-300 rounded-xl flex items-center justify-center mb-5 text-xl font-bold">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <h5 class="font-bold text-white mb-2">3. Mapa local auditado</h5>
+                            <p class="text-sm font-serif text-slate-400">Genera tu <code>GRAPH_REPORT.md</code> con scripts propios (sin instalar "graphify" de PyPI) y añade índices de carpeta para que el grafo no tenga huérfanos.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 fade-in-on-scroll">
-                <!-- Fase 1 -->
-                <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow relative overflow-hidden group">
-                    <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
-                    <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-solid fa-code"></i></div>
-                    <h3 class="text-xl font-bold text-brand-dark mb-3">1. Despliegue del IDE</h3>
-                    <ul class="text-sm font-serif text-gray-600 space-y-3">
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Instala y configura AntiGravity.</li>
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Conéctalo con la carpeta de tu proyecto local.</li>
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> <strong>Ejercicio:</strong> Pide al Chat del IDE: <em>"Crea un script en Python que lea el archivo data.csv y calcule el revenue total."</em></li>
-                    </ul>
-                </div>
+            <!-- Quiz Interactivo -->
+            <div class="border-t border-slate-800 pt-16 mb-12 fade-in-on-scroll">
+                <h3 class="text-3xl font-bold mb-8 text-white text-center">
+                    <i class="fa-solid fa-clipboard-check text-brand-accent mr-3"></i> Cuestionario de Evaluación (Clase 4)
+                </h3>
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 lg:p-12 shadow-2xl text-white">
+                    <div id="quizContainer">
+                        <!-- Quiz renderizado por JS -->
+                    </div>
 
-                <!-- Fase 2 -->
-                <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow relative overflow-hidden group">
-                    <div class="absolute top-0 left-0 w-2 h-full bg-emerald-500"></div>
-                    <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-solid fa-terminal"></i></div>
-                    <h3 class="text-xl font-bold text-brand-dark mb-3">2. Conexión API</h3>
-                    <ul class="text-sm font-serif text-gray-600 space-y-3">
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Obtén tu API Key de Anthropic Console.</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Ejecuta la primera llamada por terminal (cURL) comprobando la respuesta cruda en JSON.</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> <strong>Ejercicio:</strong> Diseña el script en Python que envíe los datos calculados en el paso 1 a Claude para que redacte un análisis.</li>
-                    </ul>
-                </div>
-
-                <!-- Fase 3 -->
-                <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow relative overflow-hidden group">
-                    <div class="absolute top-0 left-0 w-2 h-full bg-purple-500"></div>
-                    <div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-solid fa-network-wired"></i></div>
-                    <h3 class="text-xl font-bold text-brand-dark mb-3">3. Autonomía MCP</h3>
-                    <ul class="text-sm font-serif text-gray-600 space-y-3">
-                        <li><i class="fa-solid fa-check text-purple-500 mr-2"></i> Instala el MCP Server de *filesystem* (para que la IA pueda leer tu disco duro).</li>
-                        <li><i class="fa-solid fa-check text-purple-500 mr-2"></i> Configura el archivo MCP en Claude Cowork.</li>
-                        <li><i class="fa-solid fa-check text-purple-500 mr-2"></i> <strong>Ejercicio:</strong> Pide a Claude que lea un Google Sheet y genere el reporte mensual de forma 100% autónoma.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Quiz Interactivo -->
-    <section class="py-24 bg-brand-dark text-white border-t-8 border-brand-accent">
-        <div class="max-w-4xl mx-auto px-6 fade-in-on-scroll">
-            <h3 class="text-3xl font-bold mb-8 text-center"><i class="fa-solid fa-clipboard-question text-brand-accent mr-3"></i> Test de Conocimientos Técnicos</h3>
-            <div class="bg-gray-900 border border-gray-700 rounded-2xl p-8 lg:p-12 shadow-2xl">
-                <div id="quizContainer">
-                    <!-- Quiz se renderiza vía JS aquí -->
+                    <div class="text-center mt-10 pt-8 border-t border-slate-800">
+                        <button id="validateBtn" onclick="submitQuiz()" class="px-10 py-4 bg-brand-primary hover:bg-indigo-600 text-white font-bold rounded-xl transition-all shadow-lg uppercase tracking-wider text-sm">
+                            Validar Respuestas
+                        </button>
+                        <div id="quiz-result" class="hidden mt-6 p-5 rounded-xl font-bold font-sans text-center transition-all"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -441,149 +649,161 @@ message = client.messages.create(
     <!-- Navegación entre Clases -->
     <section class="py-12 bg-white border-t border-gray-200">
         <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <a href="modulo8-clase1.html" class="flex items-center px-6 py-3 text-gray-600 border border-gray-300 rounded-xl font-bold hover:text-brand-primary hover:border-brand-primary transition-all bg-white shadow-sm">
-                <i class="fa-solid fa-arrow-left mr-2"></i> Anterior: Clase 1
+            <a href="modulo8-clase3.html"
+                class="flex items-center px-6 py-3 text-gray-600 border border-gray-300 rounded-xl font-bold hover:text-brand-primary hover:border-brand-primary transition-all bg-white shadow-sm w-full sm:w-auto justify-center">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Anterior: Clase 3
             </a>
-            <a href="index.html" class="flex items-center px-6 py-3 bg-brand-primary text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors shadow-lg">
-                Finalizar Módulo <i class="fa-solid fa-flag-checkered ml-2"></i>
+            <a href="index.html"
+                class="flex items-center px-6 py-3 text-gray-600 border border-gray-300 rounded-xl font-bold hover:text-brand-primary hover:border-brand-primary transition-all bg-white shadow-sm w-full sm:w-auto justify-center">
+                <i class="fa-solid fa-home mr-2"></i> Volver al Temario
+            </a>
+            <a href="modulo8-clase5.html"
+                class="flex items-center px-6 py-3 bg-brand-primary text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors shadow-lg w-full sm:w-auto justify-center">
+                Siguiente: Clase 5 <i class="fa-solid fa-arrow-right ml-2"></i>
             </a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-[#050B14] text-white py-12 border-t border-gray-800">
-        <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
-            <h2 class="text-xl font-bold mb-4 md:mb-0">
+    <footer class="bg-brand-dark text-white py-16 border-t border-gray-800">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-4">
                 <span class="text-brand-accent">[m]</span>.seny <span class="text-brand-accent">[labs]</span>
             </h2>
-            <p class="text-sm text-gray-500 font-sans">Material de Apoyo Formativo - Módulo Extra © 2026</p>
+            <p class="text-gray-400 mb-10 max-w-lg mx-auto font-serif text-center">
+                Empoderando a la próxima generación de empresas con inteligencia artificial práctica y estratégica.
+            </p>
+            <div class="w-12 h-px bg-gray-800 mx-auto my-6"></div>
+            <p class="text-xs text-gray-500 font-sans text-center">
+                Material de Apoyo Formativo - Módulo 8 (Clase 4)<br>
+                © 2026 [m].seny [labs]. Todos los derechos reservados.
+            </p>
         </div>
     </footer>
 
     <!-- Lógica de Interactividad -->
     <script>
-        // Copiar Portapapeles
+        // 1. Copiado al portapapeles (fallback execCommand para iframes restringidos)
         function copyToClipboard(elementId, btn) {
             const el = document.getElementById(elementId);
             let text = el.innerText || el.textContent;
-            
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed";
-            textArea.style.left = "-9999px";
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
+
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = text;
+            tempTextArea.style.position = "fixed";
+            tempTextArea.style.left = "-9999px";
+            document.body.appendChild(tempTextArea);
+            tempTextArea.focus();
+            tempTextArea.select();
 
             try {
                 document.execCommand('copy');
                 const originalHTML = btn.innerHTML;
-                
-                btn.innerHTML = '<i class="fa-solid fa-check mr-1"></i> Copiado';
+                btn.innerHTML = '<i class="fa-solid fa-check mr-2"></i> Copiado';
                 btn.classList.add('text-emerald-400');
-                btn.classList.remove('text-gray-500', 'hover:text-white');
-                
+                btn.classList.remove('text-slate-400');
+
                 setTimeout(() => {
                     btn.innerHTML = originalHTML;
                     btn.classList.remove('text-emerald-400');
-                    btn.classList.add('text-gray-500', 'hover:text-white');
+                    btn.classList.add('text-slate-400');
                 }, 2000);
             } catch (err) {
-                console.error('Error al copiar', err);
+                console.error('No se pudo copiar', err);
             }
-            document.body.removeChild(textArea);
+            document.body.removeChild(tempTextArea);
         }
 
-        // Quiz Data
+        // 2. Lógica del Quiz (contenido actualizado y verificado en clase)
         const quizData = [
             {
-                question: "¿Qué es un IDE (Integrated Development Environment)?",
+                question: "¿Qué significa que el sistema sea 'Local-First'?",
                 options: [
-                    { text: "Un protocolo para conectar APIs de forma segura en la nube.", correct: false },
-                    { text: "Un software que agrupa editor de código, terminal y gestor de archivos en un solo lugar.", correct: true },
-                    { text: "Un modelo de inteligencia artificial entrenado para hacer traducciones.", correct: false },
-                    { text: "El formato en el que se envían las respuestas de una API web.", correct: false }
+                    { text: "Que necesita conexión a internet permanente para ordenar tus datos.", correct: false },
+                    { text: "Que tus archivos viven en tu disco en texto plano y el procesado ocurre en tu máquina, sin enviar tus documentos a servicios externos.", correct: true },
+                    { text: "Que solo funciona dentro de una red local corporativa (intranet).", correct: false },
+                    { text: "Que guarda todo en la RAM y se borra al reiniciar.", correct: false }
                 ]
             },
             {
-                question: "En un IDE con IA, ¿qué diferencia al 'Autocompletado' del 'Chat con el codebase'?",
+                question: "¿Cuál es el rol real de Obsidian en este sistema?",
                 options: [
-                    { text: "El autocompletado predice la siguiente línea mientras escribes; el chat permite hacerle preguntas complejas sobre toda la arquitectura.", correct: true },
-                    { text: "El chat es gratis, el autocompletado requiere pagar la API.", correct: false },
-                    { text: "No hay diferencia, son dos nombres para la misma función.", correct: false },
-                    { text: "El autocompletado solo funciona con Python, el chat funciona con todos los idiomas.", correct: false }
+                    { text: "Es la IA que decide qué notas conectar entre sí.", correct: false },
+                    { text: "Es un almacén de archivos .md y un visor que dibuja de forma nativa los enlaces [[WikiLink]] que existen físicamente entre tus notas.", correct: true },
+                    { text: "Es el conversor de PDFs y Excels a Markdown.", correct: false },
+                    { text: "Es un servicio en la nube para sincronizar equipos.", correct: false }
                 ]
             },
             {
-                question: "¿Cuál de las siguientes definiciones describe mejor una API (Application Programming Interface)?",
+                question: "¿Qué herramienta convierte localmente PDFs, Words y Excels a Markdown limpio?",
                 options: [
-                    { text: "Un hardware físico para guardar claves secretas.", correct: false },
-                    { text: "El lenguaje de programación utilizado por la empresa OpenAI.", correct: false },
-                    { text: "Un contrato que define cómo dos programas pueden comunicarse entre sí, estableciendo qué puedes pedir y cómo recibirás la respuesta.", correct: true },
-                    { text: "La interfaz gráfica (botones y menús) que ve el usuario final en una web.", correct: false }
+                    { text: "Graphify.", correct: false },
+                    { text: "Microsoft MarkItDown (instalado sin el extra [all] ni conectores de nube).", correct: true },
+                    { text: "El plugin de grafo de Obsidian.", correct: false },
+                    { text: "Tesseract.", correct: false }
                 ]
             },
             {
-                question: "En el contexto de APIs REST, ¿qué es JSON?",
+                question: "¿Cómo se extrae el texto de las imágenes y escaneos en este sistema?",
                 options: [
-                    { text: "Un formato de texto ligero y estructurado, legible por humanos y máquinas, usado para enviar y recibir datos.", correct: true },
-                    { text: "Un protocolo de seguridad para encriptar contraseñas.", correct: false },
-                    { text: "Un comando de terminal para instalar paquetes.", correct: false },
-                    { text: "El nombre del modelo de IA que utiliza Anthropic.", correct: false }
+                    { text: "Enviándolas a un LLM en la nube para que las describa.", correct: false },
+                    { text: "Con OCR 100% local mediante Tesseract (con idioma español), sin que las imágenes salgan del equipo.", correct: true },
+                    { text: "Obsidian las transcribe automáticamente al abrirlas.", correct: false },
+                    { text: "No se procesan: las imágenes se ignoran.", correct: false }
                 ]
             },
             {
-                question: "Según la analogía vista en clase, si la Interfaz Visual (GUI) es un coche automático, ¿qué es la CLI (Command Line Interface)?",
+                question: "¿Qué garantiza la idempotencia del pipeline (la huella SHA-256 de cada archivo)?",
                 options: [
-                    { text: "Un coche eléctrico.", correct: false },
-                    { text: "Un coche manual: ofrece más control y velocidad, pero requiere mayor conocimiento técnico para operarlo.", correct: true },
-                    { text: "Una bicicleta: es lenta pero segura.", correct: false },
-                    { text: "Un tren sobre raíles: no puedes cambiar su dirección.", correct: false }
+                    { text: "Que el archivo original se borra tras procesarlo.", correct: false },
+                    { text: "Que volver a soltar el mismo archivo se detecta como duplicado y no crea una nota repetida.", correct: true },
+                    { text: "Que el contenido se cifra antes de subirlo a la nube.", correct: false },
+                    { text: "Que las notas se traducen a varios idiomas.", correct: false }
                 ]
             },
             {
-                question: "¿Qué es el MCP (Model Context Protocol)?",
+                question: "¿Para qué sirve el frontmatter (la cabecera YAML con tags, fecha y tipo) de cada nota?",
                 options: [
-                    { text: "Un estándar abierto de Anthropic que permite a los modelos conectarse de forma estructurada con herramientas externas y bases de datos.", correct: true },
-                    { text: "Una tarjeta gráfica especializada en procesar inteligencia artificial.", correct: false },
-                    { text: "El nuevo nombre del lenguaje de programación Python.", correct: false },
-                    { text: "Un límite de facturación (Rate limit) impuesto por las plataformas de IA.", correct: false }
+                    { text: "Para que el archivo ocupe menos espacio en el disco.", correct: false },
+                    { text: "Es metadato estructurado —como las columnas de cabecera de un dataset— que permite a Obsidian, a las búsquedas y al agente filtrar y clasificar la información.", correct: true },
+                    { text: "Para impedir que otros editen la nota.", correct: false },
+                    { text: "Para traducir la nota a otros idiomas automáticamente.", correct: false }
                 ]
             },
             {
-                question: "¿Por qué se utiliza el protocolo MCP en lugar de construir una API tradicional manual?",
+                question: "¿Cuál es un riesgo real de instalar una herramienta de terceros (GitHub/PyPI/npm) sin auditarla?",
                 options: [
-                    { text: "Porque MCP es el único que funciona sin conexión a internet.", correct: false },
-                    { text: "Porque MCP define un protocolo estándar para que las herramientas se expongan directamente al modelo, permitiéndole usarlas de forma autónoma sin programar la integración paso a paso.", correct: true },
-                    { text: "Porque la API tradicional cuesta dinero y MCP es siempre gratuito por ley.", correct: false },
-                    { text: "MCP y API son exactamente lo mismo, solo cambia el nombre comercial.", correct: false }
+                    { text: "Que tarde unos segundos más en abrirse la primera vez.", correct: false },
+                    { text: "Typosquatting (un paquete impostor con nombre casi idéntico) o scripts de instalación que ejecutan código y pueden filtrar tus datos.", correct: true },
+                    { text: "Que cambie el color del tema de tu editor.", correct: false },
+                    { text: "Que solo funcione en inglés.", correct: false }
                 ]
             },
             {
-                question: "Dentro de la arquitectura MCP, ¿cuál es la función de un 'MCP Server'?",
+                question: "¿Para qué sirve el mapa local (GRAPH_REPORT.md + graph_query.py)?",
                 options: [
-                    { text: "Es el modelo de Inteligencia Artificial que piensa y toma decisiones (ej. Claude).", correct: false },
-                    { text: "Es la pantalla donde el usuario lee los resultados.", correct: false },
-                    { text: "Es el programa que expone las capacidades y datos de una herramienta específica (ej. Google Sheets) hacia la IA.", correct: true },
-                    { text: "Es el archivo donde se guardan las contraseñas del usuario.", correct: false }
+                    { text: "Para que Claude navegue por estructura y consulte relaciones sin leer cada nota, ahorrando muchísimos tokens en bóvedas grandes.", correct: true },
+                    { text: "Para subir tus notas a un índice público de internet.", correct: false },
+                    { text: "Para encriptar el disco duro contra ataques.", correct: false },
+                    { text: "Para convertir las notas a formato de presentación.", correct: false }
                 ]
             },
             {
-                question: "¿Cómo se autentica típicamente una llamada a la API de Anthropic (como vimos en el ejemplo de cURL)?",
+                question: "¿Qué es un 'nodo huérfano' y por qué es un problema en tu base de conocimiento?",
                 options: [
-                    { text: "Enviando un email a soporte técnico.", correct: false },
-                    { text: "A través del parámetro 'password' en el cuerpo del JSON.", correct: false },
-                    { text: "Usando un nombre de usuario y un captcha.", correct: false },
-                    { text: "Incluyendo una credencial única (API Key) en el header de la petición (ej. x-api-key).", correct: true }
+                    { text: "Una nota duplicada que ocupa el doble de espacio.", correct: false },
+                    { text: "Una nota sin ningún enlace (ni entrante ni saliente): queda aislada y se convierte en conocimiento que nadie volverá a encontrar por asociación.", correct: true },
+                    { text: "Una nota que solo puede abrir el administrador del equipo.", correct: false },
+                    { text: "Una nota guardada en la nube en vez de en local.", correct: false }
                 ]
             },
             {
-                question: "En un entorno IDE, ¿qué significa 'Inline editing' aplicado por IA?",
+                question: "Tras volcar cientos de Excels e informes, el grafo está lleno de notas sueltas. ¿Cómo lo arreglas?",
                 options: [
-                    { text: "Seleccionar un bloque de código y pedir a la IA que lo modifique directamente allí mismo, sin tener que salir a un chat externo.", correct: true },
-                    { text: "Que la IA escriba todo el código en una sola línea muy larga.", correct: false },
-                    { text: "Corregir errores de ortografía en los comentarios del código.", correct: false },
-                    { text: "Poner el IDE en modo 'pantalla completa'.", correct: false }
+                    { text: "Borrando todas las notas que no tengan enlaces.", correct: false },
+                    { text: "Pidiéndole a Claude que lea cada nota huérfana y la conecte con las más relacionadas, y creando notas índice que agrupen por cliente, campaña o periodo.", correct: true },
+                    { text: "Subiéndolas a la nube para que se ordenen solas.", correct: false },
+                    { text: "Desactivando la vista de grafo para no verlas.", correct: false }
                 ]
             }
         ];
@@ -591,110 +811,118 @@ message = client.messages.create(
         function renderQuiz() {
             const container = document.getElementById('quizContainer');
             container.innerHTML = '';
-            
+
             quizData.forEach((q, idx) => {
                 const qDiv = document.createElement('div');
                 qDiv.className = 'mb-8';
                 qDiv.innerHTML = `
-                    <h4 class="text-xl font-bold text-white mb-4"><span class="text-brand-accent">${idx + 1}.</span> ${q.question}</h4>
+                    <h4 class="text-xl font-bold text-white mb-4">
+                        <span class="text-brand-accent">${idx + 1}.</span> ${q.question}
+                    </h4>
                     <div class="space-y-3">
                         ${q.options.map((opt, optIdx) => `
-                            <div class="quiz-option group flex items-center" onclick="selectAnswer(event, ${idx}, ${optIdx})">
+                            <div class="quiz-option flex items-center p-4 rounded-xl border border-slate-800 bg-slate-900/40 cursor-pointer transition-colors" onclick="selectAnswer(event, ${idx}, ${optIdx})">
                                 <input type="radio" name="q${idx}" value="${optIdx}" class="hidden">
-                                <div class="w-6 h-6 rounded-full border-2 border-gray-500 mr-4 flex-shrink-0 group-hover:border-brand-primary radio-custom transition-colors"></div>
-                                <span class="font-serif text-sm md:text-base">${opt.text}</span>
+                                <div class="w-5 h-5 rounded-full border-2 border-slate-500 mr-4 radio-custom flex-shrink-0 transition-colors"></div>
+                                <span class="font-serif text-sm">${opt.text}</span>
                             </div>
                         `).join('')}
                     </div>
                 `;
                 container.appendChild(qDiv);
             });
-            
-            const btnDiv = document.createElement('div');
-            btnDiv.className = "mt-10 pt-8 border-t border-gray-700 text-center";
-            btnDiv.innerHTML = `
-                <button onclick="submitQuiz()" class="px-10 py-4 bg-brand-primary text-white font-bold rounded-xl hover:bg-indigo-500 transition-colors shadow-lg text-lg uppercase tracking-wider">
-                    Validar Respuestas
-                </button>
-            `;
-            container.appendChild(btnDiv);
         }
 
         function selectAnswer(e, qIdx, optIdx) {
             const optionContainer = e.currentTarget;
             const parentDiv = optionContainer.closest('.space-y-3');
-            
-            const allOptions = parentDiv.querySelectorAll('.quiz-option');
-            allOptions.forEach(opt => {
-                opt.classList.remove('selected');
-                opt.querySelector('.radio-custom').classList.remove('bg-brand-accent', 'border-brand-accent');
-                opt.querySelector('.radio-custom').classList.add('border-gray-500');
+
+            parentDiv.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('border-brand-accent', 'bg-brand-accent/10');
+                opt.classList.add('border-slate-800', 'bg-slate-900/40');
+                const radio = opt.querySelector('.radio-custom');
+                radio.className = "w-5 h-5 rounded-full border-2 border-slate-500 mr-4 radio-custom flex-shrink-0 transition-colors";
             });
-            
-            optionContainer.classList.add('selected');
-            const radioCustom = optionContainer.querySelector('.radio-custom');
-            radioCustom.classList.remove('border-gray-500');
-            radioCustom.classList.add('bg-brand-accent', 'border-brand-accent');
-            
+
+            optionContainer.classList.remove('border-slate-800', 'bg-slate-900/40');
+            optionContainer.classList.add('border-brand-accent', 'bg-brand-accent/10');
+
+            const radio = optionContainer.querySelector('.radio-custom');
+            radio.className = "w-5 h-5 rounded-full border-2 border-brand-accent bg-brand-accent mr-4 radio-custom flex-shrink-0 transition-colors";
+
             const input = optionContainer.querySelector('input');
             input.checked = true;
         }
 
         function submitQuiz() {
             let correctCount = 0;
-            let answeredCount = 0;
-            
+            let answered = true;
+
             quizData.forEach((q, idx) => {
                 const selected = document.querySelector(`input[name="q${idx}"]:checked`);
-                if (selected) {
-                    answeredCount++;
-                    const optIdx = selected.value;
-                    const isCorrect = q.options[optIdx].correct;
-                    const optionDiv = selected.closest('.quiz-option');
-                    const parentDiv = optionDiv.parentElement;
-                    
-                    parentDiv.style.pointerEvents = "none";
-                    
-                    if (isCorrect) {
-                        correctCount++;
-                        optionDiv.classList.remove('selected');
-                        optionDiv.classList.add('correct');
-                        optionDiv.querySelector('.radio-custom').className = "w-6 h-6 rounded-full bg-emerald-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-xs fa-solid fa-check";
-                    } else {
-                        optionDiv.classList.remove('selected');
-                        optionDiv.classList.add('incorrect');
-                        optionDiv.querySelector('.radio-custom').className = "w-6 h-6 rounded-full bg-red-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-xs fa-solid fa-xmark";
-                        
-                        const allOptions = parentDiv.querySelectorAll('.quiz-option');
-                        q.options.forEach((opt, oIdx) => {
-                            if(opt.correct) {
-                                allOptions[oIdx].classList.add('border-emerald-500', 'text-emerald-400');
-                            }
-                        });
-                    }
-                }
+                if (!selected) answered = false;
             });
-            
-            if (answeredCount < quizData.length) {
-                alert("Por favor, responde a todas las preguntas antes de validar.");
+
+            const resultDiv = document.getElementById('quiz-result');
+
+            if (!answered) {
+                resultDiv.className = "mt-6 p-4 rounded-xl font-bold font-sans text-center bg-red-900/30 text-red-400 border border-red-500/50 block";
+                resultDiv.innerHTML = "<i class='fa-solid fa-triangle-exclamation mr-2'></i> Por favor, responde a todas las preguntas antes de validar.";
                 return;
             }
-            
+
+            const btn = document.getElementById('validateBtn');
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            quizData.forEach((q, idx) => {
+                const selected = document.querySelector(`input[name="q${idx}"]:checked`);
+                const optIdx = parseInt(selected.value);
+                const isCorrect = q.options[optIdx].correct;
+
+                const optionDiv = selected.closest('.quiz-option');
+                const parentDiv = optionDiv.parentElement;
+
+                parentDiv.style.pointerEvents = "none";
+
+                if (isCorrect) {
+                    correctCount++;
+                    optionDiv.classList.remove('border-brand-accent', 'bg-brand-accent/10');
+                    optionDiv.classList.add('border-emerald-500', 'bg-emerald-500/20', 'text-emerald-300');
+                    optionDiv.querySelector('.radio-custom').className = "w-5 h-5 rounded-full bg-emerald-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-[10px] fa-solid fa-check border-emerald-500";
+                } else {
+                    optionDiv.classList.remove('border-brand-accent', 'bg-brand-accent/10');
+                    optionDiv.classList.add('border-red-500', 'bg-red-500/20', 'text-red-300');
+                    optionDiv.querySelector('.radio-custom').className = "w-5 h-5 rounded-full bg-red-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-[10px] fa-solid fa-xmark border-red-500";
+
+                    const allOptions = parentDiv.querySelectorAll('.quiz-option');
+                    q.options.forEach((opt, oIdx) => {
+                        if (opt.correct) {
+                            const correctDiv = allOptions[oIdx];
+                            correctDiv.classList.remove('border-slate-800', 'bg-slate-900/40');
+                            correctDiv.classList.add('border-emerald-500', 'bg-emerald-500/20', 'text-emerald-300');
+                        }
+                    });
+                }
+            });
+
+            resultDiv.className = "mt-8 p-6 rounded-2xl font-sans text-center bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 block";
+
             const percentage = Math.round((correctCount / quizData.length) * 100);
-            let message = "";
-            if (percentage === 100) message = "🏆 ¡Excelente! Eres un arquitecto de automatización completo.";
-            else if (percentage >= 80) message = "👍 ¡Muy bien! Has asimilado los conceptos técnicos core.";
-            else if (percentage >= 60) message = "✅ ¡Aprobado! Repasa las diferencias entre MCP Server y Client.";
-            else message = "📚 Te recomendamos releer los fundamentos de las APIs y el protocolo MCP.";
-            
-            alert(`Puntuación Final: ${correctCount}/${quizData.length} (${percentage}%)\n\n${message}`);
+            let feedback = "";
+            if (percentage === 100) feedback = "¡Perfecto! Dominas la ingesta local, el OCR, el enlazado y la lección de seguridad.";
+            else if (percentage >= 70) feedback = "¡Muy bien! Has comprendido la arquitectura, la ingesta local y las buenas prácticas de seguridad.";
+            else feedback = "Repasa la sección 5: los riesgos de las herramientas de terceros y cómo mantener tu grafo sano (conectar huérfanos y usar notas índice).";
+
+            resultDiv.innerHTML = `
+                <div class="text-3xl mb-3 font-bold"><i class="fa-solid fa-ranking-star mr-2"></i> Puntuación: ${correctCount} / ${quizData.length}</div>
+                <div class="text-base font-serif text-emerald-100/80">${feedback}</div>
+            `;
         }
 
-        // Initialize features
         document.addEventListener('DOMContentLoaded', () => {
             renderQuiz();
-            
-            // Scroll Observer for Fade-ins
+
             const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
@@ -705,8 +933,7 @@ message = client.messages.create(
             }, observerOptions);
 
             document.querySelectorAll('.fade-in-on-scroll').forEach(el => observer.observe(el));
-            
-            // Progress Bar
+
             window.addEventListener('scroll', () => {
                 const scrollTop = window.scrollY;
                 const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -716,4 +943,5 @@ message = client.messages.create(
         });
     </script>
 </body>
+
 </html>
