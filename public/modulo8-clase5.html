@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Módulo Extra: Automatización con n8n - [m].seny [labs]">
-    <title>Módulo Extra: Introducción a n8n - [m].seny [labs]</title>
-    
+    <meta name="description" content="Módulo 8 Clase 5: El Cerebro de Empresa - Agentes, Departamentos y Plugins - [m].seny [labs]">
+    <title>Módulo 8: El Cerebro de Empresa (Clase 5) - [m].seny [labs]</title>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
@@ -13,8 +14,10 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap"
+        rel="stylesheet">
+
     <script>
         tailwind.config = {
             theme: {
@@ -31,10 +34,10 @@
                             accent: '#F59E0B',
                             light: '#F8FAFC'
                         },
-                        n8n: {
-                            DEFAULT: '#FF6D5A', // Color oficial de n8n
-                            light: '#FFF0EE',
-                            dark: '#CC5748'
+                        claude: {
+                            DEFAULT: '#D97757',
+                            light: '#FDF3F0',
+                            dark: '#B05D40'
                         }
                     }
                 }
@@ -48,7 +51,7 @@
             color: #334155;
             scroll-behavior: smooth;
         }
-        
+
         h1, h2, h3, h4, h5, h6, button, .nav-link {
             font-family: 'Inter', sans-serif;
         }
@@ -75,15 +78,19 @@
             transform: translateY(20px);
             transition: all 0.8s ease-out;
         }
+
         .fade-in-on-scroll.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        .card-hover { transition: all 0.3s ease; }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
         .card-hover:hover {
             transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgba(255, 109, 90, 0.15); /* Sombra n8n */
+            box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.1);
         }
 
         /* Progress Bar */
@@ -92,7 +99,7 @@
             top: 0;
             left: 0;
             height: 3px;
-            background: linear-gradient(90deg, #4F46E5, #FF6D5A);
+            background: linear-gradient(90deg, #4F46E5, #D97757);
             z-index: 1000;
             transition: width 0.2s ease;
         }
@@ -107,473 +114,597 @@
             background-color: rgba(255, 255, 255, 0.05);
             color: #e2e8f0;
         }
+
         .quiz-option:hover {
-            border-color: #4F46E5;
-            background-color: rgba(79, 70, 229, 0.1);
+            border-color: #D97757;
+            background-color: rgba(217, 119, 87, 0.1);
         }
+
         .quiz-option.selected {
             border-color: #F59E0B;
             background-color: rgba(245, 158, 11, 0.1);
         }
-        .quiz-option.correct {
-            border-color: #10b981;
-            background-color: rgba(16, 185, 129, 0.1);
-            color: #10b981;
-        }
-        .quiz-option.incorrect {
-            border-color: #ef4444;
-            background-color: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
-        }
     </style>
 </head>
+
 <body class="antialiased">
 
     <div class="progress-bar" id="progressBar"></div>
 
     <!-- Navigation Header -->
     <header class="bg-white/90 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center">
-                <a href="index.html" class="hover:opacity-80 transition-opacity">
-                    <h1 class="text-xl font-bold tracking-tight text-brand-dark">
+                <a href="index.html" class="no-underline group">
+                    <h1 class="text-xl font-bold tracking-tight text-brand-dark group-hover:text-brand-primary transition-colors cursor-pointer">
                         <span class="text-brand-accent">[m]</span>.seny <span class="text-brand-accent">[labs]</span>
                     </h1>
                 </a>
             </div>
-            <nav class="hidden lg:flex items-center space-x-5 text-xs font-bold text-gray-500 uppercase tracking-wider">
-                <a href="#intro" class="hover:text-n8n transition-colors">1. Introducción</a>
-                <a href="#datos" class="hover:text-n8n transition-colors">2. Datos Itemizados</a>
-                <a href="#nodos" class="hover:text-n8n transition-colors">3. Nodos & Parseo</a>
-                <a href="#despliegue" class="hover:text-n8n transition-colors">4. Despliegue</a>
-                <a href="#pricing" class="hover:text-n8n transition-colors">5. Licencia & Costes</a>
-                <a href="#practica" class="hover:text-n8n transition-colors text-n8n">6. Práctica</a>
-                
-                <a href="/login.html" onclick="document.cookie='sb-ftpywhemyizucquurslo-auth-token=;path=/;max-age=0';localStorage.clear()"
-                    class="hidden md:flex items-center gap-1.5 text-xs font-semibold text-gray-400 hover:text-red-500 transition-colors ml-4"
-                    title="Cerrar sesión">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                        <polyline points="16 17 21 12 16 7" />
-                        <line x1="21" y1="12" x2="9" y2="12" />
-                    </svg>
-                    Salir
-                </a>
+            <nav class="hidden md:flex items-center space-x-4 text-xs font-bold text-gray-500 uppercase tracking-wider">
+                <a href="#empresa" class="hover:text-claude transition-colors">1. EMPRESA</a>
+                <a href="#estructura" class="hover:text-claude transition-colors">2. ESTRUCTURA</a>
+                <a href="#agentes" class="hover:text-claude transition-colors">3. AGENTES</a>
+                <a href="#plugins" class="hover:text-claude transition-colors">4. PLUGINS</a>
+                <a href="#equipo" class="hover:text-claude transition-colors">5. EQUIPO</a>
+                <a href="#practica" class="hover:text-claude transition-colors text-claude">6. PRÁCTICA</a>
             </nav>
+            <a href="/login.html" onclick="document.cookie='sb-ftpywhemyizucquurslo-auth-token=;path=/;max-age=0';localStorage.clear()"
+                class="hidden md:flex items-center gap-1.5 text-xs font-semibold text-gray-400 hover:text-red-500 transition-colors ml-4"
+                title="Cerrar sesión">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                    <polyline points="16 17 21 12 16 7" />
+                    <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+                Salir
+            </a>
         </div>
     </header>
 
     <!-- Presentation Title (Hero) -->
-    <section class="bg-[#0f172a] text-white py-32 border-b-8 border-n8n relative overflow-hidden">
+    <section class="bg-[#0f172a] text-white py-32 border-b-8 border-claude relative overflow-hidden">
         <div class="absolute inset-0 opacity-20">
-            <div class="absolute top-0 right-0 w-[40rem] h-[40rem] bg-n8n rounded-full blur-[150px]"></div>
+            <div class="absolute top-0 right-0 w-[40rem] h-[40rem] bg-claude rounded-full blur-[150px]"></div>
+            <div class="absolute bottom-0 left-0 w-[30rem] h-[30rem] bg-blue-600 rounded-full blur-[150px]"></div>
         </div>
         <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
             <span class="inline-block py-1 px-3 bg-white/10 text-white border border-white/20 font-mono text-sm font-bold uppercase tracking-widest mb-6 rounded">
-                Módulo Extra • Integración
+                Módulo 8 • Clase 5
             </span>
             <h1 class="text-5xl lg:text-7xl font-extrabold mb-6 leading-tight">
-                n8n: El Motor de la<br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-n8n to-rose-400">Automatización Visual</span>
+                El Cerebro de Empresa:<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-claude to-orange-300">Agentes, Departamentos y Plugins</span>
             </h1>
             <p class="text-xl text-gray-300 font-serif max-w-2xl mx-auto italic text-center">
-                Escalabilidad sin límites. Conecta APIs, IA y bases de datos a través de nodos programables de última generación.
+                Ya sabes montar un cerebro local para ti. Ahora lo escalamos a toda una empresa: varios proyectos, varios departamentos y varias personas trabajando sobre el mismo conocimiento, ordenado, conectado y siempre al día.
             </p>
-            <div class="mt-10 flex items-center justify-center space-x-6 text-sm text-gray-400 font-mono">
-                <span><i class="fa-solid fa-book-open mr-2 text-n8n"></i> Teoría: 45 min</span>
-                <span>•</span>
-                <span><i class="fa-solid fa-laptop-code mr-2 text-n8n"></i> Práctica: 60 min</span>
+            <div class="mt-8 flex flex-wrap items-center justify-center gap-2 text-xs font-mono font-bold">
+                <span class="px-3 py-1 bg-orange-500/20 text-orange-300 border border-orange-500/30 rounded-full">Vault de Equipo</span>
+                <span class="px-3 py-1 bg-blue-500/20 text-blue-300 border border-blue-500/30 rounded-full">Agentes Alineados</span>
+                <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded-full">Plugins Obsidian</span>
+                <span class="px-3 py-1 bg-purple-500/20 text-purple-300 border border-purple-500/30 rounded-full">Dashboard</span>
+                <span class="px-3 py-1 bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 rounded-full">Git vs Sync</span>
             </div>
         </div>
     </section>
 
-    <!-- 1. Introducción y Paradigma -->
-    <section id="intro" class="py-20 bg-white">
-        <div class="max-w-5xl mx-auto px-6">
-            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll">
-                <span class="w-10 h-10 bg-n8n text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">1</span>
-                ¿Qué es n8n y por qué usarlo?
-            </h2>
-            
-            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">
-                <strong>n8n</strong> (pronunciado "nodemation") es una plataforma de automatización de flujos de trabajo basada en nodos. Al igual que Zapier o Make, permite conectar diferentes aplicaciones (Gmail, Slack, OpenAI, bases de datos) sin necesidad de escribir código complejo desde cero.
-            </p>
+<section id="empresa" class="py-20 bg-white border-t border-gray-200">
+  <div class="max-w-5xl mx-auto px-6">
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 fade-in-on-scroll">
-                <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl shadow-sm">
-                    <h3 class="text-xl font-bold text-brand-dark mb-3 flex items-center"><i class="fa-solid fa-code-branch text-n8n mr-3"></i> Paradigma Visual</h3>
-                    <p class="font-serif text-sm text-gray-600">
-                        Los flujos se construyen uniendo "nodos" con cables. Cada nodo es un paso lógico: uno extrae datos, otro los procesa con JavaScript (si quieres) y el último los envía a otra plataforma.
-                    </p>
-                </div>
-                <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl shadow-sm">
-                    <h3 class="text-xl font-bold text-brand-dark mb-3 flex items-center"><i class="fa-solid fa-bolt text-n8n mr-3"></i> La Diferencia Técnica</h3>
-                    <p class="font-serif text-sm text-gray-600">
-                        A diferencia de Zapier (enfocado al usuario final), n8n está pensado para perfiles técnicos y operaciones complejas: permite escribir código dentro de los nodos, gestionar bucles complejos y autoalojarse.
-                    </p>
-                </div>
-            </div>
+    <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll"><span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">1</span> De la bóveda personal al cerebro de empresa</h2>
 
-            <!-- Conceptos Core -->
-            <div class="bg-n8n-light/50 border border-n8n/20 p-8 rounded-2xl fade-in-on-scroll">
-                <h3 class="text-2xl font-bold text-n8n mb-6">Los Bloques de Construcción</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                    <div class="bg-white p-5 rounded-xl border border-n8n/10 shadow-sm">
-                        <h4 class="font-bold text-gray-800 mb-2">Triggers (Gatillos)</h4>
-                        <p class="text-sm font-serif text-gray-500">Nodos especiales que inician el flujo. Ej: "Cuando llegue un email nuevo" o un Webhook que espera un aviso de otra app.</p>
-                    </div>
-                    <div class="bg-white p-5 rounded-xl border border-n8n/10 shadow-sm">
-                        <h4 class="font-bold text-gray-800 mb-2">Actions (Acciones)</h4>
-                        <p class="text-sm font-serif text-gray-500">Nodos que hacen cosas: crear una fila en Google Sheets, mandar un mensaje a Slack, pedir un texto a OpenAI.</p>
-                    </div>
-                    <div class="bg-white p-5 rounded-xl border border-n8n/10 shadow-sm">
-                        <h4 class="font-bold text-gray-800 mb-2">Core/Logic Nodos</h4>
-                        <p class="text-sm font-serif text-gray-500">Nodos que modifican los datos: IF (condicionales), Switch, Code (escribir JavaScript para filtrar datos).</p>
-                    </div>
-                </div>
-            </div>
+    <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">Un <strong>cerebro local</strong> en Obsidian es una forma segura de meter documentos en el propio equipo, convertirlos en <strong>notas</strong>, enlazarlas entre sí y mantener el <em>grafo</em> sano, sin nodos huérfanos. Todo en el ordenador, todo bajo control. Eso funciona de maravilla cuando hay <strong>una sola persona</strong> al mando. El salto a empresa es subir un escalón sobre esa misma base.</p>
+
+    <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">Una <strong>empresa no es una persona</strong>. Tiene varios <strong>departamentos</strong> (ventas, marketing, producto, finanzas, técnico, RRHH…), varios <strong>proyectos</strong> abiertos a la vez y, sobre todo, varias <strong>personas</strong> tocando las mismas notas. Lo que para una persona es un cuaderno ordenado, para diez personas puede convertirse en un cajón de sastre en cuestión de semanas. La buena noticia: las mismas piezas siguen valiendo. El reto está en <em>organizarlas para que se entienda todo el mundo</em>.</p>
+
+    <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-6 fade-in-on-scroll">
+      <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i> <strong>Analogía:</strong> es pasar de un <em>cuaderno personal</em> al <strong>archivo central</strong> de una empresa con muchos departamentos. Antes bastaba con que <em>una persona</em> se entendiera con sus notas. Ahora tiene que entenderse <em>todo el mundo</em>, varias personas escriben en el mismo archivo a la vez, y nadie puede desordenar lo de los demás. El reto ya no es <em>guardar</em>: es que el orden aguante a muchas manos.</p>
+    </div>
+
+    <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-list-check text-brand-primary mr-2"></i> Los 4 retos nuevos al escalar a empresa</h3>
+
+    <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">Al pasar de una persona a un equipo aparecen <strong>cuatro problemas nuevos</strong> que un cerebro personal nunca tuvo que resolver. Cada uno se aborda a fondo en una sección de esta clase, así que esto sirve de <em>mapa</em> de lo que viene.</p>
+
+    <div class="grid md:grid-cols-2 gap-8 mb-12 fade-in-on-scroll">
+      <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+        <h4 class="font-bold text-gray-400 uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-folder-tree mr-2"></i> R1 · Estructura</h4>
+        <p class="font-serif text-gray-600 text-sm leading-relaxed">¿Cómo se ordenan <strong>cientos de notas</strong> de varios proyectos y departamentos sin que sea un caos? Hace falta un esquema que cualquiera entienda al primer vistazo. <em>Se trata en la sección 2.</em></p>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+        <h4 class="font-bold text-gray-400 uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-arrows-rotate mr-2"></i> R2 · Consistencia</h4>
+        <p class="font-serif text-gray-600 text-sm leading-relaxed">Si cambia un dato (por ejemplo, la empresa cambia de <em>pasarela de pago</em>), ¿quién actualiza <strong>todas</strong> las notas afectadas sin romper nada ni olvidarse de ninguna? <em>Lo resuelven los agentes, en la sección 3.</em></p>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+        <h4 class="font-bold text-gray-400 uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-puzzle-piece mr-2"></i> R3 · Superpoderes</h4>
+        <p class="font-serif text-gray-600 text-sm leading-relaxed">¿Cómo se añaden <strong>vistas y paneles</strong> a Obsidian (tableros, calendarios, tablas dinámicas) sin instalar cosas <em>peligrosas</em> que toquen datos sensibles? <em>Se ve con los plugins, en la sección 4.</em></p>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+        <h4 class="font-bold text-gray-400 uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-users mr-2"></i> R4 · Equipo</h4>
+        <p class="font-serif text-gray-600 text-sm leading-relaxed">¿Cómo se <strong>comparte el mismo cerebro</strong> entre varias personas sin pisarse unas a otras ni sobrescribir el trabajo ajeno? <em>Lo resuelve la sincronización, en la sección 5.</em></p>
+      </div>
+    </div>
+
+    <div class="bg-emerald-50 p-6 rounded-r-xl border-l-4 border-emerald-500 shadow-sm my-6 fade-in-on-scroll">
+      <p class="font-serif text-emerald-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-check text-emerald-500 mr-2"></i> <strong>La seguridad no cambia:</strong> al crecer a empresa siguen mandando las mismas reglas de base. Todo <strong>local por defecto</strong>, se <strong>audita</strong> cualquier herramienta o plugin de terceros <em>antes</em> de instalarlo, y los <strong>datos personales sensibles</strong> (DNI, nóminas, datos de clientes…) <em>nunca</em> viven dentro del vault. Más manos no significa menos cuidado.</p>
+    </div>
+
+    <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-book text-brand-primary mr-2"></i> Mini-glosario: términos nuevos</h3>
+
+    <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">En esta clase aparecen seis palabras que conviene tener claras desde ya. Aquí va el <em>diccionario rápido</em>; se irán usando a lo largo de las secciones.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 fade-in-on-scroll">
+      <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+        <h5 class="font-bold text-brand-dark text-base mb-2"><i class="fa-solid fa-tag text-brand-primary mr-2"></i> Departamento / Área</h5>
+        <p class="font-serif text-gray-600 text-sm leading-relaxed">Una <strong>etiqueta transversal</strong> que cruza proyectos. Ventas, marketing o finanzas aparecen en muchos proyectos a la vez: el área es la <em>lente</em> con la que se filtra qué le toca a cada equipo. En el grafo, el <strong>área marca el color</strong> de cada nota.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+        <h5 class="font-bold text-brand-dark text-base mb-2"><i class="fa-solid fa-folder text-brand-primary mr-2"></i> Proyecto</h5>
+        <p class="font-serif text-gray-600 text-sm leading-relaxed">Una <strong>carpeta o rama propia</strong> con su estructura. El proyecto A y el proyecto B tienen cada uno su sitio, sus notas y su contexto, sin mezclarse. En el grafo, cada <strong>proyecto forma su propio clúster</strong> (grupo de notas que se agrupan juntas).</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+        <h5 class="font-bold text-brand-dark text-base mb-2"><i class="fa-solid fa-robot text-brand-primary mr-2"></i> Agente</h5>
+        <p class="font-serif text-gray-600 text-sm leading-relaxed">Un <strong>trabajador de IA especializado</strong> con un único cometido. Como un empleado con una sola tarea muy clara: por ejemplo, "revisar que todas las notas usen el dato de pago correcto".</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+        <h5 class="font-bold text-brand-dark text-base mb-2"><i class="fa-solid fa-puzzle-piece text-brand-primary mr-2"></i> Plugin</h5>
+        <p class="font-serif text-gray-600 text-sm leading-relaxed">Una <strong>extensión</strong> que añade funciones nuevas a Obsidian. Como un accesorio que se enchufa a una herramienta para que haga cosas que de fábrica no hacía. Al ser de terceros, <em>se audita antes de instalarlo</em>.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+        <h5 class="font-bold text-brand-dark text-base mb-2"><i class="fa-solid fa-gauge-high text-brand-primary mr-2"></i> Dashboard / Panel</h5>
+        <p class="font-serif text-gray-600 text-sm leading-relaxed">Una <strong>pantalla de mando</strong> con el estado de todo de un vistazo. Como el salpicadero de un coche: se ve lo importante sin abrir el motor.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+        <h5 class="font-bold text-brand-dark text-base mb-2"><i class="fa-solid fa-rotate text-brand-primary mr-2"></i> Sincronización / Sync</h5>
+        <p class="font-serif text-gray-600 text-sm leading-relaxed">Mantener el <strong>mismo vault al día</strong> entre varias personas, de forma que todos vean siempre la última versión sin pisarse el trabajo.</p>
+      </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-r-xl border-l-4 border-claude shadow-sm my-6 fade-in-on-scroll">
+      <p class="font-serif text-gray-700 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-info text-claude mr-2"></i> <strong>Para ubicarse:</strong> no hace falta memorizar nada de esto ahora. Cada término tiene su sección con ejemplos. Esta primera parte es solo el <em>mapa de carreteras</em>: saber qué problemas se van a resolver y con qué pieza se resuelve cada uno.</p>
+    </div>
+
+  </div>
+</section>
+
+<section id="estructura" class="py-20 bg-brand-light border-t border-gray-200">
+  <div class="max-w-5xl mx-auto px-6">
+
+    <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll"><span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">2</span> Estructura: departamentos y proyectos como nodos y etiquetas</h2>
+
+    <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">La clase anterior trataba un cerebro local para <em>una</em> persona. El siguiente salto es una empresa con <strong>varios departamentos</strong> (ventas, marketing, producto, finanzas, RRHH...), <strong>varios proyectos</strong> a la vez y <strong>varias personas</strong> que tocan más de una cosa. El error típico es elegir <em>una sola</em> forma de ordenar: o todo por departamentos, o todo por proyectos. La buena noticia es que no hay que elegir. Se usan <strong>dos ejes complementarios</strong> al mismo tiempo: uno manda en las <strong>carpetas</strong> y el otro en las <strong>etiquetas</strong>.</p>
+
+    <div class="grid md:grid-cols-2 gap-8 mb-12 fade-in-on-scroll">
+      <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+        <h4 class="font-bold text-gray-400 uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-folder-tree mr-2"></i> Eje 1 · Proyectos = carpetas</h4>
+        <p class="font-serif text-gray-600 text-sm leading-relaxed">Cada proyecto tiene su <strong>carpeta</strong>, y todas las carpetas comparten la <strong>misma estructura interna predecible</strong>: mapas, negocio, producto, técnico, diseño, calidad, decisiones, glosario y diario. ¿Por qué igual en todas? Porque así <em>cualquiera</em> sabe dónde mirar sin preguntar: «las decisiones de este proyecto están en la subcarpeta de decisiones», siempre, en todos. La predecibilidad es la que ahorra horas.</p>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+        <h4 class="font-bold text-gray-400 uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-tags mr-2"></i> Eje 2 · Departamentos = etiquetas</h4>
+        <p class="font-serif text-gray-600 text-sm leading-relaxed">Los departamentos no son carpetas: son <strong>etiquetas transversales</strong> que cruzan proyectos, del tipo <code>area/ventas</code>, <code>area/marketing</code> o <code>area/tecnico</code>. Una misma etiqueta de área aparece en notas de proyectos distintos. Y cada nota lleva también su <strong>etiqueta de proyecto</strong> (<code>proyecto/...</code>), para poder reagrupar por proyecto cuando haga falta. Dos etiquetas por nota: su disciplina y su proyecto.</p>
+      </div>
+    </div>
+
+    <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-circle-nodes text-brand-primary mr-2"></i> Cómo se ve esto en el grafo</h3>
+
+    <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">Aquí está la idea que conviene memorizar: en el grafo, el <strong>color</strong> de cada nodo dice de qué <strong>área</strong> (departamento) es, y la <strong>posición</strong> (el grupo donde queda) dice de qué <strong>proyecto</strong> es. Se configura pintando los nodos por su etiqueta de área, y al activar la vista de etiquetas (<em>«Show tags»</em>) cada proyecto se agrupa alrededor de su etiqueta-eje <code>proyecto/...</code>. El lema, para que no se olvide: <strong>«el color te dice de qué disciplina es; el grupo te dice de qué proyecto es»</strong>.</p>
+
+    <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-6 fade-in-on-scroll">
+      <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i> <strong>Analogía:</strong> piensa en un <strong>edificio de oficinas</strong>. Cada <strong>planta</strong> es un proyecto. El <strong>color del distintivo</strong> que lleva cada persona es su departamento (marketing en rojo, técnico en azul, ventas en verde...). Una misma persona trabaja en una planta concreta, pero lleva siempre el color de su departamento. Cuando «enciendes las etiquetas», todos se colocan en su planta sin perder el color de su distintivo: ves de un vistazo quién trabaja en cada proyecto y de qué área es cada uno.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 fade-in-on-scroll text-center">
+      <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+        <div class="w-12 h-12 bg-indigo-50 text-brand-primary rounded-xl flex items-center justify-center mx-auto text-xl mb-4"><i class="fa-solid fa-palette"></i></div>
+        <h5 class="font-bold text-gray-800 text-sm mb-1">Color = área</h5>
+        <p class="font-serif text-gray-500 text-xs">Cada departamento tiene su color. Ventas, marketing, técnico... se distinguen a simple vista en todo el grafo.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+        <div class="w-12 h-12 bg-indigo-50 text-brand-primary rounded-xl flex items-center justify-center mx-auto text-xl mb-4"><i class="fa-solid fa-object-group"></i></div>
+        <h5 class="font-bold text-gray-800 text-sm mb-1">Grupo = proyecto</h5>
+        <p class="font-serif text-gray-500 text-xs">Al activar «Show tags», los nodos se apiñan alrededor de su etiqueta <code>proyecto/...</code>. Cada clúster es un proyecto.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+        <div class="w-12 h-12 bg-indigo-50 text-brand-primary rounded-xl flex items-center justify-center mx-auto text-xl mb-4"><i class="fa-solid fa-filter"></i></div>
+        <h5 class="font-bold text-gray-800 text-sm mb-1">Filtro = foco</h5>
+        <p class="font-serif text-gray-500 text-xs">Marketing filtra <code>area/marketing</code> y ve su trabajo en TODOS los proyectos; el responsable de un proyecto ve su clúster entero.</p>
+      </div>
+    </div>
+
+    <div class="bg-emerald-50 p-6 rounded-r-xl border-l-4 border-emerald-500 shadow-sm my-6 fade-in-on-scroll">
+      <p class="font-serif text-emerald-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-check text-emerald-500 mr-2"></i> <strong>Beneficio práctico:</strong> los dos ejes sirven a dos miradas distintas a la vez. Alguien de marketing filtra su etiqueta de área y ve, cruzando proyectos, todo lo que le toca; quien lidera un proyecto activa las etiquetas y ve su clúster completo. Mismo vault, misma información, dos lecturas sin duplicar ni una sola nota.</p>
+    </div>
+
+    <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-file-code text-brand-primary mr-2"></i> Una nota que lleva su área y su proyecto</h3>
+
+    <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">En la práctica, esto se consigue con la pequeña ficha que va al principio de cada nota (el <em>frontmatter</em>). Ahí se declaran su título, su tipo y sus etiquetas: la de <strong>área</strong> y la de <strong>proyecto</strong>. Con eso el grafo ya sabe de qué color pintarla y en qué grupo colocarla. Un ejemplo realista:</p>
+
+    <div class="bg-slate-900 text-gray-300 rounded-xl p-5 font-mono text-xs leading-relaxed whitespace-pre overflow-x-auto mb-8">---
+titulo: Plan de captación Q3
+tipo: nota
+tags:
+  - area/ventas
+  - proyecto/expansion-2026
+---</div>
+
+    <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-wand-magic-sparkles text-brand-primary mr-2"></i> Pídeselo a la IA con tus palabras</h3>
+
+    <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">No hace falta saber configurar nada a mano. Puedes describir el sistema en lenguaje natural y dejar que la IA prepare la estructura y las reglas. Un prompt como este sirve de punto de partida:</p>
+
+    <div class="fade-in-on-scroll mb-8"><div class="bg-slate-900 text-white rounded-2xl overflow-hidden border border-slate-800 shadow-xl"><div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center"><span class="text-sm font-mono text-brand-accent font-bold uppercase tracking-wider"><i class="fa-solid fa-terminal mr-2"></i> Prompt de organización</span><button onclick="copyToClipboard('cb-est-1', this)" class="text-xs font-bold text-slate-400 hover:text-white transition-colors border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg bg-slate-900 flex items-center"><i class="fa-regular fa-copy mr-2"></i> Copiar</button></div><div id="cb-est-1" class="p-6 font-mono text-gray-200 text-xs md:text-sm leading-relaxed whitespace-pre-wrap">Organiza mi vault por proyectos en carpetas, todas con la misma estructura interna predecible (mapas, negocio, producto, técnico, diseño, calidad, decisiones, glosario, diario). Etiqueta cada nota con su área (area/...) y con su proyecto (proyecto/...). Y configura el grafo para que el color de cada nodo represente su área —así cada departamento tiene su color— y para que, al activar la vista de etiquetas, cada proyecto se agrupe alrededor de su etiqueta proyecto/...</div></div></div>
+
+    <div class="bg-white p-6 rounded-r-xl border-l-4 border-claude shadow-sm my-6 fade-in-on-scroll">
+      <p class="font-serif text-gray-700 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-info text-claude mr-2"></i> <strong>Seguridad, igual que en la clase anterior:</strong> todo vive <strong>en local</strong> por defecto. Antes de instalar cualquier plugin o herramienta de terceros que toque el vault, audítalo. Y una regla firme: los <strong>datos personales sensibles</strong> (PII —correos privados, números de cliente, nóminas, contratos...) <strong>no viven en el vault</strong>; en su lugar se referencian o se guardan en el sistema seguro que corresponda.</p>
+    </div>
+
+  </div>
+</section>
+
+<section id="agentes" class="py-20 bg-white border-t border-gray-200">
+  <div class="max-w-5xl mx-auto px-6">
+
+    <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll"><span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">3</span> El equipo de agentes que mantiene el grafo sano</h2>
+
+    <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">En la clase anterior vimos un cerebro local para <em>una</em> persona. Pero una empresa tiene varios <strong>departamentos</strong> (ventas, marketing, producto, finanzas, RRHH), varios <strong>proyectos</strong> y varias personas escribiendo a la vez. Para que ese conocimiento esté siempre <strong>correcto, conectado y al día</strong>, no basta con un único asistente que lo haga todo. Igual que en una empresa nadie es a la vez contable, comercial y diseñador, la solución es un <strong>equipo de agentes especializados</strong>: cada uno tiene <em>un</em> trabajo claro y todos persiguen el mismo objetivo y siguen las mismas reglas. A eso le llamamos estar <strong>alineados</strong>.</p>
+
+    <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">Un agente es, simplemente, un ayudante de IA con una misión concreta y permiso para actuar sobre el vault (leer notas, crearlas, editarlas). En vez de pedirle a uno solo que improvise de todo, el trabajo se reparte en roles. Estos son los <strong>esenciales</strong> (sin marearte con decenas):</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 fade-in-on-scroll">
+      <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+        <h5 class="font-bold text-brand-dark text-base mb-2"><i class="fa-solid fa-pen-nib text-brand-primary mr-2"></i> Redactor <span class="text-gray-400 font-normal text-sm">· el cronista</span></h5>
+        <p class="font-serif text-gray-600 text-sm leading-relaxed">Crea y, sobre todo, <strong>actualiza</strong> notas de forma consistente. Su superpoder: convertir un cambio en conocimiento estable. Si la empresa cambia de pasarela de pago, no toca <em>una</em> nota, toca <strong>todas</strong> las afectadas para que ninguna siga contando lo viejo.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+        <h5 class="font-bold text-brand-dark text-base mb-2"><i class="fa-solid fa-link text-brand-primary mr-2"></i> Enlazador <span class="text-gray-400 font-normal text-sm">· el documentalista</span></h5>
+        <p class="font-serif text-gray-600 text-sm leading-relaxed">Conecta cada nota nueva con las que de verdad se relacionan y evita los <strong>nodos huérfanos</strong> (esas notas sueltas que vimos en la clase anterior, que existen pero no apuntan a nada ni nada apunta a ellas).</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+        <h5 class="font-bold text-brand-dark text-base mb-2"><i class="fa-solid fa-shield-halved text-brand-primary mr-2"></i> Verificador <span class="text-gray-400 font-normal text-sm">· el control de calidad</span></h5>
+        <p class="font-serif text-gray-600 text-sm leading-relaxed">Es la <strong>barrera final</strong>. Antes de dar por bueno un cambio comprueba que la documentación lo acompaña y que nada quedó incoherente, y emite un veredicto: <strong>PASA</strong> o <strong>BLOQUEA</strong>. Si la documentación no está al día, <strong>bloquea</strong>.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+        <h5 class="font-bold text-brand-dark text-base mb-2"><i class="fa-solid fa-user-graduate text-brand-primary mr-2"></i> Entrenador <span class="text-gray-400 font-normal text-sm">· el jefe de equipo</span></h5>
+        <p class="font-serif text-gray-600 text-sm leading-relaxed">No hace trabajo de proyecto: <strong>mejora a los demás agentes</strong>. Analiza sus resultados y crea reglas reutilizables (<em>skills</em>) que reparte entre todos. Así el equipo aprende de sí mismo y va a mejor con el tiempo.</p>
+      </div>
+    </div>
+
+    <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-6 fade-in-on-scroll">
+      <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i> <strong>Analogía:</strong> piensa en la redacción de un periódico. Los <strong>reporteros</strong> escriben las noticias (redactor); el <strong>documentalista</strong> las archiva y enlaza con la hemeroteca (enlazador); los <strong>verificadores</strong> no dejan publicar nada sin contrastar los datos (verificador); y el <strong>redactor-jefe</strong> forma al equipo y fija el <em>libro de estilo</em> que todos siguen (entrenador). Estar <strong>alineados</strong> es, sencillamente, que todos trabajen con el mismo libro de estilo.</p>
+    </div>
+
+    <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-arrows-rotate text-brand-primary mr-2"></i> Los dos momentos en que el equipo cuida el grafo</h3>
+    <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">El equipo entra en acción en dos situaciones muy distintas. Conviene tenerlas claras porque en cada una mandan agentes diferentes:</p>
+
+    <div class="grid md:grid-cols-2 gap-8 mb-12 fade-in-on-scroll">
+      <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+        <h4 class="font-bold text-gray-400 uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-pen-to-square mr-2"></i> A · Ediciones de algo que ya existe</h4>
+        <p class="font-serif text-gray-600 text-sm leading-relaxed">Algo cambia en la realidad (un precio, un proceso, un responsable). El <strong>redactor</strong> propaga ese cambio a <em>todas</em> las notas afectadas y el <strong>verificador</strong> comprueba que el conjunto sigue siendo coherente antes de dar el visto bueno.</p>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+        <h4 class="font-bold text-gray-400 uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-inbox mr-2"></i> B · Ingesta de información nueva</h4>
+        <p class="font-serif text-gray-600 text-sm leading-relaxed">Entra conocimiento nuevo (una reunión, un documento, una decisión). El <strong>enlazador</strong> lo conecta con lo que ya existe y el <strong>verificador</strong> vigila que no queden notas <strong>huérfanas</strong> ni <strong>duplicados</strong> que ensucien el grafo.</p>
+      </div>
+    </div>
+
+    <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-handshake-angle text-brand-primary mr-2"></i> Qué significa "alineados" en la práctica</h3>
+    <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">Alineados quiere decir que todos comparten <strong>reglas comunes</strong>. La más importante es una regla de <strong>edición segura</strong> que cualquier agente que toque un archivo debe seguir. ¿Por qué? Porque un agente descuidado puede <em>estropear</em> una nota al editarla: si hace un reemplazo masivo a ciegas, puede borrar texto que no tocaba o dejar la nota a medias. La regla común evita justo eso.</p>
+
+    <div class="bg-emerald-50 p-6 rounded-r-xl border-l-4 border-emerald-500 shadow-sm my-6 fade-in-on-scroll">
+      <p class="font-serif text-emerald-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-check text-emerald-500 mr-2"></i> <strong>Regla común de edición segura:</strong> editar de forma quirúrgica (cambiar solo lo que toca, nada de reemplazos masivos a ciegas) y <strong>autocomprobar el resultado</strong> después de cada cambio. Así ningún agente corrompe un archivo. Igual que el libro de estilo del periódico, esta regla la siguen <em>todos</em> por igual.</p>
+    </div>
+
+    <div class="bg-white p-6 rounded-r-xl border-l-4 border-claude shadow-sm my-6 fade-in-on-scroll">
+      <p class="font-serif text-gray-700 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-info text-claude mr-2"></i> <strong>Seguridad (igual que en la clase anterior):</strong> todo funciona <strong>en local</strong> por defecto; audita cualquier herramienta o plugin de terceros <em>antes</em> de instalarlo; y los datos personales sensibles (PII: nóminas, datos médicos, contraseñas) <strong>no viven en el vault</strong>. El equipo de agentes ordena el conocimiento, no custodia secretos.</p>
+    </div>
+
+    <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-people-group text-brand-primary mr-2"></i> Crea tu propio equipo</h3>
+    <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">No tienes que programar nada: basta con describir el equipo que quieres. Copia este prompt y adáptalo a tu vault.</p>
+
+    <div class="fade-in-on-scroll mb-8">
+      <div class="bg-slate-900 text-white rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+        <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+          <span class="text-sm font-mono text-brand-accent font-bold uppercase tracking-wider"><i class="fa-solid fa-terminal mr-2"></i> Prompt · montar el equipo</span>
+          <button onclick="copyToClipboard('cb-ag-1', this)" class="text-xs font-bold text-slate-400 hover:text-white transition-colors border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg bg-slate-900 flex items-center"><i class="fa-regular fa-copy mr-2"></i> Copiar</button>
         </div>
-    </section>
+        <div id="cb-ag-1" class="p-6 font-mono text-gray-200 text-xs md:text-sm leading-relaxed whitespace-pre-wrap">Crea un equipo de subagentes para mi vault de empresa:
 
-    <!-- 2. Datos Itemizados (Concepto Crítico) -->
-    <section id="datos" class="py-20 bg-brand-light border-t border-gray-200">
+- Un REDACTOR que, ante cualquier cambio, actualice TODAS las notas afectadas (no solo una) para que ninguna quede contando lo viejo.
+- Un ENLAZADOR que conecte cada nota nueva con las que de verdad se relacionan y evite que queden notas huérfanas.
+- Un VERIFICADOR que revise la coherencia del conjunto y BLOQUEE el cambio si la documentación no está al día; que emita siempre un veredicto PASA o BLOQUEA.
+- Una REGLA COMÚN de edición segura que todos sigan: editar solo lo justo (nada de reemplazos masivos a ciegas) y autocomprobar el resultado después, para que ningún agente corrompa archivos al editar.
+
+Todo en local. No metas datos personales sensibles (PII) en las notas.</div>
+      </div>
+    </div>
+
+    <div class="bg-indigo-50/60 p-6 rounded-2xl border border-indigo-100 my-8 fade-in-on-scroll">
+      <h4 class="font-bold text-brand-dark text-sm uppercase mb-3"><i class="fa-solid fa-lightbulb mr-2 text-indigo-600"></i> En una frase</h4>
+      <p class="font-serif text-gray-700 text-sm leading-relaxed mb-0">Un cerebro de empresa sano no lo mantiene un solo agente todoterreno, sino un <strong>equipo pequeño y especializado</strong> que comparte objetivo y reglas. Cada uno hace su parte —escribir, conectar, verificar, mejorar al resto— y la regla de edición segura garantiza que, entre todos, el conocimiento se mantenga correcto, conectado y al día sin romperse por el camino.</p>
+    </div>
+
+  </div>
+</section>
+
+<section id="plugins" class="py-20 bg-brand-light border-t border-gray-200">
+  <div class="max-w-5xl mx-auto px-6">
+
+    <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll">
+      <span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">4</span>
+      Plugins y tu panel de mando dentro de Obsidian
+    </h2>
+
+    <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">
+      Obsidian, tal y como viene de fábrica, es un <strong>visor sencillo de tus notas</strong>: escribes, enlazas y buscas. Útil, pero básico. Los <strong>plugins</strong> son los que le dan superpoderes: añaden funciones nuevas como un <em>calendario</em>, un <em>tablero kanban</em> para mover tareas, <em>gráficos</em>, paneles de seguimiento o vistas que reorganizan tu información. Y hay dos formas de conseguirlos: bajarlos de la <strong>tienda de la comunidad</strong> (un catálogo enorme dentro del propio Obsidian) o pedir que te <strong>construyan uno a medida</strong> para lo que tú necesitas.
+    </p>
+
+    <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-6 fade-in-on-scroll">
+      <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed">
+        <i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i>
+        <strong>Analogía:</strong> Obsidian es como un <strong>móvil</strong> y los plugins son las <strong>apps</strong>. Puedes instalarlas desde la tienda (pero conviene mirar qué permisos piden antes de tocar "Instalar") o programarte la tuya a medida. Y el <em>dashboard</em> es tu <strong>pantalla de inicio</strong>: la dejas con los widgets que de verdad te importan a la vista.
+      </p>
+    </div>
+
+    <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll">
+      <i class="fa-solid fa-shield-halved text-brand-primary mr-2"></i> Antes de instalar nada: la regla de oro sigue vigente
+    </h3>
+
+    <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">
+      La regla de seguridad de la clase anterior sigue aplicando. Un plugin no es un dibujito inofensivo: <strong>se ejecuta con tus mismos permisos, en tu propio equipo</strong>, y puede leer tu vault entero. Por eso vale exactamente la misma norma que para cualquier herramienta de terceros: <strong>auditar antes de instalar</strong>. Y hay un atajo muy potente: si lo que necesitas es <em>sencillo</em>, no hace falta cazar un paquete de origen dudoso — puedes pedirle a tu agente de IA que te lo <strong>construya en local</strong>, transparente y revisable por ti.
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-8 mb-12 fade-in-on-scroll">
+      <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+        <h4 class="font-bold text-gray-400 uppercase text-xs mb-3 tracking-widest">
+          <i class="fa-solid fa-store mr-2"></i> Plugin de la comunidad
+        </h4>
+        <p class="font-serif text-gray-600 text-sm leading-relaxed">
+          Lo hace otra persona y lo descargas de la tienda. Cómodo y suele estar bien para necesidades habituales, pero es <strong>código de un tercero</strong>: revisa <em>quién lo mantiene</em>, cuánta gente lo usa, qué hace exactamente y si <strong>envía datos fuera</strong> de tu equipo. Si no te convence, no lo instales.
+        </p>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+        <h4 class="font-bold text-gray-400 uppercase text-xs mb-3 tracking-widest">
+          <i class="fa-solid fa-screwdriver-wrench mr-2"></i> Plugin a medida (local)
+        </h4>
+        <p class="font-serif text-gray-600 text-sm leading-relaxed">
+          Tu agente de IA te lo construye <strong>en tu equipo</strong>, hecho a tu medida y <strong>transparente</strong>: puedes ver qué hace y cambiarlo. No depende de extraños, no manda nada fuera por sorpresa y se adapta exacto a tus departamentos y proyectos. Ideal cuando lo que pides es concreto.
+        </p>
+      </div>
+    </div>
+
+    <div class="bg-emerald-50 p-6 rounded-r-xl border-l-4 border-emerald-500 shadow-sm my-6 fade-in-on-scroll">
+      <p class="font-serif text-emerald-900 text-sm m-0 leading-relaxed">
+        <i class="fa-solid fa-circle-check text-emerald-500 mr-2"></i>
+        <strong>Buena práctica:</strong> todo en local por defecto, auditar cualquier plugin de terceros antes de instalarlo, y recordar que los <strong>datos personales sensibles</strong> (PII de clientes, empleados, etc.) <strong>no viven en el vault</strong>. El conocimiento sí; los datos delicados, fuera.
+      </p>
+    </div>
+
+    <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll">
+      <i class="fa-solid fa-gauge-high text-brand-primary mr-2"></i> Tu cabina de mando: el dashboard
+    </h3>
+
+    <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">
+      La pieza que más impresiona, y que es <strong>perfectamente alcanzable</strong>, es construir tu propio <strong>panel de mando</strong>: puede vivir dentro de Obsidian o ser una pequeña <em>app local</em> que lee tu vault. Ahí reúnes el <strong>estado de tus proyectos</strong> (proyecto A, proyecto B…), indicadores clave de cada departamento (ventas, marketing, producto, finanzas, RRHH) y hasta un <strong>grafo vivo</strong> de tus notas que se <em>ilumina cuando trabajas</em> sobre ellas. No es magia: es tu cabina de mando del conocimiento, montada con lo que ya tienes.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 fade-in-on-scroll text-center">
+      <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+        <div class="w-12 h-12 bg-indigo-50 text-brand-primary rounded-xl flex items-center justify-center mx-auto text-xl mb-4">
+          <i class="fa-solid fa-list-check"></i>
+        </div>
+        <h5 class="font-bold text-gray-800 text-sm mb-1">Estado de proyectos</h5>
+        <p class="font-serif text-gray-500 text-xs">De un vistazo: qué está en marcha, qué está parado y qué toca ahora, sin abrir veinte notas.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+        <div class="w-12 h-12 bg-indigo-50 text-brand-primary rounded-xl flex items-center justify-center mx-auto text-xl mb-4">
+          <i class="fa-solid fa-chart-line"></i>
+        </div>
+        <h5 class="font-bold text-gray-800 text-sm mb-1">Indicadores clave</h5>
+        <p class="font-serif text-gray-500 text-xs">Los números que importan por departamento, reunidos en una sola pantalla en vez de en mil sitios.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+        <div class="w-12 h-12 bg-indigo-50 text-brand-primary rounded-xl flex items-center justify-center mx-auto text-xl mb-4">
+          <i class="fa-solid fa-diagram-project"></i>
+        </div>
+        <h5 class="font-bold text-gray-800 text-sm mb-1">Grafo vivo</h5>
+        <p class="font-serif text-gray-500 text-xs">El mapa de tus notas conectadas: cada <strong>color</strong> marca un área y cada <strong>grupo de puntos</strong> (clúster) es un proyecto. Se ilumina al editar, para ver dónde se mueve el conocimiento.</p>
+      </div>
+    </div>
+
+    <div class="bg-indigo-50/60 p-6 rounded-2xl border border-indigo-100 my-8 fade-in-on-scroll">
+      <h4 class="font-bold text-brand-dark text-sm uppercase mb-3">
+        <i class="fa-solid fa-palette mr-2 text-indigo-600"></i> Un matiz de diseño que ahorra confusiones
+      </h4>
+      <p class="font-serif text-gray-700 text-sm leading-relaxed mb-0">
+        Una herramienta interna como un panel <strong>puede (y suele convenir) tener su propia identidad visual</strong>, distinta de la marca de los productos de la empresa. Así nadie confunde <em>la herramienta con la que trabajas</em> con <em>el producto que vendes</em>: cada cosa, su aspecto.
+      </p>
+    </div>
+
+    <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">
+      ¿Cómo se pide todo esto sin saber programar? Igual que el resto: describiéndolo en lenguaje natural y dejando que tu agente lo monte, pero <strong>poniendo la seguridad por delante</strong>. Aquí tienes un prompt listo para copiar:
+    </p>
+
+    <div class="fade-in-on-scroll mb-8">
+      <div class="bg-slate-900 text-white rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+        <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+          <span class="text-sm font-mono text-brand-accent font-bold uppercase tracking-wider">
+            <i class="fa-solid fa-terminal mr-2"></i> Prompt · panel con grafo vivo
+          </span>
+          <button onclick="copyToClipboard('cb-plg-1', this)" class="text-xs font-bold text-slate-400 hover:text-white transition-colors border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg bg-slate-900 flex items-center">
+            <i class="fa-regular fa-copy mr-2"></i> Copiar
+          </button>
+        </div>
+        <div id="cb-plg-1" class="p-6 font-mono text-gray-200 text-xs md:text-sm leading-relaxed whitespace-pre-wrap">Quiero un panel dentro de Obsidian con el estado de mis proyectos y un grafo que se ilumine cuando edito notas. Antes de instalar ningún plugin de terceros, audítalo (quién lo mantiene, qué hace, si envía datos fuera); si no es de fiar, constrúyemelo en local, transparente y que yo pueda revisar.</div>
+      </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-r-xl border-l-4 border-claude shadow-sm my-6 fade-in-on-scroll">
+      <p class="font-serif text-gray-700 text-sm m-0 leading-relaxed">
+        <i class="fa-solid fa-circle-info text-claude mr-2"></i>
+        <strong>Con honestidad:</strong> un panel sencillo (estado de proyectos, contadores, lista de pendientes) es algo que tu agente monta en local sin complicaciones. Un grafo vivo muy elaborado o conexiones a sistemas externos llevan más trabajo y conviene plantearlos por fases. Empieza por lo simple, compruébalo funcionando, y crece desde ahí.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<section id="equipo" class="py-20 bg-white border-t border-gray-200">
+  <div class="max-w-5xl mx-auto px-6">
+
+    <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll"><span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">5</span> Mantener el grafo vivo en equipo: Git vs Obsidian Sync</h2>
+
+    <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">Un cerebro de conocimiento empieza siendo local y para <strong>una sola persona</strong>. Pero en una empresa real conviven varios <strong>departamentos</strong> (ventas, marketing, producto, finanzas, RRHH), varios <strong>proyectos</strong> y varias <strong>personas</strong> que necesitan leer y escribir sobre el mismo vault. Y aquí aparece el reto de verdad: si cada uno guarda su propia copia y se la pasa por correo o por un disco compartido, llegan los <em>conflictos</em>, las versiones pisadas y el caos de no saber nunca cuál es la buena.</p>
+
+    <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">La buena noticia es que un vault es <strong>texto plano</strong>: simples archivos <code>.md</code>. Eso abre la puerta a soluciones limpias y bien resueltas, las mismas que usan los equipos técnicos para trabajar a la vez sobre los mismos ficheros. Hay <strong>tres opciones</strong> habituales, y conviene verlas con honestidad para elegir con criterio. Al final, una recomendación clara.</p>
+
+    <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-6 fade-in-on-scroll">
+      <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i> <strong>Analogía:</strong> imagina que un equipo edita el mismo documento. <strong>Mandar copias por correo</strong> es el disco compartido: acabas con "documento_final_v2_BUENO_este_sí.docx" y nadie sabe cuál vale. Un <strong>mensajero con un candado que solo abre el destinatario</strong> es Obsidian Sync: viaja cifrado, nadie por el camino puede leerlo. Y un <strong>libro de registro con fichas de entrada y salida</strong>, que apunta cada cambio y te deja volver atrás en el tiempo, es Git.</p>
+    </div>
+
+    <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-layer-group text-brand-primary mr-2"></i> Las tres opciones, sin trampa</h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 fade-in-on-scroll">
+      <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+        <h5 class="font-bold text-brand-dark text-base mb-2"><i class="fa-solid fa-code-branch text-brand-primary mr-2"></i> A · Git</h5>
+        <p class="font-serif text-gray-600 text-sm leading-relaxed"><strong>Control de versiones, gratis.</strong> Guarda el historial completo, deja fusionar el trabajo de varias personas y deshacer cualquier cosa. Es 100% bajo tu control. Ideal si en el equipo hay perfil técnico o ya se usa Git.<br><br><em>Contra:</em> tiene curva de aprendizaje y a veces hay que resolver "conflictos de fusión" a mano. No es tiempo real.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+        <h5 class="font-bold text-brand-dark text-base mb-2"><i class="fa-solid fa-lock text-brand-primary mr-2"></i> B · Obsidian Sync</h5>
+        <p class="font-serif text-gray-600 text-sm leading-relaxed"><strong>De pago, oficial.</strong> Muy sencillo, sin saber Git, funciona en varios dispositivos y —lo clave— va <strong>cifrado de extremo a extremo</strong>: ni siquiera Obsidian puede leer tus notas.<br><br><em>Contra:</em> es una cuota mensual y dependes de su servicio.</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+        <h5 class="font-bold text-brand-dark text-base mb-2"><i class="fa-solid fa-cloud text-brand-primary mr-2"></i> C · Disco / nube compartida</h5>
+        <p class="font-serif text-gray-600 text-sm leading-relaxed">Un Drive o Dropbox compartido es <strong>cómodo</strong>, pero genera conflictos si dos abren la nota a la vez y mete tus datos en una nube de terceros que <em>sí</em> puede leerlos. <strong>Syncthing</strong> sincroniza directo entre equipos sin nube, pero hay que montarlo.</p>
+      </div>
+    </div>
+
+    <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-table-columns text-brand-primary mr-2"></i> Comparativa de un vistazo</h3>
+
+    <div class="overflow-x-auto fade-in-on-scroll mb-8">
+      <table class="w-full text-sm border-collapse">
+        <thead>
+          <tr>
+            <th class="text-left font-bold text-brand-dark p-3 border-b-2 border-gray-200"></th>
+            <th class="text-left font-bold text-brand-dark p-3 border-b-2 border-gray-200">Git</th>
+            <th class="text-left font-bold text-brand-dark p-3 border-b-2 border-gray-200">Obsidian Sync</th>
+            <th class="text-left font-bold text-brand-dark p-3 border-b-2 border-gray-200">Disco compartido</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="p-3 border-b border-gray-100 font-bold text-brand-dark">Coste</td>
+            <td class="p-3 border-b border-gray-100 font-serif text-gray-600">Gratis</td>
+            <td class="p-3 border-b border-gray-100 font-serif text-gray-600">Cuota mensual</td>
+            <td class="p-3 border-b border-gray-100 font-serif text-gray-600">Gratis o ya contratado</td>
+          </tr>
+          <tr>
+            <td class="p-3 border-b border-gray-100 font-bold text-brand-dark">Facilidad</td>
+            <td class="p-3 border-b border-gray-100 font-serif text-gray-600">Curva de aprendizaje</td>
+            <td class="p-3 border-b border-gray-100 font-serif text-gray-600">Muy fácil, sin saber nada</td>
+            <td class="p-3 border-b border-gray-100 font-serif text-gray-600">Muy fácil</td>
+          </tr>
+          <tr>
+            <td class="p-3 border-b border-gray-100 font-bold text-brand-dark">Privacidad</td>
+            <td class="p-3 border-b border-gray-100 font-serif text-gray-600">Total (bajo tu control)</td>
+            <td class="p-3 border-b border-gray-100 font-serif text-gray-600">Alta: cifrado extremo a extremo</td>
+            <td class="p-3 border-b border-gray-100 font-serif text-gray-600">Baja: el proveedor puede leer</td>
+          </tr>
+          <tr>
+            <td class="p-3 border-b border-gray-100 font-bold text-brand-dark">Historial y versiones</td>
+            <td class="p-3 border-b border-gray-100 font-serif text-gray-600">Completo, vuelves a cualquier punto</td>
+            <td class="p-3 border-b border-gray-100 font-serif text-gray-600">Sí, limitado al plan</td>
+            <td class="p-3 border-b border-gray-100 font-serif text-gray-600">Básico o inexistente</td>
+          </tr>
+          <tr>
+            <td class="p-3 border-b border-gray-100 font-bold text-brand-dark">Tiempo real</td>
+            <td class="p-3 border-b border-gray-100 font-serif text-gray-600">No (sincronizas a voluntad)</td>
+            <td class="p-3 border-b border-gray-100 font-serif text-gray-600">Sí, casi instantáneo</td>
+            <td class="p-3 border-b border-gray-100 font-serif text-gray-600">Sí, pero con conflictos</td>
+          </tr>
+          <tr>
+            <td class="p-3 border-b border-gray-100 font-bold text-brand-dark">Recomendado para</td>
+            <td class="p-3 border-b border-gray-100 font-serif text-gray-600">Equipos técnicos o que ya usan Git</td>
+            <td class="p-3 border-b border-gray-100 font-serif text-gray-600">Equipos no técnicos que quieren cero fricción</td>
+            <td class="p-3 border-b border-gray-100 font-serif text-gray-600">Borradores sueltos, nunca datos sensibles</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bg-white p-6 rounded-r-xl border-l-4 border-claude shadow-sm my-6 fade-in-on-scroll">
+      <p class="font-serif text-gray-700 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-info text-claude mr-2"></i> <strong>¿Es la opción de pago de Obsidian la mejor?</strong> Depende del equipo, y conviene ser honestos. Si el equipo es <strong>técnico o ya usa Git</strong> → quédate con <strong>Git</strong>: gratis, control total e historial completo. Si <strong>no</strong> es técnico y quiere <strong>cero fricción manteniendo la privacidad</strong> → <strong>Obsidian Sync es una opción muy válida y no es ningún timo</strong>: su cifrado de extremo a extremo lo hace privado de verdad, bastante mejor que un disco compartido. Pagas <em>comodidad + privacidad</em>. Lo <strong>peor</strong> para un cerebro con datos sensibles es un Drive o Dropbox compartido <em>sin cifrar</em>.</p>
+    </div>
+
+    <div class="bg-emerald-50 p-6 rounded-r-xl border-l-4 border-emerald-500 shadow-sm my-6 fade-in-on-scroll">
+      <p class="font-serif text-emerald-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-check text-emerald-500 mr-2"></i> <strong>Regla de oro (vale para cualquier método):</strong> los datos personales sensibles (PII: datos de clientes, nóminas, contratos…) <strong>no viven en el vault</strong>. El vault guarda <em>conocimiento</em> —cómo funcionan las cosas, decisiones, procesos—, no la base de datos de clientes (eso va en una base de datos con permisos). Si separas conocimiento de datos sensibles, <strong>cualquier método de sincronización se vuelve mucho más seguro</strong>. Y, como siempre: todo local por defecto y audita cualquier herramienta o plugin de terceros antes de instalarlo.</p>
+    </div>
+
+  </div>
+</section>
+
+    <!-- 6. Práctica y Quiz (Dark Section) -->
+    <section id="practica" class="py-24 bg-brand-dark text-white border-t-8 border-brand-accent">
         <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16 fade-in-on-scroll">
-                <span class="text-n8n font-bold tracking-widest text-xs uppercase mb-3 block"><i class="fa-solid fa-layer-group mr-2"></i> El Secreto de n8n</span>
-                <h2 class="text-3xl lg:text-4xl font-extrabold text-brand-dark flex items-center justify-center mb-3">
-                    <span class="w-10 h-10 bg-n8n text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">2</span>
-                    La Lógica de los "Datos Itemizados"
-                </h2>
-                <p class="text-gray-600 font-serif max-w-3xl mx-auto">
-                    Si no entiendes cómo fluyen los datos en n8n, no podrás construir automatizaciones avanzadas. Todo en n8n es una matriz (Array) de objetos JSON.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 fade-in-on-scroll">
-                <div>
-                    <p class="font-serif text-gray-600 text-sm leading-relaxed mb-6">
-                        En plataformas como Zapier, si pides "Dame los clientes de la base de datos", recibes un bloque gigante de texto. En n8n, la información fluye como una cinta transportadora de cajas independientes.
-                    </p>
-                    
-                    <div class="bg-white border-l-4 border-n8n p-6 rounded-r-xl shadow-sm mb-6">
-                        <h4 class="font-bold text-brand-dark mb-2">Ejecución Automática por Item</h4>
-                        <p class="font-serif text-gray-600 text-sm">
-                            Si un nodo produce <strong>3 items</strong> (ej: 3 correos sin leer), el siguiente nodo al que esté conectado <strong>se ejecutará 3 veces de forma automática</strong>, una vez por cada item. No tienes que programar un bucle manual (Loop/For-each); n8n lo hace por diseño.
-                        </p>
+            <!-- Proyecto / Reto de la clase -->
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-10 lg:p-16 shadow-2xl relative overflow-hidden fade-in-on-scroll mb-20">
+                <div class="absolute top-0 right-0 w-80 h-80 bg-brand-primary/20 rounded-bl-full -z-0 blur-2xl"></div>
+                <div class="flex items-center mb-8 relative z-10">
+                    <div class="w-16 h-16 bg-brand-primary text-white rounded-2xl flex items-center justify-center text-3xl shadow-lg mr-6 shrink-0">
+                        <i class="fa-solid fa-building-user"></i>
                     </div>
-
-                    <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
-                        <p class="text-sm text-gray-700 font-serif m-0">
-                            <i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i> <strong>Símil:</strong> Piensa en n8n como una fábrica de embotellado. El nodo Trigger vierte 5 botellas vacías en la cinta. El siguiente nodo (Llenar Botella) no actúa sobre el "grupo", actúa individualmente sobre la botella 1, luego la 2, luego la 3...
-                        </p>
+                    <div>
+                        <span class="text-brand-accent font-bold tracking-widest text-xs uppercase mb-1 block">Reto de la Clase</span>
+                        <h3 class="text-3xl lg:text-4xl font-extrabold text-white">De bóveda personal a cerebro de empresa</h3>
                     </div>
                 </div>
 
-                <!-- Code Block Explanation -->
-                <div class="bg-[#0f172a] rounded-xl shadow-xl overflow-hidden flex flex-col">
-                    <div class="bg-black/40 px-4 py-3 border-b border-white/5 flex items-center text-xs text-gray-400 font-bold uppercase tracking-wider">
-                        <i class="fa-solid fa-code mr-2"></i> Estructura JSON de Items en n8n
+                <div class="bg-slate-800/60 border border-slate-700/50 rounded-2xl p-8 relative z-10">
+                    <h4 class="font-bold text-white text-xl mb-4 flex items-center">
+                        <i class="fa-solid fa-bullseye text-brand-accent mr-3"></i> Tarea: convierte tu bóveda en un cerebro de equipo
+                    </h4>
+                    <p class="font-serif text-gray-300 mb-8 text-lg">
+                        Toma el cerebro local de la clase anterior y prepáralo para una empresa con varios proyectos, departamentos y personas. Tres movimientos:
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-slate-900/90 p-6 rounded-xl shadow-sm border border-slate-800 hover:border-brand-accent transition-colors">
+                            <div class="w-12 h-12 bg-indigo-500/20 text-indigo-300 rounded-xl flex items-center justify-center mb-5 text-xl font-bold">
+                                <i class="fa-solid fa-sitemap"></i>
+                            </div>
+                            <h5 class="font-bold text-white mb-2">1. Estructura</h5>
+                            <p class="text-sm font-serif text-slate-400">Carpetas por <strong>proyecto</strong> con la misma estructura interna y <strong>etiquetas por área</strong> (<code>area/...</code>) y por proyecto (<code>proyecto/...</code>). Colorea el grafo por área: color = departamento, clúster = proyecto.</p>
+                        </div>
+                        <div class="bg-slate-900/90 p-6 rounded-xl shadow-sm border border-slate-800 hover:border-brand-accent transition-colors">
+                            <div class="w-12 h-12 bg-amber-500/20 text-amber-300 rounded-xl flex items-center justify-center mb-5 text-xl font-bold">
+                                <i class="fa-solid fa-users-gear"></i>
+                            </div>
+                            <h5 class="font-bold text-white mb-2">2. Equipo de agentes</h5>
+                            <p class="text-sm font-serif text-slate-400">Define un <strong>redactor</strong> que propague cambios a todas las notas, un <strong>enlazador</strong>, un <strong>verificador</strong> que bloquee si la doc no está al día y un <strong>entrenador</strong>; todos con una regla común de <strong>edición segura</strong>.</p>
+                        </div>
+                        <div class="bg-slate-900/90 p-6 rounded-xl shadow-sm border border-slate-800 hover:border-brand-accent transition-colors">
+                            <div class="w-12 h-12 bg-emerald-500/20 text-emerald-300 rounded-xl flex items-center justify-center mb-5 text-xl font-bold">
+                                <i class="fa-solid fa-code-branch"></i>
+                            </div>
+                            <h5 class="font-bold text-white mb-2">3. Sincronización</h5>
+                            <p class="text-sm font-serif text-slate-400">Elige y <strong>justifica</strong> tu estrategia de equipo (<strong>Git</strong> o <strong>Obsidian Sync</strong>) según el perfil del equipo, y deja claro que la <strong>PII no vive en el vault</strong>.</p>
+                        </div>
                     </div>
-                    <div id="code-itemized" class="p-6 font-mono text-gray-300 text-[13px] flex-grow whitespace-pre-wrap leading-relaxed"><span class="text-gray-500">// Así viajan los datos por el "cable" entre nodos:
-// Un Array [] que contiene 2 Objetos JSON {} (Items)</span>
+                </div>
+            </div>
 
-<span class="text-blue-400">[</span>
-  <span class="text-amber-400">{</span>
-    <span class="text-purple-400">"json"</span><span class="text-gray-300">:</span> <span class="text-green-400">{</span>
-      <span class="text-cyan-300">"nombre"</span><span class="text-gray-300">:</span> <span class="text-emerald-300">"Carlos"</span><span class="text-gray-300">,</span>
-      <span class="text-cyan-300">"email"</span><span class="text-gray-300">:</span> <span class="text-emerald-300">"carlos@mail.com"</span>
-    <span class="text-green-400">}</span>
-  <span class="text-amber-400">}</span><span class="text-gray-300">,</span>
-  <span class="text-amber-400">{</span>
-    <span class="text-purple-400">"json"</span><span class="text-gray-300">:</span> <span class="text-green-400">{</span>
-      <span class="text-cyan-300">"nombre"</span><span class="text-gray-300">:</span> <span class="text-emerald-300">"Elena"</span><span class="text-gray-300">,</span>
-      <span class="text-cyan-300">"email"</span><span class="text-gray-300">:</span> <span class="text-emerald-300">"elena@mail.com"</span>
-    <span class="text-green-400">}</span>
-  <span class="text-amber-400">}</span>
-<span class="text-blue-400">]</span>
-
-<span class="text-gray-500">// El siguiente nodo "Enviar Email" se ejecutará
-// automáticamente 2 veces.</span></div>
-                    <div class="bg-black/30 px-4 py-3 border-t border-white/5 flex justify-end">
-                        <button onclick="copyToClipboard('code-itemized', this)" class="flex items-center text-xs font-bold text-gray-400 hover:text-white transition-colors border border-gray-600 hover:border-gray-400 rounded px-4 py-1.5">
-                            <i class="fa-regular fa-copy mr-2"></i> Copiar
+            <!-- Quiz Interactivo -->
+            <div class="border-t border-slate-800 pt-16 mb-12 fade-in-on-scroll">
+                <h3 class="text-3xl font-bold mb-8 text-white text-center">
+                    <i class="fa-solid fa-clipboard-check text-brand-accent mr-3"></i> Cuestionario de Evaluación (Clase 5)
+                </h3>
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 lg:p-12 shadow-2xl text-white">
+                    <div id="quizContainer"></div>
+                    <div class="text-center mt-10 pt-8 border-t border-slate-800">
+                        <button id="validateBtn" onclick="submitQuiz()" class="px-10 py-4 bg-brand-primary hover:bg-indigo-600 text-white font-bold rounded-xl transition-all shadow-lg uppercase tracking-wider text-sm">
+                            Validar Respuestas
                         </button>
+                        <div id="quiz-result" class="hidden mt-6 p-5 rounded-xl font-bold font-sans text-center transition-all"></div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 3. Nodos Comunes y Parseo -->
-    <section id="nodos" class="py-20 bg-white border-t border-gray-200">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16 fade-in-on-scroll">
-                <span class="text-n8n font-bold tracking-widest text-xs uppercase mb-3 block"><i class="fa-solid fa-screwdriver-wrench mr-2"></i> Caja de Herramientas</span>
-                <h2 class="text-3xl lg:text-4xl font-extrabold text-brand-dark flex items-center justify-center mb-3">
-                    <span class="w-10 h-10 bg-n8n text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">3</span>
-                    Nodos Esenciales y el Arte de "Parsear"
-                </h2>
-                <p class="text-gray-600 font-serif max-w-3xl mx-auto">
-                    Conocer los nodos principales te permite construir el 80% de las automatizaciones. Pero antes, debes entender cómo traducir la información.
-                </p>
-            </div>
-
-            <!-- Parsear -->
-            <div class="bg-indigo-50 border-l-4 border-brand-primary p-8 rounded-r-2xl shadow-sm mb-16 fade-in-on-scroll flex flex-col md:flex-row items-center gap-8">
-                <div class="md:w-1/3 text-center">
-                    <i class="fa-solid fa-language text-6xl text-brand-primary mb-4"></i>
-                    <h3 class="text-2xl font-bold text-brand-dark">¿Qué es Parsear?</h3>
-                </div>
-                <div class="md:w-2/3">
-                    <p class="font-serif text-gray-700 text-sm leading-relaxed mb-4">
-                        <strong>"Parsear" (del inglés <em>Parsing</em>)</strong> es el proceso de analizar una cadena de texto sin formato y convertirla en una estructura de datos organizada (como los objetos JSON que acabamos de ver) para que n8n pueda leerla y manipularla.
-                    </p>
-                    <p class="font-serif text-gray-700 text-sm leading-relaxed">
-                        Si recibes un archivo CSV gigante o la respuesta en texto plano de una IA, n8n solo ve una "caja de letras". Al pasarlo por un nodo que lo <em>parsea</em>, n8n extrae mágicamente las columnas y filas convirtiéndolas en "Items" individuales. Es el traductor universal entre sistemas.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Nodos Comunes -->
-            <h3 class="text-2xl font-bold text-brand-dark mb-8 text-center fade-in-on-scroll">Los Nodos más Comunes</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in-on-scroll">
-                
-                <!-- Webhook -->
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm card-hover">
-                    <div class="flex items-center mb-3">
-                        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-lg mr-3"><i class="fa-solid fa-satellite-dish"></i></div>
-                        <h4 class="font-bold text-brand-dark">Webhook</h4>
-                    </div>
-                    <p class="text-xs text-gray-500 font-serif">El Trigger por excelencia. Crea una URL pública que se queda "escuchando". Cuando otra app envía datos a esa URL, el flujo se dispara instantáneamente.</p>
-                </div>
-
-                <!-- HTTP Request -->
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm card-hover">
-                    <div class="flex items-center mb-3">
-                        <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-lg mr-3"><i class="fa-solid fa-globe"></i></div>
-                        <h4 class="font-bold text-brand-dark">HTTP Request</h4>
-                    </div>
-                    <p class="text-xs text-gray-500 font-serif">La navaja suiza. Sirve para conectarse a CUALQUIER API de internet (GET, POST), incluso si n8n no tiene un nodo oficial para esa aplicación.</p>
-                </div>
-
-                <!-- Edit Fields -->
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm card-hover">
-                    <div class="flex items-center mb-3">
-                        <div class="w-10 h-10 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-lg mr-3"><i class="fa-solid fa-pen-to-square"></i></div>
-                        <h4 class="font-bold text-brand-dark">Edit Fields (Set)</h4>
-                    </div>
-                    <p class="text-xs text-gray-500 font-serif">Mutador de datos. Permite crear, renombrar o borrar campos dentro de un Item. Ideal para limpiar los datos antes de guardarlos en tu base de datos.</p>
-                </div>
-
-                <!-- Switch -->
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm card-hover">
-                    <div class="flex items-center mb-3">
-                        <div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center text-lg mr-3"><i class="fa-solid fa-code-branch"></i></div>
-                        <h4 class="font-bold text-brand-dark">Switch / If</h4>
-                    </div>
-                    <p class="text-xs text-gray-500 font-serif">Enrutadores lógicos. "Si el email contiene la palabra 'Urgente', envíalo por la ruta A hacia Slack. Si no, envíalo por la ruta B hacia el archivo de Excel".</p>
-                </div>
-
-                <!-- Code -->
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm card-hover">
-                    <div class="flex items-center mb-3">
-                        <div class="w-10 h-10 bg-gray-800 text-white rounded-lg flex items-center justify-center text-lg mr-3"><i class="fa-brands fa-js"></i></div>
-                        <h4 class="font-bold text-brand-dark">Code</h4>
-                    </div>
-                    <p class="text-xs text-gray-500 font-serif">El nodo sin límites. Escribe JavaScript o Python puro para procesar arrays complejos, parsear datos propietarios o aplicar lógicas matemáticas.</p>
-                </div>
-
-                <!-- Schedule -->
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm card-hover">
-                    <div class="flex items-center mb-3">
-                        <div class="w-10 h-10 bg-rose-100 text-rose-600 rounded-lg flex items-center justify-center text-lg mr-3"><i class="fa-solid fa-clock"></i></div>
-                        <h4 class="font-bold text-brand-dark">Schedule Trigger</h4>
-                    </div>
-                    <p class="text-xs text-gray-500 font-serif">El temporizador automático (Cron job). Inicia un flujo todos los lunes a las 9:00 AM o cada 15 minutos exactos sin intervención humana.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. Despliegue y Arquitectura -->
-    <section id="despliegue" class="py-20 bg-brand-dark text-white">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16 fade-in-on-scroll">
-                <h2 class="text-3xl lg:text-4xl font-extrabold flex items-center justify-center mb-4">
-                    <span class="w-12 h-12 bg-n8n text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">4</span>
-                    Formas de Ejecución (Despliegue)
-                </h2>
-                <p class="text-gray-300 font-serif max-w-3xl mx-auto text-lg">
-                    La mayor ventaja competitiva de n8n es dónde se ejecuta. Puedes delegarlo en sus servidores o tener el control absoluto de tus datos en los tuyos.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 fade-in-on-scroll">
-                
-                <!-- Cloud -->
-                <div class="bg-gray-800 p-8 rounded-2xl border-t-8 border-blue-500 shadow-xl relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
-                    <div class="text-blue-400 text-4xl mb-6"><i class="fa-solid fa-cloud"></i></div>
-                    <h3 class="text-2xl font-bold mb-3 text-white">n8n Cloud</h3>
-                    <p class="text-xs text-blue-400 font-bold uppercase tracking-wider mb-4">SaaS Gestionado</p>
-                    <p class="font-serif text-sm text-gray-300 mb-6">La versión tradicional de software como servicio. Pagas una suscripción mensual, te registras en su web y empiezas a automatizar. Ellos mantienen los servidores.</p>
-                    <ul class="text-sm font-sans space-y-2 text-gray-400">
-                        <li><i class="fa-solid fa-check text-blue-400 mr-2"></i> Cero mantenimiento.</li>
-                        <li><i class="fa-solid fa-check text-blue-400 mr-2"></i> Soporte técnico oficial.</li>
-                        <li><i class="fa-solid fa-xmark text-red-400 mr-2"></i> Límites de ejecuciones al mes.</li>
-                    </ul>
-                </div>
-
-                <!-- Desktop -->
-                <div class="bg-gray-800 p-8 rounded-2xl border-t-8 border-amber-500 shadow-xl relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
-                    <div class="text-amber-400 text-4xl mb-6"><i class="fa-solid fa-laptop-code"></i></div>
-                    <h3 class="text-2xl font-bold mb-3 text-white">n8n Desktop</h3>
-                    <p class="text-xs text-amber-400 font-bold uppercase tracking-wider mb-4">Local & Gratuito</p>
-                    <p class="font-serif text-sm text-gray-300 mb-6">Una aplicación que descargas (Mac/Windows). Convierte tu ordenador en el servidor. Excelente para aprender y hacer prototipos sin pagar.</p>
-                    <ul class="text-sm font-sans space-y-2 text-gray-400">
-                        <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> 100% Gratuito y fácil de instalar.</li>
-                        <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Datos se quedan en tu PC.</li>
-                        <li><i class="fa-solid fa-xmark text-red-400 mr-2"></i> Si apagas el PC, se apaga la automatización.</li>
-                    </ul>
-                </div>
-
-                <!-- Self-Hosted -->
-                <div class="bg-gray-800 p-8 rounded-2xl border-t-8 border-emerald-500 shadow-xl relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
-                    <div class="text-emerald-400 text-4xl mb-6"><i class="fa-solid fa-server"></i></div>
-                    <h3 class="text-2xl font-bold mb-3 text-white">Self-Hosted</h3>
-                    <p class="text-xs text-emerald-400 font-bold uppercase tracking-wider mb-4">Máximo Control</p>
-                    <p class="font-serif text-sm text-gray-300 mb-6">Instalas el código de n8n en tu propio servidor (AWS, DigitalOcean) mediante Docker o npm. Es la opción preferida por empresas tecnológicas y bancos.</p>
-                    <ul class="text-sm font-sans space-y-2 text-gray-400">
-                        <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Privacidad total (ideal GDPR/HIPAA).</li>
-                        <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Sin límites de ejecución artificiales.</li>
-                        <li><i class="fa-solid fa-triangle-exclamation text-amber-400 mr-2"></i> Requiere conocimientos de DevOps.</li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- 5. Licencia y Pricing -->
-    <section id="pricing" class="py-20 bg-white border-t border-gray-200">
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="text-center mb-16 fade-in-on-scroll">
-                <span class="text-purple-600 font-bold tracking-widest text-xs uppercase mb-3 block"><i class="fa-solid fa-scale-balanced mr-2"></i> Modelo de Negocio</span>
-                <h2 class="text-3xl font-extrabold text-brand-dark flex items-center justify-center mb-3">
-                    <span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">5</span>
-                    La Licencia "Fair-Code"
-                </h2>
-                <p class="text-gray-600 font-serif max-w-2xl mx-auto">
-                    ¿Por qué puedo instalar n8n gratis en mi servidor empresarial?
-                </p>
-            </div>
-
-            <div class="bg-purple-50 border border-purple-100 p-8 rounded-2xl shadow-sm fade-in-on-scroll">
-                <div class="flex flex-col md:flex-row items-center gap-8">
-                    <div class="md:w-1/3 text-center">
-                        <i class="fa-solid fa-file-signature text-7xl text-purple-400 mb-4"></i>
-                        <h3 class="text-xl font-bold text-brand-dark">Código Abierto vs. Fair-Code</h3>
-                    </div>
-                    <div class="md:w-2/3 space-y-4">
-                        <p class="font-serif text-sm text-gray-700 leading-relaxed">
-                            n8n <strong>no es Open Source (Código Abierto) estricto</strong> (como Linux o WordPress), aunque su código fuente es visible en GitHub. Utiliza una licencia llamada <strong>Fair-Code</strong>.
-                        </p>
-                        <ul class="font-serif text-sm text-gray-700 space-y-3 bg-white p-5 rounded-xl border border-purple-100">
-                            <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> <strong>Lo que PUEDES hacer gratis:</strong> Descargar el código, instalarlo en tu servidor privado y usarlo internamente en tu empresa para automatizar todas las tareas que quieras sin pagar un céntimo en suscripciones.</li>
-                            <li><i class="fa-solid fa-ban text-red-500 mr-2"></i> <strong>Lo que NO puedes hacer:</strong> Coger el código de n8n, meterlo en tu propia web y vender la automatización como un servicio (SaaS) a tus clientes para competir contra ellos, a menos que adquieras una licencia de pago corporativa.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 6. Práctica -->
-    <section id="practica" class="py-24 bg-brand-light border-t border-gray-200">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16 fade-in-on-scroll">
-                <span class="text-n8n font-bold tracking-widest text-xs uppercase mb-3 block"><i class="fa-solid fa-desktop mr-2"></i> Parte Práctica</span>
-                <h2 class="text-4xl lg:text-5xl font-extrabold mb-6 text-brand-dark">Laboratorio de Conexión y Migración</h2>
-                <p class="text-gray-500 font-serif text-xl max-w-3xl mx-auto">Vamos a construir tu primer flujo leyendo datos de una tabla y enviándolos procesados a otra.</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 fade-in-on-scroll">
-                
-                <!-- Ejercicio 1 -->
-                <div class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow relative overflow-hidden flex flex-col">
-                    <div class="absolute top-0 left-0 w-2 h-full bg-n8n"></div>
-                    <h3 class="text-2xl font-bold text-brand-dark mb-4 flex items-center">
-                        <i class="fa-solid fa-play text-n8n mr-3"></i> 1. El Flujo de Sincronización (Sheets)
-                    </h3>
-                    <p class="font-serif text-gray-600 text-sm mb-6">
-                        Conectaremos una tabla de origen con una tabla de destino para automatizar el trasvase de información corporativa.
-                    </p>
-                    <ul class="text-sm font-sans space-y-4 text-gray-700 flex-grow">
-                        <li class="flex items-start">
-                            <span class="bg-n8n/20 text-n8n px-2 py-0.5 rounded text-xs font-bold mr-3 mt-0.5">A</span>
-                            <div><strong>Leer Datos (Origen):</strong> Añade un nodo de <em>Google Sheets</em> y configúralo como "Get Many Rows". Dile que lea los datos de una hoja llamada 'Nuevos Leads'. n8n extraerá cada fila como un Item individual.</div>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="bg-n8n/20 text-n8n px-2 py-0.5 rounded text-xs font-bold mr-3 mt-0.5">B</span>
-                            <div><strong>Limpiar / Mapear:</strong> Conecta un nodo <em>Edit Fields (Set)</em>. Úsalo para asegurarte de que solo pasas el "Nombre" y el "Email", descartando columnas innecesarias o cambiando el nombre del campo.</div>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="bg-n8n/20 text-n8n px-2 py-0.5 rounded text-xs font-bold mr-3 mt-0.5">C</span>
-                            <div><strong>Escribir Datos (Destino):</strong> Conecta otro nodo de <em>Google Sheets</em>. Configúralo como "Append Row" (Añadir fila) apuntando a una hoja llamada 'CRM Central'. Ejecuta el flujo y observa la magia.</div>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Ejercicio 2 -->
-                <div class="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow relative overflow-hidden flex flex-col">
-                    <div class="absolute top-0 left-0 w-2 h-full bg-indigo-400"></div>
-                    <h3 class="text-2xl font-bold text-brand-dark mb-4 flex items-center">
-                        <i class="fa-solid fa-code-compare text-indigo-500 mr-3"></i> 2. Transformación Avanzada (Code Node)
-                    </h3>
-                    <p class="font-serif text-gray-600 text-sm mb-6">
-                        A veces los datos no llegan en el formato correcto (ej. necesitas parsear un texto y transformarlo). Usaremos JavaScript básico en el nodo Code.
-                    </p>
-                    
-                    <!-- Code Block con botón -->
-                    <div class="bg-[#0f172a] rounded-lg border-l-4 border-indigo-500 shadow-inner overflow-hidden flex flex-col flex-grow">
-                        <div class="bg-black/40 px-4 py-2 border-b border-white/5 flex items-center text-xs text-indigo-400 font-bold uppercase tracking-wider">
-                            <i class="fa-brands fa-js mr-2"></i> Code Node (JavaScript)
-                        </div>
-                        <div id="code-practice" class="p-5 font-mono text-gray-300 text-[12px] flex-grow whitespace-pre-wrap leading-relaxed"><span class="text-gray-500">// Iteramos sobre los datos recibidos de la hoja (Items)</span>
-<span class="text-purple-400">for</span> (<span class="text-purple-400">const</span> item <span class="text-purple-400">of</span> <span class="text-blue-300">$input</span>.<span class="text-blue-300">all</span>()) {
-  <span class="text-gray-500">// Creamos un "saludo" uniendo "Hola " y la columna "nombre"</span>
-  item.<span class="text-blue-300">json</span>.<span class="text-cyan-300">saludo_personalizado</span> = <span class="text-amber-300">"Hola "</span> + item.<span class="text-blue-300">json</span>.<span class="text-cyan-300">nombre</span>;
-  
-  <span class="text-gray-500">// Convertimos el email a minúsculas para estandarizar</span>
-  <span class="text-purple-400">if</span> (item.<span class="text-blue-300">json</span>.<span class="text-cyan-300">email</span>) {
-      item.<span class="text-blue-300">json</span>.<span class="text-cyan-300">email</span> = item.<span class="text-blue-300">json</span>.<span class="text-cyan-300">email</span>.<span class="text-blue-300">toLowerCase</span>();
-  }
-}
-
-<span class="text-gray-500">// Devolvemos el array modificado al siguiente nodo (Destino)</span>
-<span class="text-purple-400">return</span> <span class="text-blue-300">$input</span>.<span class="text-blue-300">all</span>();</div>
-                        <div class="bg-black/30 px-4 py-2 border-t border-white/5 flex justify-end">
-                            <button onclick="copyToClipboard('code-practice', this)" class="flex items-center text-xs font-bold text-gray-400 hover:text-white transition-colors border border-gray-600 hover:border-gray-400 rounded px-3 py-1">
-                                <i class="fa-regular fa-copy mr-2"></i> Copiar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Quiz Interactivo -->
-    <section class="py-24 bg-brand-dark text-white border-t-8 border-n8n">
-        <div class="max-w-4xl mx-auto px-6 fade-in-on-scroll">
-            <h3 class="text-3xl font-bold mb-8 text-center"><i class="fa-solid fa-clipboard-question text-n8n mr-3"></i> Autodiagnóstico de Conceptos</h3>
-            <div class="bg-gray-900 border border-gray-700 rounded-2xl p-8 lg:p-12 shadow-2xl">
-                <div id="quizContainer">
-                    <!-- Quiz se renderiza vía JS aquí -->
                 </div>
             </div>
         </div>
@@ -582,260 +713,194 @@
     <!-- Navegación entre Clases -->
     <section class="py-12 bg-white border-t border-gray-200">
         <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <a href="modulo8-clase2.html" class="flex items-center px-6 py-3 text-gray-600 border border-gray-300 rounded-xl font-bold hover:text-n8n hover:border-n8n transition-all bg-white shadow-sm">
-                <i class="fa-solid fa-arrow-left mr-2"></i> Anterior: Clase 2
+            <a href="modulo8-clase4.html"
+                class="flex items-center px-6 py-3 text-gray-600 border border-gray-300 rounded-xl font-bold hover:text-brand-primary hover:border-brand-primary transition-all bg-white shadow-sm w-full sm:w-auto justify-center">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Anterior: Clase 4
             </a>
-            <a href="index.html" class="flex items-center px-6 py-3 bg-n8n text-white rounded-xl font-bold hover:bg-rose-500 transition-colors shadow-lg">
-                Finalizar Módulo <i class="fa-solid fa-flag-checkered ml-2"></i>
+            <a href="index.html"
+                class="flex items-center px-8 py-3 bg-brand-primary text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors shadow-lg w-full sm:w-auto justify-center">
+                <i class="fa-solid fa-home mr-2"></i> Volver al Temario
             </a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-[#050B14] text-white py-12 border-t border-gray-800">
-        <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
-            <h2 class="text-xl font-bold mb-4 md:mb-0">
+    <footer class="bg-brand-dark text-white py-16 border-t border-gray-800">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-4">
                 <span class="text-brand-accent">[m]</span>.seny <span class="text-brand-accent">[labs]</span>
             </h2>
-            <p class="text-sm text-gray-500 font-sans">Material de Apoyo Formativo - Módulo Extra n8n © 2026</p>
+            <p class="text-gray-400 mb-10 max-w-lg mx-auto font-serif text-center">
+                Empoderando a la próxima generación de empresas con inteligencia artificial práctica y estratégica.
+            </p>
+            <div class="w-12 h-px bg-gray-800 mx-auto my-6"></div>
+            <p class="text-xs text-gray-500 font-sans text-center">
+                Material de Apoyo Formativo - Módulo 8 (Clase 5)<br>
+                © 2026 [m].seny [labs]. Todos los derechos reservados.
+            </p>
         </div>
     </footer>
 
     <!-- Lógica de Interactividad -->
     <script>
-        // Copiar Portapapeles
+        // 1. Copiado al portapapeles (fallback execCommand para iframes restringidos)
         function copyToClipboard(elementId, btn) {
             const el = document.getElementById(elementId);
             let text = el.innerText || el.textContent;
-            
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed";
-            textArea.style.left = "-9999px";
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
+
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = text;
+            tempTextArea.style.position = "fixed";
+            tempTextArea.style.left = "-9999px";
+            document.body.appendChild(tempTextArea);
+            tempTextArea.focus();
+            tempTextArea.select();
 
             try {
                 document.execCommand('copy');
                 const originalHTML = btn.innerHTML;
-                
-                btn.innerHTML = '<i class="fa-solid fa-check mr-1"></i> Copiado';
+                btn.innerHTML = '<i class="fa-solid fa-check mr-2"></i> Copiado';
                 btn.classList.add('text-emerald-400');
-                btn.classList.remove('text-gray-500', 'hover:text-white');
-                
+                btn.classList.remove('text-slate-400');
+
                 setTimeout(() => {
                     btn.innerHTML = originalHTML;
                     btn.classList.remove('text-emerald-400');
-                    btn.classList.add('text-gray-500', 'hover:text-white');
+                    btn.classList.add('text-slate-400');
                 }, 2000);
             } catch (err) {
-                console.error('Error al copiar', err);
+                console.error('No se pudo copiar', err);
             }
-            document.body.removeChild(textArea);
+            document.body.removeChild(tempTextArea);
         }
 
-        // Quiz Data
+        // 2. Lógica del Quiz (contenido actualizado y verificado en clase)
         const quizData = [
-            {
-                question: "¿Qué es principalmente n8n?",
-                options: [
-                    { text: "Un modelo de inteligencia artificial como ChatGPT.", correct: false },
-                    { text: "Una plataforma de automatización de flujos de trabajo basada en nodos.", correct: true },
-                    { text: "Un servidor de bases de datos SQL.", correct: false },
-                    { text: "Una herramienta de diseño gráfico UI/UX.", correct: false }
-                ]
-            },
-            {
-                question: "¿Qué significa el concepto de 'Parsear' en el contexto de n8n?",
-                options: [
-                    { text: "Borrar los datos de la base de datos de forma segura.", correct: false },
-                    { text: "Analizar una cadena de texto sin formato (ej. CSV) y convertirla en una estructura de datos organizada (JSON) que n8n pueda manipular.", correct: true },
-                    { text: "Programar el flujo para que se detenga a una hora concreta.", correct: false },
-                    { text: "Traducir automáticamente los datos del inglés al español.", correct: false }
-                ]
-            },
-            {
-                question: "Si quieres conectarte a una API de internet que no tiene un nodo oficial en n8n, ¿cuál es el nodo comodín que utilizarías?",
-                options: [
-                    { text: "Edit Fields (Set)", correct: false },
-                    { text: "Switch", correct: false },
-                    { text: "HTTP Request", correct: true },
-                    { text: "Webhook", correct: false }
-                ]
-            },
-            {
-                question: "¿Qué significa que la información en n8n se procese como 'Datos Itemizados'?",
-                options: [
-                    { text: "Que los datos viajan encriptados por defecto.", correct: false },
-                    { text: "Que la información viaja como un texto gigante sin formato.", correct: false },
-                    { text: "Que no se pueden usar números, solo letras.", correct: false },
-                    { text: "Que los datos fluyen como un listado (Array) de objetos individuales (Items) a través del cable.", correct: true }
-                ]
-            },
-            {
-                question: "Si un nodo A extrae 5 filas de un Google Sheet y se las pasa al nodo B (Enviar mensaje Slack)... ¿qué hace n8n por defecto?",
-                options: [
-                    { text: "Solo procesa la primera fila y descarta el resto.", correct: false },
-                    { text: "El nodo B se ejecutará 5 veces automáticamente, una vez por cada item recibido.", correct: true },
-                    { text: "Manda un solo mensaje a Slack con todo el texto mezclado.", correct: false },
-                    { text: "Da un error de bucle infinito.", correct: false }
-                ]
-            },
-            {
-                question: "¿Para qué sirve el nodo 'Edit Fields' (Set) en n8n?",
-                options: [
-                    { text: "Para diseñar la interfaz visual de una página web.", correct: false },
-                    { text: "Para ejecutar código Python puro en la nube.", correct: false },
-                    { text: "Para mutar datos: permite crear, renombrar o borrar campos dentro de un Item antes de pasarlo al siguiente nodo.", correct: true },
-                    { text: "Para iniciar un flujo de forma manual con un botón.", correct: false }
-                ]
-            },
-            {
-                question: "Si tu empresa maneja datos de salud extremadamente confidenciales (HIPAA), ¿qué modelo de despliegue de n8n elegirías?",
-                options: [
-                    { text: "n8n Cloud en el plan básico.", correct: false },
-                    { text: "n8n Cloud, porque los servidores en la nube son in-hackeables.", correct: false },
-                    { text: "Self-Hosted (servidor propio), ya que garantiza que los datos nunca salen de la infraestructura privada de la empresa.", correct: true },
-                    { text: "n8n Desktop instalado en el portátil de la recepcionista.", correct: false }
-                ]
-            },
-            {
-                question: "¿Qué permite la licencia 'Fair-code' de n8n?",
-                options: [
-                    { text: "Que es totalmente cerrado y no puedes ver el código fuente en GitHub.", correct: false },
-                    { text: "Que puedes ver el código, instalarlo y usarlo gratis para uso interno, pero NO puedes comercializarlo empaquetado como tu propio SaaS para clientes sin una licencia.", correct: true },
-                    { text: "Que solo puedes usarlo gratis si eres una ONG.", correct: false },
-                    { text: "Que es de código abierto (Open Source) estricto, puedes revenderlo como quieras.", correct: false }
-                ]
-            },
-            {
-                question: "En un nodo 'Code' de n8n, ¿qué lenguaje de programación se utiliza principalmente para transformar los datos?",
-                options: [
-                    { text: "Python", correct: false },
-                    { text: "C++", correct: false },
-                    { text: "JavaScript / TypeScript", correct: true },
-                    { text: "Ruby", correct: false }
-                ]
-            },
-            {
-                question: "Dentro de la estructura JSON de n8n, ¿bajo qué propiedad clave se agrupan los datos principales de un Item?",
-                options: [
-                    { text: "metadata", correct: false },
-                    { text: "json", correct: true },
-                    { text: "payload", correct: false },
-                    { text: "headers", correct: false }
-                ]
-            }
-        ];
+  { question: "En el cerebro de empresa, ¿cómo se representan los proyectos y las áreas?", options: [ { text: "Los proyectos son carpetas y las áreas son etiquetas transversales que cruzan varias carpetas", correct: true }, { text: "Los proyectos son etiquetas y las áreas son carpetas fijas", correct: false }, { text: "Ambos son carpetas anidadas una dentro de otra", correct: false }, { text: "Ambos son etiquetas sin ninguna carpeta", correct: false } ] },
+  { question: "En el grafo de conocimiento, ¿qué significan el color y los clústeres de los nodos?", options: [ { text: "El clúster indica el proyecto y el color cambia al azar en cada carga", correct: false }, { text: "El color indica el área y el clúster agrupa las notas de un mismo proyecto", correct: true }, { text: "El color indica el tamaño de la nota y el clúster su antigüedad", correct: false }, { text: "El color y el clúster representan ambos lo mismo: la fecha de creación", correct: false } ] },
+  { question: "¿Qué hace el agente redactor cuando cambias un dato que aparece en muchos sitios?", options: [ { text: "Solo modifica la primera nota que encuentra y avisa del resto", correct: false }, { text: "Crea una nota nueva con el cambio y deja las antiguas intactas", correct: false }, { text: "Propaga el cambio a todas las notas afectadas para mantener la coherencia", correct: true }, { text: "Espera a que tú edites cada nota una por una", correct: false } ] },
+  { question: "¿Cuál es la función del agente verificador respecto a la documentación?", options: [ { text: "Bloquea el avance si la documentación no está al día", correct: true }, { text: "Reescribe la documentación a su gusto sin avisar", correct: false }, { text: "Entrena al resto de agentes para que mejoren", correct: false }, { text: "Borra las notas que considera duplicadas", correct: false } ] },
+  { question: "La regla de edición segura existe sobre todo para...", options: [ { text: "Hacer que las notas se vean más bonitas", correct: false }, { text: "Acelerar la ingesta de documentos nuevos", correct: false }, { text: "Traducir las notas a varios idiomas automáticamente", correct: false }, { text: "Evitar que al editar se corrompan o se pierdan partes de las notas", correct: true } ] },
+  { question: "¿Qué diferencia hay entre cuidar las ediciones y cuidar la ingesta nueva?", options: [ { text: "No hay diferencia: ambos casos los gestiona el mismo agente igual", correct: false }, { text: "Cuidar ediciones protege notas que ya existen al cambiarlas; cuidar la ingesta valida material nuevo que entra al vault", correct: true }, { text: "Las ediciones las hace una persona y la ingesta no la toca nadie", correct: false }, { text: "La ingesta solo afecta a las etiquetas y las ediciones solo a las carpetas", correct: false } ] },
+  { question: "Antes de instalar un plugin de terceros en el cerebro de empresa, lo correcto es...", options: [ { text: "Instalarlo directamente porque viene de una tienda oficial", correct: false }, { text: "Auditarlo primero y pedir una versión local transparente antes de confiar en él", correct: true }, { text: "Darle acceso total para probar todas sus funciones cuanto antes", correct: false }, { text: "Subir el vault a la nube del plugin para que funcione mejor", correct: false } ] },
+  { question: "Para sincronizar el vault entre dispositivos, ¿qué comparación es correcta?", options: [ { text: "Git es de pago y Obsidian Sync es gratis sin cifrado", correct: false }, { text: "Un Drive compartido sin cifrar es la opción más segura de todas", correct: false }, { text: "Git es gratis y aporta historial y control; Obsidian Sync es de pago con cifrado de extremo a extremo; un Drive compartido sin cifrar es la peor opción y la PII nunca vive en el vault", correct: true }, { text: "Da igual el método porque la información personal siempre se guarda dentro del vault", correct: false } ] }
+];
 
         function renderQuiz() {
             const container = document.getElementById('quizContainer');
             container.innerHTML = '';
-            
+
             quizData.forEach((q, idx) => {
                 const qDiv = document.createElement('div');
                 qDiv.className = 'mb-8';
                 qDiv.innerHTML = `
-                    <h4 class="text-xl font-bold text-white mb-4"><span class="text-n8n">${idx + 1}.</span> ${q.question}</h4>
+                    <h4 class="text-xl font-bold text-white mb-4">
+                        <span class="text-brand-accent">${idx + 1}.</span> ${q.question}
+                    </h4>
                     <div class="space-y-3">
                         ${q.options.map((opt, optIdx) => `
-                            <div class="quiz-option group flex items-center" onclick="selectAnswer(event, ${idx}, ${optIdx})">
+                            <div class="quiz-option flex items-center p-4 rounded-xl border border-slate-800 bg-slate-900/40 cursor-pointer transition-colors" onclick="selectAnswer(event, ${idx}, ${optIdx})">
                                 <input type="radio" name="q${idx}" value="${optIdx}" class="hidden">
-                                <div class="w-6 h-6 rounded-full border-2 border-gray-500 mr-4 flex-shrink-0 group-hover:border-n8n radio-custom transition-colors"></div>
-                                <span class="font-serif text-sm md:text-base">${opt.text}</span>
+                                <div class="w-5 h-5 rounded-full border-2 border-slate-500 mr-4 radio-custom flex-shrink-0 transition-colors"></div>
+                                <span class="font-serif text-sm">${opt.text}</span>
                             </div>
                         `).join('')}
                     </div>
                 `;
                 container.appendChild(qDiv);
             });
-            
-            const btnDiv = document.createElement('div');
-            btnDiv.className = "mt-10 pt-8 border-t border-gray-700 text-center";
-            btnDiv.innerHTML = `
-                <button onclick="submitQuiz()" class="px-10 py-4 bg-n8n text-white font-bold rounded-xl hover:bg-rose-500 transition-colors shadow-lg text-lg uppercase tracking-wider">
-                    Validar Respuestas
-                </button>
-            `;
-            container.appendChild(btnDiv);
         }
 
         function selectAnswer(e, qIdx, optIdx) {
             const optionContainer = e.currentTarget;
             const parentDiv = optionContainer.closest('.space-y-3');
-            
-            const allOptions = parentDiv.querySelectorAll('.quiz-option');
-            allOptions.forEach(opt => {
-                opt.classList.remove('selected');
-                opt.querySelector('.radio-custom').classList.remove('bg-n8n', 'border-n8n');
-                opt.querySelector('.radio-custom').classList.add('border-gray-500');
+
+            parentDiv.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('border-brand-accent', 'bg-brand-accent/10');
+                opt.classList.add('border-slate-800', 'bg-slate-900/40');
+                const radio = opt.querySelector('.radio-custom');
+                radio.className = "w-5 h-5 rounded-full border-2 border-slate-500 mr-4 radio-custom flex-shrink-0 transition-colors";
             });
-            
-            optionContainer.classList.add('selected');
-            const radioCustom = optionContainer.querySelector('.radio-custom');
-            radioCustom.classList.remove('border-gray-500');
-            radioCustom.classList.add('bg-n8n', 'border-n8n');
-            
+
+            optionContainer.classList.remove('border-slate-800', 'bg-slate-900/40');
+            optionContainer.classList.add('border-brand-accent', 'bg-brand-accent/10');
+
+            const radio = optionContainer.querySelector('.radio-custom');
+            radio.className = "w-5 h-5 rounded-full border-2 border-brand-accent bg-brand-accent mr-4 radio-custom flex-shrink-0 transition-colors";
+
             const input = optionContainer.querySelector('input');
             input.checked = true;
         }
 
         function submitQuiz() {
             let correctCount = 0;
-            let answeredCount = 0;
-            
+            let answered = true;
+
             quizData.forEach((q, idx) => {
                 const selected = document.querySelector(`input[name="q${idx}"]:checked`);
-                if (selected) {
-                    answeredCount++;
-                    const optIdx = selected.value;
-                    const isCorrect = q.options[optIdx].correct;
-                    const optionDiv = selected.closest('.quiz-option');
-                    const parentDiv = optionDiv.parentElement;
-                    
-                    parentDiv.style.pointerEvents = "none";
-                    
-                    if (isCorrect) {
-                        correctCount++;
-                        optionDiv.classList.remove('selected');
-                        optionDiv.classList.add('correct');
-                        optionDiv.querySelector('.radio-custom').className = "w-6 h-6 rounded-full bg-emerald-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-xs fa-solid fa-check border-emerald-500";
-                    } else {
-                        optionDiv.classList.remove('selected');
-                        optionDiv.classList.add('incorrect');
-                        optionDiv.querySelector('.radio-custom').className = "w-6 h-6 rounded-full bg-red-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-xs fa-solid fa-xmark border-red-500";
-                        
-                        const allOptions = parentDiv.querySelectorAll('.quiz-option');
-                        q.options.forEach((opt, oIdx) => {
-                            if(opt.correct) {
-                                allOptions[oIdx].classList.add('border-emerald-500', 'text-emerald-400');
-                            }
-                        });
-                    }
-                }
+                if (!selected) answered = false;
             });
-            
-            if (answeredCount < quizData.length) {
-                alert("Por favor, responde a todas las preguntas antes de validar.");
+
+            const resultDiv = document.getElementById('quiz-result');
+
+            if (!answered) {
+                resultDiv.className = "mt-6 p-4 rounded-xl font-bold font-sans text-center bg-red-900/30 text-red-400 border border-red-500/50 block";
+                resultDiv.innerHTML = "<i class='fa-solid fa-triangle-exclamation mr-2'></i> Por favor, responde a todas las preguntas antes de validar.";
                 return;
             }
-            
+
+            const btn = document.getElementById('validateBtn');
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            quizData.forEach((q, idx) => {
+                const selected = document.querySelector(`input[name="q${idx}"]:checked`);
+                const optIdx = parseInt(selected.value);
+                const isCorrect = q.options[optIdx].correct;
+
+                const optionDiv = selected.closest('.quiz-option');
+                const parentDiv = optionDiv.parentElement;
+
+                parentDiv.style.pointerEvents = "none";
+
+                if (isCorrect) {
+                    correctCount++;
+                    optionDiv.classList.remove('border-brand-accent', 'bg-brand-accent/10');
+                    optionDiv.classList.add('border-emerald-500', 'bg-emerald-500/20', 'text-emerald-300');
+                    optionDiv.querySelector('.radio-custom').className = "w-5 h-5 rounded-full bg-emerald-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-[10px] fa-solid fa-check border-emerald-500";
+                } else {
+                    optionDiv.classList.remove('border-brand-accent', 'bg-brand-accent/10');
+                    optionDiv.classList.add('border-red-500', 'bg-red-500/20', 'text-red-300');
+                    optionDiv.querySelector('.radio-custom').className = "w-5 h-5 rounded-full bg-red-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-[10px] fa-solid fa-xmark border-red-500";
+
+                    const allOptions = parentDiv.querySelectorAll('.quiz-option');
+                    q.options.forEach((opt, oIdx) => {
+                        if (opt.correct) {
+                            const correctDiv = allOptions[oIdx];
+                            correctDiv.classList.remove('border-slate-800', 'bg-slate-900/40');
+                            correctDiv.classList.add('border-emerald-500', 'bg-emerald-500/20', 'text-emerald-300');
+                        }
+                    });
+                }
+            });
+
+            resultDiv.className = "mt-8 p-6 rounded-2xl font-sans text-center bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 block";
+
             const percentage = Math.round((correctCount / quizData.length) * 100);
-            let message = "";
-            if (percentage === 100) message = "🏆 ¡Excelente! Dominas la arquitectura base de n8n.";
-            else if (percentage >= 80) message = "👍 ¡Muy bien! Has asimilado los conceptos de nodos y datos itemizados.";
-            else if (percentage >= 60) message = "✅ ¡Aprobado! Repasa cómo funcionan los arrays JSON en el flujo.";
-            else message = "📚 Te recomendamos releer la teoría sobre el despliegue y los Triggers.";
-            
-            alert(`Puntuación Final: ${correctCount}/${quizData.length} (${percentage}%)\n\n${message}`);
+            let feedback = "";
+            if (percentage === 100) feedback = "¡Perfecto! Dominas la estructura por proyectos y áreas, el equipo de agentes alineados, los plugins y la sincronización en equipo.";
+            else if (percentage >= 70) feedback = "¡Muy bien! Has entendido cómo escalar tu bóveda a un cerebro de empresa: estructura, agentes y trabajo en equipo.";
+            else feedback = "Repasa las secciones 3 y 5: el equipo de agentes que mantiene el grafo sano y cómo compartir el vault en equipo (Git vs Obsidian Sync).";
+
+            resultDiv.innerHTML = `
+                <div class="text-3xl mb-3 font-bold"><i class="fa-solid fa-ranking-star mr-2"></i> Puntuación: ${correctCount} / ${quizData.length}</div>
+                <div class="text-base font-serif text-emerald-100/80">${feedback}</div>
+            `;
         }
 
-        // Initialize features
         document.addEventListener('DOMContentLoaded', () => {
             renderQuiz();
-            
-            // Scroll Observer for Fade-ins
+
             const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
@@ -846,8 +911,7 @@
             }, observerOptions);
 
             document.querySelectorAll('.fade-in-on-scroll').forEach(el => observer.observe(el));
-            
-            // Progress Bar
+
             window.addEventListener('scroll', () => {
                 const scrollTop = window.scrollY;
                 const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -857,4 +921,5 @@
         });
     </script>
 </body>
+
 </html>
