@@ -6,3 +6,6 @@ public/teoria
 scripts
 
 .next
+
+# espejo local de agentes del estudio (se regenera con sync-agentes.ps1 desde el vault)
+.claude/

@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Módulo Extra: Desarrollo y Automatización con IA - [m].seny [labs]">
+    <title>Módulo Extra: Desarrollo y Automatización - [m].seny [labs]</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0F172A',
+                            primary: '#4F46E5',
+                            accent: '#F59E0B',
+                            light: '#F8FAFC'
+                        },
+                        code: {
+                            bg: '#1E293B',
+                            text: '#E2E8F0'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F8FAFC;
+            color: #334155;
+            scroll-behavior: smooth;
+        }
+        
+        h1, h2, h3, h4, h5, h6, button, .nav-link {
+            font-family: 'Inter', sans-serif;
+        }
+
+        p, li, .prose-text {
+            font-family: 'Merriweather', serif;
+            line-height: 1.6;
+            font-size: 1.125rem;
+            text-align: justify;
+        }
+
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Animations */
+        .fade-in-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+        }
+        .fade-in-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.1);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #4F46E5, #10B981);
+            z-index: 1000;
+            transition: width 0.2s ease;
+        }
+
+        /* Quiz Styles */
+        .quiz-option {
+            padding: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #e2e8f0;
+        }
+        .quiz-option:hover {
+            border-color: #4F46E5;
+            background-color: rgba(79, 70, 229, 0.1);
+        }
+        .quiz-option.selected {
+            border-color: #F59E0B;
+            background-color: rgba(245, 158, 11, 0.1);
+        }
+        .quiz-option.correct {
+            border-color: #10b981;
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+        .quiz-option.incorrect {
+            border-color: #ef4444;
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Navigation Header -->
+    <header class="bg-white/90 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <h1 class="text-xl font-bold tracking-tight text-brand-dark">
+                    <span class="text-brand-accent">[m]</span>.seny <span class="text-brand-accent">[labs]</span>
+                </h1>
+            </div>
+            <nav class="hidden lg:flex items-center space-x-5 text-xs font-bold text-gray-500 uppercase tracking-wider">
+                <a href="#ide" class="hover:text-brand-primary transition-colors">1. AntiGravity (IDE)</a>
+                <a href="#api" class="hover:text-brand-primary transition-colors">2. APIs y CLI</a>
+                <a href="#mcp" class="hover:text-brand-primary transition-colors">3. Protocolo MCP</a>
+                <a href="#practica" class="hover:text-brand-primary transition-colors text-brand-accent">4. Laboratorio</a>
+                
+                <a href="/login.html" onclick="document.cookie='sb-ftpywhemyizucquurslo-auth-token=;path=/;max-age=0';localStorage.clear()"
+                    class="hidden md:flex items-center gap-1.5 text-xs font-semibold text-gray-400 hover:text-red-500 transition-colors ml-4"
+                    title="Cerrar sesión">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    Salir
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Presentation Title (Hero) -->
+    <section class="bg-[#0f172a] text-white py-32 border-b-8 border-brand-primary relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-0 right-0 w-[40rem] h-[40rem] bg-indigo-600 rounded-full blur-[150px]"></div>
+            <div class="absolute bottom-[-10rem] left-0 w-[30rem] h-[30rem] bg-emerald-500 rounded-full blur-[150px]"></div>
+        </div>
+        <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
+            <span class="inline-block py-1 px-3 bg-white/10 text-white border border-white/20 font-mono text-sm font-bold uppercase tracking-widest mb-6 rounded">
+                Módulo Extra • Construcción Agentic
+            </span>
+            <h1 class="text-5xl lg:text-7xl font-extrabold mb-6 leading-tight">
+                Desarrollo y<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-emerald-400">Automatización con IA</span>
+            </h1>
+            <p class="text-xl text-gray-300 font-serif max-w-2xl mx-auto italic text-center">
+                De escribir código a orquestar sistemas. Dominando los IDEs, APIs y el estándar MCP para conectar la IA al mundo real.
+            </p>
+            <div class="mt-10 flex items-center justify-center space-x-6 text-sm text-gray-400 font-mono">
+                <span><i class="fa-solid fa-book-open mr-2 text-indigo-400"></i> Teoría: 130 min</span>
+                <span>•</span>
+                <span><i class="fa-solid fa-laptop-code mr-2 text-emerald-400"></i> Práctica: 140 min</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 1. AntiGravity (IDE) -->
+    <section id="ide" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center mb-16 fade-in-on-scroll">
+                <div class="md:w-1/2 pr-0 md:pr-10 mb-8 md:mb-0">
+                    <h2 class="text-3xl font-bold text-brand-dark mb-4 flex items-center">
+                        <span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">1</span>
+                        AntiGravity: Programar con IA en el IDE
+                    </h2>
+                    <p class="prose-text text-gray-600 mb-6">
+                        Un <strong>IDE</strong> (Integrated Development Environment) es el software donde los desarrolladores escriben código (ej. VS Code, Cursor). <strong>AntiGravity</strong> representa la nueva generación de IDEs con IA integrada nativamente, permitiendo autocompletar código, chatear con el proyecto y generar funciones enteras desde lenguaje natural.
+                    </p>
+                    <p class="font-bold text-brand-dark mb-2">¿Para qué sirve en este curso?</p>
+                    <p class="font-serif text-gray-600 text-sm mb-6">Para construir el <em>AI Decision Hub</em>: scripts de conexión a APIs, procesamiento de datos locales y generación de reportes automáticos sin necesidad de ser un programador experto.</p>
+                    
+                    <div class="bg-amber-50 p-5 rounded-xl border-l-4 border-brand-accent">
+                        <p class="font-serif text-amber-900 text-sm m-0">
+                            <i class="fa-solid fa-utensils mr-2 text-brand-accent"></i> <strong>Analogía:</strong> Si el código es una receta de cocina, el IDE es la cocina completa. AntiGravity añade un <em>chef asistente</em> que te sugiere los ingredientes, te avisa si vas a quemar algo y puede cocinar partes enteras del plato por ti.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 card-hover">
+                        <div class="text-indigo-500 mb-3 text-2xl"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                        <h4 class="font-bold text-brand-dark mb-2">Autocompletado</h4>
+                        <p class="text-xs text-gray-500 font-serif">La IA predice y sugiere la siguiente línea o bloque entero mientras escribes, basándose en el contexto del archivo. (Como el autocorrector del móvil, pero súper inteligente).</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 card-hover">
+                        <div class="text-emerald-500 mb-3 text-2xl"><i class="fa-regular fa-comments"></i></div>
+                        <h4 class="font-bold text-brand-dark mb-2">Chat con Codebase</h4>
+                        <p class="text-xs text-gray-500 font-serif">Permite hacer preguntas al IDE: <em>"¿Qué hace esta función?"</em> o <em>"Refactoriza esto para que sea limpio"</em>, dándole acceso de lectura a todo tu proyecto.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 card-hover">
+                        <div class="text-purple-500 mb-3 text-2xl"><i class="fa-solid fa-pen-to-square"></i></div>
+                        <h4 class="font-bold text-brand-dark mb-2">Inline Editing</h4>
+                        <p class="text-xs text-gray-500 font-serif">Seleccionas un bloque de código y le pides a la IA que lo modifique directamente allí mismo, sin tener que salir a una ventana de chat externa.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 card-hover">
+                        <div class="text-rose-500 mb-3 text-2xl"><i class="fa-solid fa-folder-tree"></i></div>
+                        <h4 class="font-bold text-brand-dark mb-2">Contexto Total</h4>
+                        <p class="text-xs text-gray-500 font-serif">El IDE con IA "lee" todos los archivos de tu proyecto simultáneamente para dar sugerencias que sean coherentes con la arquitectura y variables que ya existen.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. APIs y CLI -->
+    <section id="api" class="py-20 bg-brand-light border-t border-gray-200">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll">
+                <span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">2</span>
+                APIs y CLI: Hablar con las Herramientas
+            </h2>
+            
+            <!-- Conceptos -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 fade-in-on-scroll">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <h3 class="text-lg font-bold text-brand-dark mb-2"><i class="fa-solid fa-plug text-blue-500 mr-2"></i> API</h3>
+                    <p class="text-xs text-gray-500 font-serif mb-3">Application Programming Interface. Contrato que permite a dos programas comunicarse.</p>
+                    <p class="text-xs text-blue-800 bg-blue-50 p-2 rounded"><strong>Símil:</strong> El menú del restaurante. Pides algo (al camarero/API) y la cocina (sistema) te trae el plato.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <h3 class="text-lg font-bold text-brand-dark mb-2"><i class="fa-solid fa-network-wired text-emerald-500 mr-2"></i> REST</h3>
+                    <p class="text-xs text-gray-500 font-serif mb-3">Estilo de comunicación para APIs web. Usa peticiones HTTP (GET, POST, PUT, DELETE).</p>
+                    <p class="text-xs text-emerald-800 bg-emerald-50 p-2 rounded">El estándar de la industria para enviar y recibir datos en la web moderna.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <h3 class="text-lg font-bold text-brand-dark mb-2"><i class="fa-solid fa-brackets-curly text-amber-500 mr-2"></i> JSON</h3>
+                    <p class="text-xs text-gray-500 font-serif mb-3">Formato ligero de texto para estructurar datos (JavaScript Object Notation).</p>
+                    <p class="text-xs text-amber-800 bg-amber-50 p-2 rounded"><strong>Símil:</strong> Un formulario bien rellenado. Campos claros y valores definidos, legible por máquinas.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <h3 class="text-lg font-bold text-brand-dark mb-2"><i class="fa-solid fa-terminal text-purple-500 mr-2"></i> CLI</h3>
+                    <p class="text-xs text-gray-500 font-serif mb-3">Command Line Interface. Interfaz donde ejecutas comandos escribiendo texto.</p>
+                    <p class="text-xs text-purple-800 bg-purple-50 p-2 rounded"><strong>Símil:</strong> La interfaz visual es un coche automático; la CLI es uno manual. Más control y velocidad.</p>
+                </div>
+            </div>
+
+            <!-- API Key y Anthropic -->
+            <div class="bg-brand-dark rounded-3xl p-8 lg:p-12 shadow-xl fade-in-on-scroll relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl"></div>
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg" alt="Anthropic" class="w-6 h-6 mr-3 filter invert opacity-80">
+                    Integrando la API de Anthropic
+                </h3>
+                
+                <div class="mb-8">
+                    <p class="font-serif text-gray-300 text-sm mb-2"><strong>API Key:</strong> Credencial única que identifica quién hace cada petición. Es como tu DNI para el servicio.</p>
+                    <p class="font-serif text-gray-300 text-sm"><strong>Endpoint principal:</strong> <code class="bg-black/50 text-emerald-400 px-2 py-1 rounded">https://api.anthropic.com/v1/messages</code></p>
+                    <p class="font-serif text-gray-300 text-sm mt-2"><strong>Parámetros:</strong> <code>model</code>, <code>max_tokens</code>, <code>messages</code>, <code>system</code>.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- CURL Example -->
+                    <div class="bg-[#0f172a] rounded-xl border border-gray-700 overflow-hidden flex flex-col">
+                        <div class="bg-black/50 px-4 py-2 border-b border-gray-700 flex justify-between items-center">
+                            <span class="text-xs text-gray-400 font-mono uppercase">1. Llamada por Terminal (cURL)</span>
+                            <button onclick="copyToClipboard('code-curl', this)" class="text-xs text-gray-500 hover:text-white transition-colors"><i class="fa-regular fa-copy"></i> Copiar</button>
+                        </div>
+                        <div id="code-curl" class="p-5 font-mono text-gray-300 text-xs flex-grow whitespace-pre-wrap overflow-x-auto"><span class="text-emerald-400">curl</span> https://api.anthropic.com/v1/messages \
+  <span class="text-blue-400">--header</span> <span class="text-amber-300">"x-api-key: $ANTHROPIC_API_KEY"</span> \
+  <span class="text-blue-400">--header</span> <span class="text-amber-300">"anthropic-version: 2023-06-01"</span> \
+  <span class="text-blue-400">--header</span> <span class="text-amber-300">"content-type: application/json"</span> \
+  <span class="text-blue-400">--data</span> <span class="text-amber-300">'{
+    "model": "claude-3-5-sonnet-20241022",
+    "max_tokens": 1024,
+    "messages": [
+      {"role": "user", "content": "Analiza estos KPIs..."}
+    ]
+  }'</span></div>
+                    </div>
+
+                    <!-- Python Example -->
+                    <div class="bg-[#0f172a] rounded-xl border border-gray-700 overflow-hidden flex flex-col">
+                        <div class="bg-black/50 px-4 py-2 border-b border-gray-700 flex justify-between items-center">
+                            <span class="text-xs text-gray-400 font-mono uppercase">2. Llamada con Python (SDK)</span>
+                            <button onclick="copyToClipboard('code-python', this)" class="text-xs text-gray-500 hover:text-white transition-colors"><i class="fa-regular fa-copy"></i> Copiar</button>
+                        </div>
+                        <div id="code-python" class="p-5 font-mono text-gray-300 text-xs flex-grow whitespace-pre-wrap overflow-x-auto"><span class="text-purple-400">import</span> anthropic
+
+client = anthropic.Anthropic(
+    api_key=<span class="text-amber-300">"TU_API_KEY"</span>,
+)
+
+message = client.messages.create(
+    model=<span class="text-amber-300">"claude-3-5-sonnet-20241022"</span>,
+    max_tokens=<span class="text-purple-400">1024</span>,
+    system=<span class="text-amber-300">"Eres el AI Decision Hub."</span>,
+    messages=[
+        {<span class="text-amber-300">"role"</span>: <span class="text-amber-300">"user"</span>, <span class="text-amber-300">"content"</span>: <span class="text-amber-300">"Calcula el revenue..."</span>}
+    ]
+)
+<span class="text-blue-400">print</span>(message.content[<span class="text-purple-400">0</span>].text)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Protocolo MCP -->
+    <section id="mcp" class="py-20 bg-white">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in-on-scroll">
+                <span class="text-brand-primary font-bold tracking-widest text-xs uppercase mb-3 block">Interoperabilidad</span>
+                <h2 class="text-3xl lg:text-4xl font-extrabold text-brand-dark flex items-center justify-center mb-3">
+                    <i class="fa-solid fa-plug-circle-bolt text-brand-primary mr-3"></i> MCP: Conectar el Mundo Real
+                </h2>
+                <p class="text-gray-600 font-serif max-w-3xl mx-auto">
+                    <strong>Model Context Protocol (MCP)</strong> es un estándar abierto creado por Anthropic que permite a los modelos de IA conectarse de forma segura y estructurada con herramientas externas, bases de datos, APIs y sistemas de archivos.
+                </p>
+            </div>
+
+            <div class="bg-indigo-50 border-l-4 border-brand-primary p-6 rounded-r-xl mb-12 fade-in-on-scroll">
+                <p class="font-serif text-indigo-900 text-base m-0">
+                    <i class="fa-solid fa-bolt mr-2 text-brand-primary"></i> <strong>Analogía:</strong> MCP es como un <em>adaptador universal de enchufes</em> para la IA. Cada herramienta (Slack, Sheets, SAP) tiene su propio "enchufe", y MCP proporciona el adaptador para que Claude pueda conectarse a todas ellas usando el mismo estándar.
+                </p>
+            </div>
+
+            <!-- Conceptos MCP -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 fade-in-on-scroll">
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <h4 class="text-lg font-bold text-brand-dark mb-2 border-b border-gray-100 pb-2">¿Por qué MCP y no una API normal?</h4>
+                    <p class="font-serif text-gray-600 text-sm">Las APIs requieren que construyas la integración manualmente paso a paso. MCP define un protocolo estándar para que las herramientas se "expongan" directamente al modelo, permitiéndole llamarlas de forma autónoma cuando las necesite.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <h4 class="text-lg font-bold text-brand-dark mb-2 border-b border-gray-100 pb-2">El Agente Verdadero</h4>
+                    <p class="font-serif text-gray-600 text-sm">Si Claude sin herramientas es un consultor que solo puede hablar, con MCP es un consultor que además puede abrir tu CRM, leer tus datos en vivo, enviar emails y actualizar tu base de datos de forma autónoma.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 fade-in-on-scroll">
+                <div class="bg-gray-800 text-white p-5 rounded-xl border-t-4 border-blue-500">
+                    <h4 class="font-bold text-blue-400 mb-2">MCP Server</h4>
+                    <p class="text-xs font-serif text-gray-300">Programa que expone capacidades. Ej: Un servidor MCP de Google Sheets permite leer/escribir hojas.</p>
+                </div>
+                <div class="bg-gray-800 text-white p-5 rounded-xl border-t-4 border-emerald-500">
+                    <h4 class="font-bold text-emerald-400 mb-2">MCP Client</h4>
+                    <p class="text-xs font-serif text-gray-300">El modelo o agente (ej. Claude) que consume las herramientas expuestas por los servidores.</p>
+                </div>
+                <div class="bg-gray-800 text-white p-5 rounded-xl border-t-4 border-amber-500">
+                    <h4 class="font-bold text-amber-400 mb-2">Tools</h4>
+                    <p class="text-xs font-serif text-gray-300">Funciones específicas que el servidor permite ejecutar. Ej: <code>read_file</code>, <code>search_slack</code>.</p>
+                </div>
+                <div class="bg-gray-800 text-white p-5 rounded-xl border-t-4 border-purple-500">
+                    <h4 class="font-bold text-purple-400 mb-2">Resources</h4>
+                    <p class="text-xs font-serif text-gray-300">Datos o contexto que el servidor pone a disposición (archivos locales, URLs, bases de datos).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Laboratorio Práctico Integrado -->
+    <section id="practica" class="py-24 bg-brand-light border-t border-gray-200">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in-on-scroll">
+                <span class="text-brand-accent font-bold tracking-widest text-xs uppercase mb-3 block"><i class="fa-solid fa-flask mr-2"></i> Práctica Integrada</span>
+                <h2 class="text-4xl lg:text-5xl font-extrabold mb-6 text-brand-dark">Laboratorio Agentic</h2>
+                <p class="text-gray-500 font-serif text-xl max-w-3xl mx-auto">Ejecución secuencial: Del IDE al Agente conectado.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 fade-in-on-scroll">
+                <!-- Fase 1 -->
+                <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
+                    <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-solid fa-code"></i></div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-3">1. Despliegue del IDE</h3>
+                    <ul class="text-sm font-serif text-gray-600 space-y-3">
+                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Instala y configura AntiGravity.</li>
+                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Conéctalo con la carpeta de tu proyecto local.</li>
+                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> <strong>Ejercicio:</strong> Pide al Chat del IDE: <em>"Crea un script en Python que lea el archivo data.csv y calcule el revenue total."</em></li>
+                    </ul>
+                </div>
+
+                <!-- Fase 2 -->
+                <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-emerald-500"></div>
+                    <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-solid fa-terminal"></i></div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-3">2. Conexión API</h3>
+                    <ul class="text-sm font-serif text-gray-600 space-y-3">
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Obtén tu API Key de Anthropic Console.</li>
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Ejecuta la primera llamada por terminal (cURL) comprobando la respuesta cruda en JSON.</li>
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> <strong>Ejercicio:</strong> Diseña el script en Python que envíe los datos calculados en el paso 1 a Claude para que redacte un análisis.</li>
+                    </ul>
+                </div>
+
+                <!-- Fase 3 -->
+                <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-purple-500"></div>
+                    <div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-solid fa-network-wired"></i></div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-3">3. Autonomía MCP</h3>
+                    <ul class="text-sm font-serif text-gray-600 space-y-3">
+                        <li><i class="fa-solid fa-check text-purple-500 mr-2"></i> Instala el MCP Server de *filesystem* (para que la IA pueda leer tu disco duro).</li>
+                        <li><i class="fa-solid fa-check text-purple-500 mr-2"></i> Configura el archivo MCP en Claude Cowork.</li>
+                        <li><i class="fa-solid fa-check text-purple-500 mr-2"></i> <strong>Ejercicio:</strong> Pide a Claude que lea un Google Sheet y genere el reporte mensual de forma 100% autónoma.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Interactivo -->
+    <section class="py-24 bg-brand-dark text-white border-t-8 border-brand-accent">
+        <div class="max-w-4xl mx-auto px-6 fade-in-on-scroll">
+            <h3 class="text-3xl font-bold mb-8 text-center"><i class="fa-solid fa-clipboard-question text-brand-accent mr-3"></i> Test de Conocimientos Técnicos</h3>
+            <div class="bg-gray-900 border border-gray-700 rounded-2xl p-8 lg:p-12 shadow-2xl">
+                <div id="quizContainer">
+                    <!-- Quiz se renderiza vía JS aquí -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navegación entre Clases -->
+    <section class="py-12 bg-white border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <a href="modulo8-clase1.html" class="flex items-center px-6 py-3 text-gray-600 border border-gray-300 rounded-xl font-bold hover:text-brand-primary hover:border-brand-primary transition-all bg-white shadow-sm">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Anterior: Clase 1
+            </a>
+            <a href="index.html" class="flex items-center px-6 py-3 bg-brand-primary text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors shadow-lg">
+                Finalizar Módulo <i class="fa-solid fa-flag-checkered ml-2"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#050B14] text-white py-12 border-t border-gray-800">
+        <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+            <h2 class="text-xl font-bold mb-4 md:mb-0">
+                <span class="text-brand-accent">[m]</span>.seny <span class="text-brand-accent">[labs]</span>
+            </h2>
+            <p class="text-sm text-gray-500 font-sans">Material de Apoyo Formativo - Módulo Extra © 2026</p>
+        </div>
+    </footer>
+
+    <!-- Lógica de Interactividad -->
+    <script>
+        // Copiar Portapapeles
+        function copyToClipboard(elementId, btn) {
+            const el = document.getElementById(elementId);
+            let text = el.innerText || el.textContent;
+            
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                document.execCommand('copy');
+                const originalHTML = btn.innerHTML;
+                
+                btn.innerHTML = '<i class="fa-solid fa-check mr-1"></i> Copiado';
+                btn.classList.add('text-emerald-400');
+                btn.classList.remove('text-gray-500', 'hover:text-white');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.classList.remove('text-emerald-400');
+                    btn.classList.add('text-gray-500', 'hover:text-white');
+                }, 2000);
+            } catch (err) {
+                console.error('Error al copiar', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        // Quiz Data
+        const quizData = [
+            {
+                question: "¿Qué es un IDE (Integrated Development Environment)?",
+                options: [
+                    { text: "Un protocolo para conectar APIs de forma segura en la nube.", correct: false },
+                    { text: "Un software que agrupa editor de código, terminal y gestor de archivos en un solo lugar.", correct: true },
+                    { text: "Un modelo de inteligencia artificial entrenado para hacer traducciones.", correct: false },
+                    { text: "El formato en el que se envían las respuestas de una API web.", correct: false }
+                ]
+            },
+            {
+                question: "En un IDE con IA, ¿qué diferencia al 'Autocompletado' del 'Chat con el codebase'?",
+                options: [
+                    { text: "El autocompletado predice la siguiente línea mientras escribes; el chat permite hacerle preguntas complejas sobre toda la arquitectura.", correct: true },
+                    { text: "El chat es gratis, el autocompletado requiere pagar la API.", correct: false },
+                    { text: "No hay diferencia, son dos nombres para la misma función.", correct: false },
+                    { text: "El autocompletado solo funciona con Python, el chat funciona con todos los idiomas.", correct: false }
+                ]
+            },
+            {
+                question: "¿Cuál de las siguientes definiciones describe mejor una API (Application Programming Interface)?",
+                options: [
+                    { text: "Un hardware físico para guardar claves secretas.", correct: false },
+                    { text: "El lenguaje de programación utilizado por la empresa OpenAI.", correct: false },
+                    { text: "Un contrato que define cómo dos programas pueden comunicarse entre sí, estableciendo qué puedes pedir y cómo recibirás la respuesta.", correct: true },
+                    { text: "La interfaz gráfica (botones y menús) que ve el usuario final en una web.", correct: false }
+                ]
+            },
+            {
+                question: "En el contexto de APIs REST, ¿qué es JSON?",
+                options: [
+                    { text: "Un formato de texto ligero y estructurado, legible por humanos y máquinas, usado para enviar y recibir datos.", correct: true },
+                    { text: "Un protocolo de seguridad para encriptar contraseñas.", correct: false },
+                    { text: "Un comando de terminal para instalar paquetes.", correct: false },
+                    { text: "El nombre del modelo de IA que utiliza Anthropic.", correct: false }
+                ]
+            },
+            {
+                question: "Según la analogía vista en clase, si la Interfaz Visual (GUI) es un coche automático, ¿qué es la CLI (Command Line Interface)?",
+                options: [
+                    { text: "Un coche eléctrico.", correct: false },
+                    { text: "Un coche manual: ofrece más control y velocidad, pero requiere mayor conocimiento técnico para operarlo.", correct: true },
+                    { text: "Una bicicleta: es lenta pero segura.", correct: false },
+                    { text: "Un tren sobre raíles: no puedes cambiar su dirección.", correct: false }
+                ]
+            },
+            {
+                question: "¿Qué es el MCP (Model Context Protocol)?",
+                options: [
+                    { text: "Un estándar abierto de Anthropic que permite a los modelos conectarse de forma estructurada con herramientas externas y bases de datos.", correct: true },
+                    { text: "Una tarjeta gráfica especializada en procesar inteligencia artificial.", correct: false },
+                    { text: "El nuevo nombre del lenguaje de programación Python.", correct: false },
+                    { text: "Un límite de facturación (Rate limit) impuesto por las plataformas de IA.", correct: false }
+                ]
+            },
+            {
+                question: "¿Por qué se utiliza el protocolo MCP en lugar de construir una API tradicional manual?",
+                options: [
+                    { text: "Porque MCP es el único que funciona sin conexión a internet.", correct: false },
+                    { text: "Porque MCP define un protocolo estándar para que las herramientas se expongan directamente al modelo, permitiéndole usarlas de forma autónoma sin programar la integración paso a paso.", correct: true },
+                    { text: "Porque la API tradicional cuesta dinero y MCP es siempre gratuito por ley.", correct: false },
+                    { text: "MCP y API son exactamente lo mismo, solo cambia el nombre comercial.", correct: false }
+                ]
+            },
+            {
+                question: "Dentro de la arquitectura MCP, ¿cuál es la función de un 'MCP Server'?",
+                options: [
+                    { text: "Es el modelo de Inteligencia Artificial que piensa y toma decisiones (ej. Claude).", correct: false },
+                    { text: "Es la pantalla donde el usuario lee los resultados.", correct: false },
+                    { text: "Es el programa que expone las capacidades y datos de una herramienta específica (ej. Google Sheets) hacia la IA.", correct: true },
+                    { text: "Es el archivo donde se guardan las contraseñas del usuario.", correct: false }
+                ]
+            },
+            {
+                question: "¿Cómo se autentica típicamente una llamada a la API de Anthropic (como vimos en el ejemplo de cURL)?",
+                options: [
+                    { text: "Enviando un email a soporte técnico.", correct: false },
+                    { text: "A través del parámetro 'password' en el cuerpo del JSON.", correct: false },
+                    { text: "Usando un nombre de usuario y un captcha.", correct: false },
+                    { text: "Incluyendo una credencial única (API Key) en el header de la petición (ej. x-api-key).", correct: true }
+                ]
+            },
+            {
+                question: "En un entorno IDE, ¿qué significa 'Inline editing' aplicado por IA?",
+                options: [
+                    { text: "Seleccionar un bloque de código y pedir a la IA que lo modifique directamente allí mismo, sin tener que salir a un chat externo.", correct: true },
+                    { text: "Que la IA escriba todo el código en una sola línea muy larga.", correct: false },
+                    { text: "Corregir errores de ortografía en los comentarios del código.", correct: false },
+                    { text: "Poner el IDE en modo 'pantalla completa'.", correct: false }
+                ]
+            }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = '';
+            
+            quizData.forEach((q, idx) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'mb-8';
+                qDiv.innerHTML = `
+                    <h4 class="text-xl font-bold text-white mb-4"><span class="text-brand-accent">${idx + 1}.</span> ${q.question}</h4>
+                    <div class="space-y-3">
+                        ${q.options.map((opt, optIdx) => `
+                            <div class="quiz-option group flex items-center" onclick="selectAnswer(event, ${idx}, ${optIdx})">
+                                <input type="radio" name="q${idx}" value="${optIdx}" class="hidden">
+                                <div class="w-6 h-6 rounded-full border-2 border-gray-500 mr-4 flex-shrink-0 group-hover:border-brand-primary radio-custom transition-colors"></div>
+                                <span class="font-serif text-sm md:text-base">${opt.text}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(qDiv);
+            });
+            
+            const btnDiv = document.createElement('div');
+            btnDiv.className = "mt-10 pt-8 border-t border-gray-700 text-center";
+            btnDiv.innerHTML = `
+                <button onclick="submitQuiz()" class="px-10 py-4 bg-brand-primary text-white font-bold rounded-xl hover:bg-indigo-500 transition-colors shadow-lg text-lg uppercase tracking-wider">
+                    Validar Respuestas
+                </button>
+            `;
+            container.appendChild(btnDiv);
+        }
+
+        function selectAnswer(e, qIdx, optIdx) {
+            const optionContainer = e.currentTarget;
+            const parentDiv = optionContainer.closest('.space-y-3');
+            
+            const allOptions = parentDiv.querySelectorAll('.quiz-option');
+            allOptions.forEach(opt => {
+                opt.classList.remove('selected');
+                opt.querySelector('.radio-custom').classList.remove('bg-brand-accent', 'border-brand-accent');
+                opt.querySelector('.radio-custom').classList.add('border-gray-500');
+            });
+            
+            optionContainer.classList.add('selected');
+            const radioCustom = optionContainer.querySelector('.radio-custom');
+            radioCustom.classList.remove('border-gray-500');
+            radioCustom.classList.add('bg-brand-accent', 'border-brand-accent');
+            
+            const input = optionContainer.querySelector('input');
+            input.checked = true;
+        }
+
+        function submitQuiz() {
+            let correctCount = 0;
+            let answeredCount = 0;
+            
+            quizData.forEach((q, idx) => {
+                const selected = document.querySelector(`input[name="q${idx}"]:checked`);
+                if (selected) {
+                    answeredCount++;
+                    const optIdx = selected.value;
+                    const isCorrect = q.options[optIdx].correct;
+                    const optionDiv = selected.closest('.quiz-option');
+                    const parentDiv = optionDiv.parentElement;
+                    
+                    parentDiv.style.pointerEvents = "none";
+                    
+                    if (isCorrect) {
+                        correctCount++;
+                        optionDiv.classList.remove('selected');
+                        optionDiv.classList.add('correct');
+                        optionDiv.querySelector('.radio-custom').className = "w-6 h-6 rounded-full bg-emerald-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-xs fa-solid fa-check";
+                    } else {
+                        optionDiv.classList.remove('selected');
+                        optionDiv.classList.add('incorrect');
+                        optionDiv.querySelector('.radio-custom').className = "w-6 h-6 rounded-full bg-red-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-xs fa-solid fa-xmark";
+                        
+                        const allOptions = parentDiv.querySelectorAll('.quiz-option');
+                        q.options.forEach((opt, oIdx) => {
+                            if(opt.correct) {
+                                allOptions[oIdx].classList.add('border-emerald-500', 'text-emerald-400');
+                            }
+                        });
+                    }
+                }
+            });
+            
+            if (answeredCount < quizData.length) {
+                alert("Por favor, responde a todas las preguntas antes de validar.");
+                return;
+            }
+            
+            const percentage = Math.round((correctCount / quizData.length) * 100);
+            let message = "";
+            if (percentage === 100) message = "🏆 ¡Excelente! Eres un arquitecto de automatización completo.";
+            else if (percentage >= 80) message = "👍 ¡Muy bien! Has asimilado los conceptos técnicos core.";
+            else if (percentage >= 60) message = "✅ ¡Aprobado! Repasa las diferencias entre MCP Server y Client.";
+            else message = "📚 Te recomendamos releer los fundamentos de las APIs y el protocolo MCP.";
+            
+            alert(`Puntuación Final: ${correctCount}/${quizData.length} (${percentage}%)\n\n${message}`);
+        }
+
+        // Initialize features
+        document.addEventListener('DOMContentLoaded', () => {
+            renderQuiz();
+            
+            // Scroll Observer for Fade-ins
+            const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in-on-scroll').forEach(el => observer.observe(el));
+            
+            // Progress Bar
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrolled = (scrollTop / docHeight) * 100;
+                document.getElementById('progressBar').style.width = scrolled + '%';
+            });
+        });
+    </script>
+</body>
+</html>
