@@ -258,8 +258,8 @@
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-        const SUPABASE_URL = 'https://ftpywhemyizucquurslo.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0cHl3aGVteWl6dWNxdXVyc2xvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1NDYwMzIsImV4cCI6MjA5MjEyMjAzMn0.A63ZKSixJRA1DGFZ5-VBmaMzIwYIETCDBYn8mUnkzRI';
+        const SUPABASE_URL = 'https://ndtoqnpomhtubcygkwlh.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_TWDLiIP8n-EwF8ULmqDm0w_9uv5nBsS';
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         const form = document.getElementById('loginForm');
@@ -294,7 +294,7 @@
                 expires_at: session.expires_at
             }));
             const maxAge = 60 * 60 * 24 * 7; // 7 days
-            document.cookie = `sb-ftpywhemyizucquurslo-auth-token=${cookieValue};path=/;max-age=${maxAge};SameSite=Lax`;
+            document.cookie = `sb-ndtoqnpomhtubcygkwlh-auth-token=${cookieValue};path=/;max-age=${maxAge};SameSite=Lax`;
 
             // Redirect to course index
             window.location.href = '/index.html';

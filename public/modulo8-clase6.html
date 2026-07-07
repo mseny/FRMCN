@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Módulo Extra: Desarrollo y Automatización con IA - [m].seny [labs]">
-    <title>Módulo Extra: Desarrollo y Automatización - [m].seny [labs]</title>
-    
+    <meta name="description" content="Módulo 8 Clase 6: El cerebro que se busca y se teje solo — Vault, Vectorizador y El Tejedor - [m].seny [labs]">
+    <title>Módulo 8: El cerebro que se busca y se teje solo (Clase 6) - [m].seny [labs]</title>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
@@ -13,8 +14,10 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap"
+        rel="stylesheet">
+
     <script>
         tailwind.config = {
             theme: {
@@ -31,9 +34,10 @@
                             accent: '#F59E0B',
                             light: '#F8FAFC'
                         },
-                        code: {
-                            bg: '#1E293B',
-                            text: '#E2E8F0'
+                        claude: {
+                            DEFAULT: '#D97757',
+                            light: '#FDF3F0',
+                            dark: '#B05D40'
                         }
                     }
                 }
@@ -47,7 +51,7 @@
             color: #334155;
             scroll-behavior: smooth;
         }
-        
+
         h1, h2, h3, h4, h5, h6, button, .nav-link {
             font-family: 'Inter', sans-serif;
         }
@@ -74,12 +78,16 @@
             transform: translateY(20px);
             transition: all 0.8s ease-out;
         }
+
         .fade-in-on-scroll.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        .card-hover { transition: all 0.3s ease; }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
         .card-hover:hover {
             transform: translateY(-4px);
             box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.1);
@@ -91,7 +99,7 @@
             top: 0;
             left: 0;
             height: 3px;
-            background: linear-gradient(90deg, #4F46E5, #10B981);
+            background: linear-gradient(90deg, #4F46E5, #D97757);
             z-index: 1000;
             transition: width 0.2s ease;
         }
@@ -106,333 +114,437 @@
             background-color: rgba(255, 255, 255, 0.05);
             color: #e2e8f0;
         }
+
         .quiz-option:hover {
-            border-color: #4F46E5;
-            background-color: rgba(79, 70, 229, 0.1);
+            border-color: #D97757;
+            background-color: rgba(217, 119, 87, 0.1);
         }
+
         .quiz-option.selected {
             border-color: #F59E0B;
             background-color: rgba(245, 158, 11, 0.1);
         }
-        .quiz-option.correct {
-            border-color: #10b981;
-            background-color: rgba(16, 185, 129, 0.1);
-            color: #10b981;
+
+        /* Semantic map widget */
+        .sem-note {
+            cursor: pointer;
+            transition: opacity 0.35s ease, r 0.35s ease;
         }
-        .quiz-option.incorrect {
-            border-color: #ef4444;
-            background-color: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
+
+        .sem-chip {
+            transition: all 0.2s ease;
+        }
+
+        .sem-chip.active {
+            background-color: #D97757;
+            border-color: #D97757;
+            color: #fff;
         }
     </style>
 </head>
+
 <body class="antialiased">
 
     <div class="progress-bar" id="progressBar"></div>
 
     <!-- Navigation Header -->
     <header class="bg-white/90 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center">
-                <h1 class="text-xl font-bold tracking-tight text-brand-dark">
-                    <span class="text-brand-accent">[m]</span>.seny <span class="text-brand-accent">[labs]</span>
-                </h1>
-            </div>
-            <nav class="hidden lg:flex items-center space-x-5 text-xs font-bold text-gray-500 uppercase tracking-wider">
-                <a href="#ide" class="hover:text-brand-primary transition-colors">1. AntiGravity (IDE)</a>
-                <a href="#api" class="hover:text-brand-primary transition-colors">2. APIs y CLI</a>
-                <a href="#mcp" class="hover:text-brand-primary transition-colors">3. Protocolo MCP</a>
-                <a href="#practica" class="hover:text-brand-primary transition-colors text-brand-accent">4. Laboratorio</a>
-                
-                <a href="/login.html" onclick="document.cookie='sb-ftpywhemyizucquurslo-auth-token=;path=/;max-age=0';localStorage.clear()"
-                    class="hidden md:flex items-center gap-1.5 text-xs font-semibold text-gray-400 hover:text-red-500 transition-colors ml-4"
-                    title="Cerrar sesión">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                        <polyline points="16 17 21 12 16 7" />
-                        <line x1="21" y1="12" x2="9" y2="12" />
-                    </svg>
-                    Salir
+                <a href="index.html" class="no-underline group">
+                    <h1 class="text-xl font-bold tracking-tight text-brand-dark group-hover:text-brand-primary transition-colors cursor-pointer">
+                        <span class="text-brand-accent">[m]</span>.seny <span class="text-brand-accent">[labs]</span>
+                    </h1>
                 </a>
+            </div>
+            <nav class="hidden md:flex items-center space-x-4 text-xs font-bold text-gray-500 uppercase tracking-wider">
+                <a href="#resumen" class="hover:text-claude transition-colors">1. RESUMEN</a>
+                <a href="#vault" class="hover:text-claude transition-colors">2. VAULT</a>
+                <a href="#vectorizador" class="hover:text-claude transition-colors">3. VECTORIZADOR</a>
+                <a href="#tejedor" class="hover:text-claude transition-colors">4. EL TEJEDOR</a>
+                <a href="#practica" class="hover:text-claude transition-colors text-claude">5. PRÁCTICA</a>
             </nav>
+            <a href="/login.html" onclick="document.cookie='sb-ndtoqnpomhtubcygkwlh-auth-token=;path=/;max-age=0';localStorage.clear()"
+                class="hidden md:flex items-center gap-1.5 text-xs font-semibold text-gray-400 hover:text-red-500 transition-colors ml-4"
+                title="Cerrar sesión">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                    <polyline points="16 17 21 12 16 7" />
+                    <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+                Salir
+            </a>
         </div>
     </header>
 
     <!-- Presentation Title (Hero) -->
-    <section class="bg-[#0f172a] text-white py-32 border-b-8 border-brand-primary relative overflow-hidden">
+    <section class="bg-[#0f172a] text-white py-32 border-b-8 border-claude relative overflow-hidden">
         <div class="absolute inset-0 opacity-20">
-            <div class="absolute top-0 right-0 w-[40rem] h-[40rem] bg-indigo-600 rounded-full blur-[150px]"></div>
-            <div class="absolute bottom-[-10rem] left-0 w-[30rem] h-[30rem] bg-emerald-500 rounded-full blur-[150px]"></div>
+            <div class="absolute top-0 right-0 w-[40rem] h-[40rem] bg-claude rounded-full blur-[150px]"></div>
+            <div class="absolute bottom-0 left-0 w-[30rem] h-[30rem] bg-blue-600 rounded-full blur-[150px]"></div>
         </div>
         <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
             <span class="inline-block py-1 px-3 bg-white/10 text-white border border-white/20 font-mono text-sm font-bold uppercase tracking-widest mb-6 rounded">
-                Módulo Extra • Construcción Agentic
+                Módulo 8 • Clase 6
             </span>
             <h1 class="text-5xl lg:text-7xl font-extrabold mb-6 leading-tight">
-                Desarrollo y<br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-emerald-400">Automatización con IA</span>
+                El cerebro que<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-claude to-orange-300">se busca y se teje solo</span>
             </h1>
             <p class="text-xl text-gray-300 font-serif max-w-2xl mx-auto italic text-center">
-                De escribir código a orquestar sistemas. Dominando los IDEs, APIs y el estándar MCP para conectar la IA al mundo real.
+                Ya tienes un cerebro de notas. Ahora miramos debajo del capó: las tres piezas que convierten un montón de apuntes en un grafo vivo que se busca por significado y se enlaza solo. Y lo mejor: con tus propios scripts en local, sin plugins de pago.
             </p>
-            <div class="mt-10 flex items-center justify-center space-x-6 text-sm text-gray-400 font-mono">
-                <span><i class="fa-solid fa-book-open mr-2 text-indigo-400"></i> Teoría: 130 min</span>
-                <span>•</span>
-                <span><i class="fa-solid fa-laptop-code mr-2 text-emerald-400"></i> Práctica: 140 min</span>
+            <div class="mt-8 flex flex-wrap items-center justify-center gap-2 text-xs font-mono font-bold">
+                <span class="px-3 py-1 bg-slate-500/20 text-slate-300 border border-slate-500/30 rounded-full">Vault</span>
+                <span class="px-3 py-1 bg-orange-500/20 text-orange-300 border border-orange-500/30 rounded-full">Vectorizador (búsqueda por significado)</span>
+                <span class="px-3 py-1 bg-blue-500/20 text-blue-300 border border-blue-500/30 rounded-full">El Tejedor (auto-enlaces)</span>
+                <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded-full">100% local</span>
+                <span class="px-3 py-1 bg-purple-500/20 text-purple-300 border border-purple-500/30 rounded-full">Sin plugins de pago</span>
             </div>
         </div>
     </section>
 
-    <!-- 1. AntiGravity (IDE) -->
-    <section id="ide" class="py-20 bg-white">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row items-center mb-16 fade-in-on-scroll">
-                <div class="md:w-1/2 pr-0 md:pr-10 mb-8 md:mb-0">
-                    <h2 class="text-3xl font-bold text-brand-dark mb-4 flex items-center">
-                        <span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">1</span>
-                        AntiGravity: Programar con IA en el IDE
-                    </h2>
-                    <p class="prose-text text-gray-600 mb-6">
-                        Un <strong>IDE</strong> (Integrated Development Environment) es el software donde los desarrolladores escriben código (ej. VS Code, Cursor). <strong>AntiGravity</strong> representa la nueva generación de IDEs con IA integrada nativamente, permitiendo autocompletar código, chatear con el proyecto y generar funciones enteras desde lenguaje natural.
-                    </p>
-                    <p class="font-bold text-brand-dark mb-2">¿Para qué sirve en este curso?</p>
-                    <p class="font-serif text-gray-600 text-sm mb-6">Para construir el <em>AI Decision Hub</em>: scripts de conexión a APIs, procesamiento de datos locales y generación de reportes automáticos sin necesidad de ser un programador experto.</p>
-                    
-                    <div class="bg-amber-50 p-5 rounded-xl border-l-4 border-brand-accent">
-                        <p class="font-serif text-amber-900 text-sm m-0">
-                            <i class="fa-solid fa-utensils mr-2 text-brand-accent"></i> <strong>Analogía:</strong> Si el código es una receta de cocina, el IDE es la cocina completa. AntiGravity añade un <em>chef asistente</em> que te sugiere los ingredientes, te avisa si vas a quemar algo y puede cocinar partes enteras del plato por ti.
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="md:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 card-hover">
-                        <div class="text-indigo-500 mb-3 text-2xl"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                        <h4 class="font-bold text-brand-dark mb-2">Autocompletado</h4>
-                        <p class="text-xs text-gray-500 font-serif">La IA predice y sugiere la siguiente línea o bloque entero mientras escribes, basándose en el contexto del archivo. (Como el autocorrector del móvil, pero súper inteligente).</p>
-                    </div>
-                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 card-hover">
-                        <div class="text-emerald-500 mb-3 text-2xl"><i class="fa-regular fa-comments"></i></div>
-                        <h4 class="font-bold text-brand-dark mb-2">Chat con Codebase</h4>
-                        <p class="text-xs text-gray-500 font-serif">Permite hacer preguntas al IDE: <em>"¿Qué hace esta función?"</em> o <em>"Refactoriza esto para que sea limpio"</em>, dándole acceso de lectura a todo tu proyecto.</p>
-                    </div>
-                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 card-hover">
-                        <div class="text-purple-500 mb-3 text-2xl"><i class="fa-solid fa-pen-to-square"></i></div>
-                        <h4 class="font-bold text-brand-dark mb-2">Inline Editing</h4>
-                        <p class="text-xs text-gray-500 font-serif">Seleccionas un bloque de código y le pides a la IA que lo modifique directamente allí mismo, sin tener que salir a una ventana de chat externa.</p>
-                    </div>
-                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 card-hover">
-                        <div class="text-rose-500 mb-3 text-2xl"><i class="fa-solid fa-folder-tree"></i></div>
-                        <h4 class="font-bold text-brand-dark mb-2">Contexto Total</h4>
-                        <p class="text-xs text-gray-500 font-serif">El IDE con IA "lee" todos los archivos de tu proyecto simultáneamente para dar sugerencias que sean coherentes con la arquitectura y variables que ya existen.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 2. APIs y CLI -->
-    <section id="api" class="py-20 bg-brand-light border-t border-gray-200">
-        <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll">
-                <span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">2</span>
-                APIs y CLI: Hablar con las Herramientas
-            </h2>
-            
-            <!-- Conceptos -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 fade-in-on-scroll">
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                    <h3 class="text-lg font-bold text-brand-dark mb-2"><i class="fa-solid fa-plug text-blue-500 mr-2"></i> API</h3>
-                    <p class="text-xs text-gray-500 font-serif mb-3">Application Programming Interface. Contrato que permite a dos programas comunicarse.</p>
-                    <p class="text-xs text-blue-800 bg-blue-50 p-2 rounded"><strong>Símil:</strong> El menú del restaurante. Pides algo (al camarero/API) y la cocina (sistema) te trae el plato.</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                    <h3 class="text-lg font-bold text-brand-dark mb-2"><i class="fa-solid fa-network-wired text-emerald-500 mr-2"></i> REST</h3>
-                    <p class="text-xs text-gray-500 font-serif mb-3">Estilo de comunicación para APIs web. Usa peticiones HTTP (GET, POST, PUT, DELETE).</p>
-                    <p class="text-xs text-emerald-800 bg-emerald-50 p-2 rounded">El estándar de la industria para enviar y recibir datos en la web moderna.</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                    <h3 class="text-lg font-bold text-brand-dark mb-2"><i class="fa-solid fa-brackets-curly text-amber-500 mr-2"></i> JSON</h3>
-                    <p class="text-xs text-gray-500 font-serif mb-3">Formato ligero de texto para estructurar datos (JavaScript Object Notation).</p>
-                    <p class="text-xs text-amber-800 bg-amber-50 p-2 rounded"><strong>Símil:</strong> Un formulario bien rellenado. Campos claros y valores definidos, legible por máquinas.</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                    <h3 class="text-lg font-bold text-brand-dark mb-2"><i class="fa-solid fa-terminal text-purple-500 mr-2"></i> CLI</h3>
-                    <p class="text-xs text-gray-500 font-serif mb-3">Command Line Interface. Interfaz donde ejecutas comandos escribiendo texto.</p>
-                    <p class="text-xs text-purple-800 bg-purple-50 p-2 rounded"><strong>Símil:</strong> La interfaz visual es un coche automático; la CLI es uno manual. Más control y velocidad.</p>
-                </div>
-            </div>
-
-            <!-- API Key y Anthropic -->
-            <div class="bg-brand-dark rounded-3xl p-8 lg:p-12 shadow-xl fade-in-on-scroll relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl"></div>
-                <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg" alt="Anthropic" class="w-6 h-6 mr-3 filter invert opacity-80">
-                    Integrando la API de Anthropic
-                </h3>
-                
-                <div class="mb-8">
-                    <p class="font-serif text-gray-300 text-sm mb-2"><strong>API Key:</strong> Credencial única que identifica quién hace cada petición. Es como tu DNI para el servicio.</p>
-                    <p class="font-serif text-gray-300 text-sm"><strong>Endpoint principal:</strong> <code class="bg-black/50 text-emerald-400 px-2 py-1 rounded">https://api.anthropic.com/v1/messages</code></p>
-                    <p class="font-serif text-gray-300 text-sm mt-2"><strong>Parámetros:</strong> <code>model</code>, <code>max_tokens</code>, <code>messages</code>, <code>system</code>.</p>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <!-- CURL Example -->
-                    <div class="bg-[#0f172a] rounded-xl border border-gray-700 overflow-hidden flex flex-col">
-                        <div class="bg-black/50 px-4 py-2 border-b border-gray-700 flex justify-between items-center">
-                            <span class="text-xs text-gray-400 font-mono uppercase">1. Llamada por Terminal (cURL)</span>
-                            <button onclick="copyToClipboard('code-curl', this)" class="text-xs text-gray-500 hover:text-white transition-colors"><i class="fa-regular fa-copy"></i> Copiar</button>
-                        </div>
-                        <div id="code-curl" class="p-5 font-mono text-gray-300 text-xs flex-grow whitespace-pre-wrap overflow-x-auto"><span class="text-emerald-400">curl</span> https://api.anthropic.com/v1/messages \
-  <span class="text-blue-400">--header</span> <span class="text-amber-300">"x-api-key: $ANTHROPIC_API_KEY"</span> \
-  <span class="text-blue-400">--header</span> <span class="text-amber-300">"anthropic-version: 2023-06-01"</span> \
-  <span class="text-blue-400">--header</span> <span class="text-amber-300">"content-type: application/json"</span> \
-  <span class="text-blue-400">--data</span> <span class="text-amber-300">'{
-    "model": "claude-3-5-sonnet-20241022",
-    "max_tokens": 1024,
-    "messages": [
-      {"role": "user", "content": "Analiza estos KPIs..."}
-    ]
-  }'</span></div>
-                    </div>
-
-                    <!-- Python Example -->
-                    <div class="bg-[#0f172a] rounded-xl border border-gray-700 overflow-hidden flex flex-col">
-                        <div class="bg-black/50 px-4 py-2 border-b border-gray-700 flex justify-between items-center">
-                            <span class="text-xs text-gray-400 font-mono uppercase">2. Llamada con Python (SDK)</span>
-                            <button onclick="copyToClipboard('code-python', this)" class="text-xs text-gray-500 hover:text-white transition-colors"><i class="fa-regular fa-copy"></i> Copiar</button>
-                        </div>
-                        <div id="code-python" class="p-5 font-mono text-gray-300 text-xs flex-grow whitespace-pre-wrap overflow-x-auto"><span class="text-purple-400">import</span> anthropic
-
-client = anthropic.Anthropic(
-    api_key=<span class="text-amber-300">"TU_API_KEY"</span>,
-)
-
-message = client.messages.create(
-    model=<span class="text-amber-300">"claude-3-5-sonnet-20241022"</span>,
-    max_tokens=<span class="text-purple-400">1024</span>,
-    system=<span class="text-amber-300">"Eres el AI Decision Hub."</span>,
-    messages=[
-        {<span class="text-amber-300">"role"</span>: <span class="text-amber-300">"user"</span>, <span class="text-amber-300">"content"</span>: <span class="text-amber-300">"Calcula el revenue..."</span>}
-    ]
-)
-<span class="text-blue-400">print</span>(message.content[<span class="text-purple-400">0</span>].text)</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 3. Protocolo MCP -->
-    <section id="mcp" class="py-20 bg-white">
+    <!-- 1. RESUMEN -->
+    <section id="resumen" class="py-20 bg-white border-t border-gray-200">
         <div class="max-w-5xl mx-auto px-6">
-            <div class="text-center mb-16 fade-in-on-scroll">
-                <span class="text-brand-primary font-bold tracking-widest text-xs uppercase mb-3 block">Interoperabilidad</span>
-                <h2 class="text-3xl lg:text-4xl font-extrabold text-brand-dark flex items-center justify-center mb-3">
-                    <i class="fa-solid fa-plug-circle-bolt text-brand-primary mr-3"></i> MCP: Conectar el Mundo Real
-                </h2>
-                <p class="text-gray-600 font-serif max-w-3xl mx-auto">
-                    <strong>Model Context Protocol (MCP)</strong> es un estándar abierto creado por Anthropic que permite a los modelos de IA conectarse de forma segura y estructurada con herramientas externas, bases de datos, APIs y sistemas de archivos.
-                </p>
+
+            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll"><span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">1</span> Qué vamos a ver y cómo encaja todo</h2>
+
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">En la clase anterior montamos el <strong>cerebro de empresa</strong>: notas ordenadas por proyectos y áreas, un equipo de agentes y un grafo sano. Hoy abrimos la caja y vemos <strong>cómo funciona por dentro</strong> lo que hace que ese cerebro sea de verdad útil. Hay herramientas comerciales (plugins de pago como <em>Smart Connections</em>, <em>Graphify</em> y compañía) que hacen esta magia. Nosotros vamos a entender qué hacen y luego a <strong>construir nuestra propia versión en local</strong>, gratis y bajo nuestro control, simplemente pidiéndoselo a Claude Code.</p>
+
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">Son <strong>tres piezas</strong> que trabajan en cadena, cada una apoyada en la anterior. No compiten: se pasan el testigo. Este es el mapa de toda la clase de un vistazo:</p>
+
+            <!-- Pipeline de 3 piezas -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch mb-6 fade-in-on-scroll">
+                <div class="bg-slate-50 border border-slate-200 p-8 rounded-2xl shadow-sm relative">
+                    <div class="w-12 h-12 bg-slate-700 text-white rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-vault"></i></div>
+                    <h4 class="font-bold text-brand-dark text-lg mb-2">1 · El Vault</h4>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Guarda tus notas como <strong>archivos de texto</strong> y las enlazas a mano. Es la <em>memoria</em> en bruto: fiable y tuya, pero busca por <strong>palabra exacta</strong> y solo conecta lo que enlazas tú.</p>
+                    <span class="hidden md:block absolute top-1/2 -right-5 text-2xl text-claude z-10"><i class="fa-solid fa-arrow-right-long"></i></span>
+                </div>
+                <div class="bg-orange-50 border border-orange-200 p-8 rounded-2xl shadow-sm relative">
+                    <div class="w-12 h-12 bg-claude text-white rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-compass-drafting"></i></div>
+                    <h4 class="font-bold text-brand-dark text-lg mb-2">2 · El Vectorizador</h4>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Traduce cada nota a <strong>significado</strong> (números que capturan de qué habla). Con eso puedes buscar por <strong>idea</strong>, no por la palabra literal. Es el <em>oído fino</em> del cerebro.</p>
+                    <span class="hidden md:block absolute top-1/2 -right-5 text-2xl text-claude z-10"><i class="fa-solid fa-arrow-right-long"></i></span>
+                </div>
+                <div class="bg-blue-50 border border-blue-200 p-8 rounded-2xl shadow-sm">
+                    <div class="w-12 h-12 bg-blue-600 text-white rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-diagram-project"></i></div>
+                    <h4 class="font-bold text-brand-dark text-lg mb-2">3 · El Tejedor</h4>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Usa ese significado para <strong>enlazar solo</strong> las notas que hablan de lo mismo y <strong>rescatar huérfanas</strong>. Teje el grafo por ti. Es lo que haría un plugin tipo <em>Graphify</em>, pero en casa.</p>
+                </div>
             </div>
 
-            <div class="bg-indigo-50 border-l-4 border-brand-primary p-6 rounded-r-xl mb-12 fade-in-on-scroll">
-                <p class="font-serif text-indigo-900 text-base m-0">
-                    <i class="fa-solid fa-bolt mr-2 text-brand-primary"></i> <strong>Analogía:</strong> MCP es como un <em>adaptador universal de enchufes</em> para la IA. Cada herramienta (Slack, Sheets, SAP) tiene su propio "enchufe", y MCP proporciona el adaptador para que Claude pueda conectarse a todas ellas usando el mismo estándar.
-                </p>
+            <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-8 fade-in-on-scroll">
+                <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i> <strong>Analogía — una biblioteca:</strong> el <strong>Vault</strong> son las <em>estanterías</em> con todos los libros guardados. El <strong>Vectorizador</strong> es el <em>bibliotecario que se ha leído todo</em> y, cuando le describes una idea con tus palabras, sabe exactamente qué libros tratan de eso (aunque no uses el título). Y <strong>El Tejedor</strong> es quien va poniendo <em>hilos entre los libros que se parecen</em>, para que nunca quede ninguno perdido en un rincón sin conexión con el resto.</p>
             </div>
 
-            <!-- Conceptos MCP -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 fade-in-on-scroll">
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                    <h4 class="text-lg font-bold text-brand-dark mb-2 border-b border-gray-100 pb-2">¿Por qué MCP y no una API normal?</h4>
-                    <p class="font-serif text-gray-600 text-sm">Las APIs requieren que construyas la integración manualmente paso a paso. MCP define un protocolo estándar para que las herramientas se "expongan" directamente al modelo, permitiéndole llamarlas de forma autónoma cuando las necesite.</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                    <h4 class="text-lg font-bold text-brand-dark mb-2 border-b border-gray-100 pb-2">El Agente Verdadero</h4>
-                    <p class="font-serif text-gray-600 text-sm">Si Claude sin herramientas es un consultor que solo puede hablar, con MCP es un consultor que además puede abrir tu CRM, leer tus datos en vivo, enviar emails y actualizar tu base de datos de forma autónoma.</p>
-                </div>
+            <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-link text-brand-primary mr-2"></i> El hilo conductor: del texto al grafo vivo</h3>
+
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">La idea que conviene llevarse de toda la clase es esta cadena: <strong>el Vault guarda</strong> → <strong>el Vectorizador entiende</strong> → <strong>el Tejedor conecta</strong>. Cada pieza recibe lo que dejó la anterior. El Vectorizador no sirve de nada sin notas que leer (Vault), y el Tejedor no puede enlazar por significado sin los vectores que produce el Vectorizador. Por eso las vemos <em>en este orden</em>.</p>
+
+            <div class="bg-white p-6 rounded-r-xl border-l-4 border-claude shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-gray-700 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-info text-claude mr-2"></i> <strong>Cómo leer esta clase:</strong> del Vault solo haremos un <em>repaso rápido</em> (lo montaste en la clase anterior, así que aquí no lleva prompt). En el <strong>Vectorizador</strong> y en <strong>El Tejedor</strong>, además de explicarlos, te dejamos una <strong>caja para copiar y pegar</strong> un prompt en tu Claude Code que <em>lo construye por ti</em>. Y como siempre: todo <strong>en local</strong>, nada sale de tu equipo.</p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 fade-in-on-scroll">
-                <div class="bg-gray-800 text-white p-5 rounded-xl border-t-4 border-blue-500">
-                    <h4 class="font-bold text-blue-400 mb-2">MCP Server</h4>
-                    <p class="text-xs font-serif text-gray-300">Programa que expone capacidades. Ej: Un servidor MCP de Google Sheets permite leer/escribir hojas.</p>
-                </div>
-                <div class="bg-gray-800 text-white p-5 rounded-xl border-t-4 border-emerald-500">
-                    <h4 class="font-bold text-emerald-400 mb-2">MCP Client</h4>
-                    <p class="text-xs font-serif text-gray-300">El modelo o agente (ej. Claude) que consume las herramientas expuestas por los servidores.</p>
-                </div>
-                <div class="bg-gray-800 text-white p-5 rounded-xl border-t-4 border-amber-500">
-                    <h4 class="font-bold text-amber-400 mb-2">Tools</h4>
-                    <p class="text-xs font-serif text-gray-300">Funciones específicas que el servidor permite ejecutar. Ej: <code>read_file</code>, <code>search_slack</code>.</p>
-                </div>
-                <div class="bg-gray-800 text-white p-5 rounded-xl border-t-4 border-purple-500">
-                    <h4 class="font-bold text-purple-400 mb-2">Resources</h4>
-                    <p class="text-xs font-serif text-gray-300">Datos o contexto que el servidor pone a disposición (archivos locales, URLs, bases de datos).</p>
-                </div>
-            </div>
         </div>
     </section>
 
-    <!-- 4. Laboratorio Práctico Integrado -->
-    <section id="practica" class="py-24 bg-brand-light border-t border-gray-200">
+    <!-- 2. VAULT -->
+    <section id="vault" class="py-20 bg-brand-light border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-6">
+
+            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll"><span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">2</span> Qué hace el Vault de Obsidian (repaso)</h2>
+
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">El <strong>Vault</strong> (la "bóveda") es la base de todo: es simplemente la <strong>carpeta donde viven tus notas</strong>. Y aquí está su gran virtud, que ya vimos: cada nota es un <strong>archivo de texto plano</strong> (<code>.md</code>) en tu disco. No hay una base de datos secreta ni un formato propietario; son ficheros que puedes abrir con cualquier programa, hacer copia de seguridad o versionar. <strong>Es tuyo y no depende de nadie.</strong> Eso ya lo montaste en la clase anterior, así que aquí solo lo repasamos para ver <em>dónde se queda corto</em> y qué recogen las otras dos piezas.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 fade-in-on-scroll">
+                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+                    <div class="w-12 h-12 bg-slate-100 text-slate-700 rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-file-lines"></i></div>
+                    <h5 class="font-bold text-brand-dark text-base mb-2">Guarda en texto plano</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Cada nota es un <code>.md</code> con una fichita arriba (el <em>frontmatter</em>: título, tipo, etiquetas) y el texto debajo. Legible por ti y por cualquier programa.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+                    <div class="w-12 h-12 bg-slate-100 text-slate-700 rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-hand-pointer"></i></div>
+                    <h5 class="font-bold text-brand-dark text-base mb-2">Enlaza a mano</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Tú escribes <code>[[otra nota]]</code> para conectar dos ideas, y el grafo dibuja esa línea. Potente, pero el trabajo de conectar lo pones <strong>tú, nota a nota</strong>.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+                    <div class="w-12 h-12 bg-slate-100 text-slate-700 rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-magnifying-glass"></i></div>
+                    <h5 class="font-bold text-brand-dark text-base mb-2">Busca por palabra exacta</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">El buscador de Obsidian encuentra las notas que contienen <em>literalmente</em> lo que escribes. Si buscas "cobrar" no te trae la nota que dice "facturación".</p>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-triangle-exclamation text-brand-accent mr-2"></i> Los dos límites que dejan trabajo pendiente</h3>
+
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">El Vault de fábrica es excelente <em>guardando</em>, pero tiene dos techos claros. Y no es un defecto: es justo el hueco que rellenan las otras dos piezas de esta clase.</p>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-10 fade-in-on-scroll">
+                <div class="bg-white border border-gray-200 p-8 rounded-2xl shadow-sm">
+                    <h4 class="font-bold text-gray-400 uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-ear-listen mr-2"></i> Límite 1 · Busca letras, no significado</h4>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">La búsqueda nativa es <strong>literal</strong>: casa las mismas letras. No sabe que "pasarela de pago", "cobros" y "Stripe" hablan de lo mismo. Si no recuerdas la palabra exacta que usaste, la nota buena se te escapa. <span class="text-claude font-bold">→ Lo arregla el Vectorizador.</span></p>
+                </div>
+                <div class="bg-white border border-gray-200 p-8 rounded-2xl shadow-sm">
+                    <h4 class="font-bold text-gray-400 uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-ghost mr-2"></i> Límite 2 · Los enlaces los pones tú</h4>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Conectar es manual. Con cuatro notas es fácil; con cuatrocientas, aparecen las <strong>huérfanas</strong>: notas correctas que nadie enlazó y quedan sueltas, invisibles en el grafo. <span class="text-blue-600 font-bold">→ Lo arregla El Tejedor.</span></p>
+                </div>
+            </div>
+
+            <div class="bg-emerald-50 p-6 rounded-r-xl border-l-4 border-emerald-500 shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-emerald-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-check text-emerald-500 mr-2"></i> <strong>Lo que no cambia:</strong> las otras dos piezas <em>no sustituyen</em> al Vault; se apoyan en él. Tus notas siguen siendo <strong>archivos de texto en tu disco</strong>, tuyos y locales. El Vectorizador y el Tejedor solo <em>leen</em> esas notas para entenderlas y conectarlas mejor; el original de cada nota nunca deja de estar bajo tu control.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 3. VECTORIZADOR -->
+    <section id="vectorizador" class="py-20 bg-white border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-6">
+
+            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll"><span class="w-10 h-10 bg-claude text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">3</span> Qué hace el Vectorizador</h2>
+
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">El <strong>Vectorizador</strong> resuelve el primer límite del Vault: hace que puedas buscar tu cerebro <strong>por significado</strong> y no por la palabra exacta. ¿Cómo? Le pasa cada nota a un pequeño modelo de IA que la lee y la convierte en un <strong>vector</strong>: una lista de números que resume <em>de qué trata</em>. La clave es que <strong>dos notas que hablan de cosas parecidas obtienen números parecidos</strong>, aunque no compartan ni una sola palabra. A ese número-resumen del significado se le llama <em>embedding</em>.</p>
+
+            <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-8 fade-in-on-scroll">
+                <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i> <strong>Analogía — coordenadas de un mapa:</strong> imagina un mapa gigante donde cada idea tiene su <strong>coordenada</strong>. "Cobros", "facturación" y "Stripe" caen en el <em>mismo barrio</em> porque significan algo parecido; "color de marca" cae lejísimos, en otra punta. El Vectorizador le pone a cada nota su coordenada en ese mapa. Buscar por significado es tan simple como preguntar: <em>"¿qué notas hay cerca de esta idea?"</em>.</p>
+            </div>
+
+            <!-- WIDGET: mapa del significado -->
+            <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-map-location-dot text-claude mr-2"></i> Pruébalo: el mapa del significado</h3>
+            <p class="prose-text mb-6 text-gray-600 fade-in-on-scroll">Cada punto es una nota del cerebro, colocada por su <strong>significado</strong> (las parecidas quedan juntas; el color es su área). Pulsa una pregunta escrita <em>con tus palabras</em> y verás cómo el Vectorizador ilumina las notas más cercanas en significado — <strong>aunque tu pregunta no comparta ni una palabra con ellas</strong>. Eso es buscar por idea, no por letra.</p>
+
+            <div class="fade-in-on-scroll mb-8">
+                <div class="bg-slate-900 rounded-2xl border border-slate-800 shadow-xl overflow-hidden">
+                    <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex items-center justify-between">
+                        <span class="text-sm font-mono text-claude font-bold uppercase tracking-wider"><i class="fa-solid fa-compass-drafting mr-2"></i> Mapa del significado · demo</span>
+                        <span class="text-[11px] font-mono text-slate-500">demostración didáctica</span>
+                    </div>
+
+                    <div class="p-6">
+                        <!-- Chips de pregunta -->
+                        <p class="text-slate-300 text-xs font-sans font-bold uppercase tracking-widest mb-3">Pregunta con tus palabras:</p>
+                        <div id="semChips" class="flex flex-wrap gap-2 mb-6"></div>
+
+                        <div class="grid lg:grid-cols-3 gap-6 items-start">
+                            <!-- Mapa SVG -->
+                            <div class="lg:col-span-2">
+                                <div class="bg-slate-950/60 rounded-xl border border-slate-800 p-2">
+                                    <svg id="semMap" viewBox="0 0 100 72" class="w-full h-auto" style="max-height:340px" xmlns="http://www.w3.org/2000/svg">
+                                        <g id="semLinks"></g>
+                                        <g id="semNodes"></g>
+                                        <g id="semQuery"></g>
+                                    </svg>
+                                </div>
+                                <p class="text-slate-500 text-[11px] font-mono mt-2 text-center">Cada punto = una nota · cerca = significado parecido · color = área</p>
+                            </div>
+
+                            <!-- Resultados -->
+                            <div class="lg:col-span-1">
+                                <p class="text-slate-300 text-xs font-sans font-bold uppercase tracking-widest mb-3">Notas más cercanas:</p>
+                                <div id="semResults" class="space-y-2 font-mono text-xs text-slate-400">
+                                    <p class="text-slate-500 italic font-serif">Pulsa una pregunta de arriba para ver qué notas encuentra por significado.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-r-xl border-l-4 border-claude shadow-sm my-8 fade-in-on-scroll">
+                <p class="font-serif text-gray-700 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-info text-claude mr-2"></i> <strong>Fíjate en el detalle clave:</strong> preguntas <em>"¿cómo cobramos a los clientes?"</em> y te encuentra la nota <strong>"Pagos con Stripe"</strong>, que no contiene la palabra "cobrar" por ningún lado. El buscador normal de Obsidian no la habría traído. Eso es lo que aporta el Vectorizador: <strong>encuentra por lo que significan las notas, no por las letras que usaste.</strong></p>
+            </div>
+
+            <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-gears text-claude mr-2"></i> Las cuatro cosas que hace, por dentro</h3>
+            <p class="prose-text mb-6 text-gray-600 fade-in-on-scroll">Por debajo, un vectorizador siempre hace la misma secuencia. Conviene conocerla porque es <em>exactamente</em> lo que le vas a pedir a Claude Code en el prompt de abajo:</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 fade-in-on-scroll">
+                <div class="bg-orange-50/50 p-6 rounded-xl border border-orange-100">
+                    <h5 class="font-bold text-brand-dark text-sm mb-1"><span class="text-claude font-mono mr-2">1.</span> Lee las notas</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Recorre todos los <code>.md</code> del vault (saltándose el archivo y ficheros internos), separando el frontmatter del texto.</p>
+                </div>
+                <div class="bg-orange-50/50 p-6 rounded-xl border border-orange-100">
+                    <h5 class="font-bold text-brand-dark text-sm mb-1"><span class="text-claude font-mono mr-2">2.</span> Las convierte en vectores</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Un modelo de <em>embeddings</em> local y multilingüe (nosotros usamos <code>bge-m3</code>) traduce cada nota a su lista de números-significado.</p>
+                </div>
+                <div class="bg-orange-50/50 p-6 rounded-xl border border-orange-100">
+                    <h5 class="font-bold text-brand-dark text-sm mb-1"><span class="text-claude font-mono mr-2">3.</span> Los guarda en un índice</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Los vectores van a una pequeña <strong>base de datos vectorial</strong> local (nosotros usamos <code>LanceDB</code>), pensada para encontrar "vecinos cercanos" a toda velocidad.</p>
+                </div>
+                <div class="bg-orange-50/50 p-6 rounded-xl border border-orange-100">
+                    <h5 class="font-bold text-brand-dark text-sm mb-1"><span class="text-claude font-mono mr-2">4.</span> Ofrece la búsqueda</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Lo expone como una herramienta (un <em>MCP</em>, como vimos) para que Claude Code consulte el cerebro por significado cuando lo necesite.</p>
+                </div>
+            </div>
+
+            <div class="bg-emerald-50 p-6 rounded-r-xl border-l-4 border-emerald-500 shadow-sm my-8 fade-in-on-scroll">
+                <p class="font-serif text-emerald-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-shield-halved text-emerald-500 mr-2"></i> <strong>Privacidad, lo primero:</strong> el modelo que convierte tus notas en vectores corre <strong>en tu propio ordenador</strong>. Tus notas <em>no viajan a ninguna nube</em> para ser analizadas — a diferencia de muchos plugins que mandan tu texto a un servicio externo. Nada sale del equipo. Y recuerda la regla de siempre: los datos personales sensibles (PII) no viven en el vault.</p>
+            </div>
+
+            <!-- PROMPT VECTORIZADOR -->
+            <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-wand-magic-sparkles text-claude mr-2"></i> Prompt para construirlo (copiar y pegar en Claude Code)</h3>
+            <p class="prose-text mb-6 text-gray-600 fade-in-on-scroll">No tienes que programar nada. Abre Claude Code <strong>en la carpeta de tu vault</strong>, pega este prompt y déjalo trabajar. Describe exactamente las cuatro cosas de arriba:</p>
+
+            <div class="fade-in-on-scroll mb-8">
+                <div class="bg-slate-900 text-white rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                    <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+                        <span class="text-sm font-mono text-brand-accent font-bold uppercase tracking-wider"><i class="fa-solid fa-terminal mr-2"></i> Prompt · construir el Vectorizador</span>
+                        <button onclick="copyToClipboard('cb-vec-1', this)" class="text-xs font-bold text-slate-400 hover:text-white transition-colors border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg bg-slate-900 flex items-center"><i class="fa-regular fa-copy mr-2"></i> Copiar</button>
+                    </div>
+                    <div id="cb-vec-1" class="p-6 font-mono text-gray-200 text-xs md:text-sm leading-relaxed whitespace-pre-wrap">Quiero montar una búsqueda por significado sobre mi vault de Obsidian, 100% en local y sin que ninguna nota salga de mi ordenador (nada de nube). Construye un script en Python que:
+
+1. Recorra todas las notas .md de mi vault, saltándose las carpetas de archivo y la carpeta .obsidian, y separe el frontmatter (los metadatos de arriba) del texto de cada nota.
+2. Convierta cada nota en un vector usando un modelo de embeddings local y multilingüe (usa BAAI/bge-m3, que funciona bien en español).
+3. Guarde esos vectores en una base de datos vectorial local (usa LanceDB, en una carpeta del propio proyecto).
+4. Exponga una herramienta MCP llamada "buscar_en_cerebro(consulta, k)" para que, desde Claude Code, yo pueda preguntarte por significado y me devuelvas las notas más parecidas con su título, su ruta y un extracto.
+
+Prepáralo todo en un entorno virtual, déjame un README con el comando para reindexar cuando cambien mis notas, y explícame paso a paso qué instalar. Todo en local; los datos personales sensibles no entran aquí.</div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-r-xl border-l-4 border-claude shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-gray-700 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-info text-claude mr-2"></i> <strong>Qué esperar:</strong> la primera vez, el modelo se descarga (pesa un par de gigas) y tarda un poco; luego va rápido. Cuando añadas o cambies notas, basta con <strong>reindexar</strong> (volver a lanzar el script) para que la búsqueda esté al día. Y para que Claude Code vea la herramienta nueva, reinicia la sesión y aprueba el servidor <code>cerebro</code>.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 4. EL TEJEDOR -->
+    <section id="tejedor" class="py-20 bg-brand-light border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-6">
+
+            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll"><span class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">4</span> Qué hace <span class="text-blue-600 ml-2">El Tejedor</span></h2>
+
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-xl mb-8 fade-in-on-scroll">
+                <p class="font-serif text-blue-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-tag text-blue-500 mr-2"></i> <strong>El nombre:</strong> lo llamamos <strong>El Tejedor</strong> porque <em>teje</em> el grafo. Es nuestra versión en local de lo que hacen plugins comerciales tipo <strong>Graphify</strong> o <em>Smart Connections</em>: descubrir conexiones entre notas y dibujarlas por ti. Le damos nombre propio porque a partir de aquí es <em>tuyo</em>, no un plugin de terceros.</p>
+            </div>
+
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">El Tejedor ataca el <strong>segundo límite del Vault</strong>: que los enlaces los pones a mano. Su trabajo es <strong>tejer las conexiones que faltan</strong>. Y para eso se apoya justo en la pieza anterior: reutiliza los <strong>vectores que ya generó el Vectorizador</strong>. Si dos notas tienen vectores muy cercanos (significan casi lo mismo) pero <em>nadie las ha enlazado</em>, ahí hay una conexión perdida. El Tejedor las encuentra y propone el enlace <code>[[...]]</code>. Su obsesión: que <strong>no quede ninguna nota huérfana</strong>.</p>
+
+            <div class="bg-white p-6 rounded-r-xl border-l-4 border-claude shadow-sm my-8 fade-in-on-scroll">
+                <p class="font-serif text-gray-700 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-info text-claude mr-2"></i> <strong>¿No hacía esto ya el Enlazador de la clase anterior?</strong> Se parecen, pero no compiten. El <strong>Enlazador</strong> es un <em>agente</em> que conecta cada nota <strong>nueva</strong>, una a una y con criterio, en el momento de escribirla o ingerirla. <strong>El Tejedor</strong> es un <em>script</em> que hace una <strong>pasada masiva por significado sobre todo el vault</strong> —reutilizando los vectores del Vectorizador— y rescata las notas que <strong>ya</strong> quedaron sueltas de antes. Uno cose al vuelo; el otro repasa el conjunto entero.</p>
+            </div>
+
+            <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-8 fade-in-on-scroll">
+                <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i> <strong>Analogía — un casamentero:</strong> imagina a alguien que conoce a todo el mundo de una fiesta y va presentando a las personas que tienen cosas en común pero aún no se han cruzado: <em>"vosotros dos deberíais hablar, os interesa lo mismo"</em>. El Tejedor hace eso con tus notas: detecta las que "tienen mucho de qué hablar" (significado cercano) y todavía no se conocen (no están enlazadas), y las presenta.</p>
+            </div>
+
+            <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-list-ol text-blue-600 mr-2"></i> Cómo teje, paso a paso</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 fade-in-on-scroll">
+                <div class="bg-white p-6 rounded-xl border border-blue-100 shadow-sm">
+                    <h5 class="font-bold text-brand-dark text-sm mb-1"><span class="text-blue-600 font-mono mr-2">1.</span> Mide parecidos</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Para cada nota, mira cuáles son las <strong>más cercanas en significado</strong> usando los vectores del Vectorizador (la "distancia" entre vectores).</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-blue-100 shadow-sm">
+                    <h5 class="font-bold text-brand-dark text-sm mb-1"><span class="text-blue-600 font-mono mr-2">2.</span> Detecta enlaces que faltan</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">De esas parejas muy parecidas, se queda con las que <strong>todavía no están enlazadas</strong> entre sí. Ahí está la conexión perdida.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-blue-100 shadow-sm">
+                    <h5 class="font-bold text-brand-dark text-sm mb-1"><span class="text-blue-600 font-mono mr-2">3.</span> Rescata huérfanas</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Da prioridad a las notas <strong>sin ningún enlace</strong> (ni de entrada ni de salida): son las que más urge conectar para que no queden invisibles.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-blue-100 shadow-sm">
+                    <h5 class="font-bold text-brand-dark text-sm mb-1"><span class="text-blue-600 font-mono mr-2">4.</span> Propone y espera tu OK</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Te enseña la lista de enlaces sugeridos (nota A ↔ nota B, con su parecido) y <strong>no escribe nada hasta que apruebas</strong>. Tú tienes la última palabra.</p>
+                </div>
+            </div>
+
+            <div class="bg-emerald-50 p-6 rounded-r-xl border-l-4 border-emerald-500 shadow-sm my-8 fade-in-on-scroll">
+                <p class="font-serif text-emerald-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-check text-emerald-500 mr-2"></i> <strong>Regla de edición segura (de la clase anterior):</strong> el Tejedor toca tus notas, así que sigue la misma norma que cualquier agente que edita el vault: <strong>propone antes de escribir</strong>, edita de forma <em>quirúrgica</em> (solo añade el enlace, sin tocar nada más), no crea duplicados y te deja revisar. Un auto-enlazador a ciegas puede llenar el grafo de conexiones absurdas; con revisión previa, teje bien.</p>
+            </div>
+
+            <!-- PROMPT TEJEDOR -->
+            <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-wand-magic-sparkles text-blue-600 mr-2"></i> Prompt para construirlo (copiar y pegar en Claude Code)</h3>
+            <p class="prose-text mb-6 text-gray-600 fade-in-on-scroll">Requiere tener ya montado el Vectorizador (reutiliza sus vectores). Abre Claude Code <strong>en la carpeta de tu vault</strong> y pega esto:</p>
+
+            <div class="fade-in-on-scroll mb-8">
+                <div class="bg-slate-900 text-white rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                    <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+                        <span class="text-sm font-mono text-brand-accent font-bold uppercase tracking-wider"><i class="fa-solid fa-terminal mr-2"></i> Prompt · construir El Tejedor</span>
+                        <button onclick="copyToClipboard('cb-tej-1', this)" class="text-xs font-bold text-slate-400 hover:text-white transition-colors border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg bg-slate-900 flex items-center"><i class="fa-regular fa-copy mr-2"></i> Copiar</button>
+                    </div>
+                    <div id="cb-tej-1" class="p-6 font-mono text-gray-200 text-xs md:text-sm leading-relaxed whitespace-pre-wrap">Quiero un script que teja los enlaces de mi vault de Obsidian automáticamente, como haría un plugin tipo Graphify, pero en local y bajo mi control. Reutiliza los vectores que ya generé con mi vectorizador (embeddings locales bge-m3 guardados en LanceDB). El script debe:
+
+1. Para cada nota, encontrar las otras notas más parecidas en significado (por similitud de coseno entre sus vectores).
+2. Proponer enlaces [[wikilink]] entre notas muy relacionadas que TODAVÍA no estén enlazadas entre sí.
+3. Dar prioridad a rescatar las notas huérfanas (las que no tienen ningún enlace de entrada ni de salida).
+4. MUY IMPORTANTE: no escribas nada todavía. Primero enséñame la lista de enlaces propuestos —nota A ↔ nota B, con su porcentaje de parecido— para que yo la revise y apruebe.
+
+Solo cuando dé el OK, añade los enlaces aprobados editando de forma quirúrgica (solo añades el enlace, sin tocar el resto de la nota), respetando el formato de cada nota y sin crear duplicados. Ponme un umbral de parecido configurable para no llenar el grafo de conexiones débiles. Todo en local.</div>
+                </div>
+            </div>
+
+            <div class="bg-indigo-50/60 p-6 rounded-2xl border border-indigo-100 my-8 fade-in-on-scroll">
+                <h4 class="font-bold text-brand-dark text-sm uppercase mb-3"><i class="fa-solid fa-lightbulb mr-2 text-indigo-600"></i> En una frase</h4>
+                <p class="font-serif text-gray-700 text-sm leading-relaxed mb-0">El <strong>Vault</strong> guarda, el <strong>Vectorizador</strong> entiende y <strong>El Tejedor</strong> conecta. Las tres piezas que los plugins de pago venden por separado las tienes <strong>en local, gratis y bajo tu control</strong>, sin más que describírselas a Claude Code. Y la seguridad manda siempre: nada sale de tu equipo y tú apruebas cada cambio antes de que toque una nota.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 5. Práctica y Quiz (Dark Section) -->
+    <section id="practica" class="py-24 bg-brand-dark text-white border-t-8 border-claude">
         <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16 fade-in-on-scroll">
-                <span class="text-brand-accent font-bold tracking-widest text-xs uppercase mb-3 block"><i class="fa-solid fa-flask mr-2"></i> Práctica Integrada</span>
-                <h2 class="text-4xl lg:text-5xl font-extrabold mb-6 text-brand-dark">Laboratorio Agentic</h2>
-                <p class="text-gray-500 font-serif text-xl max-w-3xl mx-auto">Ejecución secuencial: Del IDE al Agente conectado.</p>
+
+            <!-- Reto de la clase -->
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-10 lg:p-16 shadow-2xl relative overflow-hidden fade-in-on-scroll mb-20">
+                <div class="absolute top-0 right-0 w-80 h-80 bg-claude/20 rounded-bl-full -z-0 blur-2xl"></div>
+                <div class="flex items-center mb-8 relative z-10">
+                    <div class="w-16 h-16 bg-claude text-white rounded-2xl flex items-center justify-center text-3xl shadow-lg mr-6 shrink-0">
+                        <i class="fa-solid fa-diagram-project"></i>
+                    </div>
+                    <div>
+                        <span class="text-claude font-bold tracking-widest text-xs uppercase mb-1 block">Reto de la Clase</span>
+                        <h3 class="text-3xl lg:text-4xl font-extrabold text-white">Construye tu buscador y tu tejedor</h3>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/60 border border-slate-700/50 rounded-2xl p-8 relative z-10">
+                    <p class="font-serif text-gray-300 mb-8 text-lg">
+                        Toma el cerebro de la clase anterior y dale las dos piezas que le faltan, usando tus propios scripts en local. Tres movimientos:
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-slate-900/90 p-6 rounded-xl shadow-sm border border-slate-800 hover:border-claude transition-colors">
+                            <div class="w-12 h-12 bg-slate-500/20 text-slate-300 rounded-xl flex items-center justify-center mb-5 text-xl font-bold">
+                                <i class="fa-solid fa-vault"></i>
+                            </div>
+                            <h5 class="font-bold text-white mb-2">1. Repasa el Vault</h5>
+                            <p class="text-sm font-serif text-slate-400">Confirma que tus notas están en <code>.md</code>, con su frontmatter, y localiza sus dos límites: la búsqueda literal y los enlaces manuales.</p>
+                        </div>
+                        <div class="bg-slate-900/90 p-6 rounded-xl shadow-sm border border-slate-800 hover:border-claude transition-colors">
+                            <div class="w-12 h-12 bg-orange-500/20 text-orange-300 rounded-xl flex items-center justify-center mb-5 text-xl font-bold">
+                                <i class="fa-solid fa-compass-drafting"></i>
+                            </div>
+                            <h5 class="font-bold text-white mb-2">2. Monta el Vectorizador</h5>
+                            <p class="text-sm font-serif text-slate-400">Pega el prompt de la sección 3 en Claude Code. Comprueba que puedes <strong>buscar por significado</strong> una nota sin usar su palabra exacta.</p>
+                        </div>
+                        <div class="bg-slate-900/90 p-6 rounded-xl shadow-sm border border-slate-800 hover:border-claude transition-colors">
+                            <div class="w-12 h-12 bg-blue-500/20 text-blue-300 rounded-xl flex items-center justify-center mb-5 text-xl font-bold">
+                                <i class="fa-solid fa-diagram-project"></i>
+                            </div>
+                            <h5 class="font-bold text-white mb-2">3. Teje con El Tejedor</h5>
+                            <p class="text-sm font-serif text-slate-400">Pega el prompt de la sección 4. Revisa los enlaces que propone <strong>antes</strong> de aprobarlos y mira cómo se rescatan tus notas huérfanas.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 fade-in-on-scroll">
-                <!-- Fase 1 -->
-                <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow relative overflow-hidden group">
-                    <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
-                    <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-solid fa-code"></i></div>
-                    <h3 class="text-xl font-bold text-brand-dark mb-3">1. Despliegue del IDE</h3>
-                    <ul class="text-sm font-serif text-gray-600 space-y-3">
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Instala y configura AntiGravity.</li>
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Conéctalo con la carpeta de tu proyecto local.</li>
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> <strong>Ejercicio:</strong> Pide al Chat del IDE: <em>"Crea un script en Python que lea el archivo data.csv y calcule el revenue total."</em></li>
-                    </ul>
-                </div>
-
-                <!-- Fase 2 -->
-                <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow relative overflow-hidden group">
-                    <div class="absolute top-0 left-0 w-2 h-full bg-emerald-500"></div>
-                    <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-solid fa-terminal"></i></div>
-                    <h3 class="text-xl font-bold text-brand-dark mb-3">2. Conexión API</h3>
-                    <ul class="text-sm font-serif text-gray-600 space-y-3">
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Obtén tu API Key de Anthropic Console.</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Ejecuta la primera llamada por terminal (cURL) comprobando la respuesta cruda en JSON.</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> <strong>Ejercicio:</strong> Diseña el script en Python que envíe los datos calculados en el paso 1 a Claude para que redacte un análisis.</li>
-                    </ul>
-                </div>
-
-                <!-- Fase 3 -->
-                <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow relative overflow-hidden group">
-                    <div class="absolute top-0 left-0 w-2 h-full bg-purple-500"></div>
-                    <div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center mb-4 text-xl"><i class="fa-solid fa-network-wired"></i></div>
-                    <h3 class="text-xl font-bold text-brand-dark mb-3">3. Autonomía MCP</h3>
-                    <ul class="text-sm font-serif text-gray-600 space-y-3">
-                        <li><i class="fa-solid fa-check text-purple-500 mr-2"></i> Instala el MCP Server de *filesystem* (para que la IA pueda leer tu disco duro).</li>
-                        <li><i class="fa-solid fa-check text-purple-500 mr-2"></i> Configura el archivo MCP en Claude Cowork.</li>
-                        <li><i class="fa-solid fa-check text-purple-500 mr-2"></i> <strong>Ejercicio:</strong> Pide a Claude que lea un Google Sheet y genere el reporte mensual de forma 100% autónoma.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Quiz Interactivo -->
-    <section class="py-24 bg-brand-dark text-white border-t-8 border-brand-accent">
-        <div class="max-w-4xl mx-auto px-6 fade-in-on-scroll">
-            <h3 class="text-3xl font-bold mb-8 text-center"><i class="fa-solid fa-clipboard-question text-brand-accent mr-3"></i> Test de Conocimientos Técnicos</h3>
-            <div class="bg-gray-900 border border-gray-700 rounded-2xl p-8 lg:p-12 shadow-2xl">
-                <div id="quizContainer">
-                    <!-- Quiz se renderiza vía JS aquí -->
+            <!-- Quiz Interactivo -->
+            <div class="border-t border-slate-800 pt-16 mb-12 fade-in-on-scroll">
+                <h3 class="text-3xl font-bold mb-8 text-white text-center">
+                    <i class="fa-solid fa-clipboard-check text-claude mr-3"></i> Cuestionario de Evaluación (Clase 6)
+                </h3>
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 lg:p-12 shadow-2xl text-white">
+                    <div id="quizContainer"></div>
+                    <div class="text-center mt-10 pt-8 border-t border-slate-800">
+                        <button id="validateBtn" onclick="submitQuiz()" class="px-10 py-4 bg-claude hover:bg-claude-dark text-white font-bold rounded-xl transition-all shadow-lg uppercase tracking-wider text-sm">
+                            Validar Respuestas
+                        </button>
+                        <div id="quiz-result" class="hidden mt-6 p-5 rounded-xl font-bold font-sans text-center transition-all"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -441,260 +553,372 @@ message = client.messages.create(
     <!-- Navegación entre Clases -->
     <section class="py-12 bg-white border-t border-gray-200">
         <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <a href="modulo8-clase1.html" class="flex items-center px-6 py-3 text-gray-600 border border-gray-300 rounded-xl font-bold hover:text-brand-primary hover:border-brand-primary transition-all bg-white shadow-sm">
-                <i class="fa-solid fa-arrow-left mr-2"></i> Anterior: Clase 1
+            <a href="modulo8-clase5.html"
+                class="flex items-center px-6 py-3 text-gray-600 border border-gray-300 rounded-xl font-bold hover:text-brand-primary hover:border-brand-primary transition-all bg-white shadow-sm w-full sm:w-auto justify-center">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Anterior: Clase 5
             </a>
-            <a href="index.html" class="flex items-center px-6 py-3 bg-brand-primary text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors shadow-lg">
-                Finalizar Módulo <i class="fa-solid fa-flag-checkered ml-2"></i>
+            <a href="index.html"
+                class="flex items-center px-8 py-3 bg-brand-primary text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors shadow-lg w-full sm:w-auto justify-center">
+                <i class="fa-solid fa-home mr-2"></i> Volver al Temario
             </a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-[#050B14] text-white py-12 border-t border-gray-800">
-        <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
-            <h2 class="text-xl font-bold mb-4 md:mb-0">
+    <footer class="bg-brand-dark text-white py-16 border-t border-gray-800">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-4">
                 <span class="text-brand-accent">[m]</span>.seny <span class="text-brand-accent">[labs]</span>
             </h2>
-            <p class="text-sm text-gray-500 font-sans">Material de Apoyo Formativo - Módulo Extra © 2026</p>
+            <p class="text-gray-400 mb-10 max-w-lg mx-auto font-serif text-center">
+                Empoderando a la próxima generación de empresas con inteligencia artificial práctica y estratégica.
+            </p>
+            <div class="w-12 h-px bg-gray-800 mx-auto my-6"></div>
+            <p class="text-xs text-gray-500 font-sans text-center">
+                Material de Apoyo Formativo - Módulo 8 (Clase 6)<br>
+                © 2026 [m].seny [labs]. Todos los derechos reservados.
+            </p>
         </div>
     </footer>
 
     <!-- Lógica de Interactividad -->
     <script>
-        // Copiar Portapapeles
+        // 1. Copiado al portapapeles (fallback execCommand para iframes restringidos)
         function copyToClipboard(elementId, btn) {
             const el = document.getElementById(elementId);
             let text = el.innerText || el.textContent;
-            
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed";
-            textArea.style.left = "-9999px";
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
+
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = text;
+            tempTextArea.style.position = "fixed";
+            tempTextArea.style.left = "-9999px";
+            document.body.appendChild(tempTextArea);
+            tempTextArea.focus();
+            tempTextArea.select();
 
             try {
                 document.execCommand('copy');
                 const originalHTML = btn.innerHTML;
-                
-                btn.innerHTML = '<i class="fa-solid fa-check mr-1"></i> Copiado';
+                btn.innerHTML = '<i class="fa-solid fa-check mr-2"></i> Copiado';
                 btn.classList.add('text-emerald-400');
-                btn.classList.remove('text-gray-500', 'hover:text-white');
-                
+                btn.classList.remove('text-slate-400');
+
                 setTimeout(() => {
                     btn.innerHTML = originalHTML;
                     btn.classList.remove('text-emerald-400');
-                    btn.classList.add('text-gray-500', 'hover:text-white');
+                    btn.classList.add('text-slate-400');
                 }, 2000);
             } catch (err) {
-                console.error('Error al copiar', err);
+                console.error('No se pudo copiar', err);
             }
-            document.body.removeChild(textArea);
+            document.body.removeChild(tempTextArea);
         }
 
-        // Quiz Data
+        // 2. Widget "mapa del significado"
+        // Notas con su coordenada en el "mapa de significado" (x,y en 0-100 / 0-72) y color por área.
+        const semNotes = [
+            { id: 'pagos',   label: 'Pagos con Stripe',        area: 'técnico',      color: '#3b82f6', x: 20, y: 20 },
+            { id: 'comision',label: 'Comisión y flujo de dinero', area: 'negocio',   color: '#f59e0b', x: 30, y: 27 },
+            { id: 'marca',   label: 'Marca: color esmeralda',  area: 'diseño',       color: '#10b981', x: 80, y: 18 },
+            { id: 'logo',    label: 'Logo e identidad visual', area: 'diseño',       color: '#10b981', x: 86, y: 27 },
+            { id: 'verif',   label: 'Agente verificador',      area: 'calidad',      color: '#a855f7', x: 22, y: 58 },
+            { id: 'edicion', label: 'Regla de edición segura', area: 'calidad',      color: '#a855f7', x: 31, y: 52 },
+            { id: 'huerfano',label: 'Grafo sin huérfanos',     area: 'técnico',      color: '#3b82f6', x: 74, y: 56 },
+            { id: 'sync',    label: 'Sincronizar el vault',    area: 'operaciones',  color: '#f43f5e', x: 60, y: 44 },
+        ];
+
+        // Preguntas escritas "con otras palabras": ninguna comparte término literal con su nota destino.
+        const semQueries = [
+            { text: '¿cómo cobramos a los clientes?', x: 25, y: 24 },
+            { text: '¿cómo nos reconocen de un vistazo?', x: 83, y: 23 },
+            { text: '¿quién revisa que todo esté bien?', x: 26, y: 55 },
+            { text: 'no quiero notas sueltas',        x: 70, y: 52 },
+        ];
+
+        const SVGNS = 'http://www.w3.org/2000/svg';
+
+        function drawSemMap() {
+            const nodesG = document.getElementById('semNodes');
+            if (!nodesG) return;
+            nodesG.innerHTML = '';
+            semNotes.forEach(n => {
+                const c = document.createElementNS(SVGNS, 'circle');
+                c.setAttribute('cx', n.x);
+                c.setAttribute('cy', n.y);
+                c.setAttribute('r', 2.1);
+                c.setAttribute('fill', n.color);
+                c.setAttribute('class', 'sem-note');
+                c.setAttribute('data-id', n.id);
+                nodesG.appendChild(c);
+
+                const t = document.createElementNS(SVGNS, 'text');
+                t.setAttribute('x', n.x + 3);
+                t.setAttribute('y', n.y + 1.2);
+                t.setAttribute('fill', '#cbd5e1');
+                t.setAttribute('font-size', '2.6');
+                t.setAttribute('font-family', 'ui-monospace, monospace');
+                t.setAttribute('class', 'sem-note');
+                t.setAttribute('data-id', n.id);
+                t.textContent = n.label;
+                nodesG.appendChild(t);
+            });
+        }
+
+        function renderChips() {
+            const wrap = document.getElementById('semChips');
+            if (!wrap) return;
+            wrap.innerHTML = '';
+            semQueries.forEach((q, i) => {
+                const b = document.createElement('button');
+                b.className = 'sem-chip text-xs font-mono font-bold px-3 py-2 rounded-lg border border-slate-600 text-slate-300 bg-slate-800/60 hover:border-claude';
+                b.textContent = q.text;
+                b.onclick = () => runSemQuery(i, b);
+                wrap.appendChild(b);
+            });
+        }
+
+        function runSemQuery(qi, btn) {
+            document.querySelectorAll('#semChips .sem-chip').forEach(c => c.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            const q = semQueries[qi];
+            const maxD = 90; // referencia para convertir distancia en "parecido %"
+            // Distancia euclídea a cada nota → "parecido %" → nos quedamos solo con las de verdad cercanas.
+            const ranked = semNotes
+                .map(n => {
+                    const d = Math.hypot(n.x - q.x, n.y - q.y);
+                    return { n, d, pct: Math.round(100 - (d / maxD) * 100) };
+                })
+                .sort((a, b) => a.d - b.d);
+            // Muestra hasta 3, pero solo las claramente relacionadas (>=72%); siempre al menos la más cercana.
+            let top = ranked.filter(r => r.pct >= 72).slice(0, 3);
+            if (top.length === 0) top = ranked.slice(0, 1);
+            const topIds = top.map(r => r.n.id);
+
+            // Atenúa las no elegidas
+            document.querySelectorAll('#semNodes .sem-note').forEach(el => {
+                const id = el.getAttribute('data-id');
+                el.style.opacity = topIds.includes(id) ? '1' : '0.2';
+                if (el.tagName === 'circle') {
+                    el.setAttribute('r', topIds.includes(id) ? 3 : 2.1);
+                }
+            });
+
+            // Punto de la pregunta
+            const qg = document.getElementById('semQuery');
+            qg.innerHTML = '';
+            const linksG = document.getElementById('semLinks');
+            linksG.innerHTML = '';
+            top.forEach(r => {
+                const ln = document.createElementNS(SVGNS, 'line');
+                ln.setAttribute('x1', q.x); ln.setAttribute('y1', q.y);
+                ln.setAttribute('x2', r.n.x); ln.setAttribute('y2', r.n.y);
+                ln.setAttribute('stroke', '#D97757');
+                ln.setAttribute('stroke-width', '0.5');
+                ln.setAttribute('stroke-dasharray', '1.5 1');
+                ln.setAttribute('opacity', '0.7');
+                linksG.appendChild(ln);
+            });
+            const star = document.createElementNS(SVGNS, 'circle');
+            star.setAttribute('cx', q.x); star.setAttribute('cy', q.y);
+            star.setAttribute('r', 2.6);
+            star.setAttribute('fill', 'none');
+            star.setAttribute('stroke', '#D97757');
+            star.setAttribute('stroke-width', '0.8');
+            qg.appendChild(star);
+            const starIn = document.createElementNS(SVGNS, 'circle');
+            starIn.setAttribute('cx', q.x); starIn.setAttribute('cy', q.y);
+            starIn.setAttribute('r', 1.1);
+            starIn.setAttribute('fill', '#D97757');
+            qg.appendChild(starIn);
+
+            // Lista de resultados
+            const res = document.getElementById('semResults');
+            res.innerHTML = `<p class="text-slate-400 font-serif italic mb-3">Tu pregunta: “${q.text}”</p>`;
+            top.forEach((r, idx) => {
+                const pct = r.pct;
+                const row = document.createElement('div');
+                row.className = 'flex items-center justify-between gap-2 bg-slate-800/60 border border-slate-700 rounded-lg px-3 py-2';
+                row.innerHTML = `
+                    <span class="flex items-center gap-2 min-w-0">
+                        <span class="inline-block w-2.5 h-2.5 rounded-full shrink-0" style="background:${r.n.color}"></span>
+                        <span class="truncate text-slate-200">${idx + 1}. ${r.n.label}</span>
+                    </span>
+                    <span class="text-claude font-bold shrink-0">${pct}%</span>`;
+                res.appendChild(row);
+            });
+        }
+
+        // 3. Lógica del Quiz (Clase 6)
         const quizData = [
-            {
-                question: "¿Qué es un IDE (Integrated Development Environment)?",
-                options: [
-                    { text: "Un protocolo para conectar APIs de forma segura en la nube.", correct: false },
-                    { text: "Un software que agrupa editor de código, terminal y gestor de archivos en un solo lugar.", correct: true },
-                    { text: "Un modelo de inteligencia artificial entrenado para hacer traducciones.", correct: false },
-                    { text: "El formato en el que se envían las respuestas de una API web.", correct: false }
-                ]
-            },
-            {
-                question: "En un IDE con IA, ¿qué diferencia al 'Autocompletado' del 'Chat con el codebase'?",
-                options: [
-                    { text: "El autocompletado predice la siguiente línea mientras escribes; el chat permite hacerle preguntas complejas sobre toda la arquitectura.", correct: true },
-                    { text: "El chat es gratis, el autocompletado requiere pagar la API.", correct: false },
-                    { text: "No hay diferencia, son dos nombres para la misma función.", correct: false },
-                    { text: "El autocompletado solo funciona con Python, el chat funciona con todos los idiomas.", correct: false }
-                ]
-            },
-            {
-                question: "¿Cuál de las siguientes definiciones describe mejor una API (Application Programming Interface)?",
-                options: [
-                    { text: "Un hardware físico para guardar claves secretas.", correct: false },
-                    { text: "El lenguaje de programación utilizado por la empresa OpenAI.", correct: false },
-                    { text: "Un contrato que define cómo dos programas pueden comunicarse entre sí, estableciendo qué puedes pedir y cómo recibirás la respuesta.", correct: true },
-                    { text: "La interfaz gráfica (botones y menús) que ve el usuario final en una web.", correct: false }
-                ]
-            },
-            {
-                question: "En el contexto de APIs REST, ¿qué es JSON?",
-                options: [
-                    { text: "Un formato de texto ligero y estructurado, legible por humanos y máquinas, usado para enviar y recibir datos.", correct: true },
-                    { text: "Un protocolo de seguridad para encriptar contraseñas.", correct: false },
-                    { text: "Un comando de terminal para instalar paquetes.", correct: false },
-                    { text: "El nombre del modelo de IA que utiliza Anthropic.", correct: false }
-                ]
-            },
-            {
-                question: "Según la analogía vista en clase, si la Interfaz Visual (GUI) es un coche automático, ¿qué es la CLI (Command Line Interface)?",
-                options: [
-                    { text: "Un coche eléctrico.", correct: false },
-                    { text: "Un coche manual: ofrece más control y velocidad, pero requiere mayor conocimiento técnico para operarlo.", correct: true },
-                    { text: "Una bicicleta: es lenta pero segura.", correct: false },
-                    { text: "Un tren sobre raíles: no puedes cambiar su dirección.", correct: false }
-                ]
-            },
-            {
-                question: "¿Qué es el MCP (Model Context Protocol)?",
-                options: [
-                    { text: "Un estándar abierto de Anthropic que permite a los modelos conectarse de forma estructurada con herramientas externas y bases de datos.", correct: true },
-                    { text: "Una tarjeta gráfica especializada en procesar inteligencia artificial.", correct: false },
-                    { text: "El nuevo nombre del lenguaje de programación Python.", correct: false },
-                    { text: "Un límite de facturación (Rate limit) impuesto por las plataformas de IA.", correct: false }
-                ]
-            },
-            {
-                question: "¿Por qué se utiliza el protocolo MCP en lugar de construir una API tradicional manual?",
-                options: [
-                    { text: "Porque MCP es el único que funciona sin conexión a internet.", correct: false },
-                    { text: "Porque MCP define un protocolo estándar para que las herramientas se expongan directamente al modelo, permitiéndole usarlas de forma autónoma sin programar la integración paso a paso.", correct: true },
-                    { text: "Porque la API tradicional cuesta dinero y MCP es siempre gratuito por ley.", correct: false },
-                    { text: "MCP y API son exactamente lo mismo, solo cambia el nombre comercial.", correct: false }
-                ]
-            },
-            {
-                question: "Dentro de la arquitectura MCP, ¿cuál es la función de un 'MCP Server'?",
-                options: [
-                    { text: "Es el modelo de Inteligencia Artificial que piensa y toma decisiones (ej. Claude).", correct: false },
-                    { text: "Es la pantalla donde el usuario lee los resultados.", correct: false },
-                    { text: "Es el programa que expone las capacidades y datos de una herramienta específica (ej. Google Sheets) hacia la IA.", correct: true },
-                    { text: "Es el archivo donde se guardan las contraseñas del usuario.", correct: false }
-                ]
-            },
-            {
-                question: "¿Cómo se autentica típicamente una llamada a la API de Anthropic (como vimos en el ejemplo de cURL)?",
-                options: [
-                    { text: "Enviando un email a soporte técnico.", correct: false },
-                    { text: "A través del parámetro 'password' en el cuerpo del JSON.", correct: false },
-                    { text: "Usando un nombre de usuario y un captcha.", correct: false },
-                    { text: "Incluyendo una credencial única (API Key) en el header de la petición (ej. x-api-key).", correct: true }
-                ]
-            },
-            {
-                question: "En un entorno IDE, ¿qué significa 'Inline editing' aplicado por IA?",
-                options: [
-                    { text: "Seleccionar un bloque de código y pedir a la IA que lo modifique directamente allí mismo, sin tener que salir a un chat externo.", correct: true },
-                    { text: "Que la IA escriba todo el código en una sola línea muy larga.", correct: false },
-                    { text: "Corregir errores de ortografía en los comentarios del código.", correct: false },
-                    { text: "Poner el IDE en modo 'pantalla completa'.", correct: false }
-                ]
-            }
+            { question: "¿En qué orden encajan las tres piezas de esta clase?", options: [
+                { text: "El Vault guarda las notas, el Vectorizador las convierte en significado buscable y El Tejedor las enlaza entre sí", correct: true },
+                { text: "El Tejedor guarda las notas, el Vault las traduce a números y el Vectorizador las conecta", correct: false },
+                { text: "Las tres hacen exactamente lo mismo, son nombres distintos de la misma herramienta", correct: false },
+                { text: "Primero se enlaza a mano, luego se borra el Vault y al final se paga un plugin", correct: false } ] },
+            { question: "¿Cuál es un límite del Vault de Obsidian que resuelven las otras piezas?", options: [
+                { text: "No puede guardar más de diez notas a la vez", correct: false },
+                { text: "Su búsqueda es literal (por palabra exacta) y los enlaces los pones tú a mano", correct: true },
+                { text: "Obliga a subir todas las notas a la nube para poder abrirlas", correct: false },
+                { text: "Borra las notas antiguas automáticamente cada semana", correct: false } ] },
+            { question: "¿Qué es un 'embedding' o vector de una nota?", options: [
+                { text: "Una contraseña que cifra la nota para que nadie la lea", correct: false },
+                { text: "Una copia de seguridad de la nota en otro disco", correct: false },
+                { text: "Una lista de números que resume el significado de la nota, de modo que notas parecidas tienen números parecidos", correct: true },
+                { text: "El número de veces que has abierto esa nota", correct: false } ] },
+            { question: "En el mapa del significado, preguntas '¿cómo cobramos?' y aparece la nota 'Pagos con Stripe', que no contiene la palabra 'cobrar'. ¿Por qué?", options: [
+                { text: "Porque la búsqueda por significado encuentra por lo que trata la nota, no por las letras exactas", correct: true },
+                { text: "Porque Obsidian añade la palabra 'cobrar' a todas las notas en secreto", correct: false },
+                { text: "Por casualidad; la próxima vez saldría otra nota distinta", correct: false },
+                { text: "Porque el Tejedor ya había enlazado esa nota antes", correct: false } ] },
+            { question: "¿Dónde se ejecuta el modelo que convierte tus notas en vectores?", options: [
+                { text: "En un servidor de pago en la nube, subiendo todas tus notas", correct: false },
+                { text: "En tu propio ordenador, en local: ninguna nota sale del equipo", correct: true },
+                { text: "En el móvil del administrador de Obsidian", correct: false },
+                { text: "No se ejecuta en ningún sitio, es solo teoría", correct: false } ] },
+            { question: "El Tejedor es nuestra versión local de plugins tipo Graphify. ¿Qué hace exactamente?", options: [
+                { text: "Traduce las notas a otros idiomas", correct: false },
+                { text: "Encuentra notas parecidas en significado que aún no están enlazadas, propone conectarlas y prioriza rescatar las huérfanas", correct: true },
+                { text: "Elimina las notas que se parecen demasiado entre sí", correct: false },
+                { text: "Sube el grafo a una red social para compartirlo", correct: false } ] },
+            { question: "¿Por qué El Tejedor propone los enlaces antes de escribirlos?", options: [
+                { text: "Para tardar más y parecer que trabaja mucho", correct: false },
+                { text: "Por la regla de edición segura: revisas y apruebas antes de que toque una nota, evitando conexiones absurdas y ediciones a ciegas", correct: true },
+                { text: "Porque no tiene permiso para leer el vault", correct: false },
+                { text: "Porque siempre se equivoca y hay que corregirlo entero", correct: false } ] },
+            { question: "¿Qué relación hay entre el Vectorizador y El Tejedor?", options: [
+                { text: "Compiten: solo puedes usar uno de los dos", correct: false },
+                { text: "El Tejedor reutiliza los vectores que generó el Vectorizador para medir qué notas se parecen", correct: true },
+                { text: "El Vectorizador necesita que El Tejedor enlace primero las notas", correct: false },
+                { text: "No tienen ninguna relación, son de clases distintas", correct: false } ] }
         ];
 
         function renderQuiz() {
             const container = document.getElementById('quizContainer');
             container.innerHTML = '';
-            
+
             quizData.forEach((q, idx) => {
                 const qDiv = document.createElement('div');
                 qDiv.className = 'mb-8';
                 qDiv.innerHTML = `
-                    <h4 class="text-xl font-bold text-white mb-4"><span class="text-brand-accent">${idx + 1}.</span> ${q.question}</h4>
+                    <h4 class="text-xl font-bold text-white mb-4">
+                        <span class="text-claude">${idx + 1}.</span> ${q.question}
+                    </h4>
                     <div class="space-y-3">
                         ${q.options.map((opt, optIdx) => `
-                            <div class="quiz-option group flex items-center" onclick="selectAnswer(event, ${idx}, ${optIdx})">
+                            <div class="quiz-option flex items-center p-4 rounded-xl border border-slate-800 bg-slate-900/40 cursor-pointer transition-colors" onclick="selectAnswer(event, ${idx}, ${optIdx})">
                                 <input type="radio" name="q${idx}" value="${optIdx}" class="hidden">
-                                <div class="w-6 h-6 rounded-full border-2 border-gray-500 mr-4 flex-shrink-0 group-hover:border-brand-primary radio-custom transition-colors"></div>
-                                <span class="font-serif text-sm md:text-base">${opt.text}</span>
+                                <div class="w-5 h-5 rounded-full border-2 border-slate-500 mr-4 radio-custom flex-shrink-0 transition-colors"></div>
+                                <span class="font-serif text-sm">${opt.text}</span>
                             </div>
                         `).join('')}
                     </div>
                 `;
                 container.appendChild(qDiv);
             });
-            
-            const btnDiv = document.createElement('div');
-            btnDiv.className = "mt-10 pt-8 border-t border-gray-700 text-center";
-            btnDiv.innerHTML = `
-                <button onclick="submitQuiz()" class="px-10 py-4 bg-brand-primary text-white font-bold rounded-xl hover:bg-indigo-500 transition-colors shadow-lg text-lg uppercase tracking-wider">
-                    Validar Respuestas
-                </button>
-            `;
-            container.appendChild(btnDiv);
         }
 
         function selectAnswer(e, qIdx, optIdx) {
             const optionContainer = e.currentTarget;
             const parentDiv = optionContainer.closest('.space-y-3');
-            
-            const allOptions = parentDiv.querySelectorAll('.quiz-option');
-            allOptions.forEach(opt => {
-                opt.classList.remove('selected');
-                opt.querySelector('.radio-custom').classList.remove('bg-brand-accent', 'border-brand-accent');
-                opt.querySelector('.radio-custom').classList.add('border-gray-500');
+
+            parentDiv.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('border-claude', 'bg-claude/10');
+                opt.classList.add('border-slate-800', 'bg-slate-900/40');
+                const radio = opt.querySelector('.radio-custom');
+                radio.className = "w-5 h-5 rounded-full border-2 border-slate-500 mr-4 radio-custom flex-shrink-0 transition-colors";
             });
-            
-            optionContainer.classList.add('selected');
-            const radioCustom = optionContainer.querySelector('.radio-custom');
-            radioCustom.classList.remove('border-gray-500');
-            radioCustom.classList.add('bg-brand-accent', 'border-brand-accent');
-            
+
+            optionContainer.classList.remove('border-slate-800', 'bg-slate-900/40');
+            optionContainer.classList.add('border-claude', 'bg-claude/10');
+
+            const radio = optionContainer.querySelector('.radio-custom');
+            radio.className = "w-5 h-5 rounded-full border-2 border-claude bg-claude mr-4 radio-custom flex-shrink-0 transition-colors";
+
             const input = optionContainer.querySelector('input');
             input.checked = true;
         }
 
         function submitQuiz() {
             let correctCount = 0;
-            let answeredCount = 0;
-            
+            let answered = true;
+
             quizData.forEach((q, idx) => {
                 const selected = document.querySelector(`input[name="q${idx}"]:checked`);
-                if (selected) {
-                    answeredCount++;
-                    const optIdx = selected.value;
-                    const isCorrect = q.options[optIdx].correct;
-                    const optionDiv = selected.closest('.quiz-option');
-                    const parentDiv = optionDiv.parentElement;
-                    
-                    parentDiv.style.pointerEvents = "none";
-                    
-                    if (isCorrect) {
-                        correctCount++;
-                        optionDiv.classList.remove('selected');
-                        optionDiv.classList.add('correct');
-                        optionDiv.querySelector('.radio-custom').className = "w-6 h-6 rounded-full bg-emerald-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-xs fa-solid fa-check";
-                    } else {
-                        optionDiv.classList.remove('selected');
-                        optionDiv.classList.add('incorrect');
-                        optionDiv.querySelector('.radio-custom').className = "w-6 h-6 rounded-full bg-red-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-xs fa-solid fa-xmark";
-                        
-                        const allOptions = parentDiv.querySelectorAll('.quiz-option');
-                        q.options.forEach((opt, oIdx) => {
-                            if(opt.correct) {
-                                allOptions[oIdx].classList.add('border-emerald-500', 'text-emerald-400');
-                            }
-                        });
-                    }
-                }
+                if (!selected) answered = false;
             });
-            
-            if (answeredCount < quizData.length) {
-                alert("Por favor, responde a todas las preguntas antes de validar.");
+
+            const resultDiv = document.getElementById('quiz-result');
+
+            if (!answered) {
+                resultDiv.className = "mt-6 p-4 rounded-xl font-bold font-sans text-center bg-red-900/30 text-red-400 border border-red-500/50 block";
+                resultDiv.innerHTML = "<i class='fa-solid fa-triangle-exclamation mr-2'></i> Por favor, responde a todas las preguntas antes de validar.";
                 return;
             }
-            
+
+            const btn = document.getElementById('validateBtn');
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            quizData.forEach((q, idx) => {
+                const selected = document.querySelector(`input[name="q${idx}"]:checked`);
+                const optIdx = parseInt(selected.value);
+                const isCorrect = q.options[optIdx].correct;
+
+                const optionDiv = selected.closest('.quiz-option');
+                const parentDiv = optionDiv.parentElement;
+
+                parentDiv.style.pointerEvents = "none";
+
+                if (isCorrect) {
+                    correctCount++;
+                    optionDiv.classList.remove('border-claude', 'bg-claude/10');
+                    optionDiv.classList.add('border-emerald-500', 'bg-emerald-500/20', 'text-emerald-300');
+                    optionDiv.querySelector('.radio-custom').className = "w-5 h-5 rounded-full bg-emerald-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-[10px] fa-solid fa-check border-emerald-500";
+                } else {
+                    optionDiv.classList.remove('border-claude', 'bg-claude/10');
+                    optionDiv.classList.add('border-red-500', 'bg-red-500/20', 'text-red-300');
+                    optionDiv.querySelector('.radio-custom').className = "w-5 h-5 rounded-full bg-red-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-[10px] fa-solid fa-xmark border-red-500";
+
+                    const allOptions = parentDiv.querySelectorAll('.quiz-option');
+                    q.options.forEach((opt, oIdx) => {
+                        if (opt.correct) {
+                            const correctDiv = allOptions[oIdx];
+                            correctDiv.classList.remove('border-slate-800', 'bg-slate-900/40');
+                            correctDiv.classList.add('border-emerald-500', 'bg-emerald-500/20', 'text-emerald-300');
+                        }
+                    });
+                }
+            });
+
             const percentage = Math.round((correctCount / quizData.length) * 100);
-            let message = "";
-            if (percentage === 100) message = "🏆 ¡Excelente! Eres un arquitecto de automatización completo.";
-            else if (percentage >= 80) message = "👍 ¡Muy bien! Has asimilado los conceptos técnicos core.";
-            else if (percentage >= 60) message = "✅ ¡Aprobado! Repasa las diferencias entre MCP Server y Client.";
-            else message = "📚 Te recomendamos releer los fundamentos de las APIs y el protocolo MCP.";
-            
-            alert(`Puntuación Final: ${correctCount}/${quizData.length} (${percentage}%)\n\n${message}`);
+            let feedback = "";
+            let palette;
+            if (percentage >= 70) {
+                palette = { box: "bg-emerald-500/20 text-emerald-400 border-emerald-500/50", txt: "text-emerald-100/80" };
+                feedback = percentage === 100
+                    ? "¡Perfecto! Dominas la cadena Vault → Vectorizador → Tejedor y sabes construir cada pieza en local."
+                    : "¡Muy bien! Has entendido cómo se busca por significado y cómo se teje el grafo solo.";
+            } else if (percentage >= 40) {
+                palette = { box: "bg-amber-500/20 text-amber-400 border-amber-500/50", txt: "text-amber-100/80" };
+                feedback = "Vas por buen camino. Repasa las secciones 3 y 4: qué es un vector (significado) y cómo El Tejedor propone enlaces antes de escribirlos.";
+            } else {
+                palette = { box: "bg-red-500/20 text-red-400 border-red-500/50", txt: "text-red-100/80" };
+                feedback = "Conviene releer la clase con calma, sobre todo las secciones 3 (Vectorizador) y 4 (El Tejedor).";
+            }
+
+            resultDiv.className = `mt-8 p-6 rounded-2xl font-sans text-center border ${palette.box} block`;
+            resultDiv.innerHTML = `
+                <div class="text-3xl mb-3 font-bold"><i class="fa-solid fa-ranking-star mr-2"></i> Puntuación: ${correctCount} / ${quizData.length}</div>
+                <div class="text-base font-serif ${palette.txt}">${feedback}</div>
+            `;
         }
 
-        // Initialize features
         document.addEventListener('DOMContentLoaded', () => {
+            drawSemMap();
+            renderChips();
             renderQuiz();
-            
-            // Scroll Observer for Fade-ins
+
             const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
@@ -705,8 +929,7 @@ message = client.messages.create(
             }, observerOptions);
 
             document.querySelectorAll('.fade-in-on-scroll').forEach(el => observer.observe(el));
-            
-            // Progress Bar
+
             window.addEventListener('scroll', () => {
                 const scrollTop = window.scrollY;
                 const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -716,4 +939,5 @@ message = client.messages.create(
         });
     </script>
 </body>
+
 </html>

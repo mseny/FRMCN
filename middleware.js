@@ -1,8 +1,19 @@
 // middleware.js – Vercel Edge Middleware
-// Verifies Supabase Auth JWT tokens to protect course pages
+// Verifies Supabase Auth session cookies to protect course pages.
+//
+// Config comes from environment variables (set them in Vercel → Settings →
+// Environment Variables). Each has a safe fallback to the current project so a
+// missing/typo'd variable never locks everyone out of the course.
+//   - SUPABASE_PROJECT_REF : el "ref" del proyecto (subdominio de supabase.co)
+//   - SUPABASE_URL         : URL de la API (por defecto se deriva del ref)
+//   - SUPABASE_ANON_KEY    : clave pública (anon / publishable) — es pública por diseño
 
-const SUPABASE_URL = 'https://ftpywhemyizucquurslo.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0cHl3aGVteWl6dWNxdXVyc2xvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1NDYwMzIsImV4cCI6MjA5MjEyMjAzMn0.A63ZKSixJRA1DGFZ5-VBmaMzIwYIETCDBYn8mUnkzRI';
+const SUPABASE_PROJECT_REF = process.env.SUPABASE_PROJECT_REF || 'ndtoqnpomhtubcygkwlh';
+const SUPABASE_URL = process.env.SUPABASE_URL || `https://${SUPABASE_PROJECT_REF}.supabase.co`;
+const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || 'sb_publishable_TWDLiIP8n-EwF8ULmqDm0w_9uv5nBsS';
+
+// Nombre de la cookie de sesión de Supabase: sb-<project-ref>-auth-token
+const COOKIE_NAME = `sb-${SUPABASE_PROJECT_REF}-auth-token`;
 
 // Public paths that don't require authentication
 const PUBLIC_PATHS = ['/login.html', '/api/login', '/api/logout'];
@@ -50,29 +61,29 @@ async function getSupabaseUser(accessToken) {
 /**
  * Extract the Supabase access token from cookies.
  * Supabase stores auth in: sb-<project-ref>-auth-token (as JSON)
- * OR as individual sb-access-token / sb-refresh-token cookies.
+ * OR as chunked cookies (sb-<ref>-auth-token.0, .1, ...).
  */
 function extractToken(cookieHeader) {
     if (!cookieHeader) return null;
 
     const cookies = cookieHeader.split(';').map(c => c.trim());
+    const base = `${COOKIE_NAME}=`;
+    const chunk0 = `${COOKIE_NAME}.0=`;
 
-    // Look for Supabase auth cookie (JSON format)
     for (const cookie of cookies) {
-        if (cookie.startsWith('sb-ftpywhemyizucquurslo-auth-token=')) {
+        // JSON format
+        if (cookie.startsWith(base)) {
             try {
-                const raw = cookie.slice('sb-ftpywhemyizucquurslo-auth-token='.length);
-                const decoded = decodeURIComponent(raw);
-                const parsed = JSON.parse(decoded);
+                const raw = cookie.slice(base.length);
+                const parsed = JSON.parse(decodeURIComponent(raw));
                 return parsed.access_token || null;
             } catch { /* continue */ }
         }
-        // Also try chunked cookies (sb-*-auth-token.0, sb-*-auth-token.1)
-        if (cookie.startsWith('sb-ftpywhemyizucquurslo-auth-token.0=')) {
+        // Chunked cookies (first chunk holds the access_token)
+        if (cookie.startsWith(chunk0)) {
             try {
-                const raw = cookie.slice('sb-ftpywhemyizucquurslo-auth-token.0='.length);
-                const decoded = decodeURIComponent(raw);
-                const parsed = JSON.parse(decoded);
+                const raw = cookie.slice(chunk0.length);
+                const parsed = JSON.parse(decodeURIComponent(raw));
                 return parsed.access_token || null;
             } catch { /* continue */ }
         }
