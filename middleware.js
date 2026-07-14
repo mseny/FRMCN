@@ -18,10 +18,10 @@ const COOKIE_NAME = `sb-${SUPABASE_PROJECT_REF}-auth-token`;
 // Public paths that don't require authentication
 const PUBLIC_PATHS = ['/login.html', '/api/login', '/api/logout'];
 
-// Pages restricted to full-access users only
-const FULL_ACCESS_ONLY = [
-    '/modulo3-clase5.html',
-];
+// Pages restricted to full-access users only.
+// (M3-C5 se abrió a todos los alumnos autenticados para ser coherente con C1–C4.
+//  Añade rutas aquí si quieres volver a restringir alguna clase a full_access.)
+const FULL_ACCESS_ONLY = [];
 
 /**
  * Decode a JWT payload without verifying signature.
