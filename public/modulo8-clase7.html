@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Módulo 8 Clase 7: El portal de mando — tu software propio sobre el cerebro, con Claude por API - [m].seny [labs]">
+    <title>Módulo 8: El portal de mando (Clase 7) - [m].seny [labs]</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0F172A',
+                            primary: '#4F46E5',
+                            accent: '#F59E0B',
+                            light: '#F8FAFC'
+                        },
+                        claude: {
+                            DEFAULT: '#D97757',
+                            light: '#FDF3F0',
+                            dark: '#B05D40'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F8FAFC;
+            color: #334155;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, h5, h6, button, .nav-link {
+            font-family: 'Inter', sans-serif;
+        }
+
+        p, li, .prose-text {
+            font-family: 'Merriweather', serif;
+            line-height: 1.6;
+            font-size: 1.125rem;
+            text-align: justify;
+        }
+
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Animations */
+        .fade-in-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+        }
+
+        .fade-in-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.1);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #4F46E5, #D97757);
+            z-index: 1000;
+            transition: width 0.2s ease;
+        }
+
+        /* Quiz Styles */
+        .quiz-option {
+            padding: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #e2e8f0;
+        }
+
+        .quiz-option:hover {
+            border-color: #D97757;
+            background-color: rgba(217, 119, 87, 0.1);
+        }
+
+        .quiz-option.selected {
+            border-color: #F59E0B;
+            background-color: rgba(245, 158, 11, 0.1);
+        }
+
+        /* Widget: maqueta interactiva */
+        .wjt {
+            cursor: pointer;
+            outline: 1.5px solid transparent;
+            outline-offset: 1px;
+            transition: outline-color 0.2s ease;
+        }
+
+        .wjt:hover { outline-color: rgba(217, 119, 87, 0.55); }
+
+        .wjt-active { outline-color: #D97757 !important; }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Navigation Header -->
+    <header class="bg-white/90 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="no-underline group">
+                    <h1 class="text-xl font-bold tracking-tight text-brand-dark group-hover:text-brand-primary transition-colors cursor-pointer">
+                        <span class="text-brand-accent">[m]</span>.seny <span class="text-brand-accent">[labs]</span>
+                    </h1>
+                </a>
+            </div>
+            <nav class="hidden lg:flex items-center space-x-3 text-xs font-bold text-gray-500 uppercase tracking-wider">
+                <a href="#resumen" class="hover:text-claude transition-colors">Resumen</a>
+                <a href="#diccionario" class="hover:text-claude transition-colors">Estructura</a>
+                <a href="#piezas" class="hover:text-claude transition-colors">Piezas</a>
+                <a href="#motor" class="hover:text-claude transition-colors">Motor</a>
+                <a href="#panel" class="hover:text-claude transition-colors">Panel</a>
+                <a href="#tablero" class="hover:text-claude transition-colors">Tablero</a>
+                <a href="#crm" class="hover:text-claude transition-colors">CRM</a>
+                <a href="#ingesta" class="hover:text-claude transition-colors">Ingesta</a>
+                <a href="#practica" class="hover:text-claude transition-colors text-claude">Práctica</a>
+            </nav>
+            <a href="/login.html" onclick="document.cookie='sb-ndtoqnpomhtubcygkwlh-auth-token=;path=/;max-age=0';localStorage.clear()"
+                class="hidden lg:flex items-center gap-1.5 text-xs font-semibold text-gray-400 hover:text-red-500 transition-colors ml-4"
+                title="Cerrar sesión">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                    <polyline points="16 17 21 12 16 7" />
+                    <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+                Salir
+            </a>
+        </div>
+    </header>
+
+    <!-- Presentation Title (Hero) -->
+    <section class="bg-[#0f172a] text-white py-32 border-b-8 border-claude relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-0 left-0 w-[40rem] h-[40rem] bg-claude rounded-full blur-[150px]"></div>
+            <div class="absolute bottom-0 right-0 w-[30rem] h-[30rem] bg-indigo-600 rounded-full blur-[150px]"></div>
+        </div>
+        <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
+            <span class="inline-block py-1 px-3 bg-white/10 text-white border border-white/20 font-mono text-sm font-bold uppercase tracking-widest mb-6 rounded">
+                Módulo 8 • Clase 7
+            </span>
+            <h1 class="text-5xl lg:text-7xl font-extrabold mb-6 leading-tight">
+                Tu software propio:<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-claude to-orange-300">el portal de mando</span>
+            </h1>
+            <p class="text-xl text-gray-300 font-serif max-w-2xl mx-auto italic text-center">
+                Tu cerebro ya guarda, entiende y se teje solo — pero vive en Obsidian y en la terminal, territorio del técnico. Hoy le construimos su puerta principal: una web interna con paneles, botones y KPIs que cualquiera de tu equipo puede usar. Y no la programas tú: se la pides a Claude con el vocabulario correcto.
+            </p>
+            <div class="mt-8 flex flex-wrap items-center justify-center gap-2 text-xs font-mono font-bold">
+                <span class="px-3 py-1 bg-slate-500/20 text-slate-300 border border-slate-500/30 rounded-full">Diccionario de piezas web</span>
+                <span class="px-3 py-1 bg-orange-500/20 text-orange-300 border border-orange-500/30 rounded-full">Claude por API</span>
+                <span class="px-3 py-1 bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 rounded-full">Panel + Accionables</span>
+                <span class="px-3 py-1 bg-blue-500/20 text-blue-300 border border-blue-500/30 rounded-full">Kanban</span>
+                <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded-full">CRM de gobernanza</span>
+                <span class="px-3 py-1 bg-purple-500/20 text-purple-300 border border-purple-500/30 rounded-full">Ingesta y salida</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 1. RESUMEN -->
+    <section id="resumen" class="py-20 bg-white border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-6">
+
+            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll"><span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">1</span> De la terminal al botón</h2>
+
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">Haz recuento de lo que ya tienes: un <strong>vault</strong> que guarda el conocimiento, un <strong>vectorizador</strong> que lo busca por significado, un <strong>tejedor</strong> que lo conecta solo y un <strong>equipo de agentes</strong> que lo mantiene sano. Un cerebro de empresa completo. Pero tiene un problema de puerta: para usarlo hay que abrir Obsidian o teclear en Claude Code. Para ti, perfecto. Para tu socio, tu comercial o tu diseñadora… una barrera. El conocimiento existe, pero <strong>solo lo aprovecha quien sabe entrar</strong>.</p>
+
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">La solución de hoy: un <strong>portal interno</strong> — una pequeña web app, hecha a medida y solo para tu equipo, que se sienta encima del cerebro y lo convierte en <strong>botones</strong>. Un panel que responde "¿cómo va todo?" de un vistazo, un tablero para mover tareas, una vista de clientes y una puerta por donde entra y sale la información. Es el mismo patrón que usan estudios y agencias para su "cockpit" interno, en versión esencial.</p>
+
+            <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i> <strong>Analogía — el barco:</strong> el cerebro que montaste en las clases anteriores es la <strong>sala de máquinas</strong>: potente, pero ahí abajo solo entra el ingeniero. El portal es el <strong>puente de mando</strong>: indicadores a la vista y palancas que cualquiera de la tripulación sabe accionar. Mismo barco, misma maquinaria — lo que cambia es quién puede gobernarlo.</p>
+            </div>
+
+            <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-key text-brand-primary mr-2"></i> El giro de esta clase: no programar, sino saber nombrar</h3>
+
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">Igual que en fotografía no hacía falta saber de cámaras sino de <em>vocabulario</em> (¿recuerdas las 7 capas?), para encargarle software a Claude no hace falta saber programar: hace falta saber <strong>nombrar las piezas</strong>. Quien dice "hazme una web para ver cómo va mi negocio" recibe una adivinanza; quien dice "una navbar, tres KPI cards, un gráfico de líneas y una tabla con badges de estado" recibe <em>exactamente</em> su plano. Por eso la primera mitad de la clase es un <strong>diccionario</strong> y la segunda, las <strong>cuatro pantallas</strong> del portal.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 fade-in-on-scroll">
+                <div class="bg-indigo-50 border border-indigo-100 p-6 rounded-2xl shadow-sm text-center">
+                    <div class="w-12 h-12 bg-brand-primary text-white rounded-xl flex items-center justify-center text-xl mb-4 mx-auto"><i class="fa-solid fa-gauge-high"></i></div>
+                    <h4 class="font-bold text-brand-dark text-base mb-1">Panel · VER</h4>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Cómo va todo, en 5 segundos. KPIs, objetivos y las palancas (accionables).</p>
+                </div>
+                <div class="bg-blue-50 border border-blue-100 p-6 rounded-2xl shadow-sm text-center">
+                    <div class="w-12 h-12 bg-blue-600 text-white rounded-xl flex items-center justify-center text-xl mb-4 mx-auto"><i class="fa-solid fa-table-columns"></i></div>
+                    <h4 class="font-bold text-brand-dark text-base mb-1">Tablero · MOVER</h4>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Un kanban del proyecto activo: las tareas cambian de columna al avanzar.</p>
+                </div>
+                <div class="bg-emerald-50 border border-emerald-100 p-6 rounded-2xl shadow-sm text-center">
+                    <div class="w-12 h-12 bg-emerald-600 text-white rounded-xl flex items-center justify-center text-xl mb-4 mx-auto"><i class="fa-solid fa-address-book"></i></div>
+                    <h4 class="font-bold text-brand-dark text-base mb-1">Clientes · CUIDAR</h4>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Un CRM de gobernanza: el estado de cada relación, no la facturación.</p>
+                </div>
+                <div class="bg-purple-50 border border-purple-100 p-6 rounded-2xl shadow-sm text-center">
+                    <div class="w-12 h-12 bg-purple-600 text-white rounded-xl flex items-center justify-center text-xl mb-4 mx-auto"><i class="fa-solid fa-right-left"></i></div>
+                    <h4 class="font-bold text-brand-dark text-base mb-1">Ingesta · ALIMENTAR</h4>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Lo que entra se hace nota; lo que sale se hace informe. El bucle completo.</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-r-xl border-l-4 border-claude shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-gray-700 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-info text-claude mr-2"></i> <strong>Cómo leer esta clase:</strong> primero el <strong>idioma</strong> (secciones 2 y 3: la estructura y las piezas de cualquier web), luego el <strong>motor</strong> (sección 4: Claude por API, con sus reglas de privacidad) y después las <strong>cuatro pantallas</strong>, cada una con su <strong>prompt para copiar y pegar</strong> en Claude Code. Como siempre en este módulo: tú describes, Claude construye, tú apruebas.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 2. DICCIONARIO I: ESTRUCTURA -->
+    <section id="diccionario" class="py-20 bg-brand-light border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-6">
+
+            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll"><span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">2</span> Diccionario (I): la estructura de una web</h2>
+
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">Toda web —tu portal, tu banco, tu periódico— se construye con el <strong>mismo esqueleto</strong>. Aprenderse estas cinco o seis palabras vale para encargar <em>cualquier</em> software, no solo el de hoy. Empecemos por el plano general:</p>
+
+            <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i> <strong>Analogía — un piso:</strong> una web se describe como una vivienda. La <strong>navbar</strong> es el recibidor (te orienta nada más entrar), la <strong>sidebar</strong> es el pasillo con las puertas de cada habitación, el <strong>área principal</strong> es el salón donde pasa la vida, y el <strong>footer</strong> es el trastero: ahí van las cosas legales que nadie mira pero tienen que estar.</p>
+            </div>
+
+            <!-- Wireframe diagram -->
+            <div class="fade-in-on-scroll mb-10">
+                <div class="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm max-w-2xl mx-auto">
+                    <div class="border-2 border-dashed border-gray-300 rounded-xl overflow-hidden text-[11px] font-mono text-gray-500">
+                        <div class="bg-indigo-50 border-b-2 border-dashed border-gray-300 px-3 py-2 flex justify-between items-center">
+                            <span class="font-bold text-brand-primary">NAVBAR</span>
+                            <span>logo · secciones · usuario</span>
+                        </div>
+                        <div class="flex" style="min-height:170px">
+                            <div class="bg-amber-50 border-r-2 border-dashed border-gray-300 w-28 p-2 shrink-0">
+                                <span class="font-bold text-amber-700">SIDEBAR</span><br>menú lateral
+                            </div>
+                            <div class="flex-1 p-3 bg-white">
+                                <span class="font-bold text-gray-700">ÁREA PRINCIPAL</span> <span>(la vista actual)</span>
+                                <div class="grid grid-cols-3 gap-2 mt-2">
+                                    <div class="bg-gray-100 rounded p-2 text-center">card</div>
+                                    <div class="bg-gray-100 rounded p-2 text-center">card</div>
+                                    <div class="bg-gray-100 rounded p-2 text-center">card</div>
+                                </div>
+                                <div class="bg-gray-100 rounded p-2 mt-2 text-center">grid de tarjetas · contenido</div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 border-t-2 border-dashed border-gray-300 px-3 py-1.5 text-center">
+                            <span class="font-bold">FOOTER</span> · legal · versión
+                        </div>
+                    </div>
+                    <p class="text-center text-sm font-serif text-gray-500 mt-3 italic">El esqueleto universal: con estas cuatro zonas se describe casi cualquier aplicación.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 fade-in-on-scroll">
+                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+                    <div class="w-12 h-12 bg-indigo-50 text-brand-primary rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-window-maximize"></i></div>
+                    <h5 class="font-bold text-brand-dark text-base mb-2">Navbar</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">La barra superior <strong>fija</strong>: logo, secciones principales y el usuario. Es el mapa del portal — desde cualquier pantalla te dice dónde estás y a dónde puedes ir.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+                    <div class="w-12 h-12 bg-indigo-50 text-brand-primary rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-table-list"></i></div>
+                    <h5 class="font-bold text-brand-dark text-base mb-2">Sidebar</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">El menú lateral, siempre a la vista. Se pide cuando hay <strong>muchas secciones</strong>; si tu portal tiene 4 pantallas, con la navbar basta. Menos es más.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+                    <div class="w-12 h-12 bg-indigo-50 text-brand-primary rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-square"></i></div>
+                    <h5 class="font-bold text-brand-dark text-base mb-2">Área principal</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Donde vive el contenido de cada pantalla. Todo lo demás (navbar, sidebar, footer) se repite; <strong>esto es lo que cambia</strong> cuando navegas.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+                    <div class="w-12 h-12 bg-indigo-50 text-brand-primary rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-border-all"></i></div>
+                    <h5 class="font-bold text-brand-dark text-base mb-2">Grid de tarjetas</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">La retícula que ordena la información en filas y columnas de <strong>cards</strong> (tarjetas). "Un grid de 3 columnas con una card por proyecto" es una frase que Claude entiende a la primera.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+                    <div class="w-12 h-12 bg-indigo-50 text-brand-primary rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-route"></i></div>
+                    <h5 class="font-bold text-brand-dark text-base mb-2">Vista / ruta</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Cada "pantalla" de una app es una <strong>vista</strong> con su dirección propia (<code>/panel</code>, <code>/clientes</code>). Describe tu software vista a vista: es como Claude lo va a construir.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+                    <div class="w-12 h-12 bg-indigo-50 text-brand-primary rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-mobile-screen"></i></div>
+                    <h5 class="font-bold text-brand-dark text-base mb-2">Responsive</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Que se adapte a móvil, tablet y escritorio. Pídelo siempre de serie: <em>"y que sea responsive"</em>. Tu portal se consultará más desde el sofá que desde la oficina.</p>
+                </div>
+            </div>
+
+            <div class="bg-emerald-50 p-6 rounded-r-xl border-l-4 border-emerald-500 shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-emerald-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-check text-emerald-500 mr-2"></i> <strong>Regla de oro del encargo:</strong> describe tu software <strong>pantalla a pantalla</strong> (las vistas) y cada pantalla <strong>pieza a pieza</strong> (los componentes de la siguiente sección). La estructura son las habitaciones; los componentes, los muebles. Con las dos listas, Claude no adivina: ejecuta.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 3. DICCIONARIO II: PIEZAS + WIDGET -->
+    <section id="piezas" class="py-20 bg-white border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-6">
+
+            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll"><span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">3</span> Diccionario (II): las piezas, una a una</h2>
+
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">Si la estructura son las habitaciones, los <strong>componentes</strong> son los muebles. Cada uno tiene nombre propio — y conocerlo es la diferencia entre pedir "algo para ver datos" y pedir "una tabla ordenable con badges de estado". Abajo tienes una <strong>maqueta interactiva</strong> del portal que construiremos: <strong>pulsa cada pieza</strong> y te dirá cómo se llama, qué hace y con qué frase pedírsela a Claude.</p>
+
+            <!-- WIDGET: maqueta interactiva -->
+            <div class="fade-in-on-scroll mb-10">
+                <div class="bg-slate-900 rounded-2xl border border-slate-800 shadow-xl overflow-hidden">
+                    <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex items-center justify-between flex-wrap gap-2">
+                        <span class="text-sm font-mono text-claude font-bold uppercase tracking-wider"><i class="fa-solid fa-hand-pointer mr-2"></i> Maqueta del portal · pulsa cada pieza</span>
+                        <span class="text-[11px] font-mono text-slate-500">Piezas descubiertas: <span id="wjtCount" class="text-claude font-bold">0</span>/10</span>
+                    </div>
+
+                    <div class="p-6">
+                        <div class="grid lg:grid-cols-3 gap-6 items-start">
+                            <!-- Mockup -->
+                            <div class="lg:col-span-2">
+                                <div class="bg-slate-950 rounded-xl border border-slate-700 overflow-hidden relative select-none">
+                                    <!-- browser chrome -->
+                                    <div class="flex items-center gap-1.5 px-3 py-2 border-b border-slate-800">
+                                        <span class="w-2.5 h-2.5 rounded-full bg-red-500/70"></span>
+                                        <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/70"></span>
+                                        <span class="w-2.5 h-2.5 rounded-full bg-green-500/70"></span>
+                                        <span class="ml-3 px-3 py-0.5 bg-slate-800 rounded text-[10px] font-mono text-slate-400">portal.mimarca.local</span>
+                                    </div>
+                                    <!-- navbar -->
+                                    <div data-comp="navbar" class="wjt flex items-center justify-between px-3 py-2 bg-slate-900 border-b border-slate-800 rounded-sm">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="w-3 h-3 rounded bg-claude"></span>
+                                            <span class="text-[10px] font-bold text-white font-mono">MI MARCA</span>
+                                        </div>
+                                        <div class="flex gap-2 text-[9px] font-mono text-slate-400">
+                                            <span class="text-white font-bold">Panel</span><span>Tablero</span><span>Clientes</span><span>Ingesta</span>
+                                        </div>
+                                        <span class="w-4 h-4 rounded-full bg-indigo-500/70"></span>
+                                    </div>
+                                    <div class="flex">
+                                        <!-- sidebar -->
+                                        <div data-comp="sidebar" class="wjt w-9 bg-slate-900/70 border-r border-slate-800 flex flex-col items-center py-2 gap-2 rounded-sm">
+                                            <span class="w-4 h-4 rounded bg-slate-700"></span>
+                                            <span class="w-4 h-4 rounded bg-slate-700"></span>
+                                            <span class="w-4 h-4 rounded bg-slate-700"></span>
+                                            <span class="w-4 h-4 rounded bg-slate-700"></span>
+                                        </div>
+                                        <!-- main -->
+                                        <div class="flex-1 p-2 space-y-2">
+                                            <!-- KPI row -->
+                                            <div class="grid grid-cols-3 gap-2">
+                                                <div data-comp="kpi" class="wjt bg-slate-900 border border-slate-800 rounded p-1.5">
+                                                    <p class="text-[8px] font-mono text-slate-500 m-0">VENTAS MES</p>
+                                                    <p class="text-sm font-bold text-white m-0 font-sans">12,4k€ <span class="text-[8px] text-emerald-400">▲8%</span></p>
+                                                </div>
+                                                <div data-comp="kpi" class="wjt bg-slate-900 border border-slate-800 rounded p-1.5">
+                                                    <p class="text-[8px] font-mono text-slate-500 m-0">TAREAS ABIERTAS</p>
+                                                    <p class="text-sm font-bold text-white m-0 font-sans">17 <span class="text-[8px] text-red-400">▲3</span></p>
+                                                </div>
+                                                <div data-comp="kpi" class="wjt bg-slate-900 border border-slate-800 rounded p-1.5">
+                                                    <p class="text-[8px] font-mono text-slate-500 m-0">CLIENTES ACTIVOS</p>
+                                                    <p class="text-sm font-bold text-white m-0 font-sans">9 <span class="text-[8px] text-emerald-400">▲1</span></p>
+                                                </div>
+                                            </div>
+                                            <div class="grid grid-cols-2 gap-2">
+                                                <!-- chart -->
+                                                <div data-comp="chart" class="wjt bg-slate-900 border border-slate-800 rounded p-1.5">
+                                                    <p class="text-[8px] font-mono text-slate-500 m-0 mb-1">VENTAS / SEMANA</p>
+                                                    <div class="flex items-end gap-1 h-10">
+                                                        <div class="flex-1 bg-claude/40 rounded-sm" style="height:35%"></div>
+                                                        <div class="flex-1 bg-claude/50 rounded-sm" style="height:55%"></div>
+                                                        <div class="flex-1 bg-claude/60 rounded-sm" style="height:45%"></div>
+                                                        <div class="flex-1 bg-claude/80 rounded-sm" style="height:75%"></div>
+                                                        <div class="flex-1 bg-claude rounded-sm" style="height:95%"></div>
+                                                    </div>
+                                                </div>
+                                                <!-- kanban -->
+                                                <div data-comp="kanban" class="wjt bg-slate-900 border border-slate-800 rounded p-1.5">
+                                                    <p class="text-[8px] font-mono text-slate-500 m-0 mb-1">TABLERO</p>
+                                                    <div class="flex gap-1">
+                                                        <div class="flex-1 space-y-1">
+                                                            <div class="h-2.5 bg-slate-700 rounded-sm"></div>
+                                                            <div class="h-2.5 bg-slate-700 rounded-sm"></div>
+                                                        </div>
+                                                        <div class="flex-1 space-y-1">
+                                                            <div class="h-2.5 bg-indigo-500/60 rounded-sm"></div>
+                                                        </div>
+                                                        <div class="flex-1 space-y-1">
+                                                            <div class="h-2.5 bg-emerald-500/60 rounded-sm"></div>
+                                                            <div class="h-2.5 bg-emerald-500/60 rounded-sm"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- table -->
+                                            <div data-comp="tabla" class="wjt bg-slate-900 border border-slate-800 rounded p-1.5">
+                                                <p class="text-[8px] font-mono text-slate-500 m-0 mb-1">CLIENTES</p>
+                                                <div class="space-y-1 text-[9px] font-mono">
+                                                    <div class="flex justify-between items-center text-slate-300">
+                                                        <span>Zapatería Norte</span>
+                                                        <span data-comp="badge" class="wjt px-1.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[8px]">activo</span>
+                                                    </div>
+                                                    <div class="flex justify-between items-center text-slate-300">
+                                                        <span>Boutique Eixample</span>
+                                                        <span data-comp="badge" class="wjt px-1.5 rounded-full bg-amber-500/20 text-amber-300 text-[8px]">en riesgo</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- actions row -->
+                                            <div class="flex gap-2">
+                                                <button data-comp="accionable" class="wjt shrink-0 bg-claude hover:bg-claude-dark text-white text-[9px] font-bold font-sans px-2.5 py-1.5 rounded transition-colors">⚡ Generar informe</button>
+                                                <div data-comp="chat" class="wjt flex-1 flex items-center justify-between bg-slate-900 border border-slate-700 rounded px-2 text-[9px] font-mono text-slate-500">
+                                                    <span>Pregunta a tu cerebro…</span>
+                                                    <i class="fa-solid fa-paper-plane text-claude"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- toast -->
+                                    <div id="wjtToast" data-comp="toast" class="wjt hidden absolute bottom-2 right-2 bg-emerald-600 text-white text-[9px] font-bold font-sans px-2.5 py-1.5 rounded shadow-lg">
+                                        ✓ Informe generado y guardado en el vault
+                                    </div>
+                                </div>
+                                <p class="text-slate-500 text-[11px] font-mono mt-2 text-center">Pista: el botón ⚡ hace aparecer una pieza más…</p>
+                            </div>
+
+                            <!-- Info panel -->
+                            <div class="lg:col-span-1">
+                                <p class="text-slate-300 text-xs font-sans font-bold uppercase tracking-widest mb-3">La pieza que has pulsado:</p>
+                                <div id="wjtInfo" class="bg-slate-950/60 border border-slate-800 rounded-xl p-4 min-h-[180px]">
+                                    <p class="text-slate-500 italic font-serif text-sm m-0">Pulsa cualquier pieza de la maqueta y te digo su nombre, qué hace y cómo pedírsela a Claude.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-eye-slash text-brand-primary mr-2"></i> Las piezas que no se ven (hasta que hacen falta)</h3>
+
+            <p class="prose-text mb-6 text-gray-600 fade-in-on-scroll">Hay componentes que no viven fijos en la pantalla, pero que distinguen un software profesional de una demo. Pídelos por su nombre:</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 fade-in-on-scroll">
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+                    <h5 class="font-bold text-brand-dark text-sm mb-2"><i class="fa-solid fa-window-restore text-brand-primary mr-2"></i> Modal</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Ventana emergente sobre la pantalla actual: confirmar, editar o crear <strong>sin navegar</strong>. "Un modal de confirmación antes de borrar".</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+                    <h5 class="font-bold text-brand-dark text-sm mb-2"><i class="fa-solid fa-pen-to-square text-brand-primary mr-2"></i> Formulario</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Campos + validación + botón de envío. Pide siempre la validación: <em>"que no deje enviar si falta el título"</em>.</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+                    <h5 class="font-bold text-brand-dark text-sm mb-2"><i class="fa-solid fa-caret-down text-brand-primary mr-2"></i> Desplegable (dropdown)</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Lista de opciones que se abre al pulsar. Para elegir entre pocas cosas conocidas (estado, área, proyecto).</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+                    <h5 class="font-bold text-brand-dark text-sm mb-2"><i class="fa-solid fa-magnifying-glass text-brand-primary mr-2"></i> Buscador</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">La caja de búsqueda. Especifica qué busca: <em>"un buscador que filtre la tabla mientras escribo"</em>.</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+                    <h5 class="font-bold text-brand-dark text-sm mb-2"><i class="fa-solid fa-spinner text-brand-primary mr-2"></i> Estado de carga</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">El spinner o esqueleto gris mientras algo trabaja. Imprescindible con IA: las llamadas a Claude <strong>tardan segundos</strong> — que se note que está pensando.</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
+                    <h5 class="font-bold text-brand-dark text-sm mb-2"><i class="fa-solid fa-inbox text-brand-primary mr-2"></i> Estado vacío</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Lo que se ve cuando aún no hay datos. "Si no hay tareas, muestra un mensaje amable con el botón de crear la primera".</p>
+                </div>
+            </div>
+
+            <!-- Antes / después -->
+            <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-wand-magic-sparkles text-claude mr-2"></i> El mismo encargo, con y sin vocabulario</h3>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-8 fade-in-on-scroll">
+                <div class="bg-red-50 border border-red-200 p-6 rounded-2xl">
+                    <h4 class="font-bold text-red-700 uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-xmark mr-2"></i> Sin diccionario</h4>
+                    <p class="font-serif text-gray-700 text-sm leading-relaxed italic m-0">"Hazme una web para ver cómo va mi negocio."</p>
+                    <p class="font-serif text-red-800/70 text-xs leading-relaxed mt-3 mb-0">Claude tiene que adivinar qué pantallas, qué datos y qué piezas. Recibirás <em>algo</em> — probablemente no lo tuyo.</p>
+                </div>
+                <div class="bg-emerald-50 border border-emerald-200 p-6 rounded-2xl">
+                    <h4 class="font-bold text-emerald-700 uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-check mr-2"></i> Con diccionario</h4>
+                    <p class="font-serif text-gray-700 text-sm leading-relaxed italic m-0">"Una vista Panel con navbar fija, 3 KPI cards (ventas, tareas, clientes), un gráfico de barras semanal y una tabla de tareas con badges de estado. Responsive."</p>
+                    <p class="font-serif text-emerald-800/70 text-xs leading-relaxed mt-3 mb-0">Mismo esfuerzo por tu parte. La diferencia es que ahora le has dado un <strong>plano</strong>, no una adivinanza.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 4. EL MOTOR: CLAUDE POR API -->
+    <section id="motor" class="py-20 bg-brand-light border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-6">
+
+            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll"><span class="w-10 h-10 bg-claude text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">4</span> El motor: Claude por API</h2>
+
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">Aquí está la novedad técnica de la clase. Hasta ahora usabas Claude <em>conversando</em> — en la web de Claude o en Claude Code. Tu portal necesita otra cosa: que Claude responda <strong>cuando un programa se lo pide</strong>, sin que haya nadie chateando. Eso es la <strong>API</strong> (interfaz de programación): el <em>enchufe</em> de Claude para software. Tu portal se conecta a ese enchufe cada vez que alguien pulsa un accionable o pregunta algo al cerebro.</p>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-10 fade-in-on-scroll">
+                <div class="bg-white border border-gray-200 p-8 rounded-2xl shadow-sm">
+                    <h4 class="font-bold text-gray-400 uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-helmet-safety mr-2"></i> Claude Code · el que CONSTRUYE</h4>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">El <strong>arquitecto</strong>. Lo usas tú, en la terminal, para crear el portal y para cambiarlo ("añade una columna al kanban"). Trabaja una vez y se va. Es el mismo Claude Code de todo el módulo.</p>
+                </div>
+                <div class="bg-orange-50 border border-orange-200 p-8 rounded-2xl shadow-sm">
+                    <h4 class="font-bold text-claude uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-bell-concierge mr-2"></i> Claude por API · el que VIVE DENTRO</h4>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">El <strong>mayordomo</strong>. Vive dentro del portal y atiende cada timbrazo: un botón pulsado, una pregunta en el chat, un archivo en la ingesta. Trabaja cada vez que alguien lo llama, para cualquiera del equipo.</p>
+                </div>
+            </div>
+
+            <!-- Pipeline -->
+            <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-diagram-next text-claude mr-2"></i> Qué pasa cuando alguien pulsa un botón</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-3 mb-6 fade-in-on-scroll">
+                <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm text-center">
+                    <div class="w-9 h-9 bg-indigo-100 text-brand-primary rounded-lg flex items-center justify-center mx-auto text-base mb-2"><i class="fa-solid fa-hand-pointer"></i></div>
+                    <p class="font-sans font-bold text-gray-800 text-xs mb-1">1 · La orden</p>
+                    <p class="font-serif text-gray-500 text-xs leading-relaxed m-0">Alguien pulsa un accionable o pregunta en el chat.</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm text-center">
+                    <div class="w-9 h-9 bg-slate-100 text-slate-700 rounded-lg flex items-center justify-center mx-auto text-base mb-2"><i class="fa-solid fa-compass-drafting"></i></div>
+                    <p class="font-sans font-bold text-gray-800 text-xs mb-1">2 · Buscar en casa</p>
+                    <p class="font-serif text-gray-500 text-xs leading-relaxed m-0">El portal busca en el cerebro las notas relevantes (el vectorizador, <strong>en local</strong>).</p>
+                </div>
+                <div class="bg-orange-50 p-4 rounded-xl border border-orange-200 shadow-sm text-center">
+                    <div class="w-9 h-9 bg-claude text-white rounded-lg flex items-center justify-center mx-auto text-base mb-2"><i class="fa-solid fa-paper-plane"></i></div>
+                    <p class="font-sans font-bold text-gray-800 text-xs mb-1">3 · El viaje</p>
+                    <p class="font-serif text-gray-500 text-xs leading-relaxed m-0">Pregunta + <em>solo esas notas</em> viajan a Claude por API.</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm text-center">
+                    <div class="w-9 h-9 bg-orange-100 text-claude rounded-lg flex items-center justify-center mx-auto text-base mb-2"><i class="fa-solid fa-brain"></i></div>
+                    <p class="font-sans font-bold text-gray-800 text-xs mb-1">4 · La respuesta</p>
+                    <p class="font-serif text-gray-500 text-xs leading-relaxed m-0">Claude razona con tu contexto y redacta el resultado.</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm text-center">
+                    <div class="w-9 h-9 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center mx-auto text-base mb-2"><i class="fa-solid fa-box-archive"></i></div>
+                    <p class="font-sans font-bold text-gray-800 text-xs mb-1">5 · El aterrizaje</p>
+                    <p class="font-serif text-gray-500 text-xs leading-relaxed m-0">El portal lo muestra y, si toca, lo guarda como nota en el vault.</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-r-xl border-l-4 border-claude shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-gray-700 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-info text-claude mr-2"></i> <strong>Fíjate en el paso 2:</strong> la búsqueda sigue siendo <strong>local</strong> — el vectorizador de la clase anterior elige las notas relevantes en tu máquina, y a la API solo viaja <em>ese</em> puñado de notas, nunca el vault entero. Este patrón —recuperar primero en tu base, generar después— es el corazón de casi todo el software con IA. Si quieres impresionar en una reunión: se llama <strong>RAG</strong> (<em>Retrieval-Augmented Generation</em>).</p>
+            </div>
+
+            <!-- Teams vs API -->
+            <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-file-invoice text-claude mr-2"></i> "Pero yo ya pago Claude…" — suscripción vs. API</h3>
+
+            <p class="prose-text mb-6 text-gray-600 fade-in-on-scroll">Aviso importante para no llevarse sorpresas: tu suscripción de Claude (el plan Team con el que chatea tu equipo) y la API son <strong>dos productos distintos con dos facturas distintas</strong>.</p>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-8 fade-in-on-scroll">
+                <div class="bg-white border border-gray-200 p-8 rounded-2xl shadow-sm">
+                    <h4 class="font-bold text-gray-400 uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-users mr-2"></i> Suscripción (Team)</h4>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Paga a las <strong>personas</strong>: cada miembro chatea con Claude en claude.ai por una cuota fija al mes. Tu portal <strong>no puede usarla</strong>: no hay una persona chateando, hay un programa llamando.</p>
+                </div>
+                <div class="bg-orange-50 border border-orange-200 p-8 rounded-2xl shadow-sm">
+                    <h4 class="font-bold text-claude uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-plug mr-2"></i> API (Console)</h4>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Paga al <strong>software</strong>: se contrata en la consola de desarrollador de Anthropic, tiene su propia <strong>API key</strong> y se factura <strong>por uso</strong> (por texto procesado). Un portal interno de equipo suele costar poco — pero es otra factura, y conviene ponerle un límite de gasto mensual desde la consola.</p>
+                </div>
+            </div>
+
+            <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i> <strong>Analogía — el contador de la luz:</strong> la API key es la tarjeta de tu contador eléctrico: identifica <em>quién consume</em> y <em>a quién le facturan</em>. Por eso es una <strong>credencial secreta</strong>: si la dejas a la vista, cualquiera enchufa sus aparatos a tu contador. Vive en un archivo <code>.env</code> en el servidor, nunca en el código que ve el navegador, nunca en el vault, nunca en un repositorio público.</p>
+            </div>
+
+            <!-- Privado vs local -->
+            <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-shield-halved text-claude mr-2"></i> Privado ≠ local: el matiz honesto</h3>
+
+            <p class="prose-text mb-6 text-gray-600 fade-in-on-scroll">El mantra del módulo era <em>"todo en local, nada sale del equipo"</em>. El portal lo matiza: cuando usas Claude por API, la pregunta y el contexto que le adjuntas <strong>sí viajan</strong> a los servidores de Anthropic. ¿Deja de ser privado? No — pero hay que decirlo con precisión:</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 fade-in-on-scroll text-center">
+                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                    <div class="w-12 h-12 bg-slate-100 text-slate-700 rounded-xl flex items-center justify-center mx-auto text-xl mb-4"><i class="fa-solid fa-house-lock"></i></div>
+                    <h5 class="font-bold text-gray-800 text-sm mb-1">Local</h5>
+                    <p class="font-serif text-gray-500 text-xs">No lo ve <strong>nadie</strong>. El vault, el vectorizador y el tejedor siguen aquí: nunca salen de tu máquina.</p>
+                </div>
+                <div class="bg-orange-50 p-6 rounded-xl border border-orange-100 shadow-sm">
+                    <div class="w-12 h-12 bg-orange-100 text-claude rounded-xl flex items-center justify-center mx-auto text-xl mb-4"><i class="fa-solid fa-file-signature"></i></div>
+                    <h5 class="font-bold text-gray-800 text-sm mb-1">API de Anthropic</h5>
+                    <p class="font-serif text-gray-500 text-xs">Lo procesa Anthropic <strong>bajo contrato comercial</strong>: confidencial, <strong>no entrena modelos con tus datos</strong> y con retención acotada. Privado, pero con un tercero de confianza en medio.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                    <div class="w-12 h-12 bg-red-100 text-red-500 rounded-xl flex items-center justify-center mx-auto text-xl mb-4"><i class="fa-solid fa-globe"></i></div>
+                    <h5 class="font-bold text-gray-800 text-sm mb-1">Público</h5>
+                    <p class="font-serif text-gray-500 text-xs">Lo que subes a redes, webs abiertas o herramientas gratuitas sin contrato. <strong>Eso</strong> es lo contrario de privado.</p>
+                </div>
+            </div>
+
+            <div class="bg-emerald-50 p-6 rounded-r-xl border-l-4 border-emerald-500 shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-emerald-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-check text-emerald-500 mr-2"></i> <strong>Las tres reglas del portal:</strong> (1) los <strong>datos personales sensibles siguen fuera del vault</strong> — la norma de siempre, y ahora con doble motivo: lo que no está en el cerebro no puede viajar a ninguna API; (2) <strong>tú decides qué contexto viaja</strong> — solo las notas relevantes que elige el vectorizador, nunca el vault entero; (3) la <strong>API key es una credencial</strong> — al <code>.env</code> del servidor y a ningún sitio más. Frase para la pizarra: <em>local = no lo ve nadie; API = lo ve Anthropic bajo contrato, no lo entrena, no lo publica.</em></p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 5. EL PANEL -->
+    <section id="panel" class="py-20 bg-white border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-6">
+
+            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll"><span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">5</span> Pantalla 1 — El panel: KPIs, objetivos y accionables</h2>
+
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">La <strong>landing</strong> de tu portal — lo primero que ve quien entra — tiene un único trabajo: responder <em>"¿cómo va todo?"</em> en cinco segundos. Tres franjas, de arriba abajo: los <strong>números</strong> (KPI cards), el <strong>estado</strong> (objetivos y tareas con sus badges) y las <strong>palancas</strong> (los accionables). Nada más: el detalle vive en las otras pantallas.</p>
+
+            <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-bolt text-brand-accent mr-2"></i> Los accionables: botones que trabajan</h3>
+
+            <p class="prose-text mb-6 text-gray-600 fade-in-on-scroll">La pieza estrella del panel. Un <strong>accionable</strong> no navega a otra pantalla: <strong>ejecuta una tarea completa</strong>, de principio a fin. Cada accionable empaqueta detrás de un botón algo que hasta hoy hacías tú a mano en la terminal: leer del cerebro → producir un resultado con Claude → dejarlo en su sitio. Para definir uno bien, rellena siempre estas cuatro casillas:</p>
+
+            <div class="fade-in-on-scroll mb-8 overflow-x-auto">
+                <table class="w-full text-left border-collapse bg-white rounded-xl overflow-hidden shadow-sm border border-gray-200" style="font-family: 'Inter', sans-serif;">
+                    <thead>
+                        <tr class="bg-gray-50 border-b-2 border-gray-200 text-xs uppercase tracking-wider text-gray-500">
+                            <th class="p-4 font-bold">Accionable</th>
+                            <th class="p-4 font-bold">Lee…</th>
+                            <th class="p-4 font-bold">Produce…</th>
+                            <th class="p-4 font-bold">Lo deja en…</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm text-gray-600 divide-y divide-gray-100" style="font-family: 'Merriweather', serif;">
+                        <tr>
+                            <td class="p-4 font-bold text-brand-primary" style="font-family: 'Inter', sans-serif;">⚡ Informe semanal</td>
+                            <td class="p-4">Las notas de los últimos 7 días</td>
+                            <td class="p-4">Un resumen ejecutivo</td>
+                            <td class="p-4">Nota nueva en el vault + pantalla</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold text-brand-primary" style="font-family: 'Inter', sans-serif;">⚡ Propuesta de post</td>
+                            <td class="p-4">Las novedades del cerebro</td>
+                            <td class="p-4">Un borrador para redes</td>
+                            <td class="p-4">Pantalla, para revisar y copiar</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold text-brand-primary" style="font-family: 'Inter', sans-serif;">⚡ Resumen de reunión</td>
+                            <td class="p-4">La última acta ingerida</td>
+                            <td class="p-4">Acuerdos + tareas detectadas</td>
+                            <td class="p-4">Nota + tarjetas en el tablero</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i> <strong>Analogía — las palancas del puente:</strong> en el puente de mando no hay un cable por cada máquina: hay <strong>palancas</strong> con la maniobra completa detrás. "Informe semanal" es una palanca: quien la acciona no necesita saber que por debajo se busca en el vault, se llama a la API y se guarda una nota. Esa es la gracia: <strong>tu conocimiento técnico, empaquetado para que lo use cualquiera</strong>.</p>
+            </div>
+
+            <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-terminal text-brand-primary mr-2"></i> Prompt para construirlo (copiar y pegar en Claude Code)</h3>
+
+            <div class="fade-in-on-scroll mb-8">
+                <div class="bg-slate-900 text-white rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                    <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+                        <span class="text-sm font-mono text-brand-accent font-bold uppercase tracking-wider"><i class="fa-solid fa-terminal mr-2"></i> Prompt · el panel de mando</span>
+                        <button onclick="copyToClipboard('cb-panel', this)" class="text-xs font-bold text-slate-400 hover:text-white transition-colors border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg bg-slate-900 flex items-center"><i class="fa-regular fa-copy mr-2"></i> Copiar</button>
+                    </div>
+                    <div id="cb-panel" class="p-6 font-mono text-gray-200 text-xs md:text-sm leading-relaxed whitespace-pre-wrap">Quiero construir mi portal interno: una web app que corra en local y sea el panel de mando de mi negocio, conectada a mi cerebro de notas (vault de Obsidian) y a Claude por API. Elige tú el framework más sencillo posible y empieza por la pantalla principal, "Panel":
+
+1. Una navbar fija con el logo y las secciones: Panel, Tablero, Clientes e Ingesta.
+2. Una fila de KPI cards calculadas leyendo mi vault (por ejemplo: tareas abiertas, notas creadas esta semana, proyectos activos), cada una con su tendencia.
+3. Una lista de "Objetivos y tareas" con badge de estado (pendiente / en curso / hecha), leída de mis notas de tareas.
+4. Una zona de "Accionables": botones que ejecutan tareas completas. Crea los dos primeros:
+   - "Informe semanal": lee las notas de los últimos 7 días, genera un resumen ejecutivo con Claude por API, lo muestra en pantalla y lo guarda como nota nueva en el vault.
+   - "Propuesta de post": lee las novedades del cerebro y redacta un borrador de post para redes, solo en pantalla.
+   Cada accionable muestra un estado de carga mientras trabaja y un toast al terminar.
+5. Todo responsive.
+
+Seguridad: la API key de Claude va en un archivo .env que NUNCA se sube al repositorio, y las llamadas a Claude se hacen desde el servidor — el navegador jamás debe ver la key. Explícame cómo arrancar la app, cómo poner mi key y cómo añadir nuevos accionables en el futuro.</div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-r-xl border-l-4 border-claude shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-gray-700 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-info text-claude mr-2"></i> <strong>Qué esperar:</strong> Claude Code montará el proyecto, te pedirá la API key (recuerda: al <code>.env</code>) y te dará un comando para arrancar el portal en tu navegador. A partir de ahí, cada mejora es una frase: <em>"añade una KPI card con el gasto del mes"</em>. El portal crece conversando.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 6. EL TABLERO (KANBAN) -->
+    <section id="tablero" class="py-20 bg-brand-light border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-6">
+
+            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll"><span class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">6</span> Pantalla 2 — El tablero: un kanban</h2>
+
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">El panel te dice <em>cuánto</em> hay; el <strong>kanban</strong> te deja <em>moverlo</em>. Es la pieza de gestión visual más rentable que existe: <strong>columnas</strong> que son estados, <strong>tarjetas</strong> que son tareas, y <strong>arrastrar</strong> que es avanzar. Nuestro consejo: empieza con un tablero para <strong>un solo proyecto</strong> — el activo. El multi-proyecto llega cuando el simple se quede corto, no antes.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8 fade-in-on-scroll text-center">
+                <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+                    <p class="font-sans font-bold text-gray-800 text-sm mb-1">📋 Por hacer</p>
+                    <p class="font-serif text-gray-500 text-xs m-0">Lo comprometido que aún no ha empezado.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-indigo-200 shadow-sm">
+                    <p class="font-sans font-bold text-brand-primary text-sm mb-1">⚙️ En curso</p>
+                    <p class="font-serif text-gray-500 text-xs m-0">En lo que se está trabajando <em>ahora</em>. Pocas tarjetas: si hay diez, no hay foco.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-amber-200 shadow-sm">
+                    <p class="font-sans font-bold text-amber-600 text-sm mb-1">👁️ Validar</p>
+                    <p class="font-serif text-gray-500 text-xs m-0">Trabajo terminado que espera <strong>tu ojo</strong> antes de darse por bueno. Imprescindible cuando parte del trabajo lo hace la IA.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-emerald-200 shadow-sm">
+                    <p class="font-sans font-bold text-emerald-600 text-sm mb-1">✅ Hecho</p>
+                    <p class="font-serif text-gray-500 text-xs m-0">Validado y cerrado. De aquí se alimenta el informe semanal.</p>
+                </div>
+            </div>
+
+            <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i> <strong>Fíjate en la columna "Validar":</strong> no es adorno. En un negocio donde los agentes redactan, resumen e ingieren por ti, necesitas un lugar donde el trabajo <em>hecho por la máquina</em> espere la aprobación <em>de la persona</em>. Es la misma regla de todo el módulo (proponer antes de escribir), convertida en columna.</p>
+            </div>
+
+            <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-database text-blue-600 mr-2"></i> La regla que lo cambia todo: la fuente de verdad</h3>
+
+            <p class="prose-text mb-6 text-gray-600 fade-in-on-scroll">Aquí viene la decisión de arquitectura más importante del portal, y vale para todas sus pantallas: <strong>el portal no guarda nada importante por su cuenta</strong>. Cada tarea del kanban <em>vive como nota en el vault</em>; el tablero es solo una <strong>vista</strong>. ¿Arrastras una tarjeta a "Hecho"? Se actualiza su nota. ¿Editas la nota a mano en Obsidian? El tablero lo refleja. Un solo dueño de los datos —el cerebro— y todas las herramientas mirándolo. Así jamás tendrás dos versiones de la verdad.</p>
+
+            <div class="fade-in-on-scroll mb-8">
+                <div class="bg-slate-900 text-white rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                    <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+                        <span class="text-sm font-mono text-brand-accent font-bold uppercase tracking-wider"><i class="fa-solid fa-terminal mr-2"></i> Prompt · el tablero kanban</span>
+                        <button onclick="copyToClipboard('cb-kanban', this)" class="text-xs font-bold text-slate-400 hover:text-white transition-colors border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg bg-slate-900 flex items-center"><i class="fa-regular fa-copy mr-2"></i> Copiar</button>
+                    </div>
+                    <div id="cb-kanban" class="p-6 font-mono text-gray-200 text-xs md:text-sm leading-relaxed whitespace-pre-wrap">Añade a mi portal la pantalla "Tablero": un kanban para UN solo proyecto (el activo).
+
+1. Cuatro columnas: Por hacer, En curso, Validar y Hecho.
+2. Cada tarjeta es una tarea con título, etiqueta de área y fecha.
+3. Las tarjetas se arrastran entre columnas (drag & drop).
+4. MUY IMPORTANTE — la fuente de verdad es mi cerebro: cada tarea vive como nota en mi vault de Obsidian, con su estado en el frontmatter. El tablero es solo una vista: al crear una tarjeta se crea su nota, y al arrastrarla de columna se actualiza el estado en esa nota. Si edito la nota a mano en Obsidian, el tablero lo refleja al recargar.
+5. Un botón "Nueva tarea" que abra un modal con un formulario sencillo (título, área, fecha) con validación.
+6. Estado vacío amable si una columna no tiene tarjetas.
+
+Mantén el estilo del resto del portal y dime qué archivos has tocado.</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 7. EL CRM -->
+    <section id="crm" class="py-20 bg-white border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-6">
+
+            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll"><span class="w-10 h-10 bg-emerald-600 text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">7</span> Pantalla 3 — Los clientes: un CRM de gobernanza</h2>
+
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">Un <strong>CRM</strong> (<em>Customer Relationship Management</em>) es, en el fondo, la memoria comercial del negocio: quién es cada cliente, en qué estado está la relación y cuándo fue el último contacto. Los CRM comerciales (Salesforce, HubSpot…) son transatlánticos: facturan, automatizan campañas, miden embudos. El nuestro es deliberadamente más humilde y más útil: un CRM <strong>de gobernanza</strong>. Sirve para <strong>ver y cuidar</strong> las relaciones — no para cobrar, ni contabilizar, ni mandar emails masivos.</p>
+
+            <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i> <strong>Analogía — la libreta del buen tendero:</strong> el tendero de barrio apunta quién vino, qué se llevó y qué le preocupa — y por eso te recibe por tu nombre y con tu pedido en mente. Esa libreta es nuestro CRM. La <strong>caja registradora es otra máquina</strong>: la facturación se queda en tu programa de contabilidad de siempre. Ver ≠ facturar.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 fade-in-on-scroll">
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <h5 class="font-bold text-brand-dark text-sm mb-2"><i class="fa-solid fa-table text-emerald-600 mr-2"></i> La tabla de clientes</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed m-0">Columnas: nombre, <strong>estado</strong> (badge de color), último contacto y proyecto relacionado. Con buscador y ordenable. Estados de salud: <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-xs font-sans font-bold">activo</span> <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 text-xs font-sans font-bold">en riesgo</span> <span class="px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 text-xs font-sans font-bold">potencial</span> <span class="px-2 py-0.5 rounded-full bg-gray-200 text-gray-600 text-xs font-sans font-bold">dormido</span>. Y el detalle elegante: <strong>"en riesgo" se calcula solo</strong> — más de 30 días sin contacto según tus notas.</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <h5 class="font-bold text-brand-dark text-sm mb-2"><i class="fa-solid fa-id-card text-emerald-600 mr-2"></i> La ficha + el accionable "Ponme al día"</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed m-0">Al pulsar un cliente: su ficha, con sus notas del cerebro. Y la joya de la corona — un accionable que recupera todo lo que sabes de ese cliente y le pide a Claude un <strong>resumen ejecutivo de la relación</strong>: última conversación, temas abiertos, siguiente paso sugerido. Dos minutos antes de cada reunión, y entras sabiéndolo todo.</p>
+                </div>
+            </div>
+
+            <div class="bg-emerald-50 p-6 rounded-r-xl border-l-4 border-emerald-500 shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-emerald-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-shield-halved text-emerald-500 mr-2"></i> <strong>Ojo con los datos personales:</strong> un CRM roza la PII. Nombre de empresa, persona de contacto, estados y fechas: sí. DNI, cuentas bancarias, contratos, datos de salud: <strong>fuera del vault</strong>, como siempre — se referencian ("contrato en la carpeta X"), no se copian. Doble motivo desde hoy: lo que no está en el cerebro nunca viajará a una API.</p>
+            </div>
+
+            <div class="fade-in-on-scroll mb-8">
+                <div class="bg-slate-900 text-white rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                    <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+                        <span class="text-sm font-mono text-brand-accent font-bold uppercase tracking-wider"><i class="fa-solid fa-terminal mr-2"></i> Prompt · el CRM de gobernanza</span>
+                        <button onclick="copyToClipboard('cb-crm', this)" class="text-xs font-bold text-slate-400 hover:text-white transition-colors border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg bg-slate-900 flex items-center"><i class="fa-regular fa-copy mr-2"></i> Copiar</button>
+                    </div>
+                    <div id="cb-crm" class="p-6 font-mono text-gray-200 text-xs md:text-sm leading-relaxed whitespace-pre-wrap">Añade a mi portal la pantalla "Clientes": un CRM ligero, SOLO de gobernanza (ver el estado de cada relación; nada de facturación ni pagos).
+
+1. Una tabla de clientes con columnas: nombre, estado (badge de color), último contacto y proyecto relacionado. Con buscador que filtra mientras escribo, y ordenable por columna.
+2. Estados: activo (verde), en riesgo (ámbar), potencial (azul) y dormido (gris). "En riesgo" se calcula solo: más de 30 días sin contacto según las fechas de mis notas.
+3. La fuente de verdad es el vault: cada cliente es una nota con su frontmatter (nombre, estado, fechas, proyecto); la tabla se construye leyendo esas notas.
+4. Al pulsar un cliente, su ficha: datos del frontmatter + la lista de sus notas relacionadas.
+5. En la ficha, un accionable "Ponme al día": recupera las notas de ese cliente y pide a Claude por API un resumen ejecutivo de la relación (última conversación, temas abiertos, siguiente paso sugerido), con estado de carga mientras trabaja.
+
+Recuerda: datos personales sensibles fuera — aquí solo nombres, empresas, estados y fechas.</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 8. INGESTA Y SALIDA -->
+    <section id="ingesta" class="py-20 bg-brand-light border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-6">
+
+            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll"><span class="w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">8</span> Pantalla 4 — Ingesta y salida: cerrar el bucle</h2>
+
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">Hasta aquí, el portal <strong>lee</strong> el cerebro. Falta el bucle completo: que también lo <strong>alimente</strong> (ingesta) y que los resultados puedan <strong>salir</strong> hacia el mundo (salida). Con esta pantalla, el portal se convierte en la <strong>membrana</strong> del cerebro: todo lo que entra pasa por ella, todo lo que sale lleva su sello.</p>
+
+            <!-- Diagrama entra/sale -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10 fade-in-on-scroll items-stretch">
+                <div class="bg-white border border-purple-200 p-6 rounded-2xl shadow-sm relative">
+                    <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-file-import"></i></div>
+                    <h4 class="font-bold text-brand-dark text-base mb-2">ENTRA · la ingesta</h4>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Una zona de <strong>arrastrar y soltar</strong> archivos (.txt, .md, .pdf) y una caja para pegar notas rápidas o actas. Claude lo convierte en notas <em>con el formato del cerebro</em>: frontmatter, etiquetas de área y proyecto.</p>
+                    <span class="hidden md:block absolute top-1/2 -right-5 text-2xl text-claude z-10"><i class="fa-solid fa-arrow-right-long"></i></span>
+                </div>
+                <div class="bg-slate-800 border border-slate-700 p-6 rounded-2xl shadow-sm relative text-white">
+                    <div class="w-12 h-12 bg-slate-700 text-orange-300 rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-brain"></i></div>
+                    <h4 class="font-bold text-white text-base mb-2">EL CEREBRO</h4>
+                    <p class="font-serif text-slate-300 text-sm leading-relaxed">La nota nueva aterriza en su carpeta, el <strong>enlazador</strong> la conecta y el <strong>tejedor</strong> vigila que no quede huérfana. Todo lo del módulo, trabajando en cadena — el portal solo es la puerta.</p>
+                    <span class="hidden md:block absolute top-1/2 -right-5 text-2xl text-claude z-10"><i class="fa-solid fa-arrow-right-long"></i></span>
+                </div>
+                <div class="bg-white border border-emerald-200 p-6 rounded-2xl shadow-sm">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-file-export"></i></div>
+                    <h4 class="font-bold text-brand-dark text-base mb-2">SALE · los resultados</h4>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Todo resultado de un accionable puede: verse <strong>en pantalla</strong>, guardarse como <strong>nota</strong> (conocimiento que se queda) o descargarse como <strong>archivo</strong> (.md) para viajar fuera.</p>
+                </div>
+            </div>
+
+            <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i> <strong>Analogía — la aduana:</strong> en una aduana nada cruza sin registrarse: lo que entra se inspecciona y se etiqueta; lo que sale lleva su documentación. La ingesta es exactamente eso — y la <strong>vista previa</strong> es el inspector: Claude te enseña las notas que <em>propone</em> crear y <strong>no escribe nada hasta que tú apruebas</strong>. La regla de edición segura del módulo, aplicada a la puerta de entrada.</p>
+            </div>
+
+            <div class="fade-in-on-scroll mb-8">
+                <div class="bg-slate-900 text-white rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                    <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+                        <span class="text-sm font-mono text-brand-accent font-bold uppercase tracking-wider"><i class="fa-solid fa-terminal mr-2"></i> Prompt · ingesta y salida</span>
+                        <button onclick="copyToClipboard('cb-ingesta', this)" class="text-xs font-bold text-slate-400 hover:text-white transition-colors border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg bg-slate-900 flex items-center"><i class="fa-regular fa-copy mr-2"></i> Copiar</button>
+                    </div>
+                    <div id="cb-ingesta" class="p-6 font-mono text-gray-200 text-xs md:text-sm leading-relaxed whitespace-pre-wrap">Cierra el circuito de mi portal con la pantalla "Ingesta":
+
+1. Una zona de arrastrar y soltar archivos (drag & drop) que acepte .txt, .md y .pdf, y una caja de texto para pegar notas rápidas o actas de reunión.
+2. Al recibir contenido, pide a Claude por API que lo convierta en una o varias notas con el formato de mi cerebro: frontmatter (título, tipo, etiquetas de área y proyecto) y texto limpio.
+3. OBLIGATORIO: muéstrame una VISTA PREVIA de las notas propuestas y no guardes nada hasta que yo apruebe. El portal nunca escribe en el vault sin mi OK.
+4. Al aprobar, guarda cada nota en la carpeta correcta del vault, para que mi enlazador la conecte después.
+5. Añade también la "salida": cualquier resultado de un accionable (informe, resumen) debe poder (a) verse en pantalla, (b) guardarse como nota en el vault y (c) descargarse como archivo .md.
+
+Estado de carga durante el procesado y toast al terminar. Mantén el estilo del portal.</div>
+                </div>
+            </div>
+
+            <div class="bg-indigo-50/60 p-6 rounded-2xl border border-indigo-100 my-8 fade-in-on-scroll">
+                <h4 class="font-bold text-brand-dark text-sm uppercase mb-3"><i class="fa-solid fa-lightbulb mr-2 text-indigo-600"></i> En una frase</h4>
+                <p class="font-serif text-gray-700 text-sm leading-relaxed mb-0">El portal es la <strong>puerta bonita del cerebro</strong>: el panel lo muestra, el kanban lo mueve, el CRM lo cuida y la ingesta lo alimenta. Por debajo no hay magia nueva — hay <strong>tu vault, tu vectorizador, tus agentes y Claude por API</strong>, empaquetados detrás de botones que cualquiera de tu equipo sabe pulsar. Y las reglas de siempre mandan: la fuente de verdad es el cerebro, nada se escribe sin aprobar, y el PII sensible ni entra ni viaja.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 9. Práctica y Quiz (Dark Section) -->
+    <section id="practica" class="py-24 bg-brand-dark text-white border-t-8 border-claude">
+        <div class="max-w-6xl mx-auto px-6">
+
+            <!-- Reto de la clase -->
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-10 lg:p-16 shadow-2xl relative overflow-hidden fade-in-on-scroll mb-20">
+                <div class="absolute top-0 right-0 w-80 h-80 bg-claude/20 rounded-bl-full -z-0 blur-2xl"></div>
+                <div class="flex items-center mb-8 relative z-10">
+                    <div class="w-16 h-16 bg-claude text-white rounded-2xl flex items-center justify-center text-3xl shadow-lg mr-6 shrink-0">
+                        <i class="fa-solid fa-gauge-high"></i>
+                    </div>
+                    <div>
+                        <span class="text-claude font-bold tracking-widest text-xs uppercase mb-1 block">Reto de la Clase</span>
+                        <h3 class="text-3xl lg:text-4xl font-extrabold text-white">Construye el portal de tu marca</h3>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/60 border border-slate-700/50 rounded-2xl p-8 relative z-10">
+                    <p class="font-serif text-gray-300 mb-8 text-lg">
+                        Aplícalo a tu proyecto de curso — la marca de zapatos. Cuatro movimientos, en este orden:
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-slate-900/90 p-6 rounded-xl shadow-sm border border-slate-800 hover:border-claude transition-colors">
+                            <div class="w-12 h-12 bg-slate-500/20 text-slate-300 rounded-xl flex items-center justify-center mb-5 text-xl font-bold">
+                                <i class="fa-solid fa-pencil"></i>
+                            </div>
+                            <h5 class="font-bold text-white mb-2">1. Dibuja antes de pedir</h5>
+                            <p class="text-sm font-serif text-slate-400">En papel: tus 4 pantallas, nombrando cada pieza con el diccionario (navbar, KPI cards, badges…). Elige los 3 KPIs y los 2 accionables que de verdad usarías cada semana con tu marca.</p>
+                        </div>
+                        <div class="bg-slate-900/90 p-6 rounded-xl shadow-sm border border-slate-800 hover:border-claude transition-colors">
+                            <div class="w-12 h-12 bg-indigo-500/20 text-indigo-300 rounded-xl flex items-center justify-center mb-5 text-xl font-bold">
+                                <i class="fa-solid fa-gauge-high"></i>
+                            </div>
+                            <h5 class="font-bold text-white mb-2">2. Levanta el panel</h5>
+                            <p class="text-sm font-serif text-slate-400">Pega el prompt de la sección 5 en Claude Code, adaptando KPIs y accionables a tu dibujo. Configura la API key en el <code>.env</code> y comprueba que el accionable "Informe semanal" deja su nota en el vault.</p>
+                        </div>
+                        <div class="bg-slate-900/90 p-6 rounded-xl shadow-sm border border-slate-800 hover:border-claude transition-colors">
+                            <div class="w-12 h-12 bg-blue-500/20 text-blue-300 rounded-xl flex items-center justify-center mb-5 text-xl font-bold">
+                                <i class="fa-solid fa-table-columns"></i>
+                            </div>
+                            <h5 class="font-bold text-white mb-2">3. Elige tu segunda pantalla</h5>
+                            <p class="text-sm font-serif text-slate-400">¿Tu cuello de botella son las tareas o las relaciones? Kanban del lanzamiento (sección 6) o CRM de puntos de venta y colaboradores (sección 7). Construye una — la otra puede esperar.</p>
+                        </div>
+                        <div class="bg-slate-900/90 p-6 rounded-xl shadow-sm border border-slate-800 hover:border-claude transition-colors">
+                            <div class="w-12 h-12 bg-purple-500/20 text-purple-300 rounded-xl flex items-center justify-center mb-5 text-xl font-bold">
+                                <i class="fa-solid fa-right-left"></i>
+                            </div>
+                            <h5 class="font-bold text-white mb-2">4. Cierra el bucle</h5>
+                            <p class="text-sm font-serif text-slate-400">Monta la ingesta (sección 8) y haz la prueba de fuego: suelta el acta de tu última reunión, aprueba las notas propuestas y lanza "Informe semanal". Si el informe menciona la reunión… tu portal está vivo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Interactivo -->
+            <div class="border-t border-slate-800 pt-16 mb-12 fade-in-on-scroll">
+                <h3 class="text-3xl font-bold mb-8 text-white text-center">
+                    <i class="fa-solid fa-clipboard-check text-claude mr-3"></i> Cuestionario de Evaluación (Clase 7)
+                </h3>
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 lg:p-12 shadow-2xl text-white">
+                    <div id="quizContainer"></div>
+                    <div class="text-center mt-10 pt-8 border-t border-slate-800">
+                        <button id="validateBtn" onclick="submitQuiz()" class="px-10 py-4 bg-claude hover:bg-claude-dark text-white font-bold rounded-xl transition-all shadow-lg uppercase tracking-wider text-sm">
+                            Validar Respuestas
+                        </button>
+                        <div id="quiz-result" class="hidden mt-6 p-5 rounded-xl font-bold font-sans text-center transition-all"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navegación entre Clases -->
+    <section class="py-12 bg-white border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <a href="modulo8-clase6.html"
+                class="flex items-center px-6 py-3 text-gray-600 border border-gray-300 rounded-xl font-bold hover:text-brand-primary hover:border-brand-primary transition-all bg-white shadow-sm w-full sm:w-auto justify-center">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Anterior: Clase 6
+            </a>
+            <a href="index.html"
+                class="flex items-center px-8 py-3 bg-brand-primary text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors shadow-lg w-full sm:w-auto justify-center">
+                <i class="fa-solid fa-home mr-2"></i> Volver al Temario
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white py-16 border-t border-gray-800">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-4">
+                <span class="text-brand-accent">[m]</span>.seny <span class="text-brand-accent">[labs]</span>
+            </h2>
+            <p class="text-gray-400 mb-10 max-w-lg mx-auto font-serif text-center">
+                Empoderando a la próxima generación de empresas con inteligencia artificial práctica y estratégica.
+            </p>
+            <div class="w-12 h-px bg-gray-800 mx-auto my-6"></div>
+            <p class="text-xs text-gray-500 font-sans text-center">
+                Material de Apoyo Formativo - Módulo 8 (Clase 7)<br>
+                © 2026 [m].seny [labs]. Todos los derechos reservados.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Lógica de Interactividad -->
+    <script>
+        // 1. Copiado al portapapeles (fallback execCommand para iframes restringidos)
+        function copyToClipboard(elementId, btn) {
+            const el = document.getElementById(elementId);
+            let text = el.innerText || el.textContent;
+
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = text;
+            tempTextArea.style.position = "fixed";
+            tempTextArea.style.left = "-9999px";
+            document.body.appendChild(tempTextArea);
+            tempTextArea.focus();
+            tempTextArea.select();
+
+            try {
+                document.execCommand('copy');
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-check mr-2"></i> Copiado';
+                btn.classList.add('text-emerald-400');
+                btn.classList.remove('text-slate-400');
+
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.classList.remove('text-emerald-400');
+                    btn.classList.add('text-slate-400');
+                }, 2000);
+            } catch (err) {
+                console.error('No se pudo copiar', err);
+            }
+            document.body.removeChild(tempTextArea);
+        }
+
+        // 2. Widget: la maqueta que nombra sus piezas
+        const compInfo = {
+            navbar: {
+                name: "Navbar — la barra de navegación",
+                desc: "Barra superior fija con el logo, las secciones y el usuario. Es el mapa del portal: desde cualquier pantalla sabes dónde estás.",
+                pide: "una navbar fija con el logo a la izquierda y las secciones Panel, Tablero, Clientes e Ingesta"
+            },
+            sidebar: {
+                name: "Sidebar — el menú lateral",
+                desc: "Menú vertical siempre a la vista, para apps con muchas secciones. Con pocas pantallas, la navbar basta.",
+                pide: "una sidebar con iconos para las secciones secundarias"
+            },
+            kpi: {
+                name: "KPI card — tarjeta de métrica",
+                desc: "Un número grande que resume un indicador, con su etiqueta y su tendencia. La primera fila de cualquier panel.",
+                pide: "una fila de 3 KPI cards: ventas del mes, tareas abiertas y clientes activos, cada una con su tendencia"
+            },
+            chart: {
+                name: "Chart — el gráfico",
+                desc: "Barras para comparar, líneas para ver evolución, donut para proporciones. Di siempre cuál quieres y con qué datos.",
+                pide: "un gráfico de barras con las ventas por semana del último mes"
+            },
+            kanban: {
+                name: "Kanban — el tablero de columnas",
+                desc: "Columnas que son estados, tarjetas que son tareas, arrastrar que es avanzar. Lo verás a fondo en la sección 6.",
+                pide: "un kanban con columnas Por hacer, En curso, Validar y Hecho, con tarjetas arrastrables"
+            },
+            tabla: {
+                name: "Tabla",
+                desc: "Filas y columnas para comparar registros. Pide siempre que sea ordenable y, si crece, con buscador.",
+                pide: "una tabla de clientes ordenable con columnas nombre, estado y último contacto"
+            },
+            badge: {
+                name: "Badge — etiqueta de estado",
+                desc: "La píldora de color que dice el estado de un vistazo, sin leer. Verde bien, ámbar atención, gris dormido.",
+                pide: "un badge de color por estado: verde activo, ámbar en riesgo, gris dormido"
+            },
+            accionable: {
+                name: "Botón accionable",
+                desc: "No navega: EJECUTA una tarea completa (leer → producir → guardar). El músculo del portal. ¿Has visto la notificación que ha aparecido abajo a la derecha?",
+                pide: "un botón 'Generar informe' que lea las notas de la semana, redacte el resumen con Claude y lo guarde en el vault"
+            },
+            chat: {
+                name: "Chat — hablar con el cerebro",
+                desc: "La caja para preguntar en lenguaje natural. El portal busca en tu base (en local) y Claude responde con ese contexto.",
+                pide: "una caja de chat que responda usando mis notas como contexto"
+            },
+            toast: {
+                name: "Toast — la notificación",
+                desc: "Aviso breve que aparece y se va solo. Confirma que algo ocurrió, sin interrumpir. La pareja perfecta del accionable.",
+                pide: "un toast de confirmación cuando cada accionable termine"
+            }
+        };
+
+        const wjtDiscovered = new Set();
+        let wjtToastTimer = null;
+
+        function wjtSelect(comp, el) {
+            document.querySelectorAll('.wjt').forEach(w => w.classList.remove('wjt-active'));
+            el.classList.add('wjt-active');
+
+            const info = compInfo[comp];
+            if (!info) return;
+
+            wjtDiscovered.add(comp);
+            const counter = document.getElementById('wjtCount');
+            if (counter) counter.textContent = wjtDiscovered.size;
+
+            const panel = document.getElementById('wjtInfo');
+            panel.innerHTML = `
+                <p class="text-white font-sans font-bold text-base mb-2">${info.name}</p>
+                <p class="text-slate-300 font-serif text-sm leading-relaxed mb-3">${info.desc}</p>
+                <p class="text-slate-500 font-sans font-bold text-[10px] uppercase tracking-widest mb-1">Pídeselo a Claude así:</p>
+                <p class="text-claude font-mono text-xs leading-relaxed m-0">«${info.pide}»</p>
+            `;
+        }
+
+        function wjtShowToast() {
+            const toast = document.getElementById('wjtToast');
+            if (!toast) return;
+            toast.classList.remove('hidden');
+            if (wjtToastTimer) clearTimeout(wjtToastTimer);
+            wjtToastTimer = setTimeout(() => toast.classList.add('hidden'), 3500);
+        }
+
+        // 3. Quiz
+        const quizData = [
+            {
+                question: "Si ya tenemos Obsidian y Claude Code, ¿para qué construimos un portal?",
+                options: [
+                    { text: "Para sustituir al vault, que se queda obsoleto.", correct: false },
+                    { text: "Para que cualquiera del equipo use el cerebro con botones, sin terminal ni conocimientos técnicos.", correct: true },
+                    { text: "Porque Obsidian no funciona en empresas.", correct: false },
+                    { text: "Para vender la web a los clientes.", correct: false }
+                ]
+            },
+            {
+                question: "La doble cara de Claude en este proyecto:",
+                options: [
+                    { text: "Claude Code construye el portal; Claude por API es el motor que vive dentro y responde a cada botón.", correct: true },
+                    { text: "Son lo mismo con dos nombres comerciales.", correct: false },
+                    { text: "Claude Code responde a los usuarios y la API escribe el código.", correct: false },
+                    { text: "La API solo sirve para cobrar a los clientes.", correct: false }
+                ]
+            },
+            {
+                question: "Tu suscripción de Claude (plan Team), ¿cubre las llamadas que hace el portal?",
+                options: [
+                    { text: "Sí, todo va en la misma cuota.", correct: false },
+                    { text: "Sí, si el equipo tiene menos de 10 personas.", correct: false },
+                    { text: "No: la API es un producto aparte, con su propia key y facturación por uso.", correct: true },
+                    { text: "No hace falta pagar nada: la API es gratuita.", correct: false }
+                ]
+            },
+            {
+                question: "\"Privado ≠ local\": al usar Claude por API…",
+                options: [
+                    { text: "Todo sigue siendo 100% local, como el vectorizador.", correct: false },
+                    { text: "Los datos viajan a Anthropic, que no entrena con ellos y los trata como confidenciales bajo contrato — por eso el PII sensible sigue fuera.", correct: true },
+                    { text: "Anthropic publica los datos para mejorar sus modelos.", correct: false },
+                    { text: "Al pagar la API, ya dan igual las reglas de privacidad.", correct: false }
+                ]
+            },
+            {
+                question: "La API key…",
+                options: [
+                    { text: "Es pública: puede ir en el código de la web sin problema.", correct: false },
+                    { text: "Se guarda en una nota del vault para no perderla.", correct: false },
+                    { text: "Es una credencial secreta: vive en el .env del servidor, nunca en el navegador ni en un repositorio.", correct: true },
+                    { text: "Se comparte con los clientes para que usen el portal.", correct: false }
+                ]
+            },
+            {
+                question: "¿Qué es un accionable?",
+                options: [
+                    { text: "Un enlace que lleva a otra pantalla.", correct: false },
+                    { text: "Un botón que ejecuta una tarea completa de principio a fin: lee del cerebro, produce con Claude y guarda el resultado.", correct: true },
+                    { text: "Una etiqueta de color que indica un estado.", correct: false },
+                    { text: "Un gráfico interactivo.", correct: false }
+                ]
+            },
+            {
+                question: "En el kanban del portal, la \"fuente de verdad\" es…",
+                options: [
+                    { text: "La base de datos secreta de la web.", correct: false },
+                    { text: "Las notas del vault: el tablero es solo una vista, y mover una tarjeta actualiza su nota.", correct: true },
+                    { text: "Una hoja de cálculo aparte.", correct: false },
+                    { text: "La memoria del navegador.", correct: false }
+                ]
+            },
+            {
+                question: "El CRM de esta clase sirve para…",
+                options: [
+                    { text: "Facturar y cobrar a los clientes.", correct: false },
+                    { text: "Enviar campañas de email masivas.", correct: false },
+                    { text: "Sustituir el programa de contabilidad.", correct: false },
+                    { text: "Gobernanza: ver el estado de cada relación (activo, en riesgo…) y ponerse al día antes de cada reunión.", correct: true }
+                ]
+            },
+            {
+                question: "La regla de oro de la ingesta:",
+                options: [
+                    { text: "Vista previa y aprobación: el portal nunca escribe en el vault sin tu OK.", correct: true },
+                    { text: "Guardar directamente todo lo que llegue, cuanto antes mejor.", correct: false },
+                    { text: "Solo se pueden ingerir archivos PDF.", correct: false },
+                    { text: "La ingesta borra las notas antiguas para hacer sitio.", correct: false }
+                ]
+            }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = '';
+
+            quizData.forEach((q, idx) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'mb-8';
+                qDiv.innerHTML = `
+                    <h4 class="text-xl font-bold text-white mb-4">
+                        <span class="text-claude">${idx + 1}.</span> ${q.question}
+                    </h4>
+                    <div class="space-y-3">
+                        ${q.options.map((opt, optIdx) => `
+                            <div class="quiz-option flex items-center p-4 rounded-xl border border-slate-700 bg-slate-800/40 cursor-pointer transition-colors" onclick="selectAnswer(event, ${idx}, ${optIdx})">
+                                <input type="radio" name="q${idx}" value="${optIdx}" class="hidden">
+                                <div class="w-5 h-5 rounded-full border-2 border-slate-500 mr-4 radio-custom flex-shrink-0 transition-colors"></div>
+                                <span class="font-serif text-sm">${opt.text}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(qDiv);
+            });
+        }
+
+        function selectAnswer(e, qIdx, optIdx) {
+            const optionContainer = e.currentTarget;
+            const parentDiv = optionContainer.closest('.space-y-3');
+
+            parentDiv.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('border-brand-accent', 'bg-brand-primary/10');
+                opt.classList.add('border-slate-700', 'bg-slate-800/40');
+                const radio = opt.querySelector('.radio-custom');
+                radio.className = "w-5 h-5 rounded-full border-2 border-slate-500 mr-4 radio-custom flex-shrink-0 transition-colors";
+            });
+
+            optionContainer.classList.remove('border-slate-700', 'bg-slate-800/40');
+            optionContainer.classList.add('border-brand-accent', 'bg-brand-primary/10');
+
+            const radio = optionContainer.querySelector('.radio-custom');
+            radio.className = "w-5 h-5 rounded-full border-2 border-brand-accent bg-brand-accent mr-4 radio-custom flex-shrink-0 transition-colors";
+
+            optionContainer.querySelector('input').checked = true;
+        }
+
+        function submitQuiz() {
+            let correctCount = 0;
+            let answered = true;
+
+            quizData.forEach((q, idx) => {
+                if (!document.querySelector(`input[name="q${idx}"]:checked`)) answered = false;
+            });
+
+            const resultDiv = document.getElementById('quiz-result');
+
+            if (!answered) {
+                resultDiv.className = "mt-6 p-4 rounded-xl font-bold font-sans text-center bg-red-900/30 text-red-400 border border-red-500/50 block";
+                resultDiv.innerHTML = "<i class='fa-solid fa-triangle-exclamation mr-2'></i> Por favor, responde a todas las preguntas antes de validar.";
+                return;
+            }
+
+            const btn = document.getElementById('validateBtn');
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            quizData.forEach((q, idx) => {
+                const selected = document.querySelector(`input[name="q${idx}"]:checked`);
+                const optIdx = parseInt(selected.value);
+                const isCorrect = q.options[optIdx].correct;
+
+                const optionDiv = selected.closest('.quiz-option');
+                const parentDiv = optionDiv.parentElement;
+
+                parentDiv.style.pointerEvents = "none";
+
+                if (isCorrect) {
+                    correctCount++;
+                    optionDiv.classList.remove('border-brand-accent', 'bg-brand-primary/10');
+                    optionDiv.classList.add('border-emerald-500', 'bg-emerald-500/20', 'text-emerald-300');
+                    optionDiv.querySelector('.radio-custom').className = "w-5 h-5 rounded-full bg-emerald-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-[10px] fa-solid fa-check border-emerald-500";
+                } else {
+                    optionDiv.classList.remove('border-brand-accent', 'bg-brand-primary/10');
+                    optionDiv.classList.add('border-red-500', 'bg-red-500/20', 'text-red-300');
+                    optionDiv.querySelector('.radio-custom').className = "w-5 h-5 rounded-full bg-red-500 mr-4 flex-shrink-0 flex items-center justify-center text-white text-[10px] fa-solid fa-xmark border-red-500";
+
+                    const allOptions = parentDiv.querySelectorAll('.quiz-option');
+                    q.options.forEach((opt, oIdx) => {
+                        if (opt.correct) {
+                            allOptions[oIdx].classList.remove('border-slate-700', 'bg-slate-800/40');
+                            allOptions[oIdx].classList.add('border-emerald-500', 'bg-emerald-500/20', 'text-emerald-300');
+                        }
+                    });
+                }
+            });
+
+            resultDiv.className = "mt-8 p-6 rounded-2xl font-sans text-center bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 block";
+
+            const percentage = Math.round((correctCount / quizData.length) * 100);
+            let feedback = "";
+            if (percentage === 100) feedback = "¡Perfecto! Ya piensas como un director de producto.";
+            else if (percentage >= 70) feedback = "¡Gran trabajo! Tienes el vocabulario para encargar tu portal.";
+            else feedback = "Repasa el diccionario de piezas y la sección del motor (Claude por API).";
+
+            resultDiv.innerHTML = `
+                <div class="text-3xl mb-3 font-bold"><i class="fa-solid fa-ranking-star mr-2"></i> Puntuación: ${correctCount} / ${quizData.length}</div>
+                <div class="text-base font-serif text-emerald-100/80">${feedback}</div>
+            `;
+        }
+
+        // 4. Init
+        document.addEventListener('DOMContentLoaded', () => {
+            renderQuiz();
+
+            // Widget listeners
+            document.querySelectorAll('[data-comp]').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const comp = el.getAttribute('data-comp');
+                    wjtSelect(comp, el);
+                    if (comp === 'accionable') wjtShowToast();
+                });
+            });
+
+            // Scroll Observer for Fade-ins
+            const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in-on-scroll').forEach(el => observer.observe(el));
+
+            // Progress Bar
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrolled = (scrollTop / docHeight) * 100;
+                document.getElementById('progressBar').style.width = scrolled + '%';
+            });
+        });
+    </script>
+</body>
+
+</html>
