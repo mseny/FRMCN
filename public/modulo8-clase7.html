@@ -160,7 +160,6 @@
                 <a href="#motor" class="hover:text-claude transition-colors">Motor</a>
                 <a href="#panel" class="hover:text-claude transition-colors">Panel</a>
                 <a href="#tablero" class="hover:text-claude transition-colors">Tablero</a>
-                <a href="#crm" class="hover:text-claude transition-colors">CRM</a>
                 <a href="#ingesta" class="hover:text-claude transition-colors">Ingesta</a>
                 <a href="#practica" class="hover:text-claude transition-colors text-claude">Práctica</a>
             </nav>
@@ -200,8 +199,8 @@
                 <span class="px-3 py-1 bg-orange-500/20 text-orange-300 border border-orange-500/30 rounded-full">Claude por API</span>
                 <span class="px-3 py-1 bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 rounded-full">Panel + Accionables</span>
                 <span class="px-3 py-1 bg-blue-500/20 text-blue-300 border border-blue-500/30 rounded-full">Kanban</span>
-                <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded-full">CRM de gobernanza</span>
-                <span class="px-3 py-1 bg-purple-500/20 text-purple-300 border border-purple-500/30 rounded-full">Ingesta y salida</span>
+                <span class="px-3 py-1 bg-purple-500/20 text-purple-300 border border-purple-500/30 rounded-full">Ingesta PDF · Word · Excel · PPT</span>
+                <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded-full">procesados/ y salidas/</span>
             </div>
         </div>
     </section>
@@ -214,7 +213,7 @@
 
             <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">Haz recuento de lo que ya tienes: un <strong>vault</strong> que guarda el conocimiento, un <strong>vectorizador</strong> que lo busca por significado, un <strong>tejedor</strong> que lo conecta solo y un <strong>equipo de agentes</strong> que lo mantiene sano. Un cerebro de empresa completo. Pero tiene un problema de puerta: para usarlo hay que abrir Obsidian o teclear en Claude Code. Para ti, perfecto. Para tu socio, tu comercial o tu diseñadora… una barrera. El conocimiento existe, pero <strong>solo lo aprovecha quien sabe entrar</strong>.</p>
 
-            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">La solución de hoy: un <strong>portal interno</strong> — una pequeña web app, hecha a medida y solo para tu equipo, que se sienta encima del cerebro y lo convierte en <strong>botones</strong>. Un panel que responde "¿cómo va todo?" de un vistazo, un tablero para mover tareas, una vista de clientes y una puerta por donde entra y sale la información. Es el mismo patrón que usan estudios y agencias para su "cockpit" interno, en versión esencial.</p>
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">La solución de hoy: un <strong>portal interno</strong> — una pequeña web app, hecha a medida y solo para tu equipo, que se sienta encima del cerebro y lo convierte en <strong>botones</strong>. Un panel que responde "¿cómo va todo?" de un vistazo, un tablero para mover tareas y una puerta por donde entra y sale la información. Es el mismo patrón que usan estudios y agencias para su "cockpit" interno, en versión esencial.</p>
 
             <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-6 fade-in-on-scroll">
                 <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i> <strong>Analogía — el barco:</strong> el cerebro que montaste en las clases anteriores es la <strong>sala de máquinas</strong>: potente, pero ahí abajo solo entra el ingeniero. El portal es el <strong>puente de mando</strong>: indicadores a la vista y palancas que cualquiera de la tripulación sabe accionar. Mismo barco, misma maquinaria — lo que cambia es quién puede gobernarlo.</p>
@@ -222,33 +221,28 @@
 
             <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-key text-brand-primary mr-2"></i> El giro de esta clase: no programar, sino saber nombrar</h3>
 
-            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">Igual que en fotografía no hacía falta saber de cámaras sino de <em>vocabulario</em> (¿recuerdas las 7 capas?), para encargarle software a Claude no hace falta saber programar: hace falta saber <strong>nombrar las piezas</strong>. Quien dice "hazme una web para ver cómo va mi negocio" recibe una adivinanza; quien dice "una navbar, tres KPI cards, un gráfico de líneas y una tabla con badges de estado" recibe <em>exactamente</em> su plano. Por eso la primera mitad de la clase es un <strong>diccionario</strong> y la segunda, las <strong>cuatro pantallas</strong> del portal.</p>
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">Igual que en fotografía no hacía falta saber de cámaras sino de <em>vocabulario</em> (¿recuerdas las 7 capas?), para encargarle software a Claude no hace falta saber programar: hace falta saber <strong>nombrar las piezas</strong>. Quien dice "hazme una web para ver cómo va mi negocio" recibe una adivinanza; quien dice "una navbar, tres KPI cards, un gráfico de líneas y una tabla con badges de estado" recibe <em>exactamente</em> su plano. Por eso la primera mitad de la clase es un <strong>diccionario</strong> y la segunda, las <strong>tres pantallas</strong> del portal.</p>
 
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 fade-in-on-scroll">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 fade-in-on-scroll">
                 <div class="bg-indigo-50 border border-indigo-100 p-6 rounded-2xl shadow-sm text-center">
                     <div class="w-12 h-12 bg-brand-primary text-white rounded-xl flex items-center justify-center text-xl mb-4 mx-auto"><i class="fa-solid fa-gauge-high"></i></div>
                     <h4 class="font-bold text-brand-dark text-base mb-1">Panel · VER</h4>
-                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Cómo va todo, en 5 segundos. KPIs, objetivos y las palancas (accionables).</p>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Cómo va todo, en 5 segundos. KPIs, objetivos, las palancas (accionables) y el chat con el cerebro.</p>
                 </div>
                 <div class="bg-blue-50 border border-blue-100 p-6 rounded-2xl shadow-sm text-center">
                     <div class="w-12 h-12 bg-blue-600 text-white rounded-xl flex items-center justify-center text-xl mb-4 mx-auto"><i class="fa-solid fa-table-columns"></i></div>
                     <h4 class="font-bold text-brand-dark text-base mb-1">Tablero · MOVER</h4>
                     <p class="font-serif text-gray-600 text-sm leading-relaxed">Un kanban del proyecto activo: las tareas cambian de columna al avanzar.</p>
                 </div>
-                <div class="bg-emerald-50 border border-emerald-100 p-6 rounded-2xl shadow-sm text-center">
-                    <div class="w-12 h-12 bg-emerald-600 text-white rounded-xl flex items-center justify-center text-xl mb-4 mx-auto"><i class="fa-solid fa-address-book"></i></div>
-                    <h4 class="font-bold text-brand-dark text-base mb-1">Clientes · CUIDAR</h4>
-                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Un CRM de gobernanza: el estado de cada relación, no la facturación.</p>
-                </div>
                 <div class="bg-purple-50 border border-purple-100 p-6 rounded-2xl shadow-sm text-center">
                     <div class="w-12 h-12 bg-purple-600 text-white rounded-xl flex items-center justify-center text-xl mb-4 mx-auto"><i class="fa-solid fa-right-left"></i></div>
                     <h4 class="font-bold text-brand-dark text-base mb-1">Ingesta · ALIMENTAR</h4>
-                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Lo que entra se hace nota; lo que sale se hace informe. El bucle completo.</p>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Sueltas un PDF, un Word o un Excel y se hace nota; lo generado aterriza en <code>salidas/</code>. El bucle completo.</p>
                 </div>
             </div>
 
             <div class="bg-white p-6 rounded-r-xl border-l-4 border-claude shadow-sm my-6 fade-in-on-scroll">
-                <p class="font-serif text-gray-700 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-info text-claude mr-2"></i> <strong>Cómo leer esta clase:</strong> primero el <strong>idioma</strong> (secciones 2 y 3: la estructura y las piezas de cualquier web), luego el <strong>motor</strong> (sección 4: Claude por API, con sus reglas de privacidad) y después las <strong>cuatro pantallas</strong>, cada una con su <strong>prompt para copiar y pegar</strong> en Claude Code. Como siempre en este módulo: tú describes, Claude construye, tú apruebas.</p>
+                <p class="font-serif text-gray-700 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-info text-claude mr-2"></i> <strong>Cómo leer esta clase:</strong> primero el <strong>idioma</strong> (secciones 2 y 3: la estructura y las piezas de cualquier web), luego el <strong>motor</strong> (sección 4: Claude por API, con sus reglas de privacidad) y después las <strong>tres pantallas</strong>, cada una con su <strong>prompt para copiar y pegar</strong> en Claude Code. Como siempre en este módulo: tú describes, Claude construye, tú apruebas.</p>
             </div>
 
         </div>
@@ -305,7 +299,7 @@
                 <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
                     <div class="w-12 h-12 bg-indigo-50 text-brand-primary rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-table-list"></i></div>
                     <h5 class="font-bold text-brand-dark text-base mb-2">Sidebar</h5>
-                    <p class="font-serif text-gray-600 text-sm leading-relaxed">El menú lateral, siempre a la vista. Se pide cuando hay <strong>muchas secciones</strong>; si tu portal tiene 4 pantallas, con la navbar basta. Menos es más.</p>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">El menú lateral, siempre a la vista. Se pide cuando hay <strong>muchas secciones</strong>; si tu portal tiene tres pantallas, con la navbar basta. Menos es más.</p>
                 </div>
                 <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm card-hover">
                     <div class="w-12 h-12 bg-indigo-50 text-brand-primary rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-square"></i></div>
@@ -371,7 +365,7 @@
                                             <span class="text-[10px] font-bold text-white font-mono">MI MARCA</span>
                                         </div>
                                         <div class="flex gap-2 text-[9px] font-mono text-slate-400">
-                                            <span class="text-white font-bold">Panel</span><span>Tablero</span><span>Clientes</span><span>Ingesta</span>
+                                            <span class="text-white font-bold">Panel</span><span>Tablero</span><span>Ingesta</span>
                                         </div>
                                         <span class="w-4 h-4 rounded-full bg-indigo-500/70"></span>
                                     </div>
@@ -396,8 +390,8 @@
                                                     <p class="text-sm font-bold text-white m-0 font-sans">17 <span class="text-[8px] text-red-400">▲3</span></p>
                                                 </div>
                                                 <div data-comp="kpi" class="wjt bg-slate-900 border border-slate-800 rounded p-1.5">
-                                                    <p class="text-[8px] font-mono text-slate-500 m-0">CLIENTES ACTIVOS</p>
-                                                    <p class="text-sm font-bold text-white m-0 font-sans">9 <span class="text-[8px] text-emerald-400">▲1</span></p>
+                                                    <p class="text-[8px] font-mono text-slate-500 m-0">PROYECTOS ACTIVOS</p>
+                                                    <p class="text-sm font-bold text-white m-0 font-sans">3 <span class="text-[8px] text-emerald-400">▲1</span></p>
                                                 </div>
                                             </div>
                                             <div class="grid grid-cols-2 gap-2">
@@ -432,15 +426,15 @@
                                             </div>
                                             <!-- table -->
                                             <div data-comp="tabla" class="wjt bg-slate-900 border border-slate-800 rounded p-1.5">
-                                                <p class="text-[8px] font-mono text-slate-500 m-0 mb-1">CLIENTES</p>
+                                                <p class="text-[8px] font-mono text-slate-500 m-0 mb-1">TAREAS</p>
                                                 <div class="space-y-1 text-[9px] font-mono">
                                                     <div class="flex justify-between items-center text-slate-300">
-                                                        <span>Zapatería Norte</span>
-                                                        <span data-comp="badge" class="wjt px-1.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[8px]">activo</span>
+                                                        <span>Publicar catálogo otoño</span>
+                                                        <span data-comp="badge" class="wjt px-1.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[8px]">hecha</span>
                                                     </div>
                                                     <div class="flex justify-between items-center text-slate-300">
-                                                        <span>Boutique Eixample</span>
-                                                        <span data-comp="badge" class="wjt px-1.5 rounded-full bg-amber-500/20 text-amber-300 text-[8px]">en riesgo</span>
+                                                        <span>Sesión de fotos AW26</span>
+                                                        <span data-comp="badge" class="wjt px-1.5 rounded-full bg-amber-500/20 text-amber-300 text-[8px]">en curso</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -570,7 +564,7 @@
                 <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm text-center">
                     <div class="w-9 h-9 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center mx-auto text-base mb-2"><i class="fa-solid fa-box-archive"></i></div>
                     <p class="font-sans font-bold text-gray-800 text-xs mb-1">5 · El aterrizaje</p>
-                    <p class="font-serif text-gray-500 text-xs leading-relaxed m-0">El portal lo muestra y, si toca, lo guarda como nota en el vault.</p>
+                    <p class="font-serif text-gray-500 text-xs leading-relaxed m-0">El portal lo muestra y lo deja en su sitio: nota en el vault o documento en <code>salidas/</code>.</p>
                 </div>
             </div>
 
@@ -634,11 +628,11 @@
 
             <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll"><span class="w-10 h-10 bg-brand-primary text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">5</span> Pantalla 1 — El panel: KPIs, objetivos y accionables</h2>
 
-            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">La <strong>landing</strong> de tu portal — lo primero que ve quien entra — tiene un único trabajo: responder <em>"¿cómo va todo?"</em> en cinco segundos. Tres franjas, de arriba abajo: los <strong>números</strong> (KPI cards), el <strong>estado</strong> (objetivos y tareas con sus badges) y las <strong>palancas</strong> (los accionables). Nada más: el detalle vive en las otras pantallas.</p>
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">La <strong>landing</strong> de tu portal — lo primero que ve quien entra — tiene un único trabajo: responder <em>"¿cómo va todo?"</em> en cinco segundos. Tres franjas, de arriba abajo: los <strong>números</strong> (KPI cards), el <strong>estado</strong> (objetivos y tareas con sus badges) y las <strong>palancas</strong> (los accionables) — más el <strong>chat</strong> abajo del todo, para preguntarle al cerebro en lenguaje natural. El detalle vive en las otras pantallas.</p>
 
             <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-bolt text-brand-accent mr-2"></i> Los accionables: botones que trabajan</h3>
 
-            <p class="prose-text mb-6 text-gray-600 fade-in-on-scroll">La pieza estrella del panel. Un <strong>accionable</strong> no navega a otra pantalla: <strong>ejecuta una tarea completa</strong>, de principio a fin. Cada accionable empaqueta detrás de un botón algo que hasta hoy hacías tú a mano en la terminal: leer del cerebro → producir un resultado con Claude → dejarlo en su sitio. Para definir uno bien, rellena siempre estas cuatro casillas:</p>
+            <p class="prose-text mb-6 text-gray-600 fade-in-on-scroll">La pieza estrella del panel. Un <strong>accionable</strong> no navega a otra pantalla: <strong>ejecuta una tarea completa</strong>, de principio a fin. Cada accionable empaqueta detrás de un botón algo que hasta hoy hacías tú a mano en la terminal: leer del cerebro (el vault y los originales archivados en <code>procesados/</code>) → producir un resultado con Claude → dejarlo en su sitio: respuesta en el chat o documento en <code>salidas/</code>. Para definir uno bien, rellena siempre estas cuatro casillas:</p>
 
             <div class="fade-in-on-scroll mb-8 overflow-x-auto">
                 <table class="w-full text-left border-collapse bg-white rounded-xl overflow-hidden shadow-sm border border-gray-200" style="font-family: 'Inter', sans-serif;">
@@ -655,17 +649,17 @@
                             <td class="p-4 font-bold text-brand-primary" style="font-family: 'Inter', sans-serif;">⚡ Informe semanal</td>
                             <td class="p-4">Las notas de los últimos 7 días</td>
                             <td class="p-4">Un resumen ejecutivo</td>
-                            <td class="p-4">Nota nueva en el vault + pantalla</td>
+                            <td class="p-4">Documento en <code>salidas/</code> + pantalla</td>
                         </tr>
                         <tr>
                             <td class="p-4 font-bold text-brand-primary" style="font-family: 'Inter', sans-serif;">⚡ Propuesta de post</td>
                             <td class="p-4">Las novedades del cerebro</td>
                             <td class="p-4">Un borrador para redes</td>
-                            <td class="p-4">Pantalla, para revisar y copiar</td>
+                            <td class="p-4"><code>salidas/</code>, para revisar y copiar</td>
                         </tr>
                         <tr>
                             <td class="p-4 font-bold text-brand-primary" style="font-family: 'Inter', sans-serif;">⚡ Resumen de reunión</td>
-                            <td class="p-4">La última acta ingerida</td>
+                            <td class="p-4">La última acta de <code>procesados/</code></td>
                             <td class="p-4">Acuerdos + tareas detectadas</td>
                             <td class="p-4">Nota + tarjetas en el tablero</td>
                         </tr>
@@ -685,23 +679,32 @@
                         <span class="text-sm font-mono text-brand-accent font-bold uppercase tracking-wider"><i class="fa-solid fa-terminal mr-2"></i> Prompt · el panel de mando</span>
                         <button onclick="copyToClipboard('cb-panel', this)" class="text-xs font-bold text-slate-400 hover:text-white transition-colors border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg bg-slate-900 flex items-center"><i class="fa-regular fa-copy mr-2"></i> Copiar</button>
                     </div>
-                    <div id="cb-panel" class="p-6 font-mono text-gray-200 text-xs md:text-sm leading-relaxed whitespace-pre-wrap">Quiero construir mi portal interno: una web app que corra en local y sea el panel de mando de mi negocio, conectada a mi cerebro de notas (vault de Obsidian) y a Claude por API. Elige tú el framework más sencillo posible y empieza por la pantalla principal, "Panel":
+                    <div id="cb-panel" class="p-6 font-mono text-gray-200 text-xs md:text-sm leading-relaxed whitespace-pre-wrap">Quiero construir mi portal interno: una web app que corra en local y sea el panel de mando de mi negocio, conectada a mi cerebro de notas (vault de Obsidian) y a Claude por API.
 
-1. Una navbar fija con el logo y las secciones: Panel, Tablero, Clientes e Ingesta.
-2. Una fila de KPI cards calculadas leyendo mi vault (por ejemplo: tareas abiertas, notas creadas esta semana, proyectos activos), cada una con su tendencia.
-3. Una lista de "Objetivos y tareas" con badge de estado (pendiente / en curso / hecha), leída de mis notas de tareas.
-4. Una zona de "Accionables": botones que ejecutan tareas completas. Crea los dos primeros:
-   - "Informe semanal": lee las notas de los últimos 7 días, genera un resumen ejecutivo con Claude por API, lo muestra en pantalla y lo guarda como nota nueva en el vault.
-   - "Propuesta de post": lee las novedades del cerebro y redacta un borrador de post para redes, solo en pantalla.
-   Cada accionable muestra un estado de carga mientras trabaja y un toast al terminar.
-5. Todo responsive.
+STACK — úsalo tal cual:
+- Next.js (App Router) + Tailwind CSS para la interfaz.
+- Las llamadas a Claude SIEMPRE desde el servidor (route handlers), con el SDK oficial de Anthropic para Node (@anthropic-ai/sdk) y el modelo claude-opus-4-8.
+- La API key en .env.local como ANTHROPIC_API_KEY (añade .env.local al .gitignore); el navegador jamás debe verla.
+- El vault es una carpeta local de archivos .md: léela con el filesystem de Node y parsea el frontmatter con gray-matter. Su ruta va en .env.local como VAULT_PATH.
+- Dentro del vault trabajaremos con dos carpetas: procesados/ (originales ya ingeridos) y salidas/ (documentos generados). Créalas si no existen.
 
-Seguridad: la API key de Claude va en un archivo .env que NUNCA se sube al repositorio, y las llamadas a Claude se hacen desde el servidor — el navegador jamás debe ver la key. Explícame cómo arrancar la app, cómo poner mi key y cómo añadir nuevos accionables en el futuro.</div>
+Pantalla "Panel" (la principal):
+1. Navbar fija con el logo y las secciones: Panel, Tablero e Ingesta.
+2. Una fila de KPI cards calculadas leyendo el vault (tareas abiertas, notas creadas esta semana, proyectos activos), cada una con su tendencia.
+3. Lista de "Objetivos y tareas" con badge de estado (pendiente / en curso / hecha), leída del frontmatter de mis notas de tareas.
+4. Zona de "Accionables": botones que ejecutan tareas completas leyendo el vault y los archivos de procesados/. Crea los dos primeros:
+   - "Informe semanal": lee las notas de los últimos 7 días, genera un resumen ejecutivo con Claude y lo deja como documento .md en salidas/ (con la fecha en el nombre), además de mostrarlo en pantalla.
+   - "Propuesta de post": lee las novedades del cerebro y redacta un borrador de post para redes; en pantalla y a salidas/.
+   Estado de carga mientras trabajan y toast al terminar.
+5. Un chat abajo ("Pregunta a tu cerebro"): responde con Claude usando como contexto las notas relevantes del vault y de procesados/ — nunca el vault entero: selecciona por etiquetas y coincidencia de texto (o usa mi buscador semántico local de la clase anterior si está disponible).
+6. Todo responsive.
+
+Explícame cómo arrancarlo (npm run dev), dónde poner la key y la ruta del vault, y cómo añadir un accionable nuevo en el futuro.</div>
                 </div>
             </div>
 
             <div class="bg-white p-6 rounded-r-xl border-l-4 border-claude shadow-sm my-6 fade-in-on-scroll">
-                <p class="font-serif text-gray-700 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-info text-claude mr-2"></i> <strong>Qué esperar:</strong> Claude Code montará el proyecto, te pedirá la API key (recuerda: al <code>.env</code>) y te dará un comando para arrancar el portal en tu navegador. A partir de ahí, cada mejora es una frase: <em>"añade una KPI card con el gasto del mes"</em>. El portal crece conversando.</p>
+                <p class="font-serif text-gray-700 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-info text-claude mr-2"></i> <strong>Qué esperar:</strong> Claude Code montará el proyecto Next.js, te pedirá la API key y la ruta del vault (al <code>.env.local</code>) y te dará el comando para arrancar el portal en tu navegador. A partir de ahí, cada mejora es una frase: <em>"añade una KPI card con el gasto del mes"</em>. El portal crece conversando.</p>
             </div>
 
         </div>
@@ -750,12 +753,14 @@ Seguridad: la API key de Claude va en un archivo .env que NUNCA se sube al repos
                     </div>
                     <div id="cb-kanban" class="p-6 font-mono text-gray-200 text-xs md:text-sm leading-relaxed whitespace-pre-wrap">Añade a mi portal la pantalla "Tablero": un kanban para UN solo proyecto (el activo).
 
+STACK: el mismo del portal — Next.js (App Router) + Tailwind CSS. Para el arrastre usa una librería ligera de drag & drop (por ejemplo @dnd-kit). Las tareas se leen y escriben como archivos .md del vault con gray-matter: nada de base de datos.
+
 1. Cuatro columnas: Por hacer, En curso, Validar y Hecho.
 2. Cada tarjeta es una tarea con título, etiqueta de área y fecha.
 3. Las tarjetas se arrastran entre columnas (drag & drop).
-4. MUY IMPORTANTE — la fuente de verdad es mi cerebro: cada tarea vive como nota en mi vault de Obsidian, con su estado en el frontmatter. El tablero es solo una vista: al crear una tarjeta se crea su nota, y al arrastrarla de columna se actualiza el estado en esa nota. Si edito la nota a mano en Obsidian, el tablero lo refleja al recargar.
+4. MUY IMPORTANTE — la fuente de verdad es mi cerebro: cada tarea vive como nota .md del vault, con su estado en el frontmatter (estado: por-hacer | en-curso | validar | hecho). El tablero es solo una vista: crear una tarjeta = crear su nota; arrastrarla de columna = actualizar ese frontmatter, sin tocar el resto de la nota. Si edito la nota a mano en Obsidian, el tablero lo refleja al recargar.
 5. Un botón "Nueva tarea" que abra un modal con un formulario sencillo (título, área, fecha) con validación.
-6. Estado vacío amable si una columna no tiene tarjetas.
+6. Estado vacío amable si una columna se queda sin tarjetas.
 
 Mantén el estilo del resto del portal y dime qué archivos has tocado.</div>
                 </div>
@@ -764,85 +769,37 @@ Mantén el estilo del resto del portal y dime qué archivos has tocado.</div>
         </div>
     </section>
 
-    <!-- 7. EL CRM -->
-    <section id="crm" class="py-20 bg-white border-t border-gray-200">
+    <!-- 7. INGESTA Y SALIDA -->
+    <section id="ingesta" class="py-20 bg-white border-t border-gray-200">
         <div class="max-w-5xl mx-auto px-6">
 
-            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll"><span class="w-10 h-10 bg-emerald-600 text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">7</span> Pantalla 3 — Los clientes: un CRM de gobernanza</h2>
+            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll"><span class="w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">7</span> Pantalla 3 — Ingesta y salida: cerrar el bucle</h2>
 
-            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">Un <strong>CRM</strong> (<em>Customer Relationship Management</em>) es, en el fondo, la memoria comercial del negocio: quién es cada cliente, en qué estado está la relación y cuándo fue el último contacto. Los CRM comerciales (Salesforce, HubSpot…) son transatlánticos: facturan, automatizan campañas, miden embudos. El nuestro es deliberadamente más humilde y más útil: un CRM <strong>de gobernanza</strong>. Sirve para <strong>ver y cuidar</strong> las relaciones — no para cobrar, ni contabilizar, ni mandar emails masivos.</p>
-
-            <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-6 fade-in-on-scroll">
-                <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i> <strong>Analogía — la libreta del buen tendero:</strong> el tendero de barrio apunta quién vino, qué se llevó y qué le preocupa — y por eso te recibe por tu nombre y con tu pedido en mente. Esa libreta es nuestro CRM. La <strong>caja registradora es otra máquina</strong>: la facturación se queda en tu programa de contabilidad de siempre. Ver ≠ facturar.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 fade-in-on-scroll">
-                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-sm">
-                    <h5 class="font-bold text-brand-dark text-sm mb-2"><i class="fa-solid fa-table text-emerald-600 mr-2"></i> La tabla de clientes</h5>
-                    <p class="font-serif text-gray-600 text-sm leading-relaxed m-0">Columnas: nombre, <strong>estado</strong> (badge de color), último contacto y proyecto relacionado. Con buscador y ordenable. Estados de salud: <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-xs font-sans font-bold">activo</span> <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 text-xs font-sans font-bold">en riesgo</span> <span class="px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 text-xs font-sans font-bold">potencial</span> <span class="px-2 py-0.5 rounded-full bg-gray-200 text-gray-600 text-xs font-sans font-bold">dormido</span>. Y el detalle elegante: <strong>"en riesgo" se calcula solo</strong> — más de 30 días sin contacto según tus notas.</p>
-                </div>
-                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-sm">
-                    <h5 class="font-bold text-brand-dark text-sm mb-2"><i class="fa-solid fa-id-card text-emerald-600 mr-2"></i> La ficha + el accionable "Ponme al día"</h5>
-                    <p class="font-serif text-gray-600 text-sm leading-relaxed m-0">Al pulsar un cliente: su ficha, con sus notas del cerebro. Y la joya de la corona — un accionable que recupera todo lo que sabes de ese cliente y le pide a Claude un <strong>resumen ejecutivo de la relación</strong>: última conversación, temas abiertos, siguiente paso sugerido. Dos minutos antes de cada reunión, y entras sabiéndolo todo.</p>
-                </div>
-            </div>
-
-            <div class="bg-emerald-50 p-6 rounded-r-xl border-l-4 border-emerald-500 shadow-sm my-6 fade-in-on-scroll">
-                <p class="font-serif text-emerald-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-shield-halved text-emerald-500 mr-2"></i> <strong>Ojo con los datos personales:</strong> un CRM roza la PII. Nombre de empresa, persona de contacto, estados y fechas: sí. DNI, cuentas bancarias, contratos, datos de salud: <strong>fuera del vault</strong>, como siempre — se referencian ("contrato en la carpeta X"), no se copian. Doble motivo desde hoy: lo que no está en el cerebro nunca viajará a una API.</p>
-            </div>
-
-            <div class="fade-in-on-scroll mb-8">
-                <div class="bg-slate-900 text-white rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
-                    <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex justify-between items-center">
-                        <span class="text-sm font-mono text-brand-accent font-bold uppercase tracking-wider"><i class="fa-solid fa-terminal mr-2"></i> Prompt · el CRM de gobernanza</span>
-                        <button onclick="copyToClipboard('cb-crm', this)" class="text-xs font-bold text-slate-400 hover:text-white transition-colors border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg bg-slate-900 flex items-center"><i class="fa-regular fa-copy mr-2"></i> Copiar</button>
-                    </div>
-                    <div id="cb-crm" class="p-6 font-mono text-gray-200 text-xs md:text-sm leading-relaxed whitespace-pre-wrap">Añade a mi portal la pantalla "Clientes": un CRM ligero, SOLO de gobernanza (ver el estado de cada relación; nada de facturación ni pagos).
-
-1. Una tabla de clientes con columnas: nombre, estado (badge de color), último contacto y proyecto relacionado. Con buscador que filtra mientras escribo, y ordenable por columna.
-2. Estados: activo (verde), en riesgo (ámbar), potencial (azul) y dormido (gris). "En riesgo" se calcula solo: más de 30 días sin contacto según las fechas de mis notas.
-3. La fuente de verdad es el vault: cada cliente es una nota con su frontmatter (nombre, estado, fechas, proyecto); la tabla se construye leyendo esas notas.
-4. Al pulsar un cliente, su ficha: datos del frontmatter + la lista de sus notas relacionadas.
-5. En la ficha, un accionable "Ponme al día": recupera las notas de ese cliente y pide a Claude por API un resumen ejecutivo de la relación (última conversación, temas abiertos, siguiente paso sugerido), con estado de carga mientras trabaja.
-
-Recuerda: datos personales sensibles fuera — aquí solo nombres, empresas, estados y fechas.</div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- 8. INGESTA Y SALIDA -->
-    <section id="ingesta" class="py-20 bg-brand-light border-t border-gray-200">
-        <div class="max-w-5xl mx-auto px-6">
-
-            <h2 class="text-3xl font-bold text-brand-dark mb-8 flex items-center fade-in-on-scroll"><span class="w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center mr-4 text-xl shadow-lg shrink-0">8</span> Pantalla 4 — Ingesta y salida: cerrar el bucle</h2>
-
-            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">Hasta aquí, el portal <strong>lee</strong> el cerebro. Falta el bucle completo: que también lo <strong>alimente</strong> (ingesta) y que los resultados puedan <strong>salir</strong> hacia el mundo (salida). Con esta pantalla, el portal se convierte en la <strong>membrana</strong> del cerebro: todo lo que entra pasa por ella, todo lo que sale lleva su sello.</p>
+            <p class="prose-text mb-8 text-gray-600 fade-in-on-scroll">Hasta aquí, el portal <strong>lee</strong> el cerebro. Falta el bucle completo: que también lo <strong>alimente</strong> (ingesta) y que los resultados puedan <strong>salir</strong> hacia el mundo (salida). La ingesta acepta lo que de verdad circula por un negocio — <strong>PDF, Word, Excel y PowerPoint</strong>, además de texto — y el ciclo de vida tiene tres paradas: la <strong>bandeja de entrada</strong> (lo que sueltas), <code>procesados/</code> (los originales ya convertidos en notas, archivados con su fecha) y <code>salidas/</code> (los documentos que el portal genera). El portal se convierte así en la <strong>membrana</strong> del cerebro: todo lo que entra pasa por ella, todo lo que sale lleva su sello.</p>
 
             <!-- Diagrama entra/sale -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10 fade-in-on-scroll items-stretch">
                 <div class="bg-white border border-purple-200 p-6 rounded-2xl shadow-sm relative">
                     <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-file-import"></i></div>
                     <h4 class="font-bold text-brand-dark text-base mb-2">ENTRA · la ingesta</h4>
-                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Una zona de <strong>arrastrar y soltar</strong> archivos (.txt, .md, .pdf) y una caja para pegar notas rápidas o actas. Claude lo convierte en notas <em>con el formato del cerebro</em>: frontmatter, etiquetas de área y proyecto.</p>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Una zona de <strong>arrastrar y soltar</strong> para PDF, Word, Excel y PowerPoint (y .md/.txt), más una caja para pegar texto. Claude analiza el contenido y redacta notas <em>según las convenciones de tu vault</em>: frontmatter, etiquetas y enlaces.</p>
                     <span class="hidden md:block absolute top-1/2 -right-5 text-2xl text-claude z-10"><i class="fa-solid fa-arrow-right-long"></i></span>
                 </div>
                 <div class="bg-slate-800 border border-slate-700 p-6 rounded-2xl shadow-sm relative text-white">
                     <div class="w-12 h-12 bg-slate-700 text-orange-300 rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-brain"></i></div>
                     <h4 class="font-bold text-white text-base mb-2">EL CEREBRO</h4>
-                    <p class="font-serif text-slate-300 text-sm leading-relaxed">La nota nueva aterriza en su carpeta, el <strong>enlazador</strong> la conecta y el <strong>tejedor</strong> vigila que no quede huérfana. Todo lo del módulo, trabajando en cadena — el portal solo es la puerta.</p>
+                    <p class="font-serif text-slate-300 text-sm leading-relaxed">La nota aterriza en su carpeta, el <strong>enlazador</strong> la conecta y el <strong>tejedor</strong> vigila que no quede huérfana. El original se archiva en <code>procesados/</code> con su fecha: queda constancia, y los accionables pueden releerlo.</p>
                     <span class="hidden md:block absolute top-1/2 -right-5 text-2xl text-claude z-10"><i class="fa-solid fa-arrow-right-long"></i></span>
                 </div>
                 <div class="bg-white border border-emerald-200 p-6 rounded-2xl shadow-sm">
                     <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-file-export"></i></div>
                     <h4 class="font-bold text-brand-dark text-base mb-2">SALE · los resultados</h4>
-                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Todo resultado de un accionable puede: verse <strong>en pantalla</strong>, guardarse como <strong>nota</strong> (conocimiento que se queda) o descargarse como <strong>archivo</strong> (.md) para viajar fuera.</p>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Los accionables leen el vault y <code>procesados/</code>, y responden de dos formas: <strong>en el chat</strong> (respuestas al momento) o generando <strong>documentos</strong> que aterrizan en <code>salidas/</code> — visibles en pantalla y descargables.</p>
                 </div>
             </div>
 
             <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-6 fade-in-on-scroll">
-                <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i> <strong>Analogía — la aduana:</strong> en una aduana nada cruza sin registrarse: lo que entra se inspecciona y se etiqueta; lo que sale lleva su documentación. La ingesta es exactamente eso — y la <strong>vista previa</strong> es el inspector: Claude te enseña las notas que <em>propone</em> crear y <strong>no escribe nada hasta que tú apruebas</strong>. La regla de edición segura del módulo, aplicada a la puerta de entrada.</p>
+                <p class="font-serif text-amber-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-lightbulb text-brand-accent mr-2"></i> <strong>Analogía — la aduana:</strong> en una aduana nada cruza sin registrarse: lo que entra se inspecciona y se etiqueta; lo que sale lleva su documentación. La ingesta es exactamente eso — la <strong>vista previa</strong> es el inspector (Claude te enseña las notas que <em>propone</em> crear y <strong>no escribe nada hasta que tú apruebas</strong>) y <code>procesados/</code> es el registro: el original queda archivado y sellado con su fecha. La regla de edición segura del módulo, aplicada a la puerta de entrada.</p>
             </div>
 
             <div class="fade-in-on-scroll mb-8">
@@ -851,21 +808,24 @@ Recuerda: datos personales sensibles fuera — aquí solo nombres, empresas, est
                         <span class="text-sm font-mono text-brand-accent font-bold uppercase tracking-wider"><i class="fa-solid fa-terminal mr-2"></i> Prompt · ingesta y salida</span>
                         <button onclick="copyToClipboard('cb-ingesta', this)" class="text-xs font-bold text-slate-400 hover:text-white transition-colors border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg bg-slate-900 flex items-center"><i class="fa-regular fa-copy mr-2"></i> Copiar</button>
                     </div>
-                    <div id="cb-ingesta" class="p-6 font-mono text-gray-200 text-xs md:text-sm leading-relaxed whitespace-pre-wrap">Cierra el circuito de mi portal con la pantalla "Ingesta":
+                    <div id="cb-ingesta" class="p-6 font-mono text-gray-200 text-xs md:text-sm leading-relaxed whitespace-pre-wrap">Cierra el circuito de mi portal con la pantalla "Ingesta".
 
-1. Una zona de arrastrar y soltar archivos (drag & drop) que acepte .txt, .md y .pdf, y una caja de texto para pegar notas rápidas o actas de reunión.
-2. Al recibir contenido, pide a Claude por API que lo convierta en una o varias notas con el formato de mi cerebro: frontmatter (título, tipo, etiquetas de área y proyecto) y texto limpio.
-3. OBLIGATORIO: muéstrame una VISTA PREVIA de las notas propuestas y no guardes nada hasta que yo apruebe. El portal nunca escribe en el vault sin mi OK.
-4. Al aprobar, guarda cada nota en la carpeta correcta del vault, para que mi enlazador la conecte después.
-5. Añade también la "salida": cualquier resultado de un accionable (informe, resumen) debe poder (a) verse en pantalla, (b) guardarse como nota en el vault y (c) descargarse como archivo .md.
+STACK: el mismo del portal (Next.js + Tailwind; Claude desde el servidor con @anthropic-ai/sdk y el modelo claude-opus-4-8). Para extraer el texto de los archivos usa librerías de Node: pdf-parse (PDF), mammoth (Word .docx), xlsx (Excel, convirtiendo cada hoja a texto) y officeparser (PowerPoint .pptx).
 
-Estado de carga durante el procesado y toast al terminar. Mantén el estilo del portal.</div>
+El flujo completo:
+1. Una zona de arrastrar y soltar que acepte .pdf, .docx, .xlsx, .pptx, .md y .txt (varios archivos a la vez), más una caja de texto para pegar notas rápidas o actas.
+2. Al pulsar "Ingerir": extrae el texto de cada archivo y pídele a Claude que lo convierta en una o varias notas SEGÚN LAS CONVENCIONES DE MI VAULT: frontmatter (título, tipo, etiquetas area/... y proyecto/...), texto limpio en markdown y enlaces [[...]] a las notas existentes que mencione. Pásale a Claude una nota real de mi vault como ejemplo, para que copie el formato exacto.
+3. OBLIGATORIO: vista previa de las notas propuestas; no escribas nada en el vault hasta que yo apruebe.
+4. Al aprobar: guarda cada nota en su carpeta del vault y ARCHIVA el archivo original en procesados/ con la fecha en el nombre — queda constancia de qué se ingirió y los accionables podrán releerlo.
+5. La salida: todo documento generado por un accionable se guarda en salidas/ con fecha, visible en pantalla y descargable como .md.
+
+Estado de carga durante el procesado, toast al terminar y el estilo del resto del portal.</div>
                 </div>
             </div>
 
             <div class="bg-indigo-50/60 p-6 rounded-2xl border border-indigo-100 my-8 fade-in-on-scroll">
                 <h4 class="font-bold text-brand-dark text-sm uppercase mb-3"><i class="fa-solid fa-lightbulb mr-2 text-indigo-600"></i> En una frase</h4>
-                <p class="font-serif text-gray-700 text-sm leading-relaxed mb-0">El portal es la <strong>puerta bonita del cerebro</strong>: el panel lo muestra, el kanban lo mueve, el CRM lo cuida y la ingesta lo alimenta. Por debajo no hay magia nueva — hay <strong>tu vault, tu vectorizador, tus agentes y Claude por API</strong>, empaquetados detrás de botones que cualquiera de tu equipo sabe pulsar. Y las reglas de siempre mandan: la fuente de verdad es el cerebro, nada se escribe sin aprobar, y el PII sensible ni entra ni viaja.</p>
+                <p class="font-serif text-gray-700 text-sm leading-relaxed mb-0">El portal es la <strong>puerta bonita del cerebro</strong>: el panel lo muestra, el kanban lo mueve y la ingesta lo alimenta. Lo que entra se hace nota (y su original queda en <code>procesados/</code>); lo que se genera aterriza en <code>salidas/</code>. Por debajo no hay magia nueva — hay <strong>tu vault, tu vectorizador, tus agentes y Claude por API</strong>, empaquetados detrás de botones que cualquiera de tu equipo sabe pulsar. Y las reglas de siempre mandan: la fuente de verdad es el cerebro, nada se escribe sin aprobar, y el PII sensible ni entra ni viaja.</p>
             </div>
 
         </div>
@@ -906,21 +866,21 @@ Estado de carga durante el procesado y toast al terminar. Mantén el estilo del 
                                 <i class="fa-solid fa-gauge-high"></i>
                             </div>
                             <h5 class="font-bold text-white mb-2">2. Levanta el panel</h5>
-                            <p class="text-sm font-serif text-slate-400">Pega el prompt de la sección 5 en Claude Code, adaptando KPIs y accionables a tu dibujo. Configura la API key en el <code>.env</code> y comprueba que el accionable "Informe semanal" deja su nota en el vault.</p>
+                            <p class="text-sm font-serif text-slate-400">Pega el prompt de la sección 5 en Claude Code, adaptando KPIs y accionables a tu dibujo. Configura la API key y la ruta del vault en el <code>.env.local</code> y comprueba que el accionable "Informe semanal" deja su documento en <code>salidas/</code>.</p>
                         </div>
                         <div class="bg-slate-900/90 p-6 rounded-xl shadow-sm border border-slate-800 hover:border-claude transition-colors">
                             <div class="w-12 h-12 bg-blue-500/20 text-blue-300 rounded-xl flex items-center justify-center mb-5 text-xl font-bold">
                                 <i class="fa-solid fa-table-columns"></i>
                             </div>
-                            <h5 class="font-bold text-white mb-2">3. Elige tu segunda pantalla</h5>
-                            <p class="text-sm font-serif text-slate-400">¿Tu cuello de botella son las tareas o las relaciones? Kanban del lanzamiento (sección 6) o CRM de puntos de venta y colaboradores (sección 7). Construye una — la otra puede esperar.</p>
+                            <h5 class="font-bold text-white mb-2">3. Monta el tablero</h5>
+                            <p class="text-sm font-serif text-slate-400">Pega el prompt de la sección 6: el kanban del lanzamiento de tu marca, con su columna "Validar". Y comprueba el viaje de ida y vuelta: arrastra una tarjeta y mira cómo cambia el frontmatter de su nota en Obsidian.</p>
                         </div>
                         <div class="bg-slate-900/90 p-6 rounded-xl shadow-sm border border-slate-800 hover:border-claude transition-colors">
                             <div class="w-12 h-12 bg-purple-500/20 text-purple-300 rounded-xl flex items-center justify-center mb-5 text-xl font-bold">
                                 <i class="fa-solid fa-right-left"></i>
                             </div>
                             <h5 class="font-bold text-white mb-2">4. Cierra el bucle</h5>
-                            <p class="text-sm font-serif text-slate-400">Monta la ingesta (sección 8) y haz la prueba de fuego: suelta el acta de tu última reunión, aprueba las notas propuestas y lanza "Informe semanal". Si el informe menciona la reunión… tu portal está vivo.</p>
+                            <p class="text-sm font-serif text-slate-400">Monta la ingesta (sección 7) y haz la prueba de fuego: suelta el acta de tu última reunión o el Excel de costes de la marca, aprueba las notas propuestas y lanza "Informe semanal". Si el informe los menciona… tu portal está vivo.</p>
                         </div>
                     </div>
                 </div>
@@ -1013,7 +973,7 @@ Estado de carga durante el procesado y toast al terminar. Mantén el estilo del 
             navbar: {
                 name: "Navbar — la barra de navegación",
                 desc: "Barra superior fija con el logo, las secciones y el usuario. Es el mapa del portal: desde cualquier pantalla sabes dónde estás.",
-                pide: "una navbar fija con el logo a la izquierda y las secciones Panel, Tablero, Clientes e Ingesta"
+                pide: "una navbar fija con el logo a la izquierda y las secciones Panel, Tablero e Ingesta"
             },
             sidebar: {
                 name: "Sidebar — el menú lateral",
@@ -1023,7 +983,7 @@ Estado de carga durante el procesado y toast al terminar. Mantén el estilo del 
             kpi: {
                 name: "KPI card — tarjeta de métrica",
                 desc: "Un número grande que resume un indicador, con su etiqueta y su tendencia. La primera fila de cualquier panel.",
-                pide: "una fila de 3 KPI cards: ventas del mes, tareas abiertas y clientes activos, cada una con su tendencia"
+                pide: "una fila de 3 KPI cards: ventas del mes, tareas abiertas y proyectos activos, cada una con su tendencia"
             },
             chart: {
                 name: "Chart — el gráfico",
@@ -1038,12 +998,12 @@ Estado de carga durante el procesado y toast al terminar. Mantén el estilo del 
             tabla: {
                 name: "Tabla",
                 desc: "Filas y columnas para comparar registros. Pide siempre que sea ordenable y, si crece, con buscador.",
-                pide: "una tabla de clientes ordenable con columnas nombre, estado y último contacto"
+                pide: "una tabla de tareas ordenable con columnas título, estado y fecha"
             },
             badge: {
                 name: "Badge — etiqueta de estado",
-                desc: "La píldora de color que dice el estado de un vistazo, sin leer. Verde bien, ámbar atención, gris dormido.",
-                pide: "un badge de color por estado: verde activo, ámbar en riesgo, gris dormido"
+                desc: "La píldora de color que dice el estado de un vistazo, sin leer. Verde bien, ámbar atención, gris pendiente.",
+                pide: "un badge de color por estado: verde hecha, ámbar en curso, gris pendiente"
             },
             accionable: {
                 name: "Botón accionable",
@@ -1144,7 +1104,7 @@ Estado de carga durante el procesado y toast al terminar. Mantén el estilo del 
                 question: "¿Qué es un accionable?",
                 options: [
                     { text: "Un enlace que lleva a otra pantalla.", correct: false },
-                    { text: "Un botón que ejecuta una tarea completa de principio a fin: lee del cerebro, produce con Claude y guarda el resultado.", correct: true },
+                    { text: "Un botón que ejecuta una tarea completa: lee del vault y de procesados/, produce con Claude y deja el resultado en el chat o en salidas/.", correct: true },
                     { text: "Una etiqueta de color que indica un estado.", correct: false },
                     { text: "Un gráfico interactivo.", correct: false }
                 ]
@@ -1159,12 +1119,12 @@ Estado de carga durante el procesado y toast al terminar. Mantén el estilo del 
                 ]
             },
             {
-                question: "El CRM de esta clase sirve para…",
+                question: "Tras ingerir un PDF o un Excel, ¿qué pasa con el archivo original?",
                 options: [
-                    { text: "Facturar y cobrar a los clientes.", correct: false },
-                    { text: "Enviar campañas de email masivas.", correct: false },
-                    { text: "Sustituir el programa de contabilidad.", correct: false },
-                    { text: "Gobernanza: ver el estado de cada relación (activo, en riesgo…) y ponerse al día antes de cada reunión.", correct: true }
+                    { text: "Se borra para ahorrar espacio.", correct: false },
+                    { text: "Se queda en la bandeja de entrada para siempre.", correct: false },
+                    { text: "Se archiva en procesados/ con su fecha: queda constancia y los accionables pueden releerlo.", correct: true },
+                    { text: "Se sube automáticamente a la nube pública.", correct: false }
                 ]
             },
             {
