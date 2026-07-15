@@ -529,11 +529,11 @@
             <div class="grid md:grid-cols-2 gap-8 mb-10 fade-in-on-scroll">
                 <div class="bg-white border border-gray-200 p-8 rounded-2xl shadow-sm">
                     <h4 class="font-bold text-gray-400 uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-helmet-safety mr-2"></i> Claude Code · el que CONSTRUYE</h4>
-                    <p class="font-serif text-gray-600 text-sm leading-relaxed">El <strong>arquitecto</strong>. Lo usas tú, en la terminal, para crear el portal y para cambiarlo ("añade una columna al kanban"). Trabaja una vez y se va. Es el mismo Claude Code de todo el módulo.</p>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">El <strong>arquitecto</strong>. Lo usas tú, en la terminal, para crear el portal y para cambiarlo ("añade una columna al kanban"). Trabaja una vez y se va. Es el mismo Claude Code de todo el módulo — y trabaja con <strong>tu suscripción</strong>: eres tú, con tu cuenta, tecleando en tu máquina.</p>
                 </div>
                 <div class="bg-orange-50 border border-orange-200 p-8 rounded-2xl shadow-sm">
                     <h4 class="font-bold text-claude uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-bell-concierge mr-2"></i> Claude por API · el que VIVE DENTRO</h4>
-                    <p class="font-serif text-gray-600 text-sm leading-relaxed">El <strong>mayordomo</strong>. Vive dentro del portal y atiende cada timbrazo: un botón pulsado, una pregunta en el chat, un archivo en la ingesta. Trabaja cada vez que alguien lo llama, para cualquiera del equipo.</p>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">El <strong>mayordomo</strong>. Vive dentro del portal y atiende cada timbrazo: un botón pulsado, una pregunta en el chat, un archivo en la ingesta. Trabaja cada vez que alguien lo llama, para cualquiera del equipo — y con <strong>contador propio</strong>: la API key, facturada por uso.</p>
                 </div>
             </div>
 
@@ -580,12 +580,35 @@
             <div class="grid md:grid-cols-2 gap-8 mb-8 fade-in-on-scroll">
                 <div class="bg-white border border-gray-200 p-8 rounded-2xl shadow-sm">
                     <h4 class="font-bold text-gray-400 uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-users mr-2"></i> Suscripción (Team)</h4>
-                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Paga a las <strong>personas</strong>: cada miembro chatea con Claude en claude.ai por una cuota fija al mes. Tu portal <strong>no puede usarla</strong>: no hay una persona chateando, hay un programa llamando.</p>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed">Paga a las <strong>personas</strong>: cada miembro usa Claude por una cuota fija al mes — el chat de claude.ai <em>y su propio Claude Code en la terminal</em> (por eso construir el portal no genera factura de API). Tu portal <strong>no puede usarla</strong>: no hay una persona trabajando, hay un programa atendiendo a otros.</p>
                 </div>
                 <div class="bg-orange-50 border border-orange-200 p-8 rounded-2xl shadow-sm">
                     <h4 class="font-bold text-claude uppercase text-xs mb-3 tracking-widest"><i class="fa-solid fa-plug mr-2"></i> API (Console)</h4>
                     <p class="font-serif text-gray-600 text-sm leading-relaxed">Paga al <strong>software</strong>: se contrata en la consola de desarrollador de Anthropic, tiene su propia <strong>API key</strong> y se factura <strong>por uso</strong> (por texto procesado). Un portal interno de equipo suele costar poco — pero es otra factura, y conviene ponerle un límite de gasto mensual desde la consola.</p>
                 </div>
+            </div>
+
+            <h3 class="text-xl font-bold text-brand-dark mb-4 fade-in-on-scroll"><i class="fa-solid fa-scale-balanced text-claude mr-2"></i> "¿Y por qué no puede el portal usar mi suscripción?"</h3>
+
+            <p class="prose-text mb-6 text-gray-600 fade-in-on-scroll">Es la pregunta lógica: si mi plan ya incluye Claude Code, ¿por qué pagar API? Porque suscripción y API responden a dos situaciones distintas, y la frontera son tres limitaciones técnicas (y de licencia) que conviene conocer:</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 fade-in-on-scroll">
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <h5 class="font-bold text-brand-dark text-sm mb-2"><i class="fa-solid fa-user-lock text-claude mr-2"></i> La butaca es personal</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed m-0">Tu suscripción autentica a <strong>una persona</strong>: tú, con tu login, en tu sesión. El portal es un programa que atiende a todo el equipo — software sirviendo a terceros. Eso es, por definición y por licencia, territorio de la API.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <h5 class="font-bold text-brand-dark text-sm mb-2"><i class="fa-solid fa-hourglass-half text-claude mr-2"></i> Los límites son de persona</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed m-0">Los planes tienen <strong>ventanas de uso</strong> pensadas para una persona trabajando: si te pasas, toca esperar. Un portal con varios usuarios (o con tareas programadas) las agotaría y se quedaría colgado a mitad de informe. La API factura por consumo y no se corta — y el tope de gasto lo pones tú.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <h5 class="font-bold text-brand-dark text-sm mb-2"><i class="fa-solid fa-key text-claude mr-2"></i> La credencial es distinta</h5>
+                    <p class="font-serif text-gray-600 text-sm leading-relaxed m-0">Tu login es <strong>interactivo</strong>: navegador, contraseña, tu sesión en tu máquina. Un servidor necesita una llave que funcione <strong>desatendida</strong>, viva en el <code>.env</code> y se pueda revocar sin cambiarte la contraseña. Eso es exactamente la API key.</p>
+                </div>
+            </div>
+
+            <div class="bg-emerald-50 p-6 rounded-r-xl border-l-4 border-emerald-500 shadow-sm my-6 fade-in-on-scroll">
+                <p class="font-serif text-emerald-900 text-sm m-0 leading-relaxed"><i class="fa-solid fa-circle-check text-emerald-500 mr-2"></i> <strong>Regla del pulgar:</strong> pregúntate <em>quién</em> está usando a Claude. Si eres <strong>tú en tu máquina</strong> (construir el portal, mantenerlo, tus consultas en la terminal) → tu <strong>suscripción</strong>, que ya la pagas. Si es <strong>tu software trabajando para otros o desatendido</strong> (el equipo pulsando accionables, tareas programadas de madrugada) → <strong>API</strong>. Los dos modos conviven en el mismo proyecto: el arquitecto trabaja con tu butaca; el mayordomo necesita contador propio.</p>
             </div>
 
             <div class="bg-amber-50 p-6 rounded-r-xl border-l-4 border-brand-accent shadow-sm my-6 fade-in-on-scroll">
