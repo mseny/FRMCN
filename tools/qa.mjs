@@ -63,7 +63,7 @@ for (const file of htmlFiles) {
   if (!/class="hero(?: escena)?"/.test(html)) err(file, 'sin header.hero');
   if (!/class="content"/.test(html)) err(file, 'sin div.content');
   if (!/src="\/curso-data\.js"/.test(html) || !/src="\/curso\.js"/.test(html)) err(file, 'faltan curso-data.js / curso.js');
-  if (/<(header|footer|nav)\b(?![^>]*class="(hero|navfoot|tocbar|topbar|src))/i.test(html)) {
+  if (/<(header|footer|nav)\b(?![^>]*class="(hero|navfoot|topbar|src))/i.test(html)) {
     const tag = html.match(/<(header|footer|nav)\b[^>]*>/i)[0];
     if (!/class="hero(?: escena)?"/.test(tag)) err(file, `elemento propio que genera curso.js: ${tag.slice(0, 60)}`);
   }

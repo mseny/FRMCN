@@ -22,28 +22,36 @@ html{overflow-x:clip;}
 }
 .mono{font-family:var(--font-mono);letter-spacing:.1em;text-transform:uppercase;font-weight:400;}
 
-/* ── Top bar (tinta, no sticky) ──────────────────────────────────────────── */
-.topbar{background:var(--color-ink);color:var(--color-paper);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 28px;flex-wrap:wrap;}
-.topbar .tb-l{display:flex;align-items:center;gap:16px;flex:0 0 auto;}
-.topbar nav{flex:0 0 auto;margin-left:auto;}
-@media (max-width:760px){.topbar{padding:12px 20px;gap:8px 12px;}.topbar .tb-l{gap:10px;}.topbar nav{gap:16px;}}
+/* ── Cabecera única: logotipo + chips de secciones + navegación, sticky ──── */
+.topbar{position:sticky;top:0;z-index:50;background:var(--color-ink);color:var(--color-paper);border-bottom:1px solid var(--color-line-dark);display:flex;align-items:center;gap:12px 20px;padding:10px 24px;flex-wrap:wrap;}
+.topbar .read{position:absolute;top:0;left:0;right:0;height:3px;background:color-mix(in srgb,var(--color-paper) 14%,transparent);}
+.topbar .read i{display:block;height:100%;width:0;background:var(--color-accent);transition:width .15s linear;}
+.topbar .tb-l{display:flex;align-items:center;gap:16px;flex:none;}
 .wm{font-family:var(--font-display);font-weight:700;letter-spacing:-.025em;font-size:1.05rem;line-height:1;color:var(--color-paper);display:inline-flex;align-items:baseline;gap:.28em;white-space:nowrap;}
 .wm b{font-weight:inherit;color:var(--color-accent);}
 .wm .sub{font-family:var(--font-mono);font-weight:400;color:var(--color-accent);font-size:.8em;letter-spacing:0;}
 .topbar .tb-meta{font-family:var(--font-mono);font-size:var(--mono-m);letter-spacing:.1em;text-transform:uppercase;color:var(--color-mist);white-space:nowrap;}
-.topbar nav{display:flex;gap:22px;font-family:var(--font-mono);font-size:var(--mono-m);letter-spacing:.1em;text-transform:uppercase;color:var(--color-mist);}
-.topbar nav a{padding:6px 0;min-height:32px;display:inline-flex;align-items:center;transition:color .3s ease;}
-.topbar nav a:hover{color:var(--color-paper);}
-
-/* ── Nav de secciones sticky + barra de lectura ──────────────────────────── */
-.tocbar{position:sticky;top:0;z-index:50;background:var(--color-paper);border-bottom:1px solid var(--color-line);padding:10px 16px;display:flex;justify-content:center;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none;}
-.tocbar::-webkit-scrollbar{display:none;}
-.tocbar .read{position:absolute;top:0;left:0;right:0;height:3px;background:color-mix(in srgb,var(--color-ink) 8%,transparent);}
-.tocbar .read i{display:block;height:100%;width:0;background:var(--color-accent);transition:width .15s linear;}
-.tocbar a{flex:none;font-family:var(--font-mono);font-size:var(--mono-s);letter-spacing:.08em;text-transform:uppercase;color:var(--color-muted);padding:7px 10px;border-radius:var(--r-pill);white-space:nowrap;min-height:32px;display:inline-flex;align-items:center;transition:background-color .3s ease,color .3s ease;}
-.tocbar a:hover{color:var(--color-ink);}
-.tocbar a.active{background:var(--color-accent);color:var(--color-accent-ink);padding:7px 14px;}
-@media (max-width:760px){.tocbar{justify-content:flex-start;}.tocbar a{min-height:44px;}}
+.topbar .tb-c{flex:1 1 200px;min-width:0;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;}
+.topbar .tb-c::-webkit-scrollbar{display:none;}
+.topbar .tb-c a{flex:none;font-family:var(--font-mono);font-size:var(--mono-s);letter-spacing:.08em;text-transform:uppercase;color:var(--color-mist);padding:7px 10px;border-radius:var(--r-pill);white-space:nowrap;min-height:32px;display:inline-flex;align-items:center;transition:background-color .3s ease,color .3s ease;}
+.topbar .tb-c a:hover{color:var(--color-paper);}
+.topbar .tb-c a.active{background:var(--color-accent);color:var(--color-accent-ink);padding:7px 14px;}
+.topbar .tb-r{flex:none;margin-left:auto;display:flex;gap:22px;font-family:var(--font-mono);font-size:var(--mono-m);letter-spacing:.1em;text-transform:uppercase;color:var(--color-mist);}
+.topbar .tb-r a{padding:6px 0;min-height:32px;display:inline-flex;align-items:center;transition:color .3s ease;}
+.topbar .tb-r a:hover{color:var(--color-paper);}
+@media (max-width:760px){
+  .topbar{padding:10px 16px;gap:8px 12px;}
+  .topbar .tb-l{gap:10px;}
+  .topbar .tb-c{order:3;flex-basis:100%;}
+  .topbar .tb-c a{min-height:44px;}
+  .topbar .tb-r{gap:12px;}
+}
+/* En un iPhone, wordmark + «M3 · Clase 1» + Temario/Salir no caben en una fila
+   y los chips bajaban a una tercera: sin el «/academy» sí caben. */
+@media (max-width:430px){
+  .topbar .wm .sub{display:none;}
+  .topbar .tb-meta{font-size:var(--mono-s);letter-spacing:.06em;}
+}
 
 /* ── Hero centrado ───────────────────────────────────────────────────────── */
 .hero{padding:56px 32px 40px;border-bottom:1px solid var(--color-line);text-align:center;}
@@ -57,11 +65,14 @@ html{overflow-x:clip;}
 /* ── Contenido y secciones ───────────────────────────────────────────────── */
 .content{max-width:var(--content-w);margin:0 auto;padding:56px 24px 80px;display:flex;flex-direction:column;gap:68px;}
 @media (max-width:760px){.content{padding:32px 16px 48px;gap:52px;}}
-.sec{scroll-margin-top:70px;min-width:0;}
+.sec{scroll-margin-top:calc(var(--header-h,64px) + 10px);min-width:0;}
 /* Todo lo que va dentro de una sección ocupa el ancho de la sección: sin
    topes por bloque, que es lo que hacía que un párrafo pareciera sangrado
    respecto a las tarjetas que tenía debajo. */
 .sec > *{max-width:100%;}
+/* margen extra entre bloques cuando una sección concreta pide más aire: los
+   márgenes verticales colapsan, así que el hueco resultante es uniforme. */
+.sec.respira > * + *{margin-top:32px;}
 .sec-head{display:flex;align-items:baseline;gap:16px;margin:0 0 20px;}
 .sec-num{font-family:var(--font-mono);font-size:14px;color:var(--color-accent-deep);flex:none;}
 .sec-head h2{margin:0;font-size:36px;color:var(--color-ink);}
@@ -79,7 +90,7 @@ html{overflow-x:clip;}
 /* En una tarjeta de rejilla la columna baja de 450 px y justificar abre calles
    de blanco entre palabras: ahí el texto se queda en bandera. */
 .grid-cards .card p,.grid-cards .card li{text-align:left;hyphens:none;}
-.flow .node p,.esc-cifras,.dp-cap,.serie .k,pre,code,.mono{text-align:left;hyphens:none;}
+.flow .node p,.stepper .step p,.esc-cifras,.dp-cap,.serie .k,pre,code,.mono{text-align:left;hyphens:none;}
 .content p:last-child{margin-bottom:0;}
 .content ul,.content ol{margin:0 0 20px;padding-left:1.25em;font-size:19.5px;line-height:1.65;}
 .content li{margin:0 0 6px;}
@@ -196,6 +207,7 @@ hr.rule{border:0;border-top:1px solid var(--color-line);margin:8px 0 24px;}
 /* Columnas fijas. Con `auto-fit` el número de columnas dependía del ancho:
    cuatro tarjetas salían en 3+1, y la última fila nunca llenaba. */
 .grid-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:0 0 var(--aire);}
+.card + .grid-cards{margin-top:16px;}
 .grid-cards.two{grid-template-columns:repeat(2,minmax(0,1fr));}
 .grid-cards.three{grid-template-columns:repeat(3,minmax(0,1fr));}
 @media (max-width:1000px){.grid-cards,.grid-cards.two,.grid-cards.three{grid-template-columns:repeat(2,minmax(0,1fr));}}
@@ -460,7 +472,7 @@ body[data-class]{overflow-x:clip;}
 
 /* ── Despiece: la pieza se queda quieta, el texto la anota ────────────── */
 .despiece{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(22px,3.6vw,54px);align-items:start;}
-.dp-media{position:sticky;top:74px;display:flex;flex-direction:column;gap:10px;}
+.dp-media{position:sticky;top:calc(var(--header-h,64px) + 12px);display:flex;flex-direction:column;gap:10px;}
 .dp-nav{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;}
 .dp-nav button{font-family:var(--font-mono);font-size:var(--mono-s);letter-spacing:.08em;text-transform:uppercase;color:var(--color-muted);background:transparent;border:1px solid var(--color-line);border-radius:var(--r-pill);padding:6px 12px;min-height:32px;cursor:pointer;transition:background-color .3s ease,border-color .3s ease,color .3s ease;}
 .dp-nav button:hover{color:var(--color-ink);border-color:var(--color-accent-deep);}
@@ -549,7 +561,7 @@ svg.dp-capa.on{opacity:1;}
 .dp-step .code,.dp-step .callout{margin-top:4px;}
 @media (max-width:900px){
   .despiece{grid-template-columns:1fr;gap:14px;}
-  .dp-media{top:56px;z-index:5;background:var(--surface-page);padding:10px 0 12px;}
+  .dp-media{top:calc(var(--header-h,64px) + 4px);z-index:5;background:var(--surface-page);padding:10px 0 12px;}
   .sec-dark .dp-media{background:var(--color-ink);}
   .dp-stage.dp-foto{height:clamp(200px,30vh,280px);}
   .dp-pantalla{max-height:220px;}
@@ -727,7 +739,7 @@ body.login{background:var(--color-ink);color:var(--color-paper);min-height:100vh
 
 /* ── Impresión ───────────────────────────────────────────────────────────── */
 @media print{
-  .topbar,.tocbar,.navfoot,.footline{display:none!important;}
+  .topbar,.navfoot,.footline{display:none!important;}
   body{background:#fff;color:#000;}
   .sec-dark{background:#fff;color:#000;margin:0;padding:0;}
   .sec-dark *{color:#000!important;}

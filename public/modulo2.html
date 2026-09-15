@@ -15,7 +15,7 @@
     <h1 class="display">Glosario y fundamentos (<em>alfabetización</em> técnica).</h1>
     <p class="sub">Habla el idioma de las máquinas. De usuario pasivo a arquitecto de soluciones de IA.</p>
     <ul class="esc-cifras">
-      <li><b>14</b> términos</li>
+      <li><b>13</b> términos</li>
       <li><b>4</b> pasos</li>
       <li><b>3</b> plataformas</li>
     </ul>
@@ -24,7 +24,7 @@
   <div class="content">
 
     <!-- 1. Desmitificando la caja negra -->
-    <section class="sec" id="cajanegra" data-label="La caja negra">
+    <section class="sec respira" id="cajanegra" data-label="La caja negra">
       <div class="sec-head"><span class="sec-num"></span><h2 class="display">Desmitificando la «caja negra».</h2></div>
       <p>En 2026, el analfabetismo técnico en Inteligencia Artificial ya no es solo una barrera para la productividad; es una <strong>vulnerabilidad de ciberseguridad corporativa</strong>. Muchos ven a la IA como magia: entra texto y sale un resultado. Este módulo abre esa caja. No vamos a aprender a construir un motor, pero sí para qué sirve el acelerador, el freno y cómo conectarle un remolque.</p>
       <blockquote class="pull">
@@ -48,7 +48,159 @@
       <p class="sec-intro">Estos términos explican cómo «piensa», «recuerda» y «percibe» la máquina. Impactan directamente en tu facturación y en la calidad de tu trabajo.</p>
 
       <figure class="figure esquema">
-        <svg viewBox="0 0 700 290" role="img" aria-label="Diagrama de la máquina: por la izquierda entran texto, imagen, audio y código, y todo se mide en tokens que entran en la ventana de contexto, dentro de la máquina; arriba, una escala gradúa la temperatura de lo lógico a lo creativo y baja hasta la máquina; dentro, el Deep Think se abre en tres cadenas lógicas paralelas antes de responder.">
+        <svg viewBox="0 0 960 170" role="img" aria-label="Ocho bloques representan los tokens en los que se trocea un texto, con su equivalencia aproximada en palabras.">
+          <text class="ti" x="40" y="42">Token</text>
+          <rect class="fill-ink" x="40" y="72" width="34" height="46"/>
+          <rect class="fill-ink" x="80" y="72" width="34" height="46"/>
+          <rect class="fill-ink" x="120" y="72" width="34" height="46"/>
+          <rect class="fill-ink" x="160" y="72" width="34" height="46"/>
+          <rect class="fill-ink" x="200" y="72" width="34" height="46"/>
+          <rect class="fill-ink" x="240" y="72" width="34" height="46"/>
+          <rect class="fill-ink" x="280" y="72" width="34" height="46"/>
+          <rect class="fill-ink" x="320" y="72" width="34" height="46"/>
+          <text class="lb" x="40" y="146">1.000 tokens ≈ 750 palabras</text>
+        </svg>
+        <figcaption>[ Diagrama A ] La unidad mínima que lee y cobra la máquina</figcaption>
+      </figure>
+
+      <div class="glossary">
+        <div class="row"><h3 class="term">Token<small>A · La Moneda/Ladrillo</small></h3><p class="def">La unidad básica de información. La IA no lee palabras, lee fragmentos (Tokens). En español, 1,000 tokens ≈ 750 palabras. Todo en la IA se cobra y mide en tokens. <span class="an">[ Analogía ] Es el «megabyte» de la era IA. Debes saber que tu manual pesa 100k tokens.</span></p></div>
+      </div>
+
+      <figure class="figure esquema">
+        <svg viewBox="0 0 960 190" role="img" aria-label="Una caja representa la máquina, con una barra de ventana de contexto dentro que se va llenando de izquierda a derecha.">
+          <text class="ti" x="40" y="42">Ventana de contexto</text>
+          <rect class="bx fill" x="40" y="64" width="880" height="100" rx="14"/>
+          <rect class="bx" x="72" y="96" width="500" height="36" rx="8"/>
+          <rect class="fill-ink" x="72" y="96" width="300" height="36" rx="8"/>
+          <text class="lb" x="896" y="150" text-anchor="end">La máquina</text>
+        </svg>
+        <figcaption>[ Diagrama B ] La memoria de trabajo se llena de tokens y tiene un límite</figcaption>
+      </figure>
+
+      <div class="glossary">
+        <div class="row"><h3 class="term">Ventana de Contexto<small>B · Memoria RAM</small></h3><p class="def">Cantidad máxima de tokens que la IA mantiene «en mente» en un solo chat. Si la superas, sufre amnesia y olvida las primeras instrucciones. <span class="an">[ Analogía ] Modelos antiguos tenían una «mesa de avión» (1 folio). Gemini 1.5 tiene una «mesa de conferencias» (1.500 páginas a la vez).</span></p></div>
+      </div>
+
+      <figure class="figure esquema">
+        <svg viewBox="0 0 960 130" role="img" aria-label="Escala de temperatura de 0.0, lógico, a 1.0, creativo, con un mando en el centro.">
+          <text class="ti" x="40" y="42">Temperatura</text>
+          <text class="lb" x="480" y="72" text-anchor="middle">0.0 Lógico — 1.0 Creativo</text>
+          <path class="ln ac" d="M60 96 H 900"/>
+          <path class="ln ac" d="M60 88 V 104"/>
+          <path class="ln ac" d="M900 88 V 104"/>
+          <circle class="fill-ink" cx="480" cy="96" r="9"/>
+        </svg>
+        <figcaption>[ Diagrama C ] El termostato que decide cuánto se arriesga la respuesta</figcaption>
+      </figure>
+
+      <div class="glossary">
+        <div class="row"><h3 class="term">Temperatura<small>C · Termostato Creativo</small></h3><p class="def">Parámetro (0.0 a 1.0) que controla la aleatoriedad.<br><strong>0.0:</strong> Lógico, predecible (Finanzas/Código).<br><strong>1.0:</strong> Creativo, impredecible (Marketing/Ideas). <span class="an">[ Clave ] Baja la temperatura si buscas la verdad; súbela si buscas ideas disruptivas.</span></p></div>
+      </div>
+
+      <figure class="figure esquema">
+        <svg viewBox="0 0 960 210" role="img" aria-label="Cuatro entradas, texto, imagen, audio y código, convergen en una sola señal que se procesa en tres cadenas lógicas paralelas antes de salir.">
+          <text class="ti" x="40" y="36">Multimodalidad &amp; Deep Think</text>
+          <text class="lb b" x="40" y="64">Multimodalidad</text>
+          <text class="lb b" x="118" y="92" text-anchor="end">texto</text>
+          <text class="lb b" x="118" y="116" text-anchor="end">imagen</text>
+          <text class="lb b" x="118" y="140" text-anchor="end">audio</text>
+          <text class="lb b" x="118" y="164" text-anchor="end">código</text>
+          <path class="ln" d="M128 86 H 160"/>
+          <path class="ln" d="M128 110 H 160"/>
+          <path class="ln" d="M128 134 H 160"/>
+          <path class="ln" d="M128 158 H 160"/>
+          <path class="ln" d="M160 86 V 158"/>
+          <path class="ln ac" d="M160 122 H 184"/>
+          <path class="ln ac" d="M184 115 L 192 122 L 184 129"/>
+          <rect class="fill-ink" x="192" y="104" width="40" height="36"/>
+          <path class="ln ac" d="M232 122 H 268"/>
+          <path class="ln ac" d="M260 115 L 268 122 L 260 129"/>
+          <text class="lb b" x="290" y="64">Deep Think</text>
+          <path class="ln ac" d="M280 122 L 330 96"/>
+          <path class="ln ac" d="M280 122 H 330"/>
+          <path class="ln ac" d="M280 122 L 330 148"/>
+          <path class="ln ac" d="M330 96 H 780"/>
+          <path class="ln ac" d="M330 122 H 780"/>
+          <path class="ln ac" d="M330 148 H 780"/>
+          <path class="ln ac" d="M780 96 L 830 122"/>
+          <path class="ln ac" d="M780 122 H 830"/>
+          <path class="ln ac" d="M780 148 L 830 122"/>
+          <path class="ln ac" d="M830 122 H 910"/>
+          <path class="ln ac" d="M902 115 L 910 122 L 902 129"/>
+        </svg>
+        <figcaption>[ Diagrama D ] Percibe en varios formatos a la vez y razona en paralelo</figcaption>
+      </figure>
+
+      <div class="glossary">
+        <div class="row"><h3 class="term">Multimodalidad &amp; Deep Think<small>D</small></h3><p class="def"><strong>Multimodalidad:</strong> Capacidad de procesar texto, imagen, audio y código simultáneamente (como la percepción humana).<br><strong>Deep Think:</strong> Modelos (ej. O1) que «pausan» para simular múltiples cadenas lógicas antes de responder (para matemáticas o lógica compleja).</p></div>
+      </div>
+
+      <h3>El flujo completo</h3>
+      <p>Ahora júntalo todo: así es cómo piensa, recuerda y percibe la máquina, de principio a fin y en el mismo orden en el que acabas de leerlo.</p>
+
+      <figure class="figure esquema">
+        <svg class="fl-diagram" viewBox="0 0 820 290" role="img" aria-label="Diagrama animado: por la izquierda entran texto, imagen, audio y código, se miden en tokens que entran en la ventana de contexto; arriba, la temperatura desliza su mando de lo lógico a lo creativo; dentro, el Deep Think abre tres cadenas paralelas antes de encender la flecha de salida y el resultado.">
+          <style>
+            @keyframes fl-in1{0%{opacity:.28}2%{opacity:1}96%{opacity:1}100%{opacity:.28}}
+            @keyframes fl-in2{0%{opacity:.28}6%{opacity:1}96%{opacity:1}100%{opacity:.28}}
+            @keyframes fl-in3{0%{opacity:.28}10%{opacity:1}96%{opacity:1}100%{opacity:.28}}
+            @keyframes fl-in4{0%{opacity:.28}14%{opacity:1}96%{opacity:1}100%{opacity:.28}}
+            @keyframes fl-merge{0%{opacity:.28}17%{opacity:1}96%{opacity:1}100%{opacity:.28}}
+            @keyframes fl-arrow-tok{0%{opacity:.28}19%{opacity:1}96%{opacity:1}100%{opacity:.28}}
+            @keyframes fl-tok1{0%{opacity:.15}21%{opacity:1}96%{opacity:1}100%{opacity:.15}}
+            @keyframes fl-tok2{0%{opacity:.15}23%{opacity:1}96%{opacity:1}100%{opacity:.15}}
+            @keyframes fl-tok3{0%{opacity:.15}25%{opacity:1}96%{opacity:1}100%{opacity:.15}}
+            @keyframes fl-tok4{0%{opacity:.15}27%{opacity:1}96%{opacity:1}100%{opacity:.15}}
+            @keyframes fl-tok5{0%{opacity:.15}29%{opacity:1}96%{opacity:1}100%{opacity:.15}}
+            @keyframes fl-tok6{0%{opacity:.15}31%{opacity:1}96%{opacity:1}100%{opacity:.15}}
+            @keyframes fl-tok7{0%{opacity:.15}33%{opacity:1}96%{opacity:1}100%{opacity:.15}}
+            @keyframes fl-tok8{0%{opacity:.15}35%{opacity:1}96%{opacity:1}100%{opacity:.15}}
+            @keyframes fl-arrow-ctx{0%{opacity:.28}38%{opacity:1}96%{opacity:1}100%{opacity:.28}}
+            @keyframes fl-fillbar{0%,40%{transform:scaleX(0);opacity:.4}50%,96%{transform:scaleX(1);opacity:1}100%{transform:scaleX(0);opacity:.4}}
+            @keyframes fl-connector{0%{opacity:.28}53%{opacity:1}96%{opacity:1}100%{opacity:.28}}
+            @keyframes fl-knob{0%,55%{transform:translateX(0)}66%,96%{transform:translateX(180px)}100%{transform:translateX(0)}}
+            @keyframes fl-diverge{0%{opacity:.28}69%{opacity:1}96%{opacity:1}100%{opacity:.28}}
+            @keyframes fl-chain-top{0%,71%{stroke-dashoffset:68}76%,96%{stroke-dashoffset:0}100%{stroke-dashoffset:68}}
+            @keyframes fl-chain-mid{0%,73%{stroke-dashoffset:68}78%,96%{stroke-dashoffset:0}100%{stroke-dashoffset:68}}
+            @keyframes fl-chain-bottom{0%,75%{stroke-dashoffset:68}80%,96%{stroke-dashoffset:0}100%{stroke-dashoffset:68}}
+            @keyframes fl-converge{0%{opacity:.28}82%{opacity:1}96%{opacity:1}100%{opacity:.28}}
+            @keyframes fl-out{0%{opacity:.28}85%{opacity:1}96%{opacity:1}100%{opacity:.28}}
+            @keyframes fl-resultado{0%{opacity:.28}87%{opacity:1}96%{opacity:1}100%{opacity:.28}}
+            .fl-diagram .fl-in1{animation:fl-in1 10s ease-in-out infinite}
+            .fl-diagram .fl-in2{animation:fl-in2 10s ease-in-out infinite}
+            .fl-diagram .fl-in3{animation:fl-in3 10s ease-in-out infinite}
+            .fl-diagram .fl-in4{animation:fl-in4 10s ease-in-out infinite}
+            .fl-diagram .fl-merge{animation:fl-merge 10s ease-in-out infinite}
+            .fl-diagram .fl-arrow-tok{animation:fl-arrow-tok 10s ease-in-out infinite}
+            .fl-diagram .fl-tok1{animation:fl-tok1 10s ease-in-out infinite}
+            .fl-diagram .fl-tok2{animation:fl-tok2 10s ease-in-out infinite}
+            .fl-diagram .fl-tok3{animation:fl-tok3 10s ease-in-out infinite}
+            .fl-diagram .fl-tok4{animation:fl-tok4 10s ease-in-out infinite}
+            .fl-diagram .fl-tok5{animation:fl-tok5 10s ease-in-out infinite}
+            .fl-diagram .fl-tok6{animation:fl-tok6 10s ease-in-out infinite}
+            .fl-diagram .fl-tok7{animation:fl-tok7 10s ease-in-out infinite}
+            .fl-diagram .fl-tok8{animation:fl-tok8 10s ease-in-out infinite}
+            .fl-diagram .fl-arrow-ctx{animation:fl-arrow-ctx 10s ease-in-out infinite}
+            .fl-diagram .fl-fillbar{transform-box:fill-box;transform-origin:0% 50%;animation:fl-fillbar 10s ease-in-out infinite}
+            .fl-diagram .fl-connector{animation:fl-connector 10s ease-in-out infinite}
+            .fl-diagram .fl-knob{transform-box:fill-box;transform-origin:50% 50%;animation:fl-knob 10s ease-in-out infinite}
+            .fl-diagram .fl-diverge{animation:fl-diverge 10s ease-in-out infinite}
+            .fl-diagram .fl-chain{stroke-dasharray:68}
+            .fl-diagram .fl-chain-top{animation:fl-chain-top 10s ease-in-out infinite}
+            .fl-diagram .fl-chain-mid{animation:fl-chain-mid 10s ease-in-out infinite}
+            .fl-diagram .fl-chain-bottom{animation:fl-chain-bottom 10s ease-in-out infinite}
+            .fl-diagram .fl-converge{animation:fl-converge 10s ease-in-out infinite}
+            .fl-diagram .fl-out{animation:fl-out 10s ease-in-out infinite}
+            .fl-diagram .fl-resultado{animation:fl-resultado 10s ease-in-out infinite}
+            @media (prefers-reduced-motion: reduce){
+              .fl-diagram *{animation:none!important}
+              .fl-diagram [class*="fl-"]{opacity:1!important}
+              .fl-diagram .fl-fillbar{transform:scaleX(.82)!important}
+              .fl-diagram .fl-knob{transform:translateX(90px)!important}
+              .fl-diagram .fl-chain{stroke-dashoffset:0!important}
+            }
+          </style>
           <rect class="bx fill" x="340" y="80" width="320" height="180" rx="12"/>
           <text class="lb" x="644" y="250" text-anchor="end">La máquina</text>
 
@@ -58,62 +210,60 @@
           <path class="ln ac" d="M350 52 H 650"/>
           <path class="ln ac" d="M350 44 V 60"/>
           <path class="ln ac" d="M650 44 V 60"/>
-          <circle class="fill-ink" cx="470" cy="52" r="7"/>
-          <path class="ln ac" d="M470 59 V 72"/>
-          <path class="ln ac" d="M463 66 L 470 80 L 477 66"/>
+          <g class="fl-knob">
+            <circle class="fill-ink" cx="470" cy="52" r="7"/>
+            <path class="ln ac" d="M470 59 V 72"/>
+            <path class="ln ac" d="M463 66 L 470 80 L 477 66"/>
+          </g>
 
           <text class="lb b" x="358" y="122">Ventana de contexto</text>
           <rect class="bx" x="358" y="132" width="250" height="26" rx="6"/>
+          <rect class="fill-ink fl-fillbar" x="358" y="132" width="250" height="26"/>
 
-          <path class="ln ac" d="M486 158 V 206"/>
-          <text class="lb b" x="358" y="212">Deep Think</text>
-          <path class="ln ac" d="M486 206 L 516 186"/>
-          <path class="ln ac" d="M486 206 H 516"/>
-          <path class="ln ac" d="M486 206 L 516 226"/>
-          <path class="ln ac" d="M516 186 H 584"/>
-          <path class="ln ac" d="M516 206 H 584"/>
-          <path class="ln ac" d="M516 226 H 584"/>
-          <path class="ln ac" d="M584 186 L 614 206"/>
-          <path class="ln ac" d="M584 206 H 614"/>
-          <path class="ln ac" d="M584 226 L 614 206"/>
-          <path class="ln ac" d="M614 206 H 682"/>
-          <path class="ln ac" d="M674 199 L 682 206 L 674 213"/>
+          <path class="ln ac fl-connector" d="M486 158 V 206"/>
+          <text class="lb b fl-connector" x="358" y="212">Deep Think</text>
+          <path class="ln ac fl-diverge" d="M486 206 L 516 186"/>
+          <path class="ln ac fl-diverge" d="M486 206 H 516"/>
+          <path class="ln ac fl-diverge" d="M486 206 L 516 226"/>
+          <path class="ln ac fl-chain fl-chain-top" d="M516 186 H 584"/>
+          <path class="ln ac fl-chain fl-chain-mid" d="M516 206 H 584"/>
+          <path class="ln ac fl-chain fl-chain-bottom" d="M516 226 H 584"/>
+          <path class="ln ac fl-converge" d="M584 186 L 614 206"/>
+          <path class="ln ac fl-converge" d="M584 206 H 614"/>
+          <path class="ln ac fl-converge" d="M584 226 L 614 206"/>
+          <path class="ln ac fl-out" d="M614 206 H 682"/>
+          <path class="ln ac fl-out" d="M674 199 L 682 206 L 674 213"/>
+          <text class="lb b fl-resultado" x="696" y="212">Resultado</text>
 
           <text class="lb b" x="19" y="72">Multimodalidad</text>
-          <text class="lb b" x="86" y="112" text-anchor="end">texto</text>
-          <text class="lb b" x="86" y="138" text-anchor="end">imagen</text>
-          <text class="lb b" x="86" y="164" text-anchor="end">audio</text>
-          <text class="lb b" x="86" y="190" text-anchor="end">código</text>
-          <path class="ln" d="M96 106 H 132"/>
-          <path class="ln" d="M96 132 H 132"/>
-          <path class="ln" d="M96 158 H 132"/>
-          <path class="ln" d="M96 184 H 132"/>
-          <path class="ln" d="M132 106 V 184"/>
-          <path class="ln ac" d="M132 145 H 152"/>
-          <path class="ln ac" d="M152 138 L 160 145 L 152 152"/>
+          <text class="lb b fl-in1" x="86" y="112" text-anchor="end">texto</text>
+          <text class="lb b fl-in2" x="86" y="138" text-anchor="end">imagen</text>
+          <text class="lb b fl-in3" x="86" y="164" text-anchor="end">audio</text>
+          <text class="lb b fl-in4" x="86" y="190" text-anchor="end">código</text>
+          <path class="ln fl-in1" d="M96 106 H 132"/>
+          <path class="ln fl-in2" d="M96 132 H 132"/>
+          <path class="ln fl-in3" d="M96 158 H 132"/>
+          <path class="ln fl-in4" d="M96 184 H 132"/>
+          <path class="ln fl-merge" d="M132 106 V 184"/>
+          <path class="ln ac fl-arrow-tok" d="M132 145 H 152"/>
+          <path class="ln ac fl-arrow-tok" d="M152 138 L 160 145 L 152 152"/>
 
           <text class="lb b" x="237" y="96" text-anchor="middle">1,000 tokens</text>
           <text class="lb b" x="237" y="116" text-anchor="middle">≈ 750 palabras</text>
-          <rect class="fill-ink" x="160" y="132" width="15" height="26"/>
-          <rect class="fill-ink" x="180" y="132" width="15" height="26"/>
-          <rect class="fill-ink" x="200" y="132" width="15" height="26"/>
-          <rect class="fill-ink" x="220" y="132" width="15" height="26"/>
-          <rect class="fill-ink" x="240" y="132" width="15" height="26"/>
-          <rect class="fill-ink" x="260" y="132" width="15" height="26"/>
-          <rect class="fill-ink" x="280" y="132" width="15" height="26"/>
-          <rect class="fill-ink" x="300" y="132" width="15" height="26"/>
-          <path class="ln ac" d="M323 145 H 350"/>
-          <path class="ln ac" d="M350 138 L 358 145 L 350 152"/>
+          <rect class="fill-ink fl-tok1" x="160" y="132" width="15" height="26"/>
+          <rect class="fill-ink fl-tok2" x="180" y="132" width="15" height="26"/>
+          <rect class="fill-ink fl-tok3" x="200" y="132" width="15" height="26"/>
+          <rect class="fill-ink fl-tok4" x="220" y="132" width="15" height="26"/>
+          <rect class="fill-ink fl-tok5" x="240" y="132" width="15" height="26"/>
+          <rect class="fill-ink fl-tok6" x="260" y="132" width="15" height="26"/>
+          <rect class="fill-ink fl-tok7" x="280" y="132" width="15" height="26"/>
+          <rect class="fill-ink fl-tok8" x="300" y="132" width="15" height="26"/>
+          <path class="ln ac fl-arrow-ctx" d="M323 145 H 350"/>
+          <path class="ln ac fl-arrow-ctx" d="M350 138 L 358 145 L 350 152"/>
         </svg>
-        <figcaption>[ Diagrama ] Cómo piensa, recuerda y percibe la máquina</figcaption>
+        <figcaption>[ Diagrama ] Entradas → tokens → ventana de contexto → temperatura → deep think → resultado</figcaption>
       </figure>
-
-      <div class="glossary">
-        <div class="row"><h3 class="term">Token<small>A · La Moneda/Ladrillo</small></h3><p class="def">La unidad básica de información. La IA no lee palabras, lee fragmentos (Tokens). En español, 1,000 tokens ≈ 750 palabras. Todo en la IA se cobra y mide en tokens. <span class="an">[ Analogía ] Es el «megabyte» de la era IA. Debes saber que tu manual pesa 100k tokens.</span></p></div>
-        <div class="row"><h3 class="term">Ventana de Contexto<small>B · Memoria RAM</small></h3><p class="def">Cantidad máxima de tokens que la IA mantiene «en mente» en un solo chat. Si la superas, sufre amnesia y olvida las primeras instrucciones. <span class="an">[ Analogía ] Modelos antiguos tenían una «mesa de avión» (1 folio). Gemini 1.5 tiene una «mesa de conferencias» (1.500 páginas a la vez).</span></p></div>
-        <div class="row"><h3 class="term">Temperatura<small>C · Termostato Creativo</small></h3><p class="def">Parámetro (0.0 a 1.0) que controla la aleatoriedad.<br><strong>0.0:</strong> Lógico, predecible (Finanzas/Código).<br><strong>1.0:</strong> Creativo, impredecible (Marketing/Ideas). <span class="an">[ Clave ] Baja la temperatura si buscas la verdad; súbela si buscas ideas disruptivas.</span></p></div>
-        <div class="row"><h3 class="term">Multimodalidad &amp; Deep Think<small>D</small></h3><p class="def"><strong>Multimodalidad:</strong> Capacidad de procesar texto, imagen, audio y código simultáneamente (como la percepción humana).<br><strong>Deep Think:</strong> Modelos (ej. O1) que «pausan» para simular múltiples cadenas lógicas antes de responder (para matemáticas o lógica compleja).</p></div>
-      </div>
+      <p>Primero llegan las entradas —texto, imagen, audio o código— y se convierten en tokens, la unidad mínima que la máquina factura y procesa. Esos tokens ocupan la ventana de contexto, su memoria de trabajo, mientras la temperatura decide cuánto se arriesga la respuesta. Si la tarea lo exige, el Deep Think abre varias cadenas de razonamiento en paralelo antes de converger. Al final, todo eso se traduce en el resultado que ves en pantalla.</p>
     </section>
 
     <!-- 3. Diccionario II: Control y Riesgos -->
@@ -132,9 +282,10 @@
     <section class="sec" id="operaciones" data-label="Operaciones">
       <div class="sec-head"><span class="sec-num"></span><h2 class="display">Diccionario (III): operaciones y herramientas.</h2></div>
       <p class="sec-intro">Términos del día a día para pedir resultados útiles o crear flujos de trabajo autónomos.</p>
-      <div class="glossary">
-        <div class="row"><h3 class="term">Zero-Shot vs. Few-Shot</h3><p class="def">Técnicas de Prompting. <strong>Zero-shot</strong> es pedirle algo sin ejemplos. <strong>Few-shot</strong> es darle 2 o 3 ejemplos de tu estilo corporativo para que lo imite a la perfección. <span class="an">[ Pasante Internacional ] Brillante pero literal. Si no le das ejemplos de tu «cultura» (Few-shot), fallará.</span></p></div>
-        <div class="row"><h3 class="term">Los Formatos<small>.md, .csv, .json</small></h3><div class="def"><ul class="list-mono">
+      <div class="card">
+        <p class="k">.md · .csv · .json</p>
+        <h4>Los formatos</h4>
+        <ul class="list-mono">
           <li><strong>.md (Markdown):</strong> Texto humano con diseño (títulos, listas). Para Word/Notion.</li>
           <li><strong>.csv (Comma-Separated):</strong> La tabla. Para copiar y pegar en celdas de Excel.</li>
           <li><strong>.json (JS Object Notation):</strong> Idioma máquina (etiquetas). Para enviar a APIs/ERPs.</li>
@@ -182,13 +333,16 @@
     <text class="lb" x="626" y="304">APIs / ERPs</text>
           </svg>
           <figcaption>[ Diagrama ] La misma respuesta, en tres formas</figcaption>
-        </figure></div></div>
-        <div class="row"><h3 class="term">System Prompt</h3><p class="def">El «mensaje padre» o configuración base. Actúa como la <em>descripción del puesto de trabajo</em> de la IA: define quién es, sus límites intocables y su tono. Permanece estable y es el marco de juego que manda sobre cualquier otra instrucción.</p></div>
-        <div class="row"><h3 class="term">User Prompt</h3><p class="def">El mensaje que tú escribes con la instrucción o tarea concreta («redacta un email»). Cambia constantemente reflejando tu intención específica del momento, pero siempre debe someterse a las reglas marcadas por el <em>System Prompt</em>.</p></div>
-        <div class="row"><h3 class="term">Gems / GPTs Personalizados</h3><p class="def">«Empleados empaquetados». En vez de hacer un prompt largo cada vez, guardas las instrucciones y archivos en un «Gem» que hace siempre esa tarea (Ej: «Auditor Legal»).</p></div>
-        <div class="row"><h3 class="term">Deep Research</h3><p class="def">Investigador autónomo. No da un simple resumen; busca, lee, identifica qué le falta por saber, vuelve a buscar y redacta un informe de grado consultor.</p></div>
-        <div class="row"><h3 class="term">Grounding (Anclaje)</h3><p class="def">Proceso técnico mediante el cual se vinculan las respuestas de la IA a fuentes de verdad verificables (como Google Search o documentos internos corporativos) para reducir alucinaciones y aumentar la fiabilidad al 100%.</p></div>
-        <div class="row"><h3 class="term">In-painting</h3><p class="def">Técnica de edición de imágenes generativa que permite modificar, añadir o eliminar objetos dentro de un área seleccionada de una imagen existente, integrando los cambios de forma realista sin alterar el resto de la foto.</p></div>
+        </figure>
+      </div>
+
+      <div class="grid-cards three">
+        <div class="card"><h4>System Prompt</h4><p>El «mensaje padre» o configuración base. Actúa como la <em>descripción del puesto de trabajo</em> de la IA: define quién es, sus límites intocables y su tono. Permanece estable y es el marco de juego que manda sobre cualquier otra instrucción.</p></div>
+        <div class="card"><h4>User Prompt</h4><p>El mensaje que tú escribes con la instrucción o tarea concreta («redacta un email»). Cambia constantemente reflejando tu intención específica del momento, pero siempre debe someterse a las reglas marcadas por el <em>System Prompt</em>.</p></div>
+        <div class="card"><h4>Zero-Shot vs. Few-Shot</h4><p>Técnicas de Prompting. <strong>Zero-shot</strong> es pedirle algo sin ejemplos. <strong>Few-shot</strong> es darle 2 o 3 ejemplos de tu estilo corporativo para que lo imite a la perfección.</p><p><strong>[ Pasante Internacional ]</strong> Brillante pero literal. Si no le das ejemplos de tu «cultura» (Few-shot), fallará.</p></div>
+        <div class="card"><h4>Grounding (Anclaje)</h4><p>Proceso técnico mediante el cual se vinculan las respuestas de la IA a fuentes de verdad verificables (como Google Search o documentos internos corporativos) para reducir alucinaciones y aumentar la fiabilidad al 100%.</p></div>
+        <div class="card"><h4>Deep Research</h4><p>Investigador autónomo. No da un simple resumen; busca, lee, identifica qué le falta por saber, vuelve a buscar y redacta un informe de grado consultor.</p></div>
+        <div class="card"><h4>In-painting</h4><p>Técnica de edición de imágenes generativa que permite modificar, añadir o eliminar objetos dentro de un área seleccionada de una imagen existente, integrando los cambios de forma realista sin alterar el resto de la foto.</p></div>
       </div>
 
       <h3>Chatbot vs. Agente Autónomo (Agentic AI)</h3>
@@ -249,20 +403,17 @@
       <div class="sec-head"><span class="sec-num"></span><h2 class="display">Práctica: controlando a la máquina.</h2></div>
       <ol class="exercises">
         <li>
-          <h4>Fase 1: Hackeando la «Temperatura»</h4>
-          <p>En la web no hay un botón de temperatura, pero podemos simularlo con «Prompting Semántico». Vamos a crear el <em>Naming</em> para un nuevo producto.</p>
-          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Test 1 (Simulando Temp. 0.0) ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; Actúa con absoluta literalidad y lógica. Sin adornos ni creatividad. Dame 3 nombres puramente descriptivos y funcionales para [tu producto del PFC].</pre></div>
-          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Test 2 (Simulando Temp. 1.0+) ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; Eleva tu nivel de abstracción y creatividad al máximo. Toma riesgos. Ignora lo obvio. Usa metáforas sorprendentes. Dame 3 nombres radicalmente disruptivos para [tu producto del PFC].</pre></div>
+          <h4>Fase 1: Abre tu cuaderno en NotebookLM</h4>
+          <p>Entra en <a href="https://notebooklm.google.com/" target="_blank" rel="noopener">NotebookLM</a> y crea un cuaderno nuevo para tu PFC. Cárgalo con tus propias fuentes —documentos, PDFs, notas— o añade fuentes directamente desde internet si todavía no tienes material propio.</p>
         </li>
         <li>
-          <h4>Fase 2: El Poder del Few-Shot Prompting</h4>
-          <p>Enséñale la «cultura» de tu empresa al pasante digital dándole ejemplos exactos antes de pedir la tarea.</p>
-          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Few-Shot ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; Quiero que redactes un tweet promocional para [tu producto]. Antes de hacerlo, analiza y absorbe el tono exacto (elegante pero irónico) de estos 2 ejemplos de nuestro historial:
-
-Ejemplo 1: "Decían que innovar era difícil. Nosotros preferimos llamarlo 'martes'. Descubre la nueva actualización."
-Ejemplo 2: "Menos reuniones que podrían haber sido un email, más herramientas que trabajan por ti."
-
-Ahora, redacta el nuevo tweet manteniendo ese nivel de confianza:</pre></div>
+          <h4>Fase 2: Comprueba que ha entendido tus fuentes</h4>
+          <p>Antes de pedirle nada, habla con él en el chat integrado con Gemini y hazle una o dos preguntas de control muy concretas: del tipo que solo se responden bien si de verdad ha leído tus documentos, como «¿qué cifra aparece en la página 3 de mi informe?» o «¿qué tres riesgos menciona el apartado que he subido?». Si acierta con precisión, tus fuentes están dentro; si inventa o generaliza, revisa la carga.</p>
+        </li>
+        <li>
+          <h4>Fase 3: Genera contenido con tu propio criterio</h4>
+          <p>Con las fuentes verificadas, entra en el panel de generación y crea una presentación o un podcast a partir de tu contenido. No te fíes de las opciones por defecto: dale un System Prompt para que el resultado salga con tu tono, tu público y tu formato, no con el genérico de la herramienta.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · System prompt para NotebookLM ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; Actúa como diseñador de contenido para [tu empresa/proyecto del PFC]. Tu audiencia es [ej. clientes potenciales sin conocimientos técnicos]. Usa un tono [ej. cercano y directo, nada de jerga corporativa]. Genera el resultado en formato [presentación de 8 diapositivas / podcast de 5 minutos a dos voces], con una conclusión clara y una única llamada a la acción al final.</pre></div>
         </li>
       </ol>
 

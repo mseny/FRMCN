@@ -80,11 +80,14 @@
   function user() {
     var s = session();
     var p = s ? decodeJWT(s.access_token) : null;
+    var level = C.levelFromPayload(p);
+    /* vista previa estática en local sin sesión: la barrera real la impone middleware.js */
+    if (p === null && (location.hostname === 'localhost' || location.hostname === '127.0.0.1')) level = 'completo';
     return {
       sub: p && p.sub ? p.sub : 'anon',
       email: p && p.email ? p.email : '',
       name: p && p.email ? nameFromEmail(p.email) : 'alumno',
-      level: C.levelFromPayload(p),
+      level: level,
       payload: p
     };
   }
@@ -362,11 +365,7 @@
     /* título del documento */
     document.title = (single ? 'M' + mod.num : 'M' + mod.num + ' · Clase ' + cls.num) + ' — ' + cls.short + ' · [m].seny /academy';
 
-    /* top bar */
-    var top = el('<header class="topbar"><span class="tb-l"><a class="wm" href="/index.html#' + mod.id + '"><span><b>[m]</b>.seny</span><span class="sub">/academy</span></a><span class="tb-meta">' + (single ? 'Módulo ' + mod.num : 'M' + mod.num + ' · Clase ' + cls.num) + '</span></span><nav><a href="/index.html#' + mod.id + '">Temario</a><a href="/login.html" data-logout>Salir</a></nav></header>');
-    document.body.insertBefore(top, document.body.firstChild);
-
-    /* secciones y chips */
+    /* secciones: numeración antes de construir los chips de la cabecera */
     var secs = $$('.sec[id]');
     var n = 0;
     secs.forEach(function (s) {
@@ -376,19 +375,39 @@
       if (numEl) numEl.textContent = pad2(n);
       s.setAttribute('data-n', pad2(n));
     });
-    var toc = el('<nav class="tocbar" aria-label="Secciones de la clase"><div class="read" aria-hidden="true"><i></i></div></nav>');
-    secs.filter(function (s) { return s.getAttribute('data-toc') !== 'none'; }).forEach(function (s) {
+
+    /* cabecera única: logotipo + chips de secciones + navegación, sticky */
+    var chips = secs.filter(function (s) { return s.getAttribute('data-toc') !== 'none'; }).map(function (s) {
       var label = s.getAttribute('data-label') || ($('h2', s) ? $('h2', s).textContent.replace(/\.$/, '') : s.id);
       var num = s.getAttribute('data-n');
-      toc.appendChild(el('<a href="#' + s.id + '">' + (num ? num + ' ' : '') + esc(label) + '</a>'));
-    });
-    top.insertAdjacentElement('afterend', toc);
-    var readBar = $('.read i', toc);
+      return '<a href="#' + s.id + '">' + (num ? num + ' ' : '') + esc(label) + '</a>';
+    }).join('');
+    var top = el(
+      '<header class="topbar"><div class="read" aria-hidden="true"><i></i></div>' +
+      '<span class="tb-l"><a class="wm" href="/index.html#' + mod.id + '"><span><b>[m]</b>.seny</span><span class="sub">/academy</span></a>' +
+      '<span class="tb-meta">' + (single ? 'Módulo ' + mod.num : 'M' + mod.num + ' · Clase ' + cls.num) + '</span></span>' +
+      '<nav class="tb-c" aria-label="Secciones de la clase">' + chips + '</nav>' +
+      '<nav class="tb-r"><a href="/index.html#' + mod.id + '">Temario</a><a href="/login.html" data-logout>Salir</a></nav></header>'
+    );
+    document.body.insertBefore(top, document.body.firstChild);
+    var toc = $('.tb-c', top);
+    var readBar = $('.read i', top);
+
+    /* la cabecera ya no mide una altura fija: se publica como variable CSS */
+    var headerH = 64;
+    function measureHeader() {
+      headerH = top.offsetHeight || headerH;
+      document.documentElement.style.setProperty('--header-h', headerH + 'px');
+    }
+    measureHeader();
+    window.addEventListener('resize', measureHeader);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measureHeader);
+
     toc.addEventListener('click', function (e) {
       var a = e.target.closest('a'); if (!a) return;
       e.preventDefault();
       var target = $(a.getAttribute('href'));
-      if (target) { window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 60, behavior: reduced ? 'auto' : 'smooth' }); history.replaceState(null, '', a.getAttribute('href')); }
+      if (target) { window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - (headerH + 12), behavior: reduced ? 'auto' : 'smooth' }); history.replaceState(null, '', a.getAttribute('href')); }
     });
 
     /* hero */
@@ -433,7 +452,7 @@
       var pr = max > 0 ? Math.min(1, window.scrollY / max) : 1;
       readBar.style.width = (pr * 100) + '%';
       var active = -1;
-      secs.forEach(function (s, i) { if (s.getBoundingClientRect().top < 140) active = i; });
+      secs.forEach(function (s, i) { if (s.getBoundingClientRect().top < headerH + 80) active = i; });
       var activeId = active >= 0 ? secs[active].id : null;
       links.forEach(function (a) { var on = a.getAttribute('href') === '#' + activeId; a.classList.toggle('active', on); if (on && a.scrollIntoView && toc.scrollWidth > toc.clientWidth) a.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'auto' }); });
       if (pr >= 0.9 && !deep) { deep = true; }

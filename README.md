@@ -68,7 +68,7 @@ npm install
 npx next dev        # http://localhost:3000 (con middleware y login reales)
 ```
 
-Para ver las páginas sin login (solo piel): cualquier servidor estático sobre `public/`, por ejemplo `python -m http.server 8766 --directory public`.
+Para ver las páginas sin login (solo piel): `python tools/serve.py 8766 public` (manda `no-store`, así el navegador no se queda con un CSS viejo). Sin sesión y solo en `localhost`, `curso.js` trata al visitante como `completo` para que se puedan abrir todas las clases; en producción ese atajo no actúa y la barrera sigue siendo el middleware.
 
 ## Variables de entorno (Vercel)
 
