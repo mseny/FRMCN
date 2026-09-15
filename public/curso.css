@@ -23,7 +23,7 @@ html{overflow-x:clip;}
 .mono{font-family:var(--font-mono);letter-spacing:.1em;text-transform:uppercase;font-weight:400;}
 
 /* ── Cabecera única: logotipo + chips de secciones + navegación, sticky ──── */
-.topbar{position:sticky;top:0;z-index:50;background:var(--color-ink);color:var(--color-paper);border-bottom:1px solid var(--color-line-dark);display:flex;align-items:center;gap:12px 20px;padding:10px 24px;flex-wrap:wrap;}
+.topbar{position:sticky;top:0;z-index:50;background:var(--color-ink);color:var(--color-paper);border-bottom:1px solid var(--color-line-dark);display:flex;align-items:center;gap:12px 20px;padding:24px 24px;flex-wrap:wrap;}
 .topbar .read{position:absolute;top:0;left:0;right:0;height:3px;background:color-mix(in srgb,var(--color-paper) 14%,transparent);}
 .topbar .read i{display:block;height:100%;width:0;background:var(--color-accent);transition:width .15s linear;}
 .topbar .tb-l{display:flex;align-items:center;gap:16px;flex:none;}
@@ -32,6 +32,11 @@ html{overflow-x:clip;}
 .wm .sub{font-family:var(--font-mono);font-weight:400;color:var(--color-accent);font-size:.8em;letter-spacing:0;}
 .topbar .tb-meta{font-family:var(--font-mono);font-size:var(--mono-m);letter-spacing:.1em;text-transform:uppercase;color:var(--color-mist);white-space:nowrap;}
 .topbar .tb-c{flex:1 1 200px;min-width:0;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;}
+/* Centrado que no rompe el scroll: con margin:auto en los extremos los chips se
+   centran cuando caben y, si desbordan, los margenes se anulan y el primero
+   sigue alcanzable. justify-content:center lo dejaria cortado por la izquierda. */
+.topbar .tb-c > a:first-child{margin-left:auto;}
+.topbar .tb-c > a:last-child{margin-right:auto;}
 .topbar .tb-c::-webkit-scrollbar{display:none;}
 .topbar .tb-c a{flex:none;font-family:var(--font-mono);font-size:var(--mono-s);letter-spacing:.08em;text-transform:uppercase;color:var(--color-mist);padding:7px 10px;border-radius:var(--r-pill);white-space:nowrap;min-height:32px;display:inline-flex;align-items:center;transition:background-color .3s ease,color .3s ease;}
 .topbar .tb-c a:hover{color:var(--color-paper);}
@@ -40,7 +45,7 @@ html{overflow-x:clip;}
 .topbar .tb-r a{padding:6px 0;min-height:32px;display:inline-flex;align-items:center;transition:color .3s ease;}
 .topbar .tb-r a:hover{color:var(--color-paper);}
 @media (max-width:760px){
-  .topbar{padding:10px 16px;gap:8px 12px;}
+  .topbar{padding:14px 16px;gap:8px 12px;}
   .topbar .tb-l{gap:10px;}
   .topbar .tb-c{order:3;flex-basis:100%;}
   .topbar .tb-c a{min-height:44px;}
