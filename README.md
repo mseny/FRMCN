@@ -46,7 +46,7 @@ El nivel viaja en el JWT de Supabase como `user_metadata.access_level` y se edit
 | `completo` | todos |
 | `diseno` | M1, M2, M3, M4 |
 | `marketing` | M1, M2, M6, M7, M8 |
-| `finanzas` | M1 (se le abren más módulos según avanza el curso) |
+| `finanzas` | M1, M2 (se le abren más módulos según avanza el curso) |
 | *(sin valor)* | M1 — red de seguridad, ver abajo |
 
 **Da siempre un `access_level` al crear un usuario.** Quien no lo lleve cae en `sin_asignar` y solo ve M1. Es deliberado: antes el valor por defecto era `completo` y un alta sin nivel regalaba el curso entero.

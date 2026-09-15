@@ -134,7 +134,7 @@
     marketing: { label: 'Marketing', modules: ['m1', 'm2', 'm6', 'm7', 'm8'] },
     /* Finanzas abre por goteo: hoy solo M1, y Marc va sumando módulos a esta
        lista a medida que avanza el curso. */
-    finanzas:  { label: 'Finanzas',  modules: ['m1'] },
+    finanzas:  { label: 'Finanzas',  modules: ['m1', 'm2'] },
     /* Red de seguridad, no un nivel que se reparta. Si a alguien se le olvida
        el access_level en Supabase, cae aquí y ve el mínimo, no el curso entero.
        Antes el defecto era 'completo' y un alta sin nivel regalaba todo. */
