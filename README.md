@@ -9,6 +9,7 @@ Web del alumno del curso «IA Generativa» de [m].seny. Páginas HTML planas en 
 | `public/index.html` | Home: panel del alumno (progreso, «Continuar», temario con las clases por módulo). |
 | `public/login.html` | Acceso con Supabase (usuario → `usuario@cursoia.local`). |
 | `public/modulo*.html`, `public/pfc-marketing.html` | Las clases. Cada una es HTML plano con `<body data-class="…">`. |
+| `public/practica/` | Archivos de práctica descargables por clase (`m5c1/`: hoja de ventas, memorándum y normas, con datos sintéticos). Se sirven sin login; no contienen datos reales. |
 | `public/theme.css` | Tokens y utilidades del design system (fuentes en `public/fonts/`). No se toca salvo para re-tematizar. |
 | `public/curso.css` | Componentes de clase, home y login. |
 | `public/curso.js` | Comportamiento común: sesión y nivel desde el JWT, progreso en Supabase con caché local, top bar, chips de secciones con scroll-spy, hero, nav inferior, copiar, test, tabs, checklist, home. |
@@ -29,7 +30,7 @@ Web del alumno del curso «IA Generativa» de [m].seny. Páginas HTML planas en 
 | M2 · Glosario y Fundamentos | 1 | `modulo2.html` |
 | M3 · Estudio Creativo IA (Imagen) | 3 | `modulo3-clase1..3.html` |
 | M4 · Estudio Creativo IA (Automatización) | 2 | `modulo4-clase1..2.html` |
-| M5 | — | hueco libre para contenido futuro |
+| M5 · Copilot suite | 1 | `modulo5-clase1.html` |
 | M6 · Claude suite | 3 | `modulo6-clase1..3.html` |
 | M7 · Cerebros de IA | 3 | `modulo7-clase1..3.html` |
 | M8 · Desarrollo de software | 1 | `modulo8-clase1.html` |
@@ -46,7 +47,7 @@ El nivel viaja en el JWT de Supabase como `user_metadata.access_level` y se edit
 | `completo` | todos |
 | `diseno` | M1, M2, M3, M4 |
 | `marketing` | M1, M2, M6, M7, M8 |
-| `finanzas` | M1, M2 (se le abren más módulos según avanza el curso) |
+| `finanzas` | M1, M2, M5 (se le abren más módulos según avanza el curso) |
 | *(sin valor)* | M1 — red de seguridad, ver abajo |
 
 **Da siempre un `access_level` al crear un usuario.** Quien no lo lleve cae en `sin_asignar` y solo ve M1. Es deliberado: antes el valor por defecto era `completo` y un alta sin nivel regalaba el curso entero.

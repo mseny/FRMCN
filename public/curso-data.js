@@ -66,8 +66,16 @@
       ]
     },
 
-    /* M5 — hueco libre. Cuando haya contenido, añade aquí el módulo con num: 5
-       y sus clases; aparece en la web con solo rellenar `classes`. */
+    {
+      id: 'm5', num: 5, title: 'Copilot suite', short: 'Copilot suite',
+      quote: '«Copilot es una familia de productos con un mismo nombre; el primer paso es saber cuál se tiene delante.»', quoteSrc: 'M5 · C1 — Introducción a Copilot',
+      desc: 'La IA que ya vive en Microsoft 365: qué variante de Copilot es cuál, dónde guarda el contexto y qué hace dentro de Word, Excel, PowerPoint y Outlook.',
+      classes: [
+        { id: 'm5c1', file: 'modulo5-clase1.html', num: 1, kind: 'teórica', duration: 'Teoría 45 min · Práctica 60 min', topic: 'Copilot dentro de Microsoft 365',
+          title: 'Introducción a Copilot', short: 'Introducción a Copilot',
+          tools: ['Copilot', 'Cuadernos', 'Word', 'Excel', 'PowerPoint', 'Outlook'] }
+      ]
+    },
 
     {
       id: 'm6', num: 6, title: 'Claude suite', short: 'Claude suite',
@@ -132,9 +140,9 @@
     completo:  { label: 'Acceso completo', modules: '*' },
     diseno:    { label: 'Diseño',    modules: ['m1', 'm2', 'm3', 'm4'] },
     marketing: { label: 'Marketing', modules: ['m1', 'm2', 'm6', 'm7', 'm8'] },
-    /* Finanzas abre por goteo: hoy solo M1, y Marc va sumando módulos a esta
+    /* Finanzas abre por goteo: hoy M1, M2 y M5, y Marc va sumando módulos a esta
        lista a medida que avanza el curso. */
-    finanzas:  { label: 'Finanzas',  modules: ['m1', 'm2'] },
+    finanzas:  { label: 'Finanzas',  modules: ['m1', 'm2', 'm5'] },
     /* Red de seguridad, no un nivel que se reparta. Si a alguien se le olvida
        el access_level en Supabase, cae aquí y ve el mínimo, no el curso entero.
        Antes el defecto era 'completo' y un alta sin nivel regalaba todo. */
