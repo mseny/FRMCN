@@ -41,6 +41,8 @@ html{overflow-x:clip;}
 .topbar .tb-c a{flex:none;font-family:var(--font-mono);font-size:var(--mono-s);letter-spacing:.08em;text-transform:uppercase;color:var(--color-mist);padding:7px 10px;border-radius:var(--r-pill);white-space:nowrap;min-height:32px;display:inline-flex;align-items:center;transition:background-color .3s ease,color .3s ease;}
 .topbar .tb-c a:hover{color:var(--color-paper);}
 .topbar .tb-c a.active{background:var(--color-accent);color:var(--color-accent-ink);padding:7px 14px;}
+/* Entre 761 y 1520 px, una clase de diez secciones (M5) dejaba el último chip cortado por unos píxeles: chips un poco más prietos en ese rango. */
+@media (min-width:761px) and (max-width:1520px){.topbar .tb-c{gap:4px;}.topbar .tb-c a{padding:7px 8px;}.topbar .tb-c a.active{padding:7px 12px;}}
 .topbar .tb-r{flex:none;margin-left:auto;display:flex;gap:22px;font-family:var(--font-mono);font-size:var(--mono-m);letter-spacing:.1em;text-transform:uppercase;color:var(--color-mist);}
 .topbar .tb-r a{padding:6px 0;min-height:32px;display:inline-flex;align-items:center;transition:color .3s ease;}
 .topbar .tb-r a:hover{color:var(--color-paper);}
@@ -78,6 +80,11 @@ html{overflow-x:clip;}
 /* margen extra entre bloques cuando una sección concreta pide más aire: los
    márgenes verticales colapsan, así que el hueco resultante es uniforme. */
 .sec.respira > * + *{margin-top:32px;}
+/* Clases con más aire (a partir de M5): más separación entre secciones, entre cards y bajo el título. */
+.content.aire{gap:96px;}
+.content.aire .grid-cards{gap:24px;}
+.content.aire .sec-head{margin-bottom:28px;}
+@media (max-width:760px){.content.aire{gap:72px;}}
 .sec-head{display:flex;align-items:baseline;gap:16px;margin:0 0 20px;}
 .sec-num{font-family:var(--font-mono);font-size:14px;color:var(--color-accent-deep);flex:none;}
 .sec-head h2{margin:0;font-size:36px;color:var(--color-ink);}
@@ -488,7 +495,8 @@ body[data-class]{overflow-x:clip;}
 .dp-stage.dp-foto{height:clamp(280px,calc(100vh - 490px),500px);}
 /* el esquema se ajusta a su propio dibujo: una caja fija le deja aire muerto */
 .dp-stage img.base{display:block;width:100%;height:100%;object-fit:contain;}
-.dp-cap{margin:0;font-family:var(--font-mono);font-size:var(--mono-s);letter-spacing:.09em;text-transform:uppercase;color:var(--color-muted);}
+/* .dp-media delante para ganar a `.content p`, que si no lo deja a 21 px con 20 px de margen. */
+.dp-media .dp-cap{margin:0;font-family:var(--font-mono);font-size:var(--mono-s);line-height:1.5;letter-spacing:.09em;text-transform:uppercase;color:var(--color-muted);text-align:left;}
 .sec-dark .dp-cap{color:var(--color-mist);}
 .dp-capa{transition:opacity .5s var(--ease-expo);}
 svg.dp-capa{position:absolute;inset:0;width:100%;height:100%;opacity:0;}
@@ -501,6 +509,10 @@ svg.dp-capa.on{opacity:1;}
 .dp-stage .wash{fill:rgba(15,118,110,.12);stroke:none;}
 .dp-stage text{font-family:var(--font-mono);font-size:38px;letter-spacing:.05em;fill:var(--color-accent-deep);font-weight:500;}
 .dp-stage .dot{fill:var(--color-accent-deep);stroke:none;}
+/* Despiece sobre captura oscura: el teal se apaga sobre tinta. Anotamos en papel, con el punto en lima (marca la zona señalada), como las figuras de la banda tinta. */
+.dp-stage.dp-oscura .st{stroke:var(--color-paper);}
+.dp-stage.dp-oscura text{fill:var(--color-paper);}
+.dp-stage.dp-oscura .dot{fill:var(--color-accent);}
 
 /* ── Diagrama propio, como figura ──────────────────────────────────────
    Un diagrama no es un despiece: no hay nada que señalar paso a paso en un
@@ -571,7 +583,7 @@ svg.dp-capa.on{opacity:1;}
   .dp-stage.dp-foto{height:clamp(200px,30vh,280px);}
   .dp-pantalla{max-height:220px;}
   .dp-tira{max-height:104px;overflow:auto;}
-  .dp-cap{font-size:10px;letter-spacing:.06em;}
+  .dp-media .dp-cap{font-size:10px;letter-spacing:.06em;}
   .dp-step{min-height:0;padding:26px 0;opacity:1;}
   .dp-nav{display:none;}
 }

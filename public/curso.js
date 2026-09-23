@@ -329,16 +329,33 @@
       });
       activar(steps[0]);
       if (!window.IntersectionObserver) return;
-      var vistos = [];
-      var obs = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          var i = steps.indexOf(e.target), at = vistos.indexOf(i);
-          if (e.isIntersecting && at < 0) vistos.push(i);
-          if (!e.isIntersecting && at >= 0) vistos.splice(at, 1);
-        });
-        if (vistos.length) activar(steps[Math.min.apply(Math, vistos)]);
-      }, { rootMargin: '-40% 0px -45% 0px' });
-      steps.forEach(function (s) { obs.observe(s); });
+      /* La franja que enciende un paso. En escritorio es el centro de la pantalla.
+         En móvil la media va pegajosa arriba y tapa justo ese centro, así que el
+         paso que se lee quedaba siempre uno por detrás: ahí la franja se abre
+         justo debajo de la media, y se recalcula si cambia el ancho. */
+      function margen() {
+        if (window.innerWidth > 900) return '-40% 0px -45% 0px';
+        var top = Math.round(media.getBoundingClientRect().height + (parseFloat(getComputedStyle(media).top) || 0));
+        var bottom = Math.max(0, window.innerHeight - top - 160);
+        return '-' + top + 'px 0px -' + bottom + 'px 0px';
+      }
+      var vistos = [], obs = null;
+      function observar() {
+        if (obs) obs.disconnect();
+        vistos = [];
+        obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            var i = steps.indexOf(e.target), at = vistos.indexOf(i);
+            if (e.isIntersecting && at < 0) vistos.push(i);
+            if (!e.isIntersecting && at >= 0) vistos.splice(at, 1);
+          });
+          if (vistos.length) activar(steps[Math.min.apply(Math, vistos)]);
+        }, { rootMargin: margen() });
+        steps.forEach(function (s) { obs.observe(s); });
+      }
+      observar();
+      var espera;
+      window.addEventListener('resize', function () { clearTimeout(espera); espera = setTimeout(observar, 150); });
     });
   }
 

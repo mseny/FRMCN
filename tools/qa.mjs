@@ -61,7 +61,7 @@ for (const file of htmlFiles) {
   if (h1 !== 1) err(file, `${h1} <h1> (debe ser 1)`);
   if (!/<main\b/.test(html)) err(file, 'sin <main>');
   if (!/class="hero(?: escena)?"/.test(html)) err(file, 'sin header.hero');
-  if (!/class="content"/.test(html)) err(file, 'sin div.content');
+  if (!/class="content[ "]/.test(html)) err(file, 'sin div.content');
   if (!/src="\/curso-data\.js"/.test(html) || !/src="\/curso\.js"/.test(html)) err(file, 'faltan curso-data.js / curso.js');
   if (/<(header|footer|nav)\b(?![^>]*class="(hero|navfoot|topbar|src))/i.test(html)) {
     const tag = html.match(/<(header|footer|nav)\b[^>]*>/i)[0];
@@ -80,7 +80,7 @@ for (const file of htmlFiles) {
   for (const q of html.matchAll(/class="quiz"[^>]*data-quiz="([^"]+)"/g)) {
     if (!new RegExp(`(?:const|let|var)\\s+${q[1]}\\s*=`).test(html)) err(file, `quiz "${q[1]}" sin array de datos`);
   }
-  if (/<img/.test(html) && !/media-duotone|class="figure"|class="esc-fig"|class="dp-stage"|class="serie"/.test(html)) warn(file, 'imagen sin figure/duotono');
+  if (/<img/.test(html) && !/media-duotone|class="figure"|class="esc-fig"|class="dp-stage[ "]|class="serie"/.test(html)) warn(file, 'imagen sin figure/duotono');
   const emoji = html.replace(/<script[\s\S]*?<\/script>/g, '').match(/(?![©®™✓✔↔↕⇄→←↑↓])\p{Extended_Pictographic}/u);
   if (emoji) warn(file, `emoji en el markup: ${emoji[0]}`);
 }
