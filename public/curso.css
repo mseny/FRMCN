@@ -41,8 +41,9 @@ html{overflow-x:clip;}
 .topbar .tb-c a{flex:none;font-family:var(--font-mono);font-size:var(--mono-s);letter-spacing:.08em;text-transform:uppercase;color:var(--color-mist);padding:7px 10px;border-radius:var(--r-pill);white-space:nowrap;min-height:32px;display:inline-flex;align-items:center;transition:background-color .3s ease,color .3s ease;}
 .topbar .tb-c a:hover{color:var(--color-paper);}
 .topbar .tb-c a.active{background:var(--color-accent);color:var(--color-accent-ink);padding:7px 14px;}
-/* Entre 761 y 1520 px, una clase de diez secciones (M5) dejaba el último chip cortado por unos píxeles: chips un poco más prietos en ese rango. */
-@media (min-width:761px) and (max-width:1520px){.topbar .tb-c{gap:4px;}.topbar .tb-c a{padding:7px 8px;}.topbar .tb-c a.active{padding:7px 12px;}}
+/* Entre 761 y 1520 px, una clase de once secciones (M5, M4·C2) no cabía en la fila de chips: chips más prietos en ese rango y, por debajo de 1366 px, sin la etiqueta «Mx · Clase y» de la cabecera, que ya figura en el hero. */
+@media (min-width:761px) and (max-width:1520px){.topbar .tb-c{gap:3px;}.topbar .tb-c a{padding:7px 6px;letter-spacing:.03em;}.topbar .tb-c a.active{padding:7px 10px;}}
+@media (min-width:761px) and (max-width:1366px){.topbar .tb-meta{display:none;}}
 .topbar .tb-r{flex:none;margin-left:auto;display:flex;gap:22px;font-family:var(--font-mono);font-size:var(--mono-m);letter-spacing:.1em;text-transform:uppercase;color:var(--color-mist);}
 .topbar .tb-r a{padding:6px 0;min-height:32px;display:inline-flex;align-items:center;transition:color .3s ease;}
 .topbar .tb-r a:hover{color:var(--color-paper);}
