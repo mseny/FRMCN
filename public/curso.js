@@ -375,7 +375,7 @@
     var u = user();
     Progress.init(u.sub);
     var mod = cls.module;
-    if (!C.canAccess(u.level, mod.id)) { window.location.replace('/index.html#' + mod.id); return; }
+    if (!C.canAccess(u.level, mod.id, cls.id)) { window.location.replace('/index.html#' + mod.id); return; }
     var pn = C.prevNext(cls.id, u.level);
     var single = cls.kind === 'módulo completo';
 
@@ -441,7 +441,9 @@
 
     /* nav inferior + pie */
     var main = $('main') || document.body;
-    var pos = single ? 'Módulo ' + mod.num + ' · ' + cls.total + ' ' + plural(cls.total, 'clase', 'clases') : 'Clase ' + cls.num + ' de ' + cls.total;
+    /* Con acceso a clases sueltas del módulo, «de N» contaría clases que el alumno no ve */
+    var partial = C.classesInLevel(u.level, mod).length < mod.classes.length;
+    var pos = single ? 'Módulo ' + mod.num + ' · ' + cls.total + ' ' + plural(cls.total, 'clase', 'clases') : 'Clase ' + cls.num + (partial ? '' : ' de ' + cls.total);
     var prevHtml = pn.prev ? '<a class="btn-ghost" href="' + pn.prev.file + '" data-nav-prev>← ' + esc(pn.prev.module.id === mod.id ? 'Clase anterior' : 'Módulo anterior') + '</a>' : '<a class="btn-ghost" href="/index.html#' + mod.id + '">← Volver al temario</a>';
     var nextHtml = pn.next ? '<a class="btn-accent" href="' + pn.next.file + '" data-nav-next>' + esc(pn.next.module.id === mod.id ? 'Siguiente clase' : 'Siguiente: M' + pn.next.module.num) + ' <span aria-hidden="true">→</span></a>' : '<a class="btn-accent" href="/index.html#' + mod.id + '">Volver al temario <span aria-hidden="true">→</span></a>';
     var nav = el('<nav class="navfoot" aria-label="Navegación entre clases"><div class="row">' + prevHtml + '<span class="pos">' + esc(pos) + '</span>' + nextHtml + '</div><div class="seen"><button type="button" data-seen aria-pressed="false">[ ] Marcar como vista</button></div></nav>');
@@ -510,14 +512,15 @@
       var next = Progress.nextClass(u.level);
       var done = classes.filter(function (c) { return Progress.isSeen(c.id); }).length;
       var out = mods.map(function (m) {
-        var total = m.classes.length, seen = m.classes.filter(function (c) { return Progress.isSeen(c.id); }).length;
+        var mine = C.classesInLevel(u.level, m);
+        var total = mine.length, seen = mine.filter(function (c) { return Progress.isSeen(c.id); }).length;
         var state = !accessible(m) ? 'locked' : (total && seen === total) ? 'done' : (next && next.module.id === m.id) ? 'current' : 'pending';
-        var rows = m.classes.map(function (c) {
+        var rows = mine.map(function (c) {
           var st = state === 'locked' ? 'locked' : Progress.isSeen(c.id) ? 'viewed' : (next && next.id === c.id) ? 'next' : 'pending';
           var o = {}; for (var k in c) o[k] = c[k]; o.st = st; return o;
         });
         var o = {}; for (var k in m) o[k] = m[k];
-        o.quote = m.quote; o.quoteSrc = m.quoteSrc; o.total = total; o.seen = seen; o.state = state; o.pct = total ? Math.round(seen / total * 100) : 0; o.rows = rows; o.tools = C.toolsOf(m);
+        o.quote = m.quote; o.quoteSrc = m.quoteSrc; o.total = total; o.seen = seen; o.state = state; o.pct = total ? Math.round(seen / total * 100) : 0; o.rows = rows; o.tools = C.toolsOf({ classes: mine });
         return o;
       });
       return { mods: out, classes: classes, next: next, done: done, total: classes.length, pct: classes.length ? Math.round(done / classes.length * 100) : 0 };
@@ -566,7 +569,7 @@
 
       var cont = $('#continue'), nx = M.next;
       if (nx) {
-        var left = nx.module.classes.filter(function (c) { return !Progress.isSeen(c.id); }).length;
+        var left = C.classesInLevel(u.level, nx.module).filter(function (c) { return !Progress.isSeen(c.id); }).length;
         $('#headline').textContent = M.done ? 'Sigue donde lo dejaste.' : 'Empieza por el principio.';
         $('#cont-k').textContent = (nx.kind === 'módulo completo' ? 'M' + nx.module.num : 'M' + nx.module.num + ' · Clase ' + nx.num) + ' — ' + (M.done ? 'En curso' : 'Primera clase');
         $('#cont-title').textContent = nx.short;

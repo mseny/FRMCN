@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>M6 · Clase 2 — Claude Cowork: guía de referencia · [m].seny /academy</title>
-<meta name="description" content="Todo lo que puedes crear para automatizar tu trabajo: componentes, diferencias y gestión de contexto avanzado.">
+<title>M6 · Clase 2 — Producir con Claude: tareas, artefactos y diseño · [m].seny /academy</title>
+<meta name="description" content="Cómo se encarga trabajo a Claude y qué se recibe a cambio: tareas en Cowork y programadas, artefactos, Claude Design, Dashboards, Motion y Claude in Chrome, con el cierre de octubre como caso.">
 <link rel="stylesheet" href="/theme.css">
 <link rel="stylesheet" href="/curso.css">
 </head>
@@ -12,467 +12,1106 @@
 <main>
 
   <header class="hero escena">
-    <h1 class="display">Claude Cowork: guía de <em>referencia</em>.</h1>
-    <p class="sub">Todo lo que puedes crear para automatizar tu trabajo: componentes, diferencias y gestión de contexto avanzado.</p>
+    <h1 class="display">De la petición al <em>entregable</em>.</h1>
+    <p class="sub">Cómo se encarga trabajo a Claude y qué se recibe a cambio: tareas en Cowork y programadas, artefactos, Claude Design, Dashboards, Motion y Claude in Chrome, con el cierre de octubre como caso.</p>
     <ul class="esc-cifras">
-      <li><b>9</b> componentes</li>
-      <li><b>6</b> eventos</li>
-      <li><b>3</b> capas</li>
+      <li><b>6</b> tipos de artefacto</li>
+      <li><b>3</b> modos de permiso</li>
+      <li><b>1</b> cierre completo</li>
     </ul>
-    <div class="chips"><span class="chip">SKILL.md</span><span class="chip">AGENT.md</span><span class="chip">Hooks</span><span class="chip">Plugin</span><span class="chip">Context Window</span></div>
+    <div class="chips"><span class="chip">Cowork</span><span class="chip">Programadas</span><span class="chip">Artefactos</span><span class="chip">Claude Design</span><span class="chip">Dashboards</span><span class="chip">Motion</span></div>
   </header>
 
-  <div class="content">
+  <div class="content aire">
 
-    <!-- 1. El ecosistema -->
-    <section class="sec" id="ecosistema" data-label="Ecosistema">
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">El ecosistema completo.</h2></div>
-      <p>Qué puede crear y configurar un usuario dentro del entorno operativo de Cowork. La jerarquía de complejidad va desde una simple instrucción (Skill) hasta la conexión con aplicaciones externas (Connector).</p>
+    <!-- 01 · Entregables: qué se encarga y dónde se hace -->
+    <section class="sec respira" id="entregables" data-label="Entregables">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Qué se encarga y dónde se hace.</h2></div>
+      <p class="sec-intro">El módulo sigue a Claude como un colaborador que se incorpora a la empresa. En la clase 1 recibió mesa, llaves y normas: la app, los proyectos, la memoria y los ajustes. En esta clase se le encarga trabajo, y la primera decisión no es qué escribir en el cuadro, sino qué se espera recibir: una respuesta, un archivo, una pieza que se comparte o un trabajo que se repite cada semana. De esa decisión se deduce la superficie de la app que conviene usar.</p>
 
-      <figure class="figure">
-        <div class="figure esquema">
-          <svg style="max-width:640px;margin:0 auto" viewBox="0 0 560 268" role="img" aria-label="Jerarquía de complejidad del ecosistema de Cowork: cinco escalones apilados sobre un mismo eje vertical, del más simple al más complejo — SKILL.md, AGENT.md, Plugin, Connector y Scheduled Task.">
-            <line class="ln" x1="52" y1="28" x2="52" y2="240"/>
-            <g>
-              <line class="ln ac" x1="52" y1="28" x2="84" y2="28"/>
-              <rect class="bx fill" x="84" y="7" width="456" height="42" rx="10"/>
-              <text class="lb" x="104" y="35">01</text>
-              <text class="ti" x="146" y="35">SKILL.md</text>
-            </g>
-            <g>
-              <line class="ln ac" x1="52" y1="81" x2="84" y2="81"/>
-              <rect class="bx fill" x="84" y="60" width="456" height="42" rx="10"/>
-              <text class="lb" x="104" y="88">02</text>
-              <text class="ti" x="146" y="88">AGENT.md</text>
-            </g>
-            <g>
-              <line class="ln ac" x1="52" y1="134" x2="84" y2="134"/>
-              <rect class="bx fill" x="84" y="113" width="456" height="42" rx="10"/>
-              <text class="lb" x="104" y="141">04</text>
-              <text class="ti" x="146" y="141">Plugin (.plugin)</text>
-            </g>
-            <g>
-              <line class="ln ac" x1="52" y1="187" x2="84" y2="187"/>
-              <rect class="bx fill" x="84" y="166" width="456" height="42" rx="10"/>
-              <text class="lb" x="104" y="194">05</text>
-              <text class="ti" x="146" y="194">Connector (MCP)</text>
-            </g>
-            <g>
-              <line class="ln ac" x1="52" y1="240" x2="84" y2="240"/>
-              <rect class="bx fill" x="84" y="219" width="456" height="42" rx="10"/>
-              <text class="lb" x="104" y="247">07</text>
-              <text class="ti" x="146" y="247">Scheduled Task</text>
-            </g>
-          </svg>
-        </div>
-        <figcaption>[ Diagrama ] La jerarquía de complejidad</figcaption>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Lo que necesito</th><th>Dónde se hace</th><th>Ejemplo del cierre de octubre</th></tr></thead>
+        <tbody>
+          <tr><td>Una respuesta o una aclaración</td><td>Chat</td><td>«¿A qué mes se imputa la factura de limpieza de septiembre recibida en octubre?»</td></tr>
+          <tr><td>Un archivo de Word, Excel, PowerPoint o PDF</td><td>Una conversación con «Ejecución de código en la nube y creación de archivos» activada, o Cowork</td><td>La hoja de conciliación bancaria en Excel.</td></tr>
+          <tr><td>Un trabajo de varios pasos sobre una carpeta</td><td>Cowork</td><td>Conciliar el extracto con el mayor y entregar la hoja con los ajustes propuestos.</td></tr>
+          <tr><td>Un documento vivo que se revisa en equipo</td><td>Artefacto «Docs»</td><td>El memorándum de cierre mientras está en revisión.</td></tr>
+          <tr><td>Una presentación</td><td>Artefacto «Slides»</td><td>Las seis diapositivas del comité de dirección.</td></tr>
+          <tr><td>Una pieza visual o un prototipo</td><td>Claude Design («Diseño» o «Design»)</td><td>El one-pager de resultados para el consejo.</td></tr>
+          <tr><td>Un tablero sobre datos conectados</td><td>Dashboards</td><td>Las ventas por tienda de esta semana frente a la anterior.</td></tr>
+          <tr><td>Un explicador animado</td><td>Motion</td><td>El cierre resumido en treinta segundos para la reunión general.</td></tr>
+          <tr><td>Una herramienta interna</td><td>Artefacto de tipo app</td><td>La lista de hitos del cierre que marca todo el equipo.</td></tr>
+          <tr><td>Un trabajo que se repite</td><td>Programadas</td><td>El resumen de tesorería de cada lunes.</td></tr>
+        </tbody>
+      </table></div>
+
+      <figure class="figure esquema">
+        <svg viewBox="0 0 960 372" role="img" aria-label="Diagrama de la petición al entregable. A la izquierda, en oscuro, la petición; de ella salen cuatro caminos. Una respuesta se pide en Chat y llega como texto en la conversación. Un trabajo se encarga en Cowork y llega como archivos entregados. Una pieza se crea como artefacto y queda en la galería. Lo que se repite cada semana va a Programadas y cada ejecución es una sesión. Debajo, una línea común a los cuatro caminos: antes de usar o enviar, revisión humana.">
+          <rect class="fill-ink" x="40" y="126" width="160" height="92" rx="4"/>
+          <text class="ti on-dark" x="120" y="179" text-anchor="middle">Petición</text>
+          <line class="ln" x1="200" y1="172" x2="226" y2="172"/>
+          <line class="ln" x1="226" y1="52" x2="226" y2="292"/>
+
+          <line class="ln" x1="226" y1="52" x2="250" y2="52"/>
+          <rect class="bx" x="250" y="26" width="190" height="52" rx="4"/>
+          <text class="lb" x="345" y="58" text-anchor="middle">Una respuesta</text>
+          <line class="ln ac" x1="440" y1="52" x2="480" y2="52"/>
+          <path class="ln ac" d="M472 46 L480 52 L472 58"/>
+          <rect class="bx fill" x="480" y="26" width="170" height="52" rx="4"/>
+          <text class="lb b" x="565" y="58" text-anchor="middle">Chat</text>
+          <line class="ln ac" x1="650" y1="52" x2="680" y2="52"/>
+          <path class="ln ac" d="M672 46 L680 52 L672 58"/>
+          <rect class="bx" x="680" y="26" width="250" height="52" rx="4"/>
+          <text class="lb" x="805" y="58" text-anchor="middle">Texto en el chat</text>
+
+          <line class="ln" x1="226" y1="132" x2="250" y2="132"/>
+          <rect class="bx" x="250" y="106" width="190" height="52" rx="4"/>
+          <text class="lb" x="345" y="138" text-anchor="middle">Un trabajo</text>
+          <line class="ln ac" x1="440" y1="132" x2="480" y2="132"/>
+          <path class="ln ac" d="M472 126 L480 132 L472 138"/>
+          <rect class="bx fill" x="480" y="106" width="170" height="52" rx="4"/>
+          <text class="lb b" x="565" y="138" text-anchor="middle">Cowork</text>
+          <line class="ln ac" x1="650" y1="132" x2="680" y2="132"/>
+          <path class="ln ac" d="M672 126 L680 132 L672 138"/>
+          <rect class="bx" x="680" y="106" width="250" height="52" rx="4"/>
+          <text class="lb" x="805" y="138" text-anchor="middle">Archivos entregados</text>
+
+          <line class="ln" x1="226" y1="212" x2="250" y2="212"/>
+          <rect class="bx" x="250" y="186" width="190" height="52" rx="4"/>
+          <text class="lb" x="345" y="218" text-anchor="middle">Una pieza</text>
+          <line class="ln ac" x1="440" y1="212" x2="480" y2="212"/>
+          <path class="ln ac" d="M472 206 L480 212 L472 218"/>
+          <rect class="bx fill" x="480" y="186" width="170" height="52" rx="4"/>
+          <text class="lb b" x="565" y="218" text-anchor="middle">Artefacto</text>
+          <line class="ln ac" x1="650" y1="212" x2="680" y2="212"/>
+          <path class="ln ac" d="M672 206 L680 212 L672 218"/>
+          <rect class="bx" x="680" y="186" width="250" height="52" rx="4"/>
+          <text class="lb" x="805" y="218" text-anchor="middle">Pieza en la galería</text>
+
+          <line class="ln" x1="226" y1="292" x2="250" y2="292"/>
+          <rect class="bx" x="250" y="266" width="190" height="52" rx="4"/>
+          <text class="lb" x="345" y="298" text-anchor="middle">Cada semana</text>
+          <line class="ln ac" x1="440" y1="292" x2="480" y2="292"/>
+          <path class="ln ac" d="M472 286 L480 292 L472 298"/>
+          <rect class="bx fill" x="480" y="266" width="170" height="52" rx="4"/>
+          <text class="lb b" x="565" y="298" text-anchor="middle">Programadas</text>
+          <line class="ln ac" x1="650" y1="292" x2="680" y2="292"/>
+          <path class="ln ac" d="M672 286 L680 292 L672 298"/>
+          <rect class="bx" x="680" y="266" width="250" height="52" rx="4"/>
+          <text class="lb" x="805" y="298" text-anchor="middle">Sesión por ejecución</text>
+
+          <line class="ln" x1="250" y1="334" x2="930" y2="334"/>
+          <text class="lb b" x="590" y="362" text-anchor="middle">Antes de usar o enviar: revisión humana</text>
+        </svg>
+        <figcaption>[ Diagrama 01 ] De la petición al entregable: cuatro caminos y una misma revisión</figcaption>
       </figure>
 
-      <div class="callout clave"><span class="k">[ Clave ]</span><p><strong>La jerarquía de complejidad:</strong> Skill (instrucciones) → Agent (instancia propia) → Plugin (bundle de todo) → Connector (acceso a apps externas) → Scheduled Task (automatización temporal).</p></div>
-
-      <div class="grid-cards two">
-        <div class="card"><span class="k">[ 01 ]</span><h4>SKILL.md</h4><p>Instrucciones especializadas que Claude carga bajo demanda. El «manual de trabajo» para una tarea concreta.</p></div>
-        <div class="card"><span class="k">[ 02 ]</span><h4>AGENT.md</h4><p>Subagente con su propio sistema de instrucciones, modelo y herramientas. Una instancia Claude separada con personalidad propia.</p></div>
-        <div class="card"><span class="k">[ 03 ]</span><h4>Hooks</h4><p>Automatizaciones que se disparan en eventos del sistema. El mecanismo real de «workflows» automáticos en Cowork.</p></div>
-        <div class="card"><span class="k">[ 04 ]</span><h4>Plugin (.plugin)</h4><p>Paquete instalable que agrupa Skills + Agents + Hooks + MCP. Un módulo que amplía Cowork con nuevas capacidades.</p></div>
-        <div class="card"><span class="k">[ 05 ]</span><h4>Connector (MCP)</h4><p>Conexión a una herramienta externa (Slack, Notion, HubSpot…). Da a Claude acceso real a tus datos y apps.</p></div>
-        <div class="card"><span class="k">[ 06 ]</span><h4>Project / Workspace</h4><p>Carpeta local montada en Cowork. Claude puede leer y escribir todos los archivos que contiene de forma nativa.</p></div>
-        <div class="card"><span class="k">[ 07 ]</span><h4>Scheduled Task</h4><p>Tarea que corre automáticamente según un calendario (cron). Claude ejecuta un prompt sin intervención del usuario.</p></div>
-        <div class="card"><span class="k">[ 08 ]</span><h4>Artifact</h4><p>Página HTML persistente con datos en vivo de conectores. Un dashboard que el usuario puede reabrir cuando quiera.</p></div>
-        <div class="card"><span class="k">[ 09 ]</span><h4>Memory (CLAUDE.md)</h4><p>Archivo de memoria persistente entre sesiones. Almacena preferencias, contexto de equipo y hechos duraderos.</p></div>
-      </div>
+      <div class="callout nota"><span class="k">[ Si no aparece el conmutador ]</span><p>Según la cuenta, el conmutador «Chat | Cowork» puede no aparecer: es la experiencia unificada que explica la clase 1, en la que Claude decide si la petición necesita una respuesta o una tarea. La tabla sirve igual, porque lo que cambia es quién elige el camino, no los caminos.</p></div>
     </section>
 
-    <!-- 2. SKILL.md -->
-    <section class="sec" id="skill" data-label="Skill">
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">SKILL.md — conocimiento bajo demanda.</h2></div>
-      <p>Una <strong>Skill</strong> es un archivo Markdown que le dice a Claude <em>cómo</em> hacer algo específico. Claude lo lee automáticamente cuando detecta que la petición del usuario encaja con la descripción del skill, sin que el usuario tenga que invocarlo explícitamente.</p>
-      <div class="callout analogia"><span class="k">[ Analogía ]</span><p>Un skill es como el manual de procedimientos de un departamento. Cuando Claude detecta que tiene que hacer algo del ámbito del skill, saca el manual del cajón y lo consulta antes de actuar.</p></div>
+    <!-- 02 · Cowork: despiece de una tarea, cómo trabaja, el encargo y la seguridad -->
+    <section class="sec respira sec-ancho" id="cowork" data-label="Cowork">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Una tarea de Cowork, zona a zona.</h2></div>
+      <p class="sec-intro">En Cowork, Claude asume una tarea de varios pasos: la planifica, la divide en subtareas, la ejecuta en un entorno aislado y entrega el resultado en archivos. La captura muestra una tarea en curso dentro de un proyecto. Los tres modos de permiso —Manual, automático y Omitir— se explicaron en la clase 1; aquí se recorre lo que aparece en pantalla mientras Claude trabaja, cómo se reparte el trabajo y cómo se escribe un encargo que no deje nada a la interpretación.</p>
 
-      <h3>Anatomía del archivo</h3>
-      <div class="code wrap"><div class="ch"><span class="k">[ Archivo · SKILL.md ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre><span class="cm">--- ← PARTE 1: FRONTMATTER YAML (Puerta de entrada) ---</span>
-<span class="hl">name</span>: nombre-del-skill
-<span class="hl">description</span>: "Cuándo activar este skill. Claude lee este texto
-  para decidir si el skill aplica. Aquí van los TRIGGERS:
-  'analiza mis campañas', 'qué ROAS tengo', 'dame insights'.
-  También actívalo cuando el archivo tenga columnas de CTR..."
-<span class="cm">---</span>
-
-<span class="cm"># PARTE 2: CUERPO MARKDOWN (Instrucciones reales)</span>
-
-<span class="ac">## Qué hacer cuando el skill se activa</span>
-<span class="hl">Instrucciones paso a paso para Claude...</span>
-
-<span class="ac">## Código de referencia</span>
-<span class="cm">```python
-# Snippets que Claude usará directamente
-```</span>
-
-<span class="ac">## Output obligatorio</span>
-<span class="hl">Qué generar, en qué formato, qué archivos crear...</span></pre></div>
-
-      <h3>Los 3 niveles de carga (Progressive Disclosure)</h3>
-      <p class="sec-intro">Esta es la clave para entender cómo afectan los skills al consumo de tokens de la ventana de contexto:</p>
-      <div class="stepper vertical">
-        <div class="step"><span class="n">01</span><h4>Metadata (Siempre en contexto)</h4><p>Solo <code>name</code> + <code>description</code> (~100 palabras). Costo mínimo. Claude siempre lo tiene disponible para decidir si activar.</p></div>
-        <div class="step"><span class="n">02</span><h4>SKILL.md Body (Solo al activarse)</h4><p>Las instrucciones detalladas (&lt;5.000 palabras). Solo consumen tokens cuando Claude decide que el skill aplica a la tarea actual.</p></div>
-        <div class="step"><span class="n">03</span><h4>references/ (Bajo demanda)</h4><p>Docs adicionales o scripts. Claude los lee solo si los necesita. Nunca ocupan contexto innecesariamente.</p></div>
+      <div class="despiece" data-despiece>
+        <div class="dp-media">
+          <ul class="dp-nav">
+            <li><button type="button" data-go="cabecera">01 <i>Cabecera</i></button></li>
+            <li><button type="button" data-go="encargo">02 <i>Encargo</i></button></li>
+            <li><button type="button" data-go="progreso">03 <i>Progreso</i></button></li>
+            <li><button type="button" data-go="salidas">04 <i>Salidas</i></button></li>
+            <li><button type="button" data-go="contexto">05 <i>Contexto</i></button></li>
+            <li><button type="button" data-go="cuadro">06 <i>Cuadro</i></button></li>
+          </ul>
+          <div class="dp-stage dp-foto dp-oscura">
+            <img class="base" src="/img/m6c2-tarea.png" alt="Captura de una tarea de Cowork en curso en la app de escritorio de Claude: en la cabecera, «MarcaMar / Animación del logo»; en el centro, el mensaje «Crea una pequeña animación del logo usando código.», el estado «Trabajando en ello… · 6s» y una línea «Consejo:» con el enlace «Probar»; a la derecha, los bloques «Progreso», «Salidas» y «Contexto»; abajo, el cuadro de mensaje con «+», el modo «Manual», el modelo «Opus 5.5 Extra», el micrófono y el botón de detener." width="1600" height="866" loading="lazy">
+            <svg class="dp-capa" data-capa="cabecera" viewBox="0 0 1600 866" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+              <path class="st" d="M312 54 v-12 h12"/>
+              <path class="st" d="M630 54 v-12 h-12"/>
+              <path class="st" d="M312 72 v12 h12"/>
+              <path class="st" d="M630 72 v12 h-12"/>
+              <line class="st dash" x1="656" y1="63" x2="690" y2="63"/>
+              <circle class="dot" cx="648" cy="63" r="8"/>
+              <text x="702" y="76">Proyecto y tarea</text>
+            </svg>
+            <svg class="dp-capa" data-capa="encargo" viewBox="0 0 1600 866" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+              <path class="st" d="M364 134 v-14 h14"/>
+              <path class="st" d="M1177 134 v-14 h-14"/>
+              <path class="st" d="M364 286 v14 h14"/>
+              <path class="st" d="M1177 286 v14 h-14"/>
+              <line class="st dash" x1="770" y1="300" x2="770" y2="396"/>
+              <circle class="dot" cx="770" cy="300" r="8"/>
+              <text x="770" y="444" text-anchor="middle">Encargo y estado</text>
+            </svg>
+            <svg class="dp-capa" data-capa="progreso" viewBox="0 0 1600 866" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+              <path class="st" d="M1258 62 v-12 h12"/>
+              <path class="st" d="M1588 62 v-12 h-12"/>
+              <path class="st" d="M1258 80 v12 h12"/>
+              <path class="st" d="M1588 80 v12 h-12"/>
+              <line class="st dash" x1="1530" y1="80" x2="1530" y2="376"/>
+              <circle class="dot" cx="1530" cy="71" r="8"/>
+              <text x="1588" y="424" text-anchor="end">Progreso</text>
+            </svg>
+            <svg class="dp-capa" data-capa="salidas" viewBox="0 0 1600 866" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+              <path class="st" d="M1258 110 v-12 h12"/>
+              <path class="st" d="M1588 110 v-12 h-12"/>
+              <path class="st" d="M1258 128 v12 h12"/>
+              <path class="st" d="M1588 128 v12 h-12"/>
+              <line class="st dash" x1="1530" y1="127" x2="1530" y2="376"/>
+              <circle class="dot" cx="1530" cy="118" r="8"/>
+              <text x="1588" y="424" text-anchor="end">Salidas</text>
+            </svg>
+            <svg class="dp-capa" data-capa="contexto" viewBox="0 0 1600 866" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+              <path class="st" d="M1258 160 v-14 h14"/>
+              <path class="st" d="M1588 160 v-14 h-14"/>
+              <path class="st" d="M1258 296 v14 h14"/>
+              <path class="st" d="M1588 296 v14 h-14"/>
+              <line class="st dash" x1="1530" y1="310" x2="1530" y2="376"/>
+              <circle class="dot" cx="1530" cy="310" r="8"/>
+              <text x="1588" y="424" text-anchor="end">Contexto</text>
+            </svg>
+            <svg class="dp-capa" data-capa="cuadro" viewBox="0 0 1600 866" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+              <path class="st" d="M346 738 v-14 h14"/>
+              <path class="st" d="M1190 738 v-14 h-14"/>
+              <path class="st" d="M346 826 v14 h14"/>
+              <path class="st" d="M1190 826 v14 h-14"/>
+              <line class="st dash" x1="562" y1="792" x2="562" y2="654"/>
+              <circle class="dot" cx="562" cy="801" r="8"/>
+              <text x="562" y="640" text-anchor="middle">Permiso</text>
+              <line class="st dash" x1="1013" y1="770" x2="1013" y2="654"/>
+              <circle class="dot" cx="1013" cy="778" r="8"/>
+              <text x="1013" y="640" text-anchor="middle">Modelo</text>
+              <line class="st dash" x1="1150" y1="768" x2="1150" y2="560"/>
+              <circle class="dot" cx="1150" cy="776" r="8"/>
+              <text x="1180" y="546" text-anchor="end">Detener</text>
+            </svg>
+          </div>
+          <p class="dp-cap">Una tarea en curso. Seis zonas.</p>
+        </div>
+        <ol class="dp-steps">
+          <li class="dp-step" data-capa="cabecera" data-cap="Zona 01 · El proyecto y la tarea"><p class="k">[ 01 ] Zona</p><h3>La cabecera: proyecto y tarea</h3><p>La cabecera indica dónde vive la tarea y cómo se llama: «MarcaMar / Animación del logo» significa que la tarea «Animación del logo» pertenece al proyecto «MarcaMar». Dentro de un proyecto, la tarea trabaja con sus instrucciones y su contexto, como se vio en la clase 1, y queda después en el historial «Chats y tareas» de la barra lateral. En el laboratorio, todas las tareas del cierre se abren dentro del proyecto «Cierre mensual».</p></li>
+          <li class="dp-step" data-capa="encargo" data-cap="Zona 02 · El encargo y su estado"><p class="k">[ 02 ] Zona</p><h3>El encargo y su estado</h3><p>Arriba, el mensaje con el que se encargó el trabajo: «Crea una pequeña animación del logo usando código.». Debajo, el estado: «Trabajando en ello… · 6s» indica que Claude está ejecutando la tarea y el tiempo que lleva en ello. La línea «Consejo:» sugiere, con el enlace «Probar», otro uso de la herramienta.</p><p>Un encargo de una línea basta para una prueba. Para el trabajo real conviene la estructura de cinco piezas que se explica más abajo.</p></li>
+          <li class="dp-step" data-capa="progreso" data-cap="Zona 03 · El progreso"><p class="k">[ 03 ] Zona</p><h3>Progreso: el plan a la vista</h3><p>Cowork planifica la tarea y la divide en pasos antes de ejecutarla, y el bloque «Progreso» permite seguir ese avance. Revisarlo al principio es la forma más rápida de detectar un malentendido: si el plan no corresponde a lo que se pidió, se detiene la tarea y se corrige el encargo antes de que haya producido nada.</p></li>
+          <li class="dp-step" data-capa="salidas" data-cap="Zona 04 · Las salidas"><p class="k">[ 04 ] Zona</p><h3>Salidas: lo que la tarea entrega</h3><p>Cowork entrega su trabajo en archivos: documentos, hojas de cálculo, presentaciones. El bloque «Salidas» reúne lo que la tarea produce. Un archivo recién entregado es un borrador de trabajo hasta que alguien lo revisa: antes de usar una cifra, se comprueba contra el archivo del que procede.</p></li>
+          <li class="dp-step" data-capa="contexto" data-cap="Zona 05 · El contexto"><p class="k">[ 05 ] Zona</p><h3>Contexto: qué ha consultado</h3><p>Según su propio texto, este bloque «Rastrea las herramientas y los archivos referenciados utilizados en esta tarea.». Es la pista de auditoría de la tarea: permite comprobar que Claude ha leído el extracto y el mayor correctos, y no una versión anterior que se había quedado en la carpeta.</p><p>Una analogía útil son los papeles de trabajo de una auditoría, en los que cada conclusión remite al documento del que sale.</p></li>
+          <li class="dp-step" data-capa="cuadro" data-cap="Zona 06 · Permiso, modelo y detener"><p class="k">[ 06 ] Zona</p><h3>El cuadro: permiso, modelo y detener</h3><p>Durante la tarea, el cuadro sigue disponible para añadir indicaciones. «Manual» es el modo de permiso: Claude pide aprobación antes de cada acción. «Opus 5.5 · Extra» es el modelo y el esfuerzo con que trabaja esta tarea. El micrófono sirve para dictar, porque en Cowork no hay modo voz, y el botón cuadrado detiene la tarea.</p><p>El pie lo recuerda en cada pantalla: «Claude es IA y puede cometer errores. Verifica las respuestas.»</p></li>
+        </ol>
       </div>
 
-      <h3>Estructura de carpetas completa</h3>
-      <div class="code"><div class="ch"><span class="k">[ Árbol · skill-name/ ]</span></div><pre class="tree"><span class="hl">skill-name/</span>
-├── SKILL.md              <span class="cm">← obligatorio</span>
-├── <span class="hl">references/</span>           <span class="cm">← documentación (bajo demanda)</span>
-│   ├── guia-avanzada.md
-│   └── casos-de-uso.md
-├── <span class="hl">scripts/</span>              <span class="cm">← código reutilizable (ejecutable)</span>
-│   └── procesar.py
-└── <span class="hl">examples/</span>             <span class="cm">← ejemplos de input/output</span></pre></div>
-    </section>
+      <h3>Cómo trabaja: un orquestador y varios especialistas</h3>
+      <p>Cuando el encargo lo justifica, el Claude principal —el <strong>orquestador</strong>— decide dividir el trabajo y lanza <strong>subagentes</strong> que avanzan en paralelo. Cada subagente trabaja con su propia ventana de contexto: no arrastra el historial completo de la tarea, solo lo que necesita para su parte. Todos comparten, en cambio, los archivos de la carpeta o del proyecto, de modo que lo que uno escribe lo puede leer otro. Si un encargo pide a la vez la conciliación bancaria y la limpieza del registro de gastos, el orquestador puede confiar cada parte a un subagente y reunir después los dos resultados.</p>
+      <p>El usuario no invoca a los subagentes uno a uno: da el objetivo al orquestador y supervisa el plan. El control fino de cada agente —qué herramientas usa, con qué modelo trabaja— es propio de Claude Code y se trata en la clase 3.</p>
 
-    <!-- 3. AGENT.md y Soul -->
-    <section class="sec" id="agent" data-label="Agent">
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">AGENT.md y Soul (personalidad).</h2></div>
-      <p>Un <strong>Agent</strong> es más que un skill: es una instancia de Claude separada con su propia ventana de contexto, su propio <em>system prompt</em> y acceso restringido a herramientas específicas.</p>
-      <div class="callout aviso"><span class="k">[ ! ] Skill vs Agent — La diferencia clave</span><p>Un <strong>Skill</strong> inyecta instrucciones en el Claude principal (mismo contexto).</p><p>Un <strong>Agent</strong> es una instancia Claude <em>nueva</em> con su propio contexto. Consume más tokens pero tiene más independencia.</p></div>
+      <figure class="figure esquema">
+        <svg class="cw-diagram" viewBox="0 0 1120 416" role="img" aria-label="Diagrama animado: a la izquierda, el encargo entra en el orquestador, en oscuro. El orquestador reparte el trabajo a la vez entre dos subagentes en paralelo, Conciliación bancaria y Limpieza de gastos, cada uno con su propio contexto y su barra de avance. Los dos escriben en la misma carpeta común, cierre-octubre: uno deja conciliacion-octubre.xlsx y el otro gastos-octubre-limpio.xlsx. Al final, el orquestador recoge los dos archivos y entrega el resultado a revisión.">
+          <style>
+            @keyframes cw-enc{0%{opacity:.2}4%,96%{opacity:1}100%{opacity:.2}}
+            @keyframes cw-a0{0%,3%{stroke-dashoffset:100}7%,96%{stroke-dashoffset:0}100%{stroke-dashoffset:100}}
+            @keyframes cw-h0{0%,6%{opacity:0}7%,96%{opacity:1}100%{opacity:0}}
+            @keyframes cw-orq{0%,7%{opacity:.3}11%,96%{opacity:1}100%{opacity:.3}}
+            @keyframes cw-glow{0%,9%{opacity:0}13%,96%{opacity:1}100%{opacity:0}}
+            @keyframes cw-br{0%,13%{stroke-dashoffset:100}21%,96%{stroke-dashoffset:0}100%{stroke-dashoffset:100}}
+            @keyframes cw-hbr{0%,20%{opacity:0}22%,96%{opacity:1}100%{opacity:0}}
+            @keyframes cw-sub{0%,19%{opacity:.25}24%,96%{opacity:1}100%{opacity:.25}}
+            @keyframes cw-p1{0%,25%{transform:scaleX(0)}46%,96%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+            @keyframes cw-p2{0%,25%{transform:scaleX(0)}52%,96%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+            @keyframes cw-o1{0%,46%{stroke-dashoffset:100}50%,96%{stroke-dashoffset:0}100%{stroke-dashoffset:100}}
+            @keyframes cw-ho1{0%,49%{opacity:0}50%,96%{opacity:1}100%{opacity:0}}
+            @keyframes cw-f1{0%,50%{opacity:0}53%,96%{opacity:1}100%{opacity:0}}
+            @keyframes cw-o2{0%,52%{stroke-dashoffset:100}56%,96%{stroke-dashoffset:0}100%{stroke-dashoffset:100}}
+            @keyframes cw-ho2{0%,55%{opacity:0}56%,96%{opacity:1}100%{opacity:0}}
+            @keyframes cw-f2{0%,56%{opacity:0}59%,96%{opacity:1}100%{opacity:0}}
+            @keyframes cw-ret{0%,61%{stroke-dashoffset:100}69%,96%{stroke-dashoffset:0}100%{stroke-dashoffset:100}}
+            @keyframes cw-tret{0%,61%{opacity:.2}65%,96%{opacity:1}100%{opacity:.2}}
+            @keyframes cw-hret{0%,68%{opacity:0}69%,96%{opacity:1}100%{opacity:0}}
+            @keyframes cw-out{0%,70%{stroke-dashoffset:100}73%,96%{stroke-dashoffset:0}100%{stroke-dashoffset:100}}
+            @keyframes cw-hout{0%,72%{opacity:0}73%,96%{opacity:1}100%{opacity:0}}
+            @keyframes cw-rv{0%,72%{opacity:.25}76%,96%{opacity:1}100%{opacity:.25}}
+            @keyframes cw-rvh{0%,74%{opacity:0}78%,96%{opacity:1}100%{opacity:0}}
+            .cw-diagram .cw-draw{stroke-dasharray:100}
+            .cw-diagram .cw-glow{fill:none;stroke:var(--color-accent-deep);stroke-width:2.5}
+            .cw-diagram .cw-bar{fill:var(--color-accent-deep);transform-box:fill-box;transform-origin:0 50%}
+            .cw-diagram .cw-rvh{stroke-width:2.5}
+            .cw-diagram .cw-enc{animation:cw-enc 12s ease-in-out infinite}
+            .cw-diagram .cw-a0{animation:cw-a0 12s ease-in-out infinite}
+            .cw-diagram .cw-h0{animation:cw-h0 12s ease-in-out infinite}
+            .cw-diagram .cw-orq{animation:cw-orq 12s ease-in-out infinite}
+            .cw-diagram .cw-glow{animation:cw-glow 12s ease-in-out infinite}
+            .cw-diagram .cw-br{animation:cw-br 12s ease-in-out infinite}
+            .cw-diagram .cw-hbr{animation:cw-hbr 12s ease-in-out infinite}
+            .cw-diagram .cw-sub{animation:cw-sub 12s ease-in-out infinite}
+            .cw-diagram .cw-p1{animation:cw-p1 12s ease-in-out infinite}
+            .cw-diagram .cw-p2{animation:cw-p2 12s ease-in-out infinite}
+            .cw-diagram .cw-o1{animation:cw-o1 12s ease-in-out infinite}
+            .cw-diagram .cw-ho1{animation:cw-ho1 12s ease-in-out infinite}
+            .cw-diagram .cw-f1{animation:cw-f1 12s ease-in-out infinite}
+            .cw-diagram .cw-o2{animation:cw-o2 12s ease-in-out infinite}
+            .cw-diagram .cw-ho2{animation:cw-ho2 12s ease-in-out infinite}
+            .cw-diagram .cw-f2{animation:cw-f2 12s ease-in-out infinite}
+            .cw-diagram .cw-ret{animation:cw-ret 12s ease-in-out infinite}
+            .cw-diagram .cw-tret{animation:cw-tret 12s ease-in-out infinite}
+            .cw-diagram .cw-hret{animation:cw-hret 12s ease-in-out infinite}
+            .cw-diagram .cw-out{animation:cw-out 12s ease-in-out infinite}
+            .cw-diagram .cw-hout{animation:cw-hout 12s ease-in-out infinite}
+            .cw-diagram .cw-rv{animation:cw-rv 12s ease-in-out infinite}
+            .cw-diagram .cw-rvh{animation:cw-rvh 12s ease-in-out infinite}
+            @media (prefers-reduced-motion: reduce){
+              .cw-diagram *{animation:none!important}
+              .cw-diagram [class*="cw-"]{opacity:1!important}
+              .cw-diagram .cw-draw{stroke-dashoffset:0!important}
+              .cw-diagram .cw-bar{transform:none!important}
+            }
+          </style>
+          <text class="lb" x="400" y="26">Subagentes en paralelo</text>
+          <text class="lb" x="740" y="26">Carpeta común</text>
 
-      <h3>Anatomía de AGENT.md</h3>
-      <div class="code wrap"><div class="ch"><span class="k">[ Archivo · AGENT.md ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre><span class="cm">---</span>
-<span class="hl">name</span>: nombre-del-agente          <span class="cm"># kebab-case, 3-50 chars</span>
-<span class="hl">description</span>: "Cuándo activar este agente. Debe incluir
-  bloques &lt;example&gt; con contexto + diálogo."
+          <g class="cw-enc">
+            <rect class="bx fill" x="20" y="72" width="120" height="56" rx="4"/>
+            <text class="lb b" x="80" y="106" text-anchor="middle">Encargo</text>
+          </g>
+          <path class="ln ac cw-draw cw-a0" pathLength="100" d="M140 100 H170"/>
+          <path class="ln ac cw-h0" d="M162 94 L170 100 L162 106"/>
 
-<span class="ac">&lt;example&gt;</span>
-<span class="hl">Context:</span> El usuario tiene datos de ventas del mes
-<span class="hl">user:</span> "Analiza estas cifras a fondo"
-<span class="hl">assistant:</span> "Usaré el agente de análisis para..."
-<span class="ac">&lt;/example&gt;</span>
+          <g class="cw-orq">
+            <rect class="fill-ink" x="170" y="40" width="170" height="360" rx="4"/>
+            <text class="ti on-dark" x="255" y="107" text-anchor="middle">Orquestador</text>
+            <text class="lb on-dark soft" x="255" y="186" text-anchor="middle">Reparte</text>
+            <text class="lb on-dark soft" x="255" y="376" text-anchor="middle">Entrega</text>
+          </g>
+          <rect class="cw-glow" x="165" y="35" width="180" height="370" rx="7"/>
 
-<span class="hl">model</span>: inherit                     <span class="cm"># inherit | sonnet | opus | haiku</span>
-<span class="hl">color</span>: blue                        <span class="cm"># blue|cyan|green|yellow|magenta|red</span>
-<span class="hl">tools</span>: ["Read", "Bash", "Write"]   <span class="cm"># restringir herramientas</span>
-<span class="cm">---</span>
+          <path class="ln ac cw-draw cw-br" pathLength="100" d="M340 180 H370 V100 H400"/>
+          <path class="ln ac cw-draw cw-br" pathLength="100" d="M340 180 H370 V260 H400"/>
+          <path class="ln ac cw-hbr" d="M392 94 L400 100 L392 106"/>
+          <path class="ln ac cw-hbr" d="M392 254 L400 260 L392 266"/>
 
-<span class="cm"># System Prompt del Agente (aquí va su "Soul")</span>
+          <g class="cw-sub">
+            <rect class="bx fill" x="400" y="40" width="300" height="120" rx="4"/>
+            <text class="lb b" x="416" y="70">Conciliación bancaria</text>
+            <rect class="bx" x="416" y="84" width="268" height="34" rx="4"/>
+            <text class="lb" x="550" y="107" text-anchor="middle">Su propio contexto</text>
+            <rect class="bx" x="416" y="132" width="268" height="12" rx="2"/>
+            <rect class="bx fill" x="400" y="200" width="300" height="120" rx="4"/>
+            <text class="lb b" x="416" y="230">Limpieza de gastos</text>
+            <rect class="bx" x="416" y="244" width="268" height="34" rx="4"/>
+            <text class="lb" x="550" y="267" text-anchor="middle">Su propio contexto</text>
+            <rect class="bx" x="416" y="292" width="268" height="12" rx="2"/>
+          </g>
+          <rect class="cw-bar cw-p1" x="416" y="132" width="268" height="12" rx="2"/>
+          <rect class="cw-bar cw-p2" x="416" y="292" width="268" height="12" rx="2"/>
 
-Eres un especialista en análisis de datos de marketing...
+          <path class="ln ac cw-draw cw-o1" pathLength="100" d="M700 100 H740"/>
+          <path class="ln ac cw-ho1" d="M732 94 L740 100 L732 106"/>
+          <path class="ln ac cw-draw cw-o2" pathLength="100" d="M700 260 H740"/>
+          <path class="ln ac cw-ho2" d="M732 254 L740 260 L732 266"/>
 
-<span class="ac">## Cómo comportarte</span>
-- Solo trabaja con datos reales del usuario
-- Empieza siempre por el hallazgo más importante</pre></div>
+          <rect class="bx fill" x="740" y="40" width="360" height="280" rx="4"/>
+          <text class="lb b" x="756" y="70">cierre-octubre</text>
+          <text class="lb" x="756" y="188">Archivos compartidos</text>
+          <g class="cw-f1">
+            <rect class="bx on-bx" x="756" y="84" width="328" height="34" rx="4"/>
+            <text class="lb b" x="772" y="107">conciliacion-octubre.xlsx</text>
+          </g>
+          <g class="cw-f2">
+            <rect class="bx on-bx" x="756" y="244" width="328" height="34" rx="4"/>
+            <text class="lb b" x="772" y="267">gastos-octubre-limpio.xlsx</text>
+          </g>
 
-      <h3>El concepto de «Soul / Persona»</h3>
-      <p>No existe un <code>Souls.md</code> oficial. El «alma» de un agente vive dentro del cuerpo del <code>AGENT.md</code> (es su <em>system prompt</em>). Define lo siguiente:</p>
-      <div class="grid-cards">
-        <div class="card dim"><span class="k">[ 01 ]</span><h4>Rol</h4><p>Quién es y desde qué perspectiva responde.</p></div>
-        <div class="card dim"><span class="k">[ 02 ]</span><h4>Valores</h4><p>Qué puede y no puede hacer. Líneas rojas.</p></div>
-        <div class="card dim"><span class="k">[ 03 ]</span><h4>Tono</h4><p>Cómo se comunica, qué formato usa, qué evita.</p></div>
-        <div class="card dim"><span class="k">[ 04 ]</span><h4>Proceso</h4><p>Secuencia de pensamiento paso a paso.</p></div>
+          <path class="ln ac cw-draw cw-ret" pathLength="100" d="M920 320 V370 H340"/>
+          <path class="ln ac cw-hret" d="M348 364 L340 370 L348 376"/>
+          <text class="lb cw-tret" x="630" y="358" text-anchor="middle">El orquestador recoge</text>
+
+          <path class="ln ac cw-draw cw-out" pathLength="100" d="M170 370 H140"/>
+          <path class="ln ac cw-hout" d="M148 364 L140 370 L148 376"/>
+          <g class="cw-rv">
+            <rect class="bx fill" x="20" y="342" width="120" height="56" rx="4"/>
+            <text class="lb b" x="80" y="376" text-anchor="middle">Revisión</text>
+          </g>
+          <rect class="bx on-bx cw-rvh" x="20" y="342" width="120" height="56" rx="4"/>
+        </svg>
+        <figcaption>[ Diagrama 02 ] Dos subagentes en paralelo, cada uno con su contexto y los dos sobre la misma carpeta</figcaption>
+      </figure>
+
+      <div class="callout analogia"><span class="k">[ Analogía ]</span><p>La redacción de un periódico. El redactor jefe no escribe a la vez la sección de deportes, la de economía y la previsión del tiempo: reparte las piezas entre especialistas, cada uno trabaja con sus propias notas, todos dejan el texto en la misma maqueta y el redactor jefe monta la portada. Quien encarga el periódico habla con el redactor jefe, no con cada redactor.</p></div>
+
+      <h3>Cómo se escribe un buen encargo</h3>
+      <p>Cowork ejecuta lo que se le encarga, y lo que no se le dice lo decide él. Un encargo completo responde a cinco preguntas antes de que empiece el trabajo. La plantilla siguiente sirve para cualquier tarea del departamento; en la práctica se usa tal cual para la conciliación y para la limpieza de gastos.</p>
+
+      <div class="formula">
+        <div class="head"><span class="eyebrow brackets"> Encargo </span><span>Cinco piezas que no se dejan a la interpretación</span></div>
+        <div class="tiles">
+          <div class="tile"><span class="l">01</span><span class="t">Objetivo</span><span class="e">Qué se quiere conseguir y para quién: «concilia el banco de octubre para el memorándum».</span></div>
+          <div class="tile"><span class="l">02</span><span class="t">Entradas</span><span class="e">Qué archivos usar y qué criterios aplicar: el extracto, el mayor y el apartado 4 de las normas.</span></div>
+          <div class="tile"><span class="l">03</span><span class="t">Entregable</span><span class="e">Nombre del archivo, formato y estructura: dos hojas, con sus columnas.</span></div>
+          <div class="tile"><span class="l">04</span><span class="t">Qué no tocar</span><span class="e">Los archivos que no debe modificar, renombrar ni borrar: los originales.</span></div>
+          <div class="tile"><span class="l">05</span><span class="t">Cuándo parar</span><span class="e">En qué casos debe detenerse y preguntar: una partida que los criterios no explican.</span></div>
+        </div>
+        <div class="code prompt example"><div class="ch"><span class="k">[ Plantilla · Encargo de Cowork ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre>Objetivo: [qué quieres conseguir y para quién].
+Archivos de entrada: [qué archivos de la carpeta debe usar y qué criterios aplicar].
+Entregable: [nombre del archivo, formato y estructura: hojas, columnas o apartados].
+Qué no tocar: [archivos que no debe modificar, renombrar ni borrar].
+Cuándo detenerte: [en qué casos debe parar y preguntarme antes de seguir].</pre></div>
       </div>
 
-      <h3>Opciones de modelo por agente</h3>
+      <h3>Seguridad: lo que hace Claude y lo que hace quien encarga</h3>
       <div class="table-wrap"><table>
-        <thead><tr><th>Valor</th><th>Uso ideal</th></tr></thead>
+        <thead><tr><th>Riesgo</th><th>Qué hace Claude</th><th>Qué haces tú</th></tr></thead>
         <tbody>
-          <tr><td><code>inherit</code></td><td>Usa el mismo de la sesión. Por defecto.</td></tr>
-          <tr><td><code>opus</code></td><td>Razonamiento profundo (más lento/caro).</td></tr>
-          <tr><td><code>sonnet</code></td><td>Balance perfecto rendimiento/velocidad.</td></tr>
-          <tr><td><code>haiku</code></td><td>Rápido y barato para clasificar/filtrar.</td></tr>
+          <tr><td>Borrar un archivo</td><td>En todos los modos de permiso, pide permiso antes de borrar un archivo de forma permanente.</td><td>Leer qué archivo es antes de aprobar y trabajar siempre con copias de los originales.</td></tr>
+          <tr><td>Actuar en otras aplicaciones</td><td>Cada herramienta de un conector puede estar en permitir siempre, pedir aprobación o bloqueada.</td><td>Dejar en pedir aprobación las herramientas que envían, publican o modifican algo.</td></tr>
+          <tr><td>Datos sensibles</td><td>Trabaja con los permisos que se le conceden: el aislamiento protege el equipo, pero no limita lo que hace con esos permisos.</td><td>No darle acceso a documentos financieros sensibles ni a credenciales; con datos reales, empezar en «Manual».</td></tr>
+          <tr><td>Consumo</td><td>Una tarea de Cowork consume más cuota que una conversación, y más aún con esfuerzo alto.</td><td>Agrupar el trabajo relacionado en una sola tarea y reservar el esfuerzo alto para el análisis complejo.</td></tr>
+          <tr><td>Errores</td><td>Puede equivocarse, y el pie de cada tarea lo recuerda.</td><td>Comprobar las cifras del entregable contra los archivos de origen antes de usarlas.</td></tr>
         </tbody>
       </table></div>
+
+      <figure class="figure">
+        <img src="/img/m6c1-cowork-ajustes.png" alt="Captura de Configuración → Cowork: «Requerir dispositivos de confianza», desactivado; «Dispositivos locales de Cowork», con la tabla de los ordenadores que pueden ejecutar tareas con acceso a archivos locales; «Archivos de Cowork», con el botón «Cambiar»; «Carpetas de Cowork de confianza», con el botón «Administrar»; «Navegador preferido», con «Navegador integrado»; y «Abrir enlaces en el navegador integrado»." width="1600" height="872" loading="lazy">
+        <figcaption>[ Captura ] Configuración → «Cowork»: qué ordenadores y qué carpetas puede usar Claude</figcaption>
+      </figure>
+      <p>Buena parte de esta seguridad se decide en Configuración → «Cowork». «Dispositivos locales de Cowork» lista los ordenadores que pueden ejecutar tareas con acceso a sus archivos, al navegador y a las aplicaciones; «Requerir dispositivos de confianza» obliga a verificar cada dispositivo nuevo antes de que pueda conectarse en remoto. «Carpetas de Cowork de confianza» reúne las carpetas que Claude puede usar, con las que contienen: confiar en una carpeta no la añade a las tareas nuevas, y al añadirla a una tarea puede pedirse de nuevo el permiso. «Archivos de Cowork» indica dónde se guardan los artefactos y las tareas programadas.</p>
+
+      <blockquote class="pull">
+        <p>«Chat para preguntas. Cowork para flujos de trabajo. Code para código.»</p>
+        <footer class="src">Frase para la pizarra · M6</footer>
+      </blockquote>
+
+      <div class="glossary">
+        <div class="row"><h3 class="term">Orquestador<small>El Claude principal</small></h3><p class="def">El Claude que recibe el encargo, lo planifica, decide si lo divide y reúne los resultados. Es el único interlocutor del usuario durante la tarea. <span class="an">[ Analogía ] El redactor jefe, que reparte las piezas y monta la portada.</span></p></div>
+        <div class="row"><h3 class="term">Subagente<small>Contexto propio</small></h3><p class="def">Un Claude auxiliar que ejecuta una parte del trabajo en paralelo, con su propia ventana de contexto y sobre los mismos archivos que los demás. Lo lanza el orquestador, no el usuario. <span class="an">[ Ejemplo ] Uno concilia el banco mientras otro normaliza el registro de gastos.</span></p></div>
+        <div class="row"><h3 class="term">Encargo<small>Cinco piezas</small></h3><p class="def">El mensaje con el que empieza una tarea: objetivo, archivos de entrada, entregable, qué no tocar y cuándo detenerse. Cuanto más completo, menos decide Claude por su cuenta. <span class="an">[ Analogía ] La hoja de encargo que acompaña a un expediente cuando pasa a otro departamento.</span></p></div>
+      </div>
     </section>
 
-    <!-- 4. Hooks -->
-    <section class="sec" id="hooks" data-label="Hooks">
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Hooks — automatización basada en eventos.</h2></div>
-      <p>Lo que en otros sistemas se llama «Workflows». Son acciones automáticas que se disparan solas (se definen en <code>hooks/hooks.json</code> dentro de un plugin). <strong>No existe un <code>Workflows.md</code> en Cowork.</strong></p>
+    <!-- 03 · Programadas: tareas que se repiten solas -->
+    <section class="sec respira" id="programadas" data-label="Programadas">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Tareas programadas: el trabajo que se repite solo.</h2></div>
+      <p class="sec-intro">Una tarea programada es una tarea de Cowork que se ejecuta según una frecuencia o cuando se lanza a mano. Cada ejecución es una sesión de Cowork que queda en el historial, de modo que el resultado se revisa igual que el de cualquier otra tarea. Se gestionan en «Programadas», en la barra lateral, y un proyecto puede tener además las suyas en su bloque «Programado».</p>
 
-      <h3>Eventos principales</h3>
+      <div class="callout analogia"><span class="k">[ Analogía ]</span><p>Una orden permanente en el banco: se configura una vez con su importe, su destinatario y su periodicidad, se ejecuta sola en cada vencimiento y, aun así, alguien revisa el extracto cada mes. Una tarea programada funciona igual: se define una vez y se revisa cada ejecución.</p></div>
+
+      <figure class="figure">
+        <img src="/img/m6c2-programadas.png" alt="Página «Tareas programadas» de la app de Claude, con el subtítulo «Ejecuta tareas de forma programada o cuando las necesites.», la lupa, el orden «Próxima ejecución» y el botón «Nueva tarea»; en el centro, un reloj y el texto «Aún no hay tareas programadas.»; debajo, seis plantillas: Resumen diario, Clasificación de bandeja de entrada, Preparación de reunión, Resumen semanal, Ideas de contenido y Seguimiento de un tema, cada una con su frecuencia." width="1600" height="872" loading="lazy">
+        <figcaption>[ Captura ] «Tareas programadas» sin tareas: seis plantillas para empezar</figcaption>
+      </figure>
+
+      <p>La página reúne las tareas, ordenadas por «Próxima ejecución». El botón «Nueva tarea» tiene un desplegable con dos caminos: crear la tarea conversando con Claude, que pregunta lo que necesita, o configurarla a mano en un formulario. Cuando todavía no hay tareas, la página ofrece plantillas con su frecuencia propuesta; por ejemplo, «Resumen semanal» se ejecuta cada viernes a las 4:00 p.m. y «Seguimiento de un tema», todos los días a las 9:00 a.m.</p>
+
+      <figure class="figure">
+        <img src="/img/m6c2-programada-nueva.png" alt="Formulario «Crear tarea programada» abierto sobre la página de tareas programadas: campos «Nombre» e «Instrucciones», ambos obligatorios; selectores «Trabajar en un proyecto o carpeta» y «Modelo predeterminado»; «Frecuencia» en «Manual»; «Permisos» en «Aprobar automáticamente», con el aviso de que Claude trabajará y usará conectores sin pausar para pedir aprobación; «Configuración avanzada»; el interruptor «Requerir esta computadora»; y los botones «Cancelar» y «Guardar»." width="1600" height="870" loading="lazy">
+        <figcaption>[ Captura ] El formulario «Crear tarea programada», campo a campo en la tabla siguiente</figcaption>
+      </figure>
+
       <div class="table-wrap"><table>
+        <thead><tr><th>Campo</th><th>Qué decide</th><th>En el resumen semanal de tesorería</th></tr></thead>
         <tbody>
-          <tr><td><code>SessionStart</code></td><td>Cargar contexto al inicio de sesión.</td></tr>
-          <tr><td><code>UserPromptSubmit</code></td><td>Enriquecer el mensaje antes de procesar.</td></tr>
-          <tr><td><code>PreToolUse</code></td><td>Validar seguridad antes de ejecutar tool.</td></tr>
-          <tr><td><code>PostToolUse</code></td><td>Loguear acciones de herramientas.</td></tr>
-          <tr><td><code>PreCompact</code></td><td>Guardar info antes de que la memoria se comprima.</td></tr>
-          <tr><td><code>SessionEnd</code></td><td>Guardar notas y actualizar memoria base.</td></tr>
+          <tr><td>«Nombre»</td><td>Cómo se identifica la tarea en la lista y en el historial. Es obligatorio.</td><td>«Resumen semanal de tesorería».</td></tr>
+          <tr><td>«Instrucciones»</td><td>El encargo que Claude ejecuta en cada ocasión. Es obligatorio y se escribe con las cinco piezas de un encargo de Cowork.</td><td>Las instrucciones copiables del ejercicio 7 de la práctica.</td></tr>
+          <tr><td>«Trabajar en un proyecto o carpeta»</td><td>Dónde trabaja. Sin proyecto ni carpeta, Cowork no ve ningún archivo.</td><td>El proyecto «Cierre mensual».</td></tr>
+          <tr><td>«Modelo predeterminado»</td><td>Qué modelo ejecuta la tarea.</td><td>Sonnet 5.5: una tarea bien definida y repetitiva, según el criterio de la clase 1.</td></tr>
+          <tr><td>«Frecuencia»</td><td><strong>Cuándo</strong> se ejecuta. «Manual»: solo cuando alguien la lanza. Las demás opciones son periódicas: cada hora, diaria, días laborables o semanal.</td><td>Semanal, los lunes.</td></tr>
+          <tr><td>«Permisos»</td><td><strong>Cuánta autonomía</strong> tiene. Con «Aprobar automáticamente», Claude trabaja y usa conectores sin pausar para pedir aprobación; con «Manual», pide aprobación antes de cada acción.</td><td>«Manual».</td></tr>
+          <tr><td>«Configuración avanzada»</td><td>Un desplegable con opciones adicionales.</td><td>Se deja como está.</td></tr>
+          <tr><td>«Requerir esta computadora»</td><td>«Solo se ejecuta mientras tu computadora esté activa. Le da a Claude acceso a las carpetas que has permitido en esta computadora y a Claude in Chrome.» Desactivado, la tarea puede ejecutarse en un entorno aislado en la nube, que sigue funcionando aunque el ordenador esté apagado.</td><td>Activado, porque la carpeta <code>cierre-octubre</code> está en el ordenador.</td></tr>
         </tbody>
       </table></div>
 
-      <div class="grid-cards two">
-        <div class="card"><span class="k">"type": "prompt"</span><h4>Prompt-Based</h4><p>Claude evalúa y decide (approve/block). Bueno para lógica compleja.</p></div>
-        <div class="card"><span class="k">"type": "command"</span><h4>Command-Based</h4><p>Ejecuta script bash directo (determinista). Bueno para checks fijos.</p></div>
-      </div>
+      <div class="callout clave"><span class="k">[ Dos «Manual» distintos ]</span><p>En «Frecuencia», «Manual» responde a cuándo se ejecuta la tarea: solo cuando alguien la lanza. En «Permisos», «Manual» responde a cuánta autonomía tiene: pide aprobación antes de cada acción. Son decisiones independientes: una tarea semanal puede tener permisos «Manual», y una tarea que solo se lanza a mano puede aprobar sus acciones de forma automática.</p></div>
 
-      <div class="code"><div class="ch"><span class="k">[ JSON · hooks.json ]</span></div><pre>{
-  <span class="ac">"PreToolUse"</span>: [{
-    <span class="hl">"matcher"</span>: "Write|Edit", <span class="cm">// Solo para escribir</span>
-    <span class="hl">"hooks"</span>: [{
-      <span class="hl">"type"</span>: "prompt",
-      <span class="hl">"prompt"</span>: "Verifica convención proyecto"
-    }]
-  }]
-}</pre></div>
-    </section>
+      <figure class="figure esquema">
+        <svg viewBox="0 0 1000 404" role="img" aria-label="Diagrama de dos ejes. En horizontal, la frecuencia, es decir, cuándo se ejecuta la tarea: Manual, cuando la lanzas, o periódica, cada hora, a diario, días laborables o semanal. En vertical, los permisos, es decir, cuánta autonomía tiene: Manual, que aprueba cada acción, o Aprobar automáticamente, sin pausas. Las cuatro combinaciones, con un ejemplo de Finanzas: frecuencia y permisos manuales, una revisión puntual del cierre; frecuencia periódica con permisos manuales, el resumen semanal de tesorería del ejercicio 7 de la práctica, destacado en oscuro; frecuencia manual con aprobación automática, un informe que ya conoces bien; frecuencia periódica con aprobación automática, solo lectura y resumen, sin enviar nada y revisando cada ejecución.">
+          <text class="lb b" x="290" y="30">Frecuencia: cuándo se ejecuta</text>
+          <path class="ln" d="M630 24 H984"/>
+          <path class="ln" d="M976 18 L984 24 L976 30"/>
+          <path class="ln" d="M26 60 V394"/>
+          <path class="ln" d="M20 386 L26 394 L32 386"/>
+          <text class="lb b" x="48" y="76">Permisos:</text>
+          <text class="lb" x="48" y="100">cuánta autonomía</text>
 
-    <!-- 5. Arquitectura expandible -->
-    <section class="sec" id="arquitectura" data-label="Arquitectura">
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Arquitectura: formas de ampliar Cowork.</h2></div>
-      <p>Plugin, Connector, Project y Scheduled Task son herramientas completamente diferentes para propósitos distintos.</p>
-      <div class="table-wrap"><table>
-        <thead><tr><th>Concepto</th><th>Qué es</th><th>Qué resuelve</th></tr></thead>
-        <tbody>
-          <tr><td>Plugin</td><td>Bundle instalable (Skills+Agents+Hooks+MCP).</td><td>«Quiero que Claude sepa hacer X tipo de trabajo»</td></tr>
-          <tr><td>Connector (MCP)</td><td>Conexión a app externa (Slack, HubSpot…).</td><td>«Quiero que Claude acceda a mis herramientas»</td></tr>
-          <tr><td>Project / Workspace</td><td>Carpeta local montada. Claude lee/escribe ahí.</td><td>«Quiero que Claude trabaje en mis documentos locales»</td></tr>
-          <tr><td>Scheduled Task</td><td>Prompt que corre por horario (cron).</td><td>«Que Claude haga esto cada día automáticamente»</td></tr>
-          <tr><td>Memory (CLAUDE.md)</td><td>Contexto persistente entre sesiones.</td><td>«Que Claude recuerde quién soy a largo plazo»</td></tr>
-        </tbody>
-      </table></div>
-      <div class="callout nota"><span class="k">[ Clave sobre Scheduled Tasks ]</span>
-        <p>Cada ejecución arranca como una sesión <strong>completamente nueva</strong> sin memoria de ejecuciones anteriores. El prompt debe ser totalmente autocontenido.</p>
-        <ul class="list-mono">
-          <li class="check"><strong>Bien:</strong> <em>«Abre ventas.xlsx, analiza y envía email.»</em></li>
-          <li class="cross"><strong>Mal:</strong> <em>«Continúa con el análisis que hicimos ayer…»</em> (No hay «ayer»).</li>
-        </ul>
-      </div>
-    </section>
+          <text class="lb b" x="306" y="76">Manual</text>
+          <text class="lb" x="306" y="100">Cuando la lanzas</text>
+          <text class="lb b" x="661" y="76">Periódica</text>
+          <text class="lb" x="661" y="100">Cada hora, a diario,</text>
+          <text class="lb" x="661" y="124">días laborables o semanal</text>
 
-    <!-- 6. Contexto y tokens -->
-    <section class="sec" id="contexto" data-label="Contexto">
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Contexto, persistencia y tokens.</h2></div>
-      <p>La ventana de contexto es la memoria activa de Claude en una sesión (su «pizarra»). Cuando se llena, activa la Compactación (<em>Context Compaction</em>) y resume historial perdiendo detalles.</p>
+          <text class="lb b" x="48" y="198">Manual</text>
+          <text class="lb" x="48" y="222">Aprueba cada acción</text>
+          <text class="lb b" x="48" y="316">Aprobar</text>
+          <text class="lb b" x="48" y="340">automáticamente</text>
+          <text class="lb" x="48" y="364">Sin pausas</text>
 
-      <h3>Peso en la ventana de contexto</h3>
-      <div class="stats">
-        <div class="stat"><span class="v">~50%</span><span class="l">Archivos leídos</span><span class="d">Bajo demanda</span></div>
-        <div class="stat"><span class="v">~40%</span><span class="l">Historial de mensajes</span><span class="d">Acumulativo</span></div>
-        <div class="stat"><span class="v">~30%</span><span class="l">Resultados de tools</span><span class="d">Variables</span></div>
-        <div class="stat"><span class="v">~25%</span><span class="l">Skill Body</span><span class="d">Solo si activo</span></div>
-        <div class="stat"><span class="v">~20%</span><span class="l">System Prompt</span><span class="d">Fijo</span></div>
-        <div class="stat"><span class="v">~10%</span><span class="l">Memory / Metadata</span><span class="d">Fijo</span></div>
-      </div>
+          <rect class="bx fill" x="290" y="144" width="345" height="120" rx="4"/>
+          <text class="lb b" x="306" y="198">Revisión puntual del cierre</text>
+          <text class="lb" x="306" y="222">La lanzas y apruebas todo</text>
 
-      <div class="callout aviso"><span class="k">[ ! ] Por defecto: NO SE GUARDA</span><p>Al cerrar sesión, el contexto desaparece. La siguiente sesión empieza de cero. Tampoco se guarda el contexto propio de los subagentes (solo devuelven el resultado final al padre).</p></div>
-      <div class="callout ok"><span class="k">[✓] Lo que sí sobrevive</span>
-        <ul class="list-mono check">
-          <li><strong>Memory (CLAUDE.md):</strong> Preferencias y estilo.</li>
-          <li><strong>Workspace:</strong> Archivos físicos escritos en disco.</li>
-          <li><strong>Artifacts:</strong> Páginas HTML generadas.</li>
-        </ul>
-      </div>
+          <rect class="fill-ink" x="645" y="144" width="345" height="120" rx="4"/>
+          <text class="lb on-dark" x="661" y="198">Resumen semanal de tesorería</text>
+          <text class="lb on-dark soft" x="661" y="222">Ejercicio 7 de la práctica</text>
 
-      <h3>Estrategias de eficiencia</h3>
+          <rect class="bx fill" x="290" y="274" width="345" height="120" rx="4"/>
+          <text class="lb b" x="306" y="328">Informe que ya conoces bien</text>
+          <text class="lb" x="306" y="352">La lanzas y trabaja sola</text>
+
+          <rect class="bx fill" x="645" y="274" width="345" height="120" rx="4"/>
+          <text class="lb b" x="661" y="316">Solo lectura y resumen,</text>
+          <text class="lb b" x="661" y="340">sin enviar nada</text>
+          <text class="lb" x="661" y="368">[ ! ] Revisa cada ejecución</text>
+        </svg>
+        <figcaption>[ Diagrama 03 ] «Manual» responde a dos preguntas: cuándo se ejecuta y cuánta autonomía tiene</figcaption>
+      </figure>
+
+      <h3>Buenas prácticas</h3>
       <ul class="list-mono">
-        <li><strong>Haiku para tareas simples:</strong> Usar modelo rápido y 10x más barato para clasificar.</li>
-        <li><strong>Delegar a Subagentes:</strong> No contamina el chat principal con el proceso.</li>
-        <li><strong>Leer archivos parciales:</strong> Usar <code>offset/limit</code> en archivos gigantes.</li>
+        <li class="check">Programar trabajo que termina en un borrador o en un informe que alguien revisa: resúmenes, listas de control, conciliaciones preliminares.</li>
+        <li class="check">Probar la tarea lanzándola una vez a mano antes de dejarla programada, y revisar después sus ejecuciones en el historial.</li>
+        <li class="check">Pausar una tarea durante un periodo sin actividad y borrar las que ya no se usan; también se pueden editar o ejecutar en el momento.</li>
+        <li class="cross">Programar tareas que envíen mensajes, compren o toquen datos sensibles sin una revisión humana entre medias.</li>
+        <li class="cross">Combinar «Aprobar automáticamente» con conectores que escriben en otras aplicaciones de la empresa.</li>
       </ul>
-    </section>
 
-    <!-- 7. Progressive Disclosure -->
-    <section class="sec" id="disclosure" data-label="Progressive Disclosure">
-      <p class="sec-eyebrow">[ Arquitectura avanzada ]</p>
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Progressive Disclosure.</h2></div>
-      <p class="sec-intro">Uno de los conceptos más importantes para entender cómo escalar plugins sin que se disparen los costes ni se contamine el contexto.</p>
-
-      <h3>El problema que resuelve</h3>
-      <p>Imagina que tienes un plugin con 10 <em>skills</em> instalados. Si cada <code>SKILL.md</code> ocupa 2.000 palabras (~2.600 tokens), en cada mensaje del usuario Claude tendría que cargar <strong>26.000 tokens extra</strong> solo para «tener los skills disponibles».</p>
-      <p>Con un modelo de alto rendimiento como Sonnet, eso son céntimos por mensaje que se acumulan muy rápido. Además, llenas la ventana de contexto con información técnica que quizás no necesitas en esa sesión. La Progressive Disclosure soluciona esto con tres capas de carga.</p>
-      <div class="stats">
-        <div class="stat"><span class="v">30.000</span><span class="l">Diseño ingenuo</span><span class="d">Tokens cargados SIEMPRE</span></div>
-      </div>
-
-      <h3>Las 3 capas en detalle</h3>
-      <div class="stepper vertical">
-        <div class="step">
-          <span class="n">01</span>
-          <h4>Capa 1 — Metadata</h4>
-          <div class="chips"><span class="chip">Siempre en contexto (Coste mínimo)</span></div>
-          <p>Solo el <code>name</code> y la <code>description</code> del frontmatter YAML. Son los ~100 tokens que Claude necesita para decidir si el skill aplica. Nada más.</p>
-          <div class="code"><div class="ch"><span class="k">[ YAML ]</span></div><pre><span class="cm">---</span>
-<span class="hl">name:</span> campaign-analyzer
-<span class="hl">description:</span> "Analiza archivos..."
-<span class="cm">---</span></pre></div>
-          <p><code>10 skills × 100t = 1.000 tokens</code></p>
+      <h3>Tres tareas programadas para un departamento financiero</h3>
+      <div class="grid-cards three">
+        <div class="card dim">
+          <span class="k">[ Semanal · lunes ]</span>
+          <h4>Resumen semanal de tesorería</h4>
+          <p>Saldo conciliado más reciente, partidas en tránsito y asientos de ajuste pendientes, en un archivo de una página dentro del proyecto «Cierre mensual».</p>
         </div>
-        <div class="step">
-          <span class="n">02</span>
-          <h4>Capa 2 — Body</h4>
-          <div class="chips"><span class="chip">Solo cuando se activa</span></div>
-          <p>El cuerpo completo del <code>SKILL.md</code>. Solo se carga en el contexto cuando Claude decide que ese skill específico aplica a la petición actual del usuario.</p>
-          <div class="code"><div class="ch"><span class="k">[ Cálculo ]</span></div><pre><span class="cm">10 skills × 100t (meta) = 1.000t</span>
-<span class="ac">+</span>
-<span class="cm">1 skill activo × 3.000t = 3.000t</span>
-Total en contexto       = <span class="hl">4.000t</span></pre></div>
-          <p>Frente a los 30.000 del diseño ingenuo.</p>
+        <div class="card dim">
+          <span class="k">[ Días laborables ]</span>
+          <h4>Hitos del calendario de cierre</h4>
+          <p>Cada mañana, qué hito de las normas toca (D+3, D+5 o D+7), su fecha real y qué archivos faltan todavía en la carpeta.</p>
         </div>
-        <div class="step">
-          <span class="n">03</span>
-          <h4>Capa 3 — References</h4>
-          <div class="chips"><span class="chip">Bajo demanda explícita</span></div>
-          <p>Los archivos en <code>references/</code> nunca entran automáticamente. Claude usa la herramienta <em>Read</em> para leerlos solo si el SKILL.md se lo indica.</p>
-          <div class="code"><div class="ch"><span class="k">[ Árbol · campaign-analyzer/ ]</span></div><pre class="tree"><span class="hl">campaign-analyzer/</span>
-├── SKILL.md
-└── <span class="hl">references/</span>
-    ├── roas-avanz.md <span class="cm">← bajo demanda</span>
-    └── casos-edge.md <span class="cm">← bajo demanda</span></pre></div>
-          <p>Puede que nunca se carguen en el 90% de los casos.</p>
+        <div class="card dim">
+          <span class="k">[ Semanal · viernes ]</span>
+          <h4>Gastos sin centro de coste</h4>
+          <p>Lista de las facturas de la semana que llegan sin centro o con un centro que no figura en las normas, con una propuesta marcada como supuesto.</p>
         </div>
-      </div>
-
-      <h3>Cómo diseñar un skill correctamente</h3>
-      <p>La regla práctica es: pon en el <em>body</em> solo lo que se necesita en el caso más común. Todo lo demás va a <code>references/</code>. El truco está en que el SKILL.md diga explícitamente cuándo leer cada referencia:</p>
-      <div class="code wrap"><div class="ch"><span class="k">[ Markdown ]</span></div><pre><span class="ac">## Análisis estándar</span>
-[instrucciones para el 90% de casos]
-
-<span class="ac">## Casos avanzados (ROAS multi-touch, atribución)</span>
-Si el usuario menciona atribución o multi-touch, lee <span class="hl">references/roas-avanzado.md</span> antes de continuar.</pre></div>
-
-      <div class="code"><div class="ch"><span class="k">[ × ] Mal diseño · Todo en SKILL.md (3.800 tokens siempre)</span></div><pre class="tree"><span class="hl">SKILL.md</span> (3.800 tokens)
-├── instrucciones básicas
-├── casos edge poco frecuentes
-├── guía completa de fórmulas Excel
-├── lista de todos los benchmarks del sector
-└── ejemplos detallados de cada output posible</pre></div>
-
-      <div class="code"><div class="ch"><span class="k">[ ✓ ] Buen diseño · Body lean + references (800 tokens)</span></div><pre class="tree"><span class="hl">SKILL.md</span> <span class="ac">(800 tokens)</span>
-├── instrucciones para el 90% de casos
-└── <span class="ac">"Lee references/X si el usuario pide Y"</span>
-
-<span class="hl">references/</span>
-├── formulas-excel.md       <span class="cm">← solo si genera Excel avanzado</span>
-├── benchmarks-sector.md    <span class="cm">← solo si pide comparativa</span>
-└── casos-edge.md           <span class="cm">← solo si hay datos atípicos</span></pre></div>
-
-      <h3>El efecto compuesto</h3>
-      <p>Hay un efecto compuesto que mucha gente no ve: en una conversación larga, el <em>body</em> del skill activado permanece en el contexto durante <strong>todos los mensajes siguientes de esa sesión</strong>. Si el skill body es grande, contamina toda la conversación.</p>
-      <p>Con references bien usadas, Claude carga una referencia, la usa, y aunque permanezca en el historial, al menos solo está ahí porque fue necesaria, no porque estaba siempre.</p>
-      <p>La otra gran ventaja es el mantenimiento: cuando el skill tiene 10 archivos en <code>references/</code> bien nombrados, es fácil actualizar. Si cambian los benchmarks del sector, solo tocas <code>benchmarks-sector.md</code> sin abrir ni romper el SKILL.md principal.</p>
-
-      <div class="card ink">
-        <span class="k">[ Resumen mental ]</span>
-        <h4>La biblioteca</h4>
-        <ul class="list-mono">
-          <li>La <strong>ficha de catálogo</strong> (metadata) siempre está disponible, ocupa nada.</li>
-          <li>El <strong>índice y primer capítulo</strong> (body) los lees cuando el título te interesa.</li>
-          <li>Los <strong>apéndices técnicos</strong> (references) los consultas solo si necesitas ese detalle concreto.</li>
-        </ul>
-        <p>Tú controlas exactamente qué va en cada capa. No es automático — es una decisión de diseño que tiene un impacto real en coste y rendimiento.</p>
       </div>
     </section>
 
-    <!-- 8. Scripts y determinismo -->
-    <section class="sec" id="scripts" data-label="Scripts">
-      <p class="sec-eyebrow">[ Estrategia avanzada ]</p>
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Determinismo vs instrucciones en texto.</h2></div>
-      <p class="sec-intro">Esta es una de las estrategias más potentes y menos obvias del sistema. Consiste en delegar la lógica algorítmica y repetitiva a scripts deterministas externos en lugar de forzar a Claude a interpretarla y programarla en cada ejecución.</p>
+    <!-- 04 · Artefactos: qué son, tipos, compartir y apps con datos -->
+    <section class="sec respira" id="artefactos" data-label="Artefactos">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Artefactos: piezas que se quedan, se editan y se comparten.</h2></div>
+      <p class="sec-intro">Un artefacto es una pieza autónoma que Claude crea junto a la conversación y que se guarda en la galería «Artefactos» de la barra lateral: un documento, una presentación, un diseño, un tablero, una animación o una pequeña aplicación. A diferencia de una respuesta, que se queda en el historial, un artefacto tiene vida propia: se vuelve a abrir, se edita, se exporta y se comparte. Requiere que esté activada «Ejecución de código en la nube y creación de archivos», en Configuración → «Capacidades».</p>
 
-      <h3>El problema con explicar procesos en texto</h3>
-      <p>Cuando intentas describir un flujo algorítmico (por ejemplo, cómo estructurar, calcular un CPA y ordenar un DataFrame Excel) mediante instrucciones en el cuerpo del <code>SKILL.md</code>:</p>
-      <div class="code wrap"><div class="ch"><span class="k">[ Archivo · SKILL.md ]</span></div><pre><span class="ac">## Cómo generar el ranking de campañas</span>
-1. Lee el archivo Excel con pandas
-2. Detecta si existen las columnas 'spend' y 'conversions'
-3. Si existen, calcula el CPA dividiendo spend entre conversions
-4. Si conversions es 0, pon NaN para evitar división por cero
-5. Ordena el dataframe por CPA ascendente...</pre></div>
-      <div class="callout aviso"><span class="k">[ × ] Impacto negativo</span>
-        <ul class="list-mono cross">
-          <li><strong>Consumo de tokens:</strong> Claude «piensa» en cómo implementar en vez de ejecutar.</li>
-          <li><strong>Variabilidad:</strong> Distintos nombres, estilos y manejo de errores en cada chat.</li>
-          <li><strong>Bugs invisibles:</strong> Imposible depurar un código que cambia dinámicamente.</li>
-        </ul>
+      <figure class="figure">
+        <img src="/img/m6c2-artefactos.png" alt="Galería «Artefactos» de la app de Claude: pestañas «Todo», «Tuyos» y «Compartido contigo»; a la derecha, la lupa, la vista de lista, los filtros y el selector «Claude Design»; y, debajo, el bloque «Make something new» con cuatro accesos: Docs, Slides, Design y Dashboard." width="1600" height="588" loading="lazy">
+        <figcaption>[ Captura ] La galería: tres pestañas, los filtros y los accesos para crear</figcaption>
+      </figure>
+
+      <h3>Lo esencial</h3>
+      <div class="grid-cards three">
+        <div class="card ink">
+          <span class="k">[ Qué es ]</span>
+          <h4>Una pieza autónoma</h4>
+          <p>Se crea junto a la conversación y queda en la galería, ordenada en «Todo», «Tuyos» y «Compartido contigo». <strong>Cuándo:</strong> cuando el resultado se va a reutilizar, editar o compartir, no solo a leer una vez.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ Cómo se crea ]</span>
+          <h4>Conversando o desde la galería</h4>
+          <p>Se pide en la conversación o se parte de uno de los accesos del bloque «Make something new». Después se edita conversando o directamente. <strong>Cuándo:</strong> la galería, para empezar en blanco; la conversación, cuando ya hay contexto.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ Cómo se comparte ]</span>
+          <h4>Privado hasta que se comparte</h4>
+          <p>Nace privado y se comparte con su botón de compartir, eligiendo con quién y con qué permiso. <strong>Cuándo:</strong> al pasar el borrador a revisión o al publicar la versión final para el equipo.</p>
+        </div>
       </div>
 
-      <h3>La alternativa: el script ya escrito</h3>
-      <p>En vez de intentar describir la lógica para que Claude la construya, almacenas el script completo directamente en la carpeta <code>scripts/</code> y le ordenas a Claude que simplemente lo ejecute:</p>
-      <div class="code wrap"><div class="ch"><span class="k">[ Archivo · SKILL.md ]</span></div><pre><span class="ac">## Generar el ranking de campañas</span>
-Ejecuta el script de análisis:
-<span class="cm">```bash</span>
-<span class="hl">python scripts/analizar_campañas.py --input "$ARCHIVO" --output "$SALIDA"</span>
-<span class="cm">```</span>
-El script devuelve un JSON con el ranking y los semáforos. Interpreta y resume.</pre></div>
-      <div class="callout ok"><span class="k">[✓] Impacto positivo</span>
-        <ul class="list-mono check">
-          <li><strong>Código robusto:</strong> Escrito, testeado previamente y con logs de error.</li>
-          <li><strong>Rapidez:</strong> Ejecución instantánea sin tokens de razonamiento extra.</li>
-          <li><strong>Determinismo:</strong> Siempre devolverá exactamente la misma estructura de datos.</li>
-        </ul>
-      </div>
-
-      <h3>Comparativa de flujos operativos</h3>
-      <p class="sec-eyebrow">[ Flujo tradicional · Instrucciones ]</p>
-      <div class="stepper">
-        <div class="step"><span class="n">01</span><h4>Petición del usuario</h4></div>
-        <div class="step"><span class="n">02</span><h4>Claude lee las instrucciones (Tokens)</h4></div>
-        <div class="step"><span class="n">03</span><h4>Claude razona cómo codificarlas</h4></div>
-        <div class="step"><span class="n">04</span><h4>Claude genera el código en vivo</h4></div>
-        <div class="step"><span class="n">05</span><h4>Claude ejecuta el script generado</h4></div>
-        <div class="step"><span class="n">06</span><h4>Interpretación del resultado</h4></div>
-      </div>
-      <p class="sec-eyebrow">[ Flujo optimizado · Scripts deterministas ]</p>
-      <div class="stepper">
-        <div class="step"><span class="n">01</span><h4>Petición del usuario</h4></div>
-        <div class="step"><span class="n">02</span><h4>Claude lee una línea de ejecución rápida</h4></div>
-        <div class="step"><span class="n">03</span><h4>Claude ejecuta el script directamente</h4></div>
-        <div class="step"><span class="n">04</span><h4>Interpretación del resultado</h4></div>
-        <div class="step final"><span class="n">[✓]</span><h4>¡Elimina por completo el razonamiento e implementación mecánica de código en vivo!</h4></div>
-      </div>
-
-      <h3>Cuándo usar scripts vs instrucciones</h3>
-      <p>La regla es simple: si el proceso es <strong>algorítmico y determinista</strong>, debe ser un script. Si requiere <strong>criterio, juicio o adaptación estratégica</strong>, se definirá mediante instrucciones en texto en el SKILL.md.</p>
+      <h3>Los seis tipos de artefacto</h3>
+      <p>La galería de la captura ofrece cuatro accesos directos; Motion y las apps se piden en la conversación, igual que cualquiera de los otros cuatro. Las secciones siguientes recorren los tipos que más se usan en Finanzas.</p>
       <div class="table-wrap"><table>
-        <thead><tr><th>Tarea / Proceso</th><th>Script (Mecánico)</th><th>Instrucciones (Criterio)</th></tr></thead>
+        <thead><tr><th>Tipo</th><th>Qué es</th><th>Cuándo usarlo en Finanzas</th></tr></thead>
         <tbody>
-          <tr><td>Calcular ROAS, CPA, CTR de un Excel</td><td>[✓]</td><td></td></tr>
-          <tr><td>Recalcular fórmulas de hojas de cálculo</td><td>[✓]</td><td></td></tr>
-          <tr><td>Detectar anomalías estadísticas mecánicamente</td><td>[✓]</td><td></td></tr>
-          <tr><td>Interpretar qué significan esas anomalías para el negocio</td><td></td><td>[✓]</td></tr>
-          <tr><td>Generar colores de un semáforo según umbrales fijos</td><td>[✓]</td><td></td></tr>
-          <tr><td>Redactar recomendaciones del informe final</td><td></td><td>[✓]</td></tr>
-          <tr><td>Validar mecánicamente si existen ciertas columnas</td><td>[✓]</td><td></td></tr>
-          <tr><td>Decidir qué campañas de marketing pausar</td><td></td><td>[✓]</td></tr>
+          <tr><td>Docs</td><td>Un documento que se redacta, se edita y se comparte dentro de Claude.</td><td>El memorándum de cierre durante su revisión.</td></tr>
+          <tr><td>Slides</td><td>Una presentación.</td><td>La presentación del cierre al comité de dirección.</td></tr>
+          <tr><td>Design</td><td>Un diseño o un prototipo interactivo sobre un lienzo (Claude Design).</td><td>Un one-pager de resultados o el prototipo de un formulario interno.</td></tr>
+          <tr><td>Dashboards</td><td>Un tablero vivo sobre los datos conectados de la empresa.</td><td>Las ventas por tienda de la semana, actualizadas solas.</td></tr>
+          <tr><td>Motion</td><td>Un explicador animado corto, construido como código editable.</td><td>El resumen del cierre para la reunión general.</td></tr>
+          <tr><td>Apps</td><td>Una pequeña aplicación, que puede guardar datos y llamar a Claude.</td><td>La lista de hitos del cierre que marca todo el equipo.</td></tr>
         </tbody>
       </table></div>
-      <div class="callout nota"><span class="k">[ Patrón híbrido recomendado ]</span><p>El script realiza el trabajo mecánico y determinista, y el cuerpo del SKILL.md guía el criterio cognitivo e interpretación.</p></div>
 
-      <h3>Ejemplo real: el skill de Excel (xlsx)</h3>
-      <p>El skill de Excel que tienes instalado utiliza exactamente esta estrategia mediante un script llamado <code>scripts/recalc.py</code>. En vez de que Claude intente adivinar el cálculo de fórmulas Excel internamente (lo cual es impreciso y lento), el SKILL.md simplemente ordena ejecutar el script usando LibreOffice por debajo:</p>
-      <div class="code wrap"><div class="ch"><span class="k">[ Archivo · SKILL.md ]</span></div><pre><span class="cm"># Lógica dentro del SKILL.md</span>
-<span class="ac">## Recalcular fórmulas (OBLIGATORIO si usas fórmulas)</span>
-<span class="cm">```bash</span>
-<span class="hl">python scripts/recalc.py output.xlsx</span>
-<span class="cm">```</span>
+      <h3>Compartir y permisos</h3>
+      <div class="grid-cards two">
+        <div class="card">
+          <span class="k">[ Con quién ]</span>
+          <h4>Tres alcances</h4>
+          <p>En cuentas de empresa, un artefacto se comparte solo con las personas invitadas, con toda la organización o mediante un enlace.</p>
+        </div>
+        <div class="card">
+          <span class="k">[ Para qué ]</span>
+          <h4>Tres permisos</h4>
+          <p>Quien lo recibe puede ver, comentar o editar. Para la revisión de un memorándum, comentar suele bastar; editar se reserva a quien firma.</p>
+        </div>
+      </div>
+      <div class="callout aviso"><span class="k">[ ! ] Retirar la publicación</span><p>Retirar la publicación de un artefacto compartido no se puede deshacer y borra los datos que tenía guardados. Antes de hacerlo con una app que usa el equipo, conviene exportar o copiar lo que se quiera conservar.</p></div>
 
-El script devuelve un JSON con los errores detectados:
-<span class="cm">```json</span>
-{"status": "errors_found", "total_errors": 2,
- "error_summary": {"#REF!": {"locations": ["Sheet1!B5"]}}}
-<span class="cm">```</span></pre></div>
-      <h4>[✓] Determinismo absoluto</h4>
-      <p>Con instrucciones en texto, ejecutar el mismo prompt 10 veces con el mismo archivo Excel puede generar 10 outputs distintos con lógicas cambiantes (diferentes formas de manejar NaN, uso de <code>cut</code> vs <code>qcut</code>).</p>
-      <p>Con un script determinista, <strong>10 ejecuciones siempre devolverán 10 resultados exactamente idénticos</strong>. Esto es clave en un entorno corporativo donde el equipo que audita o lee el informe del lunes necesita recibir siempre la misma estructura de datos exacta.</p>
+      <h3>Apps con IA dentro y datos guardados</h3>
+      <p>Una app puede llamar a Claude desde dentro: por ejemplo, una herramienta que redacta el comentario de una desviación a partir de dos cifras. Cada persona que la usa entra con su propia cuenta y consume su propia cuota, sin claves de API. Si la app usa conectores, cada visitante usa sus propias conexiones, no las de quien la creó. Para recordar información entre usos, una app dispone de dos tipos de almacenamiento, hasta 20 MB y solo de texto.</p>
+      <div class="grid-cards two">
+        <div class="card dim">
+          <span class="k">[ Personal ]</span>
+          <h4>Almacenamiento personal</h4>
+          <p>Privado: cada persona ve solo lo suyo. Sirve para las notas o las preferencias de cada analista dentro de la misma app.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ Compartido ]</span>
+          <h4>Almacenamiento compartido</h4>
+          <p>Lo ven todos los que usan la app. Sirve para la lista de control del cierre: cuando una persona marca un hito, el resto del equipo ve la marca.</p>
+        </div>
+      </div>
+      <div class="callout aviso"><span class="k">[ ! ] Privacidad</span><p>Lo que se guarda en almacenamiento compartido lo ve cualquiera que abra la app. No se guardan en él datos personales de clientes o de empleados ni cifras que no deban circular fuera del departamento.</p></div>
 
-      <h3>Cómo referenciar el script desde el SKILL.md</h3>
-      <div class="code wrap"><div class="ch"><span class="k">[ Forma directa · Script autocontenido ]</span></div><pre>Ejecuta el análisis completo:
-<span class="cm">```bash</span>
-<span class="hl">python ${CLAUDE_PLUGIN_ROOT}/scripts/analizar.py \
-  --input "$ARCHIVO" \
-  --output "analisis_resultado.xlsx"</span>
-<span class="cm">```</span></pre></div>
-      <div class="code wrap"><div class="ch"><span class="k">[ Forma condicional · Script opcional ]</span></div><pre><span class="ac">## Validación de columnas (siempre)</span>
-Lee el archivo y verifica que existen las columnas requeridas.
+      <div class="glossary">
+        <div class="row"><h3 class="term">Artefacto<small>Pieza autónoma</small></h3><p class="def">Lo que Claude crea junto a la conversación y queda en la galería: documento, presentación, diseño, tablero, animación o app. <span class="an">[ Analogía ] El informe que se archiva en la carpeta compartida, frente a la nota que se dicta por teléfono.</span></p></div>
+        <div class="row"><h3 class="term">Almacenamiento compartido<small>Apps</small></h3><p class="def">La memoria común de una app: lo que guarda una persona lo ven todas las que la usan. Admite hasta 20 MB de texto. <span class="an">[ Analogía ] La pizarra del departamento, frente a la libreta de cada uno.</span></p></div>
+      </div>
+    </section>
 
-<span class="ac">## Análisis estadístico (si es correcto)</span>
-Si la validación es correcta, ejecuta el análisis:
-<span class="cm">```bash</span>
-<span class="hl">python scripts/stats_marketing.py --file "$ARCHIVO"</span>
-<span class="cm">```</span>
+    <!-- 05 · Docs y Slides: el memorándum y la presentación -->
+    <section class="sec respira" id="docs" data-label="Docs y Slides">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Docs y Slides: el memorándum y la presentación, dentro de Claude.</h2></div>
+      <p class="sec-intro">Docs y Slides son los dos tipos de artefacto que más se usan en un departamento financiero: el primero, para los documentos que se redactan, se revisan y se comparten; el segundo, para las presentaciones. Los dos se crean pidiéndolos en la conversación o desde la galería, se editan conversando o directamente y se exportan —a Word, PDF, PowerPoint o Google Slides— cuando hay que archivarlos o enviarlos fuera de Claude.</p>
 
-<span class="ac">## Interpretación de negocio (siempre)</span>
-Independientemente del resultado, explica qué significan.</pre></div>
+      <div class="grid-cards two">
+        <div class="card ink">
+          <span class="k">[ Docs ]</span>
+          <h4>Documentos</h4>
+          <ul class="list-mono">
+            <li>Se crea pidiendo un documento en la conversación o desde el acceso «Docs».</li>
+            <li>Se edita conversando, escribiendo directamente o seleccionando un texto y pidiendo a Claude el cambio solo sobre esa parte.</li>
+            <li>Se exporta, entre otros formatos, a Word o a PDF.</li>
+          </ul>
+          <p><strong>Cuándo:</strong> el memorándum de cierre mientras pasa por revisión.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ Slides ]</span>
+          <h4>Presentaciones</h4>
+          <ul class="list-mono">
+            <li>Se crea pidiendo una presentación o desde el acceso «Slides».</li>
+            <li>Si la organización tiene un sistema de diseño publicado, las diapositivas se hacen con él (sección siguiente).</li>
+            <li>Se exporta, entre otros formatos, a PowerPoint o a Google Slides.</li>
+          </ul>
+          <p><strong>Cuándo:</strong> la presentación del cierre al comité de dirección.</p>
+        </div>
+      </div>
 
-      <div class="callout aviso"><span class="k">[ ! ] Importancia de ${CLAUDE_PLUGIN_ROOT}</span><p>Utiliza siempre esta variable de entorno para referenciar scripts internos dentro de tus plugins. <strong>Nunca uses rutas absolutas</strong>. Al usar esta variable, cuando el plugin se instale en otro ordenador o en un servidor de producción de un tercero, el sistema sabrá localizar dinámicamente y ejecutar el script sin romper las rutas de importación.</p></div>
+      <h3>¿Artefacto Docs o archivo de Word?</h3>
+      <p>Claude puede entregar el memorándum de dos maneras: como artefacto Docs, dentro de la galería, o como archivo de Word, creado en una conversación o en una tarea de Cowork. La elección depende de lo que vaya a pasar después con el documento.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Criterio</th><th>Artefacto Docs</th><th>Archivo de Word</th></tr></thead>
+        <tbody>
+          <tr><td>Dónde vive</td><td>En la galería de Claude.</td><td>En la carpeta de trabajo o en el gestor documental de la empresa.</td></tr>
+          <tr><td>Cómo se edita</td><td>Conversando con Claude, directamente o sobre una selección de texto.</td><td>En Word, o pidiendo a Claude una versión revisada del archivo.</td></tr>
+          <tr><td>Cómo se comparte</td><td>Con el botón de compartir: invitados, organización o enlace; ver, comentar o editar.</td><td>Como cualquier archivo: carpeta compartida o correo.</td></tr>
+          <tr><td>Cuándo conviene</td><td>Mientras el texto se itera con Claude y lo revisan varias personas.</td><td>Cuando el documento debe archivarse con el formato de la casa o firmarse.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>El memorándum, de borrador a Word</h3>
+      <div class="stepper">
+        <div class="step"><span class="n">01</span><h4>Borrador</h4><p>Se pide como artefacto Docs, con los cinco apartados de las normas y los archivos de origen.</p></div>
+        <div class="step"><span class="n">02</span><h4>Cifras</h4><p>Cada cifra se comprueba contra la hoja de ventas, la conciliación o el registro de gastos.</p></div>
+        <div class="step"><span class="n">03</span><h4>Retoque</h4><p>Se selecciona el párrafo que no convence y se pide el cambio solo sobre él.</p></div>
+        <div class="step"><span class="n">04</span><h4>Revisión</h4><p>Se comparte con permiso de comentar con quien debe revisarlo.</p></div>
+        <div class="step final"><span class="n">[✓]</span><h4>Word</h4><p>La versión aprobada se exporta a Word para archivarla y firmarla.</p></div>
+      </div>
+
+      <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Editar una selección en Docs ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Reescribe este párrafo en registro formal y en tres frases como máximo. Mantén todas las cifras tal como están, en euros sin decimales y con punto de millar, y no añadas datos que no figuren en el texto.»</pre></div>
+
+      <div class="callout regla"><span class="k">[ Regla de trabajo ]</span><p>Primero el documento y después la presentación. Las diapositivas se generan a partir del memorándum ya revisado, nunca al revés: así cada cifra de la presentación procede de un texto que alguien ha comprobado, y una corrección se hace una sola vez.</p></div>
+    </section>
+
+    <!-- 06 · Diseño: Claude Design y los sistemas de diseño -->
+    <section class="sec respira" id="diseno" data-label="Diseño">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Claude Design y los sistemas de diseño.</h2></div>
+      <p class="sec-intro">Claude Design es el espacio de Claude para el trabajo visual: diseños, prototipos interactivos, one-pagers y presentaciones que se crean conversando. Se abre desde «Diseño», en la barra lateral, o desde la galería de artefactos con el acceso «Design». Lo que lo distingue de los demás artefactos es el lienzo; lo que lo hace útil en una empresa es el sistema de diseño, que asegura que todo lo que se produzca respete la identidad de la marca.</p>
+      <figure class="figure">
+        <img src="/img/m6c2-diseno.png" alt="Captura del lienzo de Claude Design. Arriba, el nombre del diseño con un desplegable y, a la derecha, los botones Chat, comentarios y Compartir. Debajo, la barra de herramientas con la página, seleccionar, mano, texto, marco, nota, lápiz y formas, y a la derecha presentar, mostrar panel y el zoom al 35 %. En el lienzo, varias mesas de trabajo —una de escritorio, dos de móvil y otra de piezas y tokens—, cuyo contenido aparece difuminado. A la derecha, el panel con las pestañas Properties, Code y Tweaks, el árbol de capas y las propiedades de tamaño y maquetación del elemento seleccionado." width="1600" height="873" loading="lazy">
+        <figcaption>[ Captura ] El lienzo de Claude Design. El contenido de las mesas aparece difuminado a propósito</figcaption>
+      </figure>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Zona del lienzo</th><th>Qué es</th><th>Para qué sirve</th></tr></thead>
+        <tbody>
+          <tr><td>Cabecera</td><td>El nombre del diseño y, a la derecha, «Chat», los comentarios y «Compartir».</td><td>Mostrar u ocultar la conversación con Claude, dejar comentarios y compartir la pieza, que es privada hasta entonces.</td></tr>
+          <tr><td>Barra de herramientas</td><td>La página, seleccionar, mano, texto, marco, nota, lápiz y formas; a la derecha, presentar y el zoom.</td><td>Editar directamente, sin pasar por la conversación, y revisar la pieza como la verá quien la reciba.</td></tr>
+          <tr><td>Mesas de trabajo</td><td>Los formatos de la pieza, uno al lado de otro (escritorio, móvil, piezas sueltas), cada uno con ampliar y descargar.</td><td>Comparar las versiones de un mismo diseño en sus distintos tamaños.</td></tr>
+          <tr><td>Panel derecho</td><td>Pestañas «Properties», «Code» y «Tweaks» (la interfaz del lienzo está en inglés): el árbol de capas y las propiedades del elemento seleccionado.</td><td>Ajustar con precisión un elemento —tamaño, posición, márgenes— o ver el código que lo genera.</td></tr>
+        </tbody>
+      </table></div>
+
+      <p>El resultado aparece en un <strong>lienzo</strong> junto a la conversación: mesas de trabajo con capas, como en una herramienta de diseño. Se afina de tres maneras, que se combinan libremente según el cambio que haga falta.</p>
+      <div class="grid-cards three">
+        <div class="card dim">
+          <span class="k">[ 01 ]</span>
+          <h4>Conversando</h4>
+          <p>Se pide el cambio por escrito, como a un diseñador: «sube el gráfico al primer tercio de la página y reduce el texto del pie».</p>
+        </div>
+        <div class="card dim">
+          <span class="k">[ 02 ]</span>
+          <h4>Con comentarios</h4>
+          <p>Se deja un comentario sobre un elemento concreto del lienzo, en lugar de describir dónde está.</p>
+        </div>
+        <div class="card dim">
+          <span class="k">[ 03 ]</span>
+          <h4>Editando directamente</h4>
+          <p>Se corrige a mano un texto o una posición, sin pasar por la conversación.</p>
+        </div>
+      </div>
+
+      <p>Cuando la pieza está terminada, Claude Design la exporta a <code>.zip</code>, PDF, PowerPoint, Google Slides o HTML. Un prototipo puede además entregarse a Claude Code para que el equipo técnico lo convierta en código. Para un departamento financiero, los usos más habituales son tres:</p>
+      <ul class="list-mono">
+        <li>Un one-pager con los resultados del trimestre para el consejo de administración.</li>
+        <li>El prototipo de un formulario interno de solicitud de gasto, para validarlo con los usuarios antes de encargarlo a sistemas.</li>
+        <li>La portada y las infografías del informe anual.</li>
+      </ul>
+
+      <h3>Sistemas de diseño: la identidad de la casa, registrada una vez</h3>
+      <p>Un <strong>sistema de diseño</strong> es un registro reutilizable de los colores, las tipografías, los componentes y los patrones de la marca. Claude lo extrae del material que ya existe —código, presentaciones, archivos de Figma o logotipos— y, una vez publicado, el equipo lo usa en todos sus artefactos. Un propietario puede fijar cuál es el predeterminado, de modo que nadie tenga que acordarse de elegirlo.</p>
+
+      <div class="callout analogia"><span class="k">[ Analogía ]</span><p>El manual de identidad corporativa. En lugar de consultarlo cada vez que se prepara una presentación, se le entrega a Claude una sola vez, y Claude lo aplica solo en cada documento, diapositiva o tablero.</p></div>
+
+      <figure class="figure esquema">
+        <svg viewBox="0 0 960 300" role="img" aria-label="Diagrama de un sistema de diseño. A la izquierda, cuatro fuentes de las que se extrae: logotipos, presentaciones, archivos de Figma y código. Confluyen en una caja oscura central, el sistema de diseño, que registra colores, tipografías, componentes y patrones. De ella salen cuatro flechas hacia los artefactos coherentes con la marca: documentos, presentaciones, prototipos y tableros.">
+          <rect class="bx" x="40" y="26" width="210" height="44" rx="4"/>
+          <text class="lb b" x="145" y="54" text-anchor="middle">Logotipos</text>
+          <rect class="bx" x="40" y="94" width="210" height="44" rx="4"/>
+          <text class="lb b" x="145" y="122" text-anchor="middle">Presentaciones</text>
+          <rect class="bx" x="40" y="162" width="210" height="44" rx="4"/>
+          <text class="lb b" x="145" y="190" text-anchor="middle">Archivos de Figma</text>
+          <rect class="bx" x="40" y="230" width="210" height="44" rx="4"/>
+          <text class="lb b" x="145" y="258" text-anchor="middle">Código</text>
+          <line class="ln" x1="250" y1="48" x2="276" y2="48"/>
+          <line class="ln" x1="250" y1="116" x2="276" y2="116"/>
+          <line class="ln" x1="250" y1="184" x2="276" y2="184"/>
+          <line class="ln" x1="250" y1="252" x2="276" y2="252"/>
+          <line class="ln" x1="276" y1="48" x2="276" y2="252"/>
+          <line class="ln" x1="276" y1="150" x2="310" y2="150"/>
+          <path class="ln" d="M302 144 L310 150 L302 156"/>
+          <rect class="fill-ink" x="310" y="70" width="320" height="160" rx="4"/>
+          <text class="ti on-dark" x="470" y="122" text-anchor="middle">Sistema de diseño</text>
+          <text class="lb on-dark soft" x="470" y="164" text-anchor="middle">Colores · Tipografías</text>
+          <text class="lb on-dark soft" x="470" y="192" text-anchor="middle">Componentes · Patrones</text>
+          <line class="ln ac" x1="630" y1="150" x2="660" y2="150"/>
+          <line class="ln ac" x1="660" y1="48" x2="660" y2="252"/>
+          <line class="ln ac" x1="660" y1="48" x2="690" y2="48"/>
+          <path class="ln ac" d="M682 42 L690 48 L682 54"/>
+          <line class="ln ac" x1="660" y1="116" x2="690" y2="116"/>
+          <path class="ln ac" d="M682 110 L690 116 L682 122"/>
+          <line class="ln ac" x1="660" y1="184" x2="690" y2="184"/>
+          <path class="ln ac" d="M682 178 L690 184 L682 190"/>
+          <line class="ln ac" x1="660" y1="252" x2="690" y2="252"/>
+          <path class="ln ac" d="M682 246 L690 252 L682 258"/>
+          <rect class="bx fill" x="690" y="26" width="240" height="44" rx="4"/>
+          <text class="lb b" x="810" y="54" text-anchor="middle">Documentos</text>
+          <rect class="bx fill" x="690" y="94" width="240" height="44" rx="4"/>
+          <text class="lb b" x="810" y="122" text-anchor="middle">Presentaciones</text>
+          <rect class="bx fill" x="690" y="162" width="240" height="44" rx="4"/>
+          <text class="lb b" x="810" y="190" text-anchor="middle">Prototipos</text>
+          <rect class="bx fill" x="690" y="230" width="240" height="44" rx="4"/>
+          <text class="lb b" x="810" y="258" text-anchor="middle">Tableros</text>
+        </svg>
+        <figcaption>[ Diagrama 04 ] La marca se registra una vez y se aplica en cada artefacto</figcaption>
+      </figure>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>Paso</th><th>Qué se hace</th><th>Dónde o quién</th></tr></thead>
+        <tbody>
+          <tr><td>Extraer</td><td>Claude analiza el material de la marca y registra colores, tipografías, componentes y patrones.</td><td>A partir de código, presentaciones, archivos de Figma o logotipos.</td></tr>
+          <tr><td>Publicar</td><td>El sistema queda disponible para el equipo.</td><td>En todos los artefactos del equipo.</td></tr>
+          <tr><td>Fijar el predeterminado</td><td>Se aplica sin que nadie tenga que elegirlo.</td><td>Un propietario.</td></tr>
+          <tr><td>Gestionar</td><td>Se ve la lista de sistemas, quién puede usar cada uno y cuál es el predeterminado, y se crean otros.</td><td>Configuración → «Sistemas de diseño».</td></tr>
+        </tbody>
+      </table></div>
+      <!-- CAPTURA PENDIENTE: Configuración → «Sistemas de diseño» con la lista de sistemas -->
+    </section>
+
+    <!-- 07 · Dashboards: una pregunta, un tablero vivo -->
+    <section class="sec respira" id="dashboards" data-label="Dashboards">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Dashboards: una pregunta, un tablero vivo.</h2></div>
+      <p class="sec-intro">Un Dashboard es un tablero que Claude construye a partir de una pregunta en lenguaje natural: consulta los datos de la empresa y presenta el resultado en cifras y gráficos que se actualizan cuando cambian los datos. Es el artefacto pensado para seguir una magnitud en el tiempo, no para analizarla una sola vez. Está disponible si la organización lo ha activado y si la empresa tiene sus datos conectados.</p>
+      <!-- CAPTURA PENDIENTE: un Dashboard abierto, con una cifra y su consulta -->
+
+      <div class="flow">
+        <div class="node"><span class="k">Pregunta</span><h4>Lenguaje natural</h4><p>«Ventas por región esta semana frente a la anterior.»</p></div><span class="arrow" aria-hidden="true">→</span>
+        <div class="node"><span class="k">Consulta</span><h4>Datos de la empresa</h4><p>Claude consulta el almacén de datos o la herramienta conectada.</p></div><span class="arrow" aria-hidden="true">→</span>
+        <div class="node ink"><span class="k">Tablero</span><h4>Vivo</h4><p>Cifras y gráficos que se actualizan cuando cambian los datos.</p></div><span class="arrow" aria-hidden="true">→</span>
+        <div class="node"><span class="k">Después</span><h4>Compartir o BI</h4><p>Privado hasta que se comparte; se puede enviar a herramientas de BI y analítica.</p></div>
+      </div>
+
+      <h3>Lo esencial</h3>
+      <div class="grid-cards three">
+        <div class="card ink">
+          <span class="k">[ Trazabilidad ]</span>
+          <h4>Cada cifra con su consulta</h4>
+          <p>Cada cifra enlaza a la consulta que la produce. <strong>Cuándo:</strong> al revisar una cifra que no cuadra con la contabilidad, para ver qué datos y qué filtros la han generado.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ Vigencia ]</span>
+          <h4>Fecha de refresco</h4>
+          <p>Cada gráfico indica cuándo se refrescó por última vez. <strong>Cuándo:</strong> antes de presentar el tablero en una reunión, para saber a qué momento corresponden los datos.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ Análisis ]</span>
+          <h4>Hacia las herramientas de BI</h4>
+          <p>Para un análisis más profundo, el tablero se envía a las herramientas de BI y analítica de la empresa. <strong>Cuándo:</strong> cuando la pregunta deja de ser de seguimiento y pasa a ser de investigación.</p>
+        </div>
+      </div>
+
+      <div class="callout analogia"><span class="k">[ Analogía ]</span><p>Una cifra de un informe con su nota al pie, que lleva directamente a la hoja de cálculo de la que sale. Quien lee el tablero no tiene que fiarse de la cifra: puede seguir la nota y ver cómo se ha calculado.</p></div>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>Fuente</th><th>Ejemplos</th><th>Qué hace falta</th></tr></thead>
+        <tbody>
+          <tr><td>Almacenes de datos</td><td>Amazon Redshift, BigQuery, ClickHouse, Databricks, Snowflake.</td><td>Que la organización haya conectado el almacén donde están las ventas, la contabilidad o la tesorería.</td></tr>
+          <tr><td>Herramientas conectadas</td><td>Salesforce u otras aplicaciones con conector.</td><td>Que el conector esté habilitado en la organización y conectado con la cuenta de cada persona.</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Dashboard ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Construye un tablero con las ventas por región de esta semana frente a la semana anterior: una cifra de ventas totales con su variación en porcentaje y un gráfico de barras por región, ordenado de mayor a menor crecimiento.»</pre></div>
+
+      <div class="callout nota"><span class="k">[ Dashboard o app ]</span><p>Un Dashboard necesita datos conectados. Cuando los datos están en archivos —como en el laboratorio de esta clase, con una hoja de ventas en una carpeta—, el tablero se construye como un artefacto de tipo app con esos datos: muestra las cifras con las que se construyó, pero sirve igual para que el equipo siga el cierre.</p></div>
+    </section>
+
+    <!-- 08 · Motion: explicadores animados como código -->
+    <section class="sec respira" id="motion" data-label="Motion">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Motion: explicar el cierre en treinta segundos.</h2></div>
+      <p class="sec-intro">Motion crea explicadores animados cortos a partir de un prompt: el resumen de un informe, el recorrido por un proceso o la presentación de un producto. La animación se construye como código editable que mueve textos, gráficos, formas e imágenes; por eso se ajusta con precisión, en su editor o pidiendo los cambios, como se corrige un documento. Está disponible si la organización lo ha activado.</p>
+      <!-- CAPTURA PENDIENTE: el editor de Motion con un explicador abierto -->
+
+      <div class="grid-cards two">
+        <div class="card ink">
+          <span class="k">[ Qué es ]</span>
+          <h4>Una animación construida como código</h4>
+          <ul class="list-mono">
+            <li class="check">Anima textos, gráficos, formas e imágenes.</li>
+            <li class="check">Se ajusta en su editor o pidiendo los cambios a Claude.</li>
+            <li class="check">Se descarga en MP4 o se abre en herramientas de vídeo.</li>
+          </ul>
+        </div>
+        <div class="card dim">
+          <span class="k">[ Qué no es ]</span>
+          <h4>No es vídeo generado</h4>
+          <ul class="list-mono">
+            <li class="cross">No contiene metraje real ni personas.</li>
+            <li class="cross">No es una pieza ligera: consume más cuota, así que se llega a ella con el guion ya decidido.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Cómo se prepara un explicador</h3>
+      <div class="stepper">
+        <div class="step"><span class="n">01</span><h4>Guion</h4><p>Cuatro o cinco escenas, con la cifra o el mensaje de cada una.</p></div>
+        <div class="step"><span class="n">02</span><h4>Petición</h4><p>El guion, la duración, el público y el sistema de diseño, si existe.</p></div>
+        <div class="step"><span class="n">03</span><h4>Ajuste</h4><p>En el editor o conversando: un texto, un color, el ritmo de una escena.</p></div>
+        <div class="step final"><span class="n">[✓]</span><h4>MP4</h4><p>Se descarga y se inserta en la presentación o se proyecta en la reunión.</p></div>
+      </div>
+
+      <p>En un departamento financiero, Motion sirve para explicar a un público amplio lo que normalmente se explica con una tabla: el resumen del cierre para la reunión general de la empresa, el recorrido por el procedimiento de solicitud de reembolso de gastos o un cambio en el calendario de cierre que afecta a todas las tiendas. Como consume más cuota, conviene llegar a Motion con el guion ya decidido y las cifras ya revisadas.</p>
+    </section>
+
+    <!-- 09 · Claude in Chrome: el navegador como lugar de trabajo -->
+    <section class="sec respira" id="chrome" data-label="Chrome">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Claude in Chrome: trabajo en el navegador, con permisos por sitio.</h2></div>
+      <p class="sec-intro">Claude in Chrome es una extensión para el navegador Chrome que permite a Claude navegar, leer páginas y completar pasos desde un panel lateral. Requiere la app de escritorio y, en cuentas de empresa, el administrador de la organización decide si está disponible. Sus modos de aprobación son equivalentes a los de Cowork —manual, automático y omitir— y a ellos se suman los permisos por sitio.</p>
+      <!-- CAPTURA PENDIENTE: el panel lateral de Claude in Chrome pidiendo permiso en un sitio -->
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>Permiso por sitio</th><th>Qué autoriza</th><th>Cuándo elegirlo</th></tr></thead>
+        <tbody>
+          <tr><td>Permitir esta acción</td><td>Solo la acción que Claude propone en ese momento.</td><td>La opción recomendada mientras se aprende cómo trabaja en un sitio.</td></tr>
+          <tr><td>Permitir siempre en este sitio</td><td>Las acciones de Claude en ese sitio, sin volver a preguntar.</td><td>Solo en sitios de consulta de confianza, sin datos de clientes.</td></tr>
+          <tr><td>Rechazar</td><td>Nada: la acción no se ejecuta.</td><td>Ante cualquier acción que no se entienda o que no se haya pedido.</td></tr>
+        </tbody>
+      </table></div>
+      <p>Los permisos concedidos se pueden revocar en cualquier momento. Además, hay acciones que Claude in Chrome tiene siempre bloqueadas, sea cual sea el modo o el permiso:</p>
+      <ul class="list-mono">
+        <li class="cross">Hacer compras.</li>
+        <li class="cross">Crear cuentas.</li>
+        <li class="cross">Introducir datos financieros o de identidad.</li>
+        <li class="cross">Descargar archivos de fuentes no fiables.</li>
+        <li class="cross">Borrar de forma permanente.</li>
+        <li class="cross">Operar en bolsa.</li>
+        <li class="cross">Tocar archivos del sistema.</li>
+      </ul>
+
+      <div class="grid-cards two">
+        <div class="card">
+          <span class="k">[ Cuándo sí ]</span>
+          <h4>Consulta y pasos repetitivos</h4>
+          <p>Reunir en una tabla las condiciones que varios proveedores publican en sus webs; leer y resumir un informe sectorial público; completar, con aprobación manual, pasos repetitivos en una aplicación web interna que no tiene conector.</p>
+        </div>
+        <div class="card dim">
+          <span class="k">[ Cuándo no ]</span>
+          <h4>Banca, pagos y credenciales</h4>
+          <p>La banca en línea y los pagos (introducir datos financieros está bloqueado), las tareas que exigen credenciales y cualquier página con datos de clientes sin aprobación manual de cada acción.</p>
+        </div>
+      </div>
+
+      <div class="callout regla"><span class="k">[ Regla de trabajo ]</span><p>Con datos de clientes, aprobación manual de cada acción. Y, como en Cowork, la responsabilidad sobre lo que se hace en un sitio sigue siendo de quien aprueba la acción, no de Claude.</p></div>
+    </section>
+
+    <!-- 10 · Práctica (banda tinta) y test -->
+    <section class="sec respira sec-dark" id="practica" data-label="Práctica">
+      <p class="sec-eyebrow">[ Parte práctica ]</p>
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Laboratorio: el cierre de octubre, de los datos al comité.</h2></div>
+      <p class="sec-intro">El laboratorio completa el cierre de octubre de 2026 de la empresa del caso, una marca de calzado y marroquinería con siete tiendas y canal online. Se parte del proyecto «Cierre mensual» de la clase 1 y de la carpeta <code>cierre-octubre</code>, y se termina con los entregables del cierre: la conciliación bancaria, el registro de gastos depurado, el memorándum, la presentación para el comité, un tablero para el equipo y una tarea que cada lunes prepara el resumen de tesorería. Todos los datos son sintéticos. Se trabaja en la app de escritorio.</p>
+
+      <h3>Archivos de la práctica</h3>
+      <div class="grid-cards">
+        <a class="card link" href="/practica/m6c1/carpeta-cierre-octubre.zip" download>
+          <span class="k">[ Descargar ]</span>
+          <h4>carpeta-cierre-octubre.zip</h4>
+          <p>La carpeta de trabajo <code>cierre-octubre</code> con los seis archivos del módulo: normas, memorándum de septiembre, ventas, extracto, mayor y gastos.</p>
+        </a>
+        <a class="card link" href="/practica/m6c2/extracto-bancario-octubre.csv" download>
+          <span class="k">[ Descargar ]</span>
+          <h4>extracto-bancario-octubre.csv</h4>
+          <p>Los 31 movimientos de octubre del Banco Mediterráneo, con separador «;» y decimales con coma.</p>
+        </a>
+        <a class="card link" href="/practica/m6c2/mayor-bancos-octubre.xlsx" download>
+          <span class="k">[ Descargar ]</span>
+          <h4>mayor-bancos-octubre.xlsx</h4>
+          <p>El mayor de la cuenta 572 de octubre: 30 movimientos con fecha, asiento, concepto, debe, haber y saldo.</p>
+        </a>
+        <a class="card link" href="/practica/m6c2/gastos-octubre.xlsx" download>
+          <span class="k">[ Descargar ]</span>
+          <h4>gastos-octubre.xlsx</h4>
+          <p>Las 30 facturas de gastos de octubre tal como llegan: fechas en tres formatos, importes como texto o como número y centros escritos de cualquier manera.</p>
+        </a>
+      </div>
+
+      <ol class="exercises">
+        <li>
+          <h4>Preparación</h4>
+          <p>Primero, comprueba que tienes la carpeta <code>cierre-octubre</code> con sus seis archivos y el proyecto «Cierre mensual» de la clase 1, con la carpeta vinculada y, en «Contexto», <code>normas-cierre.docx</code> y <code>memorandum-cierre-septiembre.docx</code>. Si no hiciste esa práctica, descarga el ZIP, descomprímelo en Documentos y crea el proyecto: «Proyectos» → «Nuevo proyecto», nombre «Cierre mensual», «Usar una carpeta» → <code>cierre-octubre</code> y «Crear proyecto»; después, sube los dos documentos en «Contexto». Por último, comprueba en Configuración → «Capacidades» que está activada «Ejecución de código en la nube y creación de archivos».</p>
+        </li>
+        <li>
+          <h4>Conciliación bancaria · Cowork, permiso «Manual»</h4>
+          <p>Abre una tarea de Cowork dentro del proyecto «Cierre mensual», con el permiso en «Manual», y pega el encargo siguiente. Lee el plan en «Progreso» antes de aprobar la primera acción y aprueba una a una las que propone; cuando termine, abre el archivo desde «Salidas» y comprueba en «Contexto» que ha leído el extracto y el mayor.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Encargo · Conciliación ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre>Objetivo: concilia el extracto del Banco Mediterráneo con el mayor de la cuenta 572 a 31 de octubre de 2026, para el memorándum de cierre.
+Archivos de entrada: extracto-bancario-octubre.csv (separador «;», decimales con coma) y mayor-bancos-octubre.xlsx, en la carpeta cierre-octubre. Aplica los criterios 4.1 a 4.4 de normas-cierre.docx.
+Entregable: un archivo conciliacion-octubre.xlsx con dos hojas. «Conciliación»: saldo del banco, saldo contable, diferencia, cada partida que la explica con su tratamiento y una comprobación final. «Ajustes propuestos»: los asientos de ajuste con fecha, concepto e importe.
+Qué no tocar: no modifiques, renombres ni borres los archivos originales.
+Cuándo detenerte: si una partida no se puede explicar con los criterios de las normas, no la ajustes; detente y pregúntame.</pre></div>
+          <p><strong>Resultado esperado:</strong> saldo inicial de 184.326,52&nbsp;€ en ambos; saldo final del banco, 376.334,62&nbsp;€; saldo contable, 373.614,27&nbsp;€; diferencia, 2.720,35&nbsp;€, explicada por cinco partidas.</p>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Partida</th><th>Importe</th><th>Tratamiento</th></tr></thead>
+            <tbody>
+              <tr><td>Comisión de mantenimiento (31/10)</td><td>−45,60&nbsp;€</td><td>Solo en el banco: asiento de ajuste.</td></tr>
+              <tr><td>Devolución del recibo de Boutique Azul (17/10) y su comisión</td><td>−2.115,40&nbsp;€ y −6,50&nbsp;€</td><td>Solo en el banco: asientos de ajuste.</td></tr>
+              <tr><td>Pago a Curtidos Levante (F-2026-0912)</td><td>−8.640,00&nbsp;€</td><td>Duplicado en el mayor (el banco lo cargó una vez): se anula el duplicado, +8.640,00&nbsp;€.</td></tr>
+              <tr><td>Alquiler del local de Lisboa (20/10)</td><td>Banco −1.524,00&nbsp;€; mayor −1.254,00&nbsp;€</td><td>Diferencia de 270,00&nbsp;€, divisible entre 9: error de transposición; ajuste de −270,00&nbsp;€.</td></tr>
+              <tr><td>Cobros TPV Online (30-31/10)</td><td>+3.482,15&nbsp;€</td><td>Solo en el mayor: partida en tránsito; no se ajusta, se lista.</td></tr>
+            </tbody>
+          </table></div>
+          <figure class="figure esquema">
+            <svg class="cb-diagram" viewBox="0 0 960 480" role="img" aria-label="Diagrama animado: puente de la conciliación de octubre, en euros, que se construye fila a fila. Parte del saldo contable, 373.614,27. Suma 8.640,00 por el pago duplicado a Curtidos Levante. Resta 45,60 de la comisión de mantenimiento, 2.115,40 de la devolución del recibo de Boutique Azul, 6,50 de la comisión de esa devolución y 270,00 por la transposición del alquiler de Lisboa, y llega al saldo contable ajustado, 379.816,77. Resta 3.482,15 de cobros TPV Online en tránsito y termina, destacado, en el saldo según el banco, 376.334,62. Las barras de saldo tienen el eje cortado; las de los ajustes están a escala.">
+              <style>
+                @keyframes cb-r0{0%,3%{opacity:.12}5%,96%{opacity:1}100%{opacity:.12}}
+                @keyframes cb-b0{0%,3%{transform:scaleX(0)}7%,96%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+                @keyframes cb-r1{0%,10%{opacity:.12}12%,96%{opacity:1}100%{opacity:.12}}
+                @keyframes cb-b1{0%,10%{transform:scaleX(0)}14%,96%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+                @keyframes cb-r2{0%,17%{opacity:.12}19%,96%{opacity:1}100%{opacity:.12}}
+                @keyframes cb-b2{0%,17%{transform:scaleX(0)}21%,96%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+                @keyframes cb-r3{0%,24%{opacity:.12}26%,96%{opacity:1}100%{opacity:.12}}
+                @keyframes cb-b3{0%,24%{transform:scaleX(0)}28%,96%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+                @keyframes cb-r4{0%,31%{opacity:.12}33%,96%{opacity:1}100%{opacity:.12}}
+                @keyframes cb-b4{0%,31%{transform:scaleX(0)}35%,96%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+                @keyframes cb-r5{0%,38%{opacity:.12}40%,96%{opacity:1}100%{opacity:.12}}
+                @keyframes cb-b5{0%,38%{transform:scaleX(0)}42%,96%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+                @keyframes cb-r6{0%,45%{opacity:.12}47%,96%{opacity:1}100%{opacity:.12}}
+                @keyframes cb-b6{0%,45%{transform:scaleX(0)}49%,96%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+                @keyframes cb-r7{0%,52%{opacity:.12}54%,96%{opacity:1}100%{opacity:.12}}
+                @keyframes cb-b7{0%,52%{transform:scaleX(0)}56%,96%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+                @keyframes cb-r8{0%,59%{opacity:.12}61%,96%{opacity:1}100%{opacity:.12}}
+                @keyframes cb-b8{0%,59%{transform:scaleX(0)}63%,96%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+                @keyframes cb-fr{0%,64%{opacity:0}68%,96%{opacity:1}100%{opacity:0}}
+                .cb-diagram .cb-r0{animation:cb-r0 12s ease-in-out infinite}
+                .cb-diagram .cb-b0{animation:cb-b0 12s ease-in-out infinite}
+                .cb-diagram .cb-r1{animation:cb-r1 12s ease-in-out infinite}
+                .cb-diagram .cb-b1{animation:cb-b1 12s ease-in-out infinite}
+                .cb-diagram .cb-r2{animation:cb-r2 12s ease-in-out infinite}
+                .cb-diagram .cb-b2{animation:cb-b2 12s ease-in-out infinite}
+                .cb-diagram .cb-r3{animation:cb-r3 12s ease-in-out infinite}
+                .cb-diagram .cb-b3{animation:cb-b3 12s ease-in-out infinite}
+                .cb-diagram .cb-r4{animation:cb-r4 12s ease-in-out infinite}
+                .cb-diagram .cb-b4{animation:cb-b4 12s ease-in-out infinite}
+                .cb-diagram .cb-r5{animation:cb-r5 12s ease-in-out infinite}
+                .cb-diagram .cb-b5{animation:cb-b5 12s ease-in-out infinite}
+                .cb-diagram .cb-r6{animation:cb-r6 12s ease-in-out infinite}
+                .cb-diagram .cb-b6{animation:cb-b6 12s ease-in-out infinite}
+                .cb-diagram .cb-r7{animation:cb-r7 12s ease-in-out infinite}
+                .cb-diagram .cb-b7{animation:cb-b7 12s ease-in-out infinite}
+                .cb-diagram .cb-r8{animation:cb-r8 12s ease-in-out infinite}
+                .cb-diagram .cb-b8{animation:cb-b8 12s ease-in-out infinite}
+                .cb-diagram .cb-sal{fill:var(--color-muted)}
+                .cb-diagram .cb-up{fill:var(--color-paper)}
+                .cb-diagram .cb-dn{fill:var(--color-mist)}
+                .cb-diagram .cb-fin{fill:var(--color-accent)}
+                .cb-diagram .cb-cut{fill:var(--color-ink-soft)}
+                .cb-diagram .cb-cutl{fill:none;stroke:var(--color-mist);stroke-width:1.2}
+                .cb-diagram .cb-con{fill:none;stroke:var(--color-mist);stroke-width:1;stroke-dasharray:3 4}
+                .cb-diagram .cb-sep{fill:none;stroke:var(--color-mist);stroke-width:1;opacity:.45}
+                .cb-diagram text.lb.cb-hi{fill:var(--color-accent)}
+                .cb-diagram .cb-L{transform-box:fill-box;transform-origin:0 50%}
+                .cb-diagram .cb-R{transform-box:fill-box;transform-origin:100% 50%}
+                .cb-diagram .cb-fr{animation:cb-fr 12s ease-in-out infinite}
+                @media (prefers-reduced-motion: reduce){
+                  .cb-diagram *{animation:none!important}
+                  .cb-diagram .cb-r0,.cb-diagram .cb-r1,.cb-diagram .cb-r2,.cb-diagram .cb-r3,.cb-diagram .cb-r4,.cb-diagram .cb-r5,.cb-diagram .cb-r6,.cb-diagram .cb-r7,.cb-diagram .cb-r8,.cb-diagram .cb-fr{opacity:1!important}
+                  .cb-diagram .cb-L,.cb-diagram .cb-R{transform:none!important}
+                }
+              </style>
+              <g class="cb-r0">
+                <text class="lb b" x="30" y="62">Saldo contable</text>
+                <text class="lb b" x="930" y="62" text-anchor="end">373.614,27</text>
+                <rect class="cb-sal cb-L cb-b0" x="380.0" y="45" width="157.2" height="22"/>
+                <path class="cb-cut" d="M393 69 L399 69 L407 43 L401 43 Z"/>
+                <path class="cb-cutl" d="M393 69 L401 43 M399 69 L407 43"/>
+              </g>
+              <g class="cb-r1">
+                <path class="cb-con" d="M537.2 67 V89"/>
+                <text class="lb" x="30" y="106">+ Duplicado Curtidos Levante</text>
+                <text class="lb" x="930" y="106" text-anchor="end">8.640,00</text>
+                <rect class="cb-up cb-L cb-b1" x="537.2" y="89" width="241.9" height="22"/>
+              </g>
+              <g class="cb-r2">
+                <path class="cb-con" d="M779.1 111 V133"/>
+                <text class="lb" x="30" y="150">− Comisión de mantenimiento</text>
+                <text class="lb" x="930" y="150" text-anchor="end">45,60</text>
+                <rect class="cb-dn cb-R cb-b2" x="777.1" y="133" width="2.0" height="22"/>
+              </g>
+              <g class="cb-r3">
+                <path class="cb-con" d="M777.8 155 V177"/>
+                <text class="lb" x="30" y="194">− Devolución Boutique Azul</text>
+                <text class="lb" x="930" y="194" text-anchor="end">2.115,40</text>
+                <rect class="cb-dn cb-R cb-b3" x="718.6" y="177" width="59.2" height="22"/>
+              </g>
+              <g class="cb-r4">
+                <path class="cb-con" d="M718.6 199 V221"/>
+                <text class="lb" x="30" y="238">− Comisión de devolución</text>
+                <text class="lb" x="930" y="238" text-anchor="end">6,50</text>
+                <rect class="cb-dn cb-R cb-b4" x="716.6" y="221" width="2.0" height="22"/>
+              </g>
+              <g class="cb-r5">
+                <path class="cb-con" d="M718.4 243 V265"/>
+                <text class="lb" x="30" y="282">− Transposición Lisboa</text>
+                <text class="lb" x="930" y="282" text-anchor="end">270,00</text>
+                <rect class="cb-dn cb-R cb-b5" x="710.9" y="265" width="7.6" height="22"/>
+              </g>
+              <path class="cb-sep" d="M30 298 H930"/>
+              <g class="cb-r6">
+                <path class="cb-con" d="M710.9 287 V309"/>
+                <text class="lb b" x="30" y="326">= Saldo contable ajustado</text>
+                <text class="lb b" x="930" y="326" text-anchor="end">379.816,77</text>
+                <rect class="cb-sal cb-L cb-b6" x="380.0" y="309" width="330.9" height="22"/>
+                <path class="cb-cut" d="M393 333 L399 333 L407 307 L401 307 Z"/>
+                <path class="cb-cutl" d="M393 333 L401 307 M399 333 L407 307"/>
+              </g>
+              <g class="cb-r7">
+                <path class="cb-con" d="M710.9 331 V353"/>
+                <text class="lb" x="30" y="370">− En tránsito TPV Online</text>
+                <text class="lb" x="930" y="370" text-anchor="end">3.482,15</text>
+                <rect class="cb-dn cb-R cb-b7" x="613.4" y="353" width="97.5" height="22"/>
+              </g>
+              <g class="cb-r8">
+                <path class="cb-con" d="M613.4 375 V397"/>
+                <text class="lb cb-hi" x="30" y="414">= Saldo según el banco</text>
+                <text class="lb cb-hi" x="930" y="414" text-anchor="end">376.334,62</text>
+                <rect class="cb-fin cb-L cb-b8" x="380.0" y="397" width="233.4" height="22"/>
+                <path class="cb-cut" d="M393 421 L399 421 L407 395 L401 395 Z"/>
+                <path class="cb-cutl" d="M393 421 L401 395 M399 421 L407 395"/>
+              </g>
+
+              <rect class="bx on-bx cb-fr" x="20" y="391" width="920" height="34" rx="4"/>
+
+              <rect class="cb-sal" x="30" y="447" width="46" height="16"/>
+              <path class="cb-cut" d="M45 465 L50 465 L57 445 L52 445 Z"/>
+              <path class="cb-cutl" d="M45 465 L52 445 M50 465 L57 445"/>
+              <text class="lb" x="88" y="461">Saldos con eje cortado</text>
+              <rect class="cb-up" x="420" y="447" width="16" height="16"/>
+              <rect class="cb-dn" x="440" y="447" width="16" height="16"/>
+              <text class="lb" x="470" y="461">Sumas y restas, a escala</text>
+            </svg>
+            <figcaption>[ Diagrama 05 ] Del saldo contable al saldo del banco: cinco ajustes y una partida en tránsito</figcaption>
+          </figure>
+          <p>Ajustes contables netos: +6.202,50&nbsp;€. Saldo contable ajustado, 379.816,77&nbsp;€; menos 3.482,15&nbsp;€ en tránsito, 376.334,62&nbsp;€, igual al banco. Si la hoja no cuadra, pide en la misma tarea que explique la diferencia partida a partida antes de corregir nada.</p>
+        </li>
+        <li>
+          <h4>Limpieza del registro de gastos · Cowork</h4>
+          <p>En otra tarea del mismo proyecto, pega el encargo siguiente. Como los datos son sintéticos, puedes probar aquí el modo automático y comparar la experiencia con la del ejercicio anterior; con datos reales de la empresa, el criterio sigue siendo «Manual».</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Encargo · Gastos ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre>Objetivo: depura el registro de facturas de gastos de octubre de 2026 para imputarlo al cierre.
+Archivos de entrada: gastos-octubre.xlsx, en la carpeta cierre-octubre; los criterios están en normas-cierre.docx (centros de coste y criterio 3.2 de devengo).
+Entregable: gastos-octubre-limpio.xlsx con una fila por factura y estas columnas: fecha (dd/mm/aaaa), proveedor, concepto, centro de coste con los códigos de las normas, importe como número con dos decimales, mes de imputación y observaciones. Añade una hoja «Resumen» con el total bruto, el total sin duplicados, el gasto devengado de octubre y el gasto por centro de coste.
+Criterios: un duplicado exacto coincide en fecha, proveedor, concepto e importe; márcalo en observaciones sin borrarlo. Dos facturas del mismo concepto con fechas distintas no son un duplicado. Las facturas de servicios de otro mes se imputan al mes del servicio. Si falta el centro de coste, propón uno y señálalo como supuesto.
+Qué no tocar: no modifiques el archivo original.
+Cuándo detenerte: si una fila no se puede interpretar, déjala marcada en observaciones y pregúntame.</pre></div>
+          <p><strong>Resultado esperado:</strong> 30 filas, con fechas e importes normalizados y los centros con los códigos de las normas.</p>
+          <ul class="list-mono">
+            <li class="check"><strong>Dos duplicados exactos,</strong> marcados y no borrados: «Envíos a tiendas semana 40» (05/10, 1.482,00&nbsp;€) y «Alojamiento tienda online» (16/10, 289,00&nbsp;€).</li>
+            <li class="cross"><strong>No son duplicados</strong> «Vigilancia tienda Barcelona» (08/10 y 30/10, servicio quincenal) ni «Comisiones pasarela online» (22/10 y 30/10).</li>
+            <li class="check"><strong>Dos facturas de septiembre</strong> se reimputan a septiembre por devengo: «Limpieza tiendas septiembre», 1.980,00&nbsp;€, y «Mantenimiento TPV septiembre», 420,00&nbsp;€ (2.400,00&nbsp;€ en total).</li>
+            <li class="check"><strong>«Telefonía y datos octubre»</strong> llega sin centro: se propone CC-ADM, señalado como supuesto.</li>
+            <li class="check"><strong>Totales:</strong> bruto, 33.724,59&nbsp;€; sin duplicados, 31.953,59&nbsp;€; gasto devengado de octubre, <strong>29.553,59&nbsp;€</strong>.</li>
+            <li class="check"><strong>Por centro:</strong> CC-MKT 13.165,00; CC-LOG 5.831,45; T02 2.988,95; T03 1.884,15; CC-ADM 1.479,08; T08 1.390,62; T01 1.069,80; T06 501,12; T05 455,30; T04 398,72; T07 389,40.</li>
+          </ul>
+        </li>
+        <li>
+          <h4>Memorándum de octubre · artefacto Docs</h4>
+          <p>En una conversación del proyecto «Cierre mensual», adjunta con «+» <code>ventas-tiendas-2026.xlsx</code>, <code>conciliacion-octubre.xlsx</code> y <code>gastos-octubre-limpio.xlsx</code>, y pega el prompt siguiente. Revisa cada cifra contra su archivo, retoca con una selección lo que no convenza y exporta la versión final a Word. Si prefieres trabajar en Cowork, pide el mismo encargo con el entregable <code>memorandum-cierre-octubre.docx</code>.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Memorándum ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Redacta como artefacto Docs el memorándum de cierre de octubre de 2026 para Dirección General, con el formato del apartado 6 de las normas de cierre y la misma estructura que el memorándum de septiembre: “1. Resumen”, “2. Ventas por tienda”, “3. Margen”, “4. Tesorería y conciliación” y “5. Incidencias y ajustes”. Toma las ventas y el margen de octubre de la hoja de ventas del año en curso y la comparación de la hoja del año anterior; la tesorería, de conciliacion-octubre.xlsx; las incidencias, de gastos-octubre-limpio.xlsx y de los ajustes de la conciliación. Cifras en euros sin decimales con punto de millar y porcentajes con un decimal. La fecha es la de envío que fijan las normas. No añadas ningún dato que no esté en los archivos.»</pre></div>
+          <p><strong>Resultado esperado:</strong> una página fechada el <strong>lunes 9 de noviembre de 2026</strong> (D+7 cae en sábado 7 de noviembre y las normas lo pasan al lunes siguiente), con este contenido:</p>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Apartado</th><th>Qué debe decir</th></tr></thead>
+            <tbody>
+              <tr><td>1. Resumen</td><td>Ventas de 1.083.815&nbsp;€, un 5,2&nbsp;% más que en octubre del año anterior (1.030.048&nbsp;€); margen bruto del 60,1&nbsp;%; crecen más Online, Lisboa y Sevilla.</td></tr>
+              <tr><td>2. Ventas por tienda</td><td>Madrid 173.199&nbsp;€, Online 167.705&nbsp;€, Palma 167.110&nbsp;€, Barcelona 151.530&nbsp;€, Valencia 113.852&nbsp;€, Sevilla 110.468&nbsp;€, Lisboa 102.039&nbsp;€ y Bilbao 97.912&nbsp;€. Destacadas Online (+16,6&nbsp;%), Lisboa (+14,6&nbsp;%) y Sevilla (+5,1&nbsp;%); Bilbao (−3,4&nbsp;%) es la única que cae.</td></tr>
+              <tr><td>3. Margen</td><td>651.796&nbsp;€, el 60,1&nbsp;%, igual que un año antes. Como no hay variación, no debe inventar una causa.</td></tr>
+              <tr><td>4. Tesorería y conciliación</td><td>Saldo de bancos conciliado de 376.335&nbsp;€, los asientos de ajuste y la partida en tránsito de 3.482&nbsp;€ (cobros TPV Online).</td></tr>
+              <tr><td>5. Incidencias y ajustes</td><td>Los dos duplicados de gastos, las dos facturas reimputadas a septiembre (2.400&nbsp;€) y el supuesto de centro de la telefonía.</td></tr>
+            </tbody>
+          </table></div>
+        </li>
+        <li>
+          <h4>Presentación para el comité · Slides y Claude Design</h4>
+          <p>Con el memorándum ya revisado, pide la presentación en la misma conversación. El prompt pide el sistema de diseño de la organización; si no hay ninguno publicado, añade al final los colores y la tipografía de la marca.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Presentación ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «A partir del memorándum de cierre de octubre ya revisado, crea una presentación de seis diapositivas para el comité de dirección: 1) portada; 2) resumen, con ventas, variación interanual y margen; 3) ventas por tienda, con un gráfico de barras y las tres tiendas que más crecen destacadas; 4) margen; 5) tesorería y conciliación; 6) incidencias y ajustes. Usa el sistema de diseño de la organización si existe. Todas las cifras, idénticas a las del memorándum.»</pre></div>
+          <p>Después, afina la presentación en el lienzo con las tres formas que explica la sección «Diseño». Ábrela en Claude Design desde la galería «Artefactos» o desde «Diseño», en la barra lateral. Primero, corrige a mano el título de la portada con la edición directa, sin pasar por la conversación; por ejemplo, «Cierre de octubre de 2026 · Comité de dirección». Después, deja un comentario sobre la diapositiva de resumen para que Claude la ajuste: «Presenta las tres cifras en tres bloques del mismo tamaño, con la cifra grande y su etiqueta debajo». Cualquier otro retoque, pídelo en la conversación. Cuando la presentación esté lista, expórtala a PowerPoint.</p>
+          <p><strong>Resultado esperado:</strong> seis diapositivas con las mismas cifras que el memorándum; en la tercera, Online, Lisboa y Sevilla destacadas y Bilbao como única tienda en negativo. El título corregido a mano conserva el cambio, la diapositiva comentada aparece ajustada por Claude según el comentario y el archivo de PowerPoint se abre sin perder el formato.</p>
+        </li>
+        <li>
+          <h4>Tablero del equipo · artefacto de tipo app</h4>
+          <p>Pide la app en una conversación, revisa que las fechas y las cifras coinciden con las del memorándum y compártela con un compañero de la organización.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · App ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Crea un artefacto de tipo app llamado “Estado del cierre de octubre” para el equipo de Dirección Financiera. Arriba, los tres hitos del calendario de cierre con su fecha real —D+3, martes 3 de noviembre; D+5, jueves 5 de noviembre; envío del memorándum, lunes 9 de noviembre, porque D+7 cae en sábado— y, debajo de cada hito, sus tareas según las normas, cada una con una casilla que cualquier persona del equipo pueda marcar. Guarda las marcas en almacenamiento compartido. Debajo, un gráfico de barras con las ventas de octubre por tienda: Madrid 173.199 €, Online 167.705 €, Palma 167.110 €, Barcelona 151.530 €, Valencia 113.852 €, Sevilla 110.468 €, Lisboa 102.039 € y Bilbao 97.912 €. No guardes datos personales.»</pre></div>
+          <p><strong>Resultado esperado:</strong> la app muestra los tres hitos con sus fechas (3, 5 y 9 de noviembre), las tareas de cada uno y el gráfico de las ocho tiendas. Cuando tu compañero marca una tarea, tú ves la marca al volver a abrir la app: eso demuestra que el almacenamiento es compartido.</p>
+        </li>
+        <li>
+          <h4>Tarea programada · «Resumen semanal de tesorería»</h4>
+          <p>En «Programadas», pulsa «Nueva tarea» y elige configurarla a mano. Rellena el formulario así: «Nombre», «Resumen semanal de tesorería»; «Instrucciones», el texto siguiente; «Trabajar en un proyecto o carpeta», «Cierre mensual»; «Modelo predeterminado», Sonnet 5.5; «Frecuencia», semanal, los lunes; «Permisos», «Manual»; «Requerir esta computadora», activado. Pulsa «Guardar» y ejecútala una vez en el momento para probarla.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Instrucciones · Tarea programada ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre>Objetivo: prepara el resumen semanal de tesorería de la Dirección Financiera.
+Archivos de entrada: los de la carpeta del proyecto «Cierre mensual», en especial la conciliación bancaria más reciente y las normas de cierre.
+Entregable: un archivo resumen-tesoreria-AAAA-MM-DD.md, con la fecha de la ejecución, de una página como máximo: saldo bancario conciliado más reciente, partidas en tránsito con su fecha prevista, asientos de ajuste pendientes e hitos del calendario de cierre de la semana. Cifras en euros sin decimales con punto de millar.
+Qué no tocar: no envíes mensajes ni correos y no modifiques ni borres ningún archivo existente.
+Cuándo detenerte: si falta un dato, indícalo en el resumen en lugar de suponerlo.</pre></div>
+          <p><strong>Resultado esperado:</strong> la tarea aparece en «Tareas programadas» con su próxima ejecución el lunes. La ejecución de prueba es una sesión de Cowork que queda en el historial; como los permisos están en «Manual», pide aprobación antes de escribir el archivo, y el resumen recoge, en euros sin decimales, el saldo conciliado de 376.335&nbsp;€ y la partida en tránsito de 3.482&nbsp;€ (cobros TPV Online).</p>
+        </li>
+        <li>
+          <h4>Opcional · Motion, Dashboard y Claude in Chrome</h4>
+          <p>Si la organización ha activado Motion, pide un explicador de 30 segundos con las cifras del cierre y descárgalo en MP4. Si además la empresa tiene sus datos de ventas conectados, pide un Dashboard con las ventas por tienda y comprueba que cada cifra enlaza a su consulta.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Motion ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Crea un explicador animado de 30 segundos para la reunión general con el cierre de octubre, en cuatro escenas: ventas de 1.083.815 €, un 5,2 % más que hace un año; margen bruto del 60,1 %; las tres tiendas que más crecen, Online (+16,6 %), Lisboa (+14,6 %) y Sevilla (+5,1 %); y el memorándum enviado el lunes 9 de noviembre. Texto breve en cada escena, con el sistema de diseño de la organización si existe. Sin personas ni imágenes de archivo.»</pre></div>
+          <p><strong>Resultado esperado:</strong> un MP4 de unos 30 segundos con las cuatro escenas y las cifras exactas; si alguna no coincide, se corrige en el editor o pidiendo el cambio a Claude.</p>
+          <p><strong>Claude in Chrome.</strong> Si la organización ha activado Claude in Chrome, el cierre ofrece una consulta real: el extracto de octubre incluye el pago del modelo 111 del tercer trimestre, y conviene anotar en la checklist del cierre el plazo del cuarto. Abre en Chrome el panel lateral de Claude, con la aprobación en manual, y pega la petición siguiente. Cuando Claude pida permiso para entrar en el sitio, autoriza solo esa acción y no la permitas siempre en el sitio. Después, en una tarea de Cowork del proyecto «Cierre mensual», con el permiso en «Manual», pide que añada esa línea al final de <code>checklist-cierre-octubre.md</code> (el archivo del ejercicio 5 de la clase 1; si no lo tienes, créalo antes con aquel encargo).</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Petición · Claude in Chrome ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre>Consulta en la web de la Agencia Tributaria el plazo de presentación del modelo 111 del cuarto trimestre de 2026. Limítate a leer: no inicies sesión, no rellenes formularios y no descargues nada. Devuélveme el plazo y la dirección de la página de la que lo tomas; si no lo indica con claridad, dime qué has encontrado.</pre></div>
+          <p><strong>Resultado esperado:</strong> Claude pide permiso antes de entrar en el sitio de la Agencia Tributaria; la checklist recoge el plazo que publica la Agencia Tributaria (habitualmente, del 1 al 20 de enero) y la página de origen; en la web, ninguna acción que no sea leer. Recuerda que, cuando una página contiene datos de clientes, la aprobación es siempre manual.</p>
+        </li>
+      </ol>
+
+      <div class="callout ok"><span class="k">[✓] Resultado esperado</span><p>Al terminar, el cierre de octubre está completo y repartido en su sitio: la conciliación y el registro de gastos en la carpeta, el memorándum y la presentación en la galería y en Word y PowerPoint, el tablero compartido con el equipo y una tarea que cada lunes prepara el resumen de tesorería. En la clase 3, ese mismo trabajo se convierte en procedimientos reutilizables: una skill para el memorándum y un plugin con la conciliación.</p></div>
+
+      <div class="quiz" data-quiz="quizData" data-title="Test de la clase"></div>
     </section>
 
   </div><!-- /.content -->
@@ -481,5 +1120,121 @@ Independientemente del resultado, explica qué significan.</pre></div>
 
 <script src="/curso-data.js"></script>
 <script src="/curso.js"></script>
+<script>
+  // Test de la clase. a = índice de la opción correcta; why = explicación de una frase.
+  // `var` (no `const`): curso.js lee el array como window[data-quiz].
+  var quizData = [
+    {
+      q: "El equipo necesita cada lunes un resumen de la posición de tesorería preparado a partir de los archivos del proyecto «Cierre mensual». ¿Qué superficie corresponde?",
+      opts: [
+        "Un artefacto Docs que alguien actualiza a mano cada semana con los saldos del banco.",
+        "Una tarea programada semanal dentro del proyecto.",
+        "Una conversación de Chat con la memoria desactivada, para que no acumule los datos de las semanas anteriores.",
+        "Un Dashboard, porque es el único artefacto que puede leer archivos de Excel."
+      ],
+      a: 1,
+      why: "Un trabajo que se repite es una tarea programada: cada ejecución es una sesión de Cowork que queda en el historial y se revisa."
+    },
+    {
+      q: "¿Qué hace Cowork cuando recibe un encargo de varios pasos?",
+      opts: [
+        "Responde en la conversación con un texto que el usuario copia después en sus propios archivos.",
+        "Envía el encargo a un compañero del equipo con permiso de edición para que lo ejecute y lo devuelva revisado.",
+        "Lo guarda en la galería de artefactos como borrador hasta que el administrador de la organización lo aprueba.",
+        "Lo planifica, lo divide en subtareas, lo ejecuta en un entorno aislado y entrega archivos."
+      ],
+      a: 3,
+      why: "Esa es la diferencia con una conversación: Cowork asume la tarea entera y entrega el resultado en archivos, que se ven en «Salidas»."
+    },
+    {
+      q: "En el laboratorio, la presentación del comité se pide después de revisar el memorándum. ¿Por qué en ese orden?",
+      opts: [
+        "Porque Slides no puede leer hojas de cálculo y necesita siempre un documento de texto como fuente de las cifras.",
+        "Porque una presentación creada antes que el documento no se puede exportar a PowerPoint.",
+        "Para que cada cifra proceda de un texto ya comprobado y cada corrección se haga una sola vez.",
+        "Porque la presentación hereda los permisos de compartir del memorándum."
+      ],
+      a: 2,
+      why: "Es la regla de trabajo de «Docs y Slides»: primero el documento y después la presentación, de modo que las diapositivas toman cifras que alguien ya ha revisado."
+    },
+    {
+      q: "¿Qué le falta al encargo «Concilia el banco de octubre»?",
+      opts: [
+        "Los archivos de entrada, el entregable, qué no tocar y cuándo detenerse.",
+        "Un tono más cortés y una fórmula de despedida, porque Claude trabaja mejor cuando el encargo se redacta con amabilidad.",
+        "El nombre del modelo y el nivel de esfuerzo, que deben escribirse siempre dentro del propio texto del encargo.",
+        "Nada: Cowork deduce el resto a partir de la carpeta."
+      ],
+      a: 0,
+      why: "Un encargo completo tiene cinco piezas: objetivo, entradas, entregable, qué no tocar y cuándo parar; lo que no se dice, lo decide Claude."
+    },
+    {
+      q: "En el formulario «Crear tarea programada», ¿qué significa «Manual» en el campo «Frecuencia»?",
+      opts: [
+        "Que la tarea solo se ejecuta cuando alguien la lanza.",
+        "Que Claude pedirá aprobación antes de cada acción mientras ejecuta la tarea.",
+        "Que las instrucciones se escriben a mano en lugar de pedírselas a Claude en una conversación.",
+        "Que la tarea solo puede usar el modelo predeterminado y no admite cambios de esfuerzo."
+      ],
+      a: 0,
+      why: "«Frecuencia» decide cuándo se ejecuta; el «Manual» de «Permisos» decide cuánta autonomía tiene. Son dos decisiones distintas."
+    },
+    {
+      q: "En un sitio al que se ha dado permiso para actuar siempre, ¿qué no hará Claude in Chrome aunque se lo pidas?",
+      opts: [
+        "Introducir los datos de una tarjeta para pagar.",
+        "Leer una página pública y resumirla en una tabla.",
+        "Completar, con aprobación, los pasos repetitivos de una aplicación web interna que no tiene conector.",
+        "Comparar las condiciones que publican varios proveedores en sus webs."
+      ],
+      a: 0,
+      why: "Introducir datos financieros o de identidad está siempre bloqueado, igual que comprar, crear cuentas, descargar de fuentes no fiables, borrar de forma permanente, operar en bolsa o tocar archivos del sistema."
+    },
+    {
+      q: "En una cuenta de empresa, ¿cómo se comparte un artefacto?",
+      opts: [
+        "Es público desde que se crea; para restringirlo hay que retirar la publicación.",
+        "Con personas invitadas, con toda la organización o por enlace, con permiso de ver, comentar o editar.",
+        "Solo exportándolo a Word o a PowerPoint y enviándolo por correo.",
+        "Únicamente a través del administrador de la organización, que revisa el contenido y decide después quién más puede abrirlo y con qué permiso."
+      ],
+      a: 1,
+      why: "Nace privado y se comparte con su botón: alcance (invitados, organización o enlace) y permiso (ver, comentar o editar)."
+    },
+    {
+      q: "La app «Estado del cierre de octubre» guarda las marcas de la lista en almacenamiento compartido. ¿Qué implica?",
+      opts: [
+        "Que cada persona ve solo sus propias marcas.",
+        "Que los datos se guardan en el ordenador de quien creó la app y se pierden al apagarlo.",
+        "Que la app puede guardar libros de Excel de hasta 20 MB con las cifras del cierre para que el equipo los descargue.",
+        "Que todos los que usan la app ven las mismas marcas."
+      ],
+      a: 3,
+      why: "Lo compartido lo ven todos los usuarios de la app; por eso no se guardan en él datos personales ni cifras reservadas."
+    },
+    {
+      q: "¿Qué es un sistema de diseño en Claude?",
+      opts: [
+        "La plantilla de PowerPoint de la empresa, que solo se aplica al exportar una presentación desde Slides.",
+        "Un registro reutilizable de los colores, las tipografías, los componentes y los patrones de la marca.",
+        "Un ajuste de Configuración que activa el modo oscuro y cambia la tipografía de la app para toda la organización.",
+        "Un tipo de artefacto que dibuja prototipos de aplicaciones a partir de una captura."
+      ],
+      a: 1,
+      why: "Se extrae de código, presentaciones, Figma o logotipos, se publica y el equipo lo usa en todos sus artefactos, como un manual de identidad."
+    },
+    {
+      q: "¿Qué diferencia a un Dashboard de un explicador de Motion?",
+      opts: [
+        "El Dashboard es un vídeo generado con personas reales; Motion es un tablero de datos.",
+        "Ninguna: los dos se exportan en MP4 y se actualizan solos cuando cambian los datos.",
+        "El Dashboard consulta datos conectados y se actualiza; Motion anima textos y gráficos como código editable y se exporta en MP4.",
+        "Motion consulta los almacenes de datos de la empresa y el Dashboard solo admite archivos de texto."
+      ],
+      a: 2,
+      why: "Uno sigue una magnitud con datos vivos y cifras trazables; el otro explica algo en una animación corta, sin metraje real."
+    }
+  ];
+</script>
 </body>
 </html>

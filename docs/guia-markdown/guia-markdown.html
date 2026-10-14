@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía de Markdown · [m].seny /academy</title>
+<meta name="description" content="Guía de referencia de Markdown (CommonMark y GitHub Flavored Markdown) con el código que se escribe y el resultado que se ve, más un capítulo sobre Markdown para Claude: CLAUDE.md, SKILL.md y agentes.">
+<meta name="author" content="[m].seny · curso IA Generativa">
+<style>
+/* ============================================================================
+   Guía de Markdown · [m].seny /academy · IA Generativa · M6
+   Documento autocontenido (salvo las tipografías, que se cargan de /public/fonts).
+   Se imprime a PDF con Chrome (ver construir-pdf.py). Marca: tokens de theme.css.
+   ========================================================================== */
+
+/* ── Tipografías locales (mismas que theme.css; ruta relativa a public/fonts) ── */
+@font-face{font-family:'Bricolage Grotesque Variable';font-style:normal;font-display:block;font-weight:200 800;src:url(../../public/fonts/bricolage-grotesque-latin.woff2) format('woff2-variations');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Bricolage Grotesque Variable';font-style:normal;font-display:block;font-weight:200 800;src:url(../../public/fonts/bricolage-grotesque-latin-ext.woff2) format('woff2-variations');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:'Instrument Sans Variable';font-style:normal;font-display:block;font-weight:400 700;src:url(../../public/fonts/instrument-sans-latin.woff2) format('woff2-variations');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Instrument Sans Variable';font-style:normal;font-display:block;font-weight:400 700;src:url(../../public/fonts/instrument-sans-latin-ext.woff2) format('woff2-variations');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:'Chivo Mono Variable';font-style:normal;font-display:block;font-weight:100 900;src:url(../../public/fonts/chivo-mono-latin.woff2) format('woff2-variations');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Chivo Mono Variable';font-style:normal;font-display:block;font-weight:100 900;src:url(../../public/fonts/chivo-mono-latin-ext.woff2) format('woff2-variations');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+
+/* ── Tokens ──────────────────────────────────────────────────────────────── */
+:root{
+  --ink:#0a0a0b; --ink-soft:#151517; --paper:#f7f6f2; --paper-dim:#edebe3;
+  --lime:#c8f542; --lime-ink:#253a06; --teal:#0f766e; --muted:#5f5f66; --mist:#a5a5ab;
+  --line:#e0ddd3; --line-dark:#26262a; --code-text:#dcdcdf;
+  --f-display:'Bricolage Grotesque Variable',ui-sans-serif,system-ui,sans-serif;
+  --f-body:'Instrument Sans Variable',ui-sans-serif,system-ui,sans-serif;
+  --f-mono:'Chivo Mono Variable',ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+
+/* ── Página: A4, márgenes generosos, cabecera y pie con el motivo [ ] ────── */
+@page{
+  size:A4; margin:26mm 22mm 24mm 22mm; background:#f7f6f2;
+  @top-left{content:"[m].seny /academy";font:400 7pt 'Chivo Mono Variable',monospace;letter-spacing:.06em;color:#5f5f66;vertical-align:bottom;padding-bottom:5mm;}
+  @top-right{content:"Guía de Markdown";font:400 6.6pt 'Chivo Mono Variable',monospace;letter-spacing:.14em;text-transform:uppercase;color:#5f5f66;vertical-align:bottom;padding-bottom:5mm;}
+  @bottom-right{content:"[ " counter(page, decimal-leading-zero) " ]";font:400 6.8pt 'Chivo Mono Variable',monospace;letter-spacing:.14em;color:#5f5f66;vertical-align:top;padding-top:6mm;}
+}
+@page cover{margin:0;background:#0a0a0b;@top-left{content:none}@top-right{content:none}@bottom-right{content:none}}
+@page indice{@top-right{content:"Índice"}}
+@page c1{@top-right{content:"1 · ¿Qué es Markdown?"}}
+@page c2{@top-right{content:"2 · Sintaxis básica (CommonMark)"}}
+@page c3{@top-right{content:"3 · Sintaxis extendida de GitHub (GFM)"}}
+@page c4{@top-right{content:"4 · Contenido avanzado"}}
+@page c5{@top-right{content:"5 · Buenas prácticas y errores comunes"}}
+@page c6{@top-right{content:"6 · Hoja de trucos"}}
+@page c7{@top-right{content:"7 · Editores y herramientas"}}
+@page c8{@top-right{content:"8 · Para seguir aprendiendo"}}
+@page c9{@top-right{content:"9 · Markdown para Claude"}}
+
+/* ── Base ────────────────────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+html{background:var(--paper);}
+body{margin:0;font-family:var(--f-body);font-weight:400;font-size:10pt;line-height:1.56;color:var(--ink);background:var(--paper);orphans:3;widows:3;}
+p{margin:0 0 3mm;max-width:150mm;text-wrap:pretty;}
+strong,b{font-weight:600;}
+a{color:var(--teal);text-decoration:underline;text-decoration-thickness:.2mm;text-underline-offset:.7mm;}
+code{font-family:var(--f-mono);font-size:.84em;background:var(--paper-dim);border-radius:1mm;padding:.1mm 1.1mm;white-space:nowrap;}
+em{font-style:italic;}
+ul,ol{margin:0 0 3mm;}
+li{margin:0 0 1mm;}
+hr{border:0;border-top:.25mm solid var(--line);margin:5mm 0;}
+
+/* ── Cabeceras de capítulo y de apartado ─────────────────────────────────── */
+.cap{break-before:page;}
+.p1{page:c1}.p2{page:c2}.p3{page:c3}.p4{page:c4}.p5{page:c5}.p6{page:c6}.p7{page:c7}.p8{page:c8}.p9{page:c9}
+.kicker{display:block;font:400 7.2pt var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin:0 0 3.5mm;}
+h1{font-family:var(--f-display);font-weight:640;font-size:31pt;line-height:1.02;letter-spacing:-.025em;margin:0 0 5mm;text-wrap:balance;color:var(--ink);}
+.lead{font-size:11.4pt;line-height:1.5;color:var(--muted);max-width:138mm;margin:0 0 4mm;}
+.cap-head{margin:0 0 5mm;padding-bottom:4mm;border-bottom:.25mm solid var(--line);}
+h2{font-family:var(--f-display);font-weight:600;font-size:15pt;line-height:1.15;letter-spacing:-.02em;margin:8mm 0 3mm;break-after:avoid;color:var(--ink);}
+h2 .n{display:inline-block;min-width:9mm;font:400 8pt var(--f-mono);letter-spacing:.06em;color:var(--teal);vertical-align:.1em;}
+h2:first-child{margin-top:0;}
+h3{font-family:var(--f-display);font-weight:600;font-size:11.6pt;line-height:1.2;letter-spacing:-.015em;margin:6mm 0 2mm;break-after:avoid;}
+.apartado{break-inside:auto;}
+.ej,.code,.tbl,.fig,.co{break-inside:avoid;}
+p:has(+ .ej),p:has(+ .code),p:has(+ .tbl),p:has(+ .fig),p:has(+ .co),p:has(+ .err),p:has(+ .def),p:has(+ .chk){break-after:avoid;break-inside:avoid;}
+.sub-k{display:block;font:400 6.6pt var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:5mm 0 1.6mm;break-after:avoid;}
+
+/* ── Listas con el motivo [·] ────────────────────────────────────────────── */
+.lm{list-style:none;padding:0;margin:0 0 3.5mm;}
+.lm li{position:relative;padding-left:9mm;margin:0 0 1.8mm;max-width:150mm;}
+.lm li::before{content:"[·]";position:absolute;left:0;top:.2mm;font:400 7.6pt var(--f-mono);color:var(--teal);}
+
+/* ── Llamadas: Nota · Consejo · Importante · Aviso · Precaución (+ Analogía) ── */
+.co{border:.25mm solid var(--line);border-radius:3mm;padding:3.4mm 4.6mm 3.5mm;background:rgba(255,255,255,.55);margin:4mm 0;break-inside:avoid;}
+.co .k{display:block;font:400 6.6pt var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 1.5mm;}
+.co p{margin:0;max-width:none;font-size:9.4pt;line-height:1.5;}
+.co p+p{margin-top:1.6mm;}
+.co.consejo,.co.analogia{background:var(--paper-dim);border-color:transparent;}
+.co.consejo .k,.co.analogia .k{color:var(--teal);}
+.co.importante{background:var(--ink);border-color:var(--ink);}
+.co.importante .k,.ej .out .co.importante .k{color:var(--lime);}
+.co.importante p{color:var(--paper);}
+.co.importante code{background:var(--ink-soft);color:var(--paper);}
+.co.aviso{border-color:var(--ink);}
+.co.aviso .k{color:var(--ink);}
+.co.precaucion{border:.25mm solid var(--ink);border-left:1.6mm solid var(--ink);}
+.co.precaucion .k{color:var(--ink);}
+
+/* ── Código suelto (bloque oscuro con etiqueta) ──────────────────────────── */
+.code{background:var(--ink);color:var(--code-text);border-radius:3mm;margin:4mm 0;overflow:hidden;break-inside:avoid;}
+.code .ch{display:flex;align-items:center;justify-content:space-between;padding:2.2mm 4.4mm;border-bottom:.2mm solid var(--line-dark);}
+.code .ch .k{font:400 6.4pt var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--lime);}
+.code .ch .e{font:400 6.4pt var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mist);}
+.code pre{margin:0;padding:3.6mm 4.6mm 3.8mm;font:400 7.9pt/1.62 var(--f-mono);white-space:pre-wrap;overflow-wrap:anywhere;tab-size:2;color:var(--code-text);}
+.code pre .hl{color:#fff;}
+.code pre .cm{color:#8d8d94;}
+.code pre .ac{color:var(--lime);}
+.code.sin-cab pre{padding-top:3.2mm;}
+
+/* ── Pareja «Lo que escribes» / «Lo que se ve» ───────────────────────────── */
+.ej{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2.4mm;margin:3.4mm 0 4.4mm;break-inside:avoid;align-items:stretch;}
+.ej.st{grid-template-columns:minmax(0,1fr);}
+.ej.libre{display:block;break-inside:auto;}
+.ej.libre > .in{margin-bottom:2.4mm;break-inside:avoid;}
+.ej.libre > .out{break-inside:avoid;}
+.ej.libre .fig svg{max-width:138mm;margin:0 auto;}
+.ej .in{background:var(--ink);color:var(--code-text);border-radius:2.8mm;padding:3mm 3.8mm 3.3mm;}
+.ej .out{background:rgba(255,255,255,.72);border:.25mm solid var(--line);border-radius:2.8mm;padding:3mm 3.8mm 3.3mm;}
+.ej .k{display:block;font:400 6.2pt var(--f-mono);letter-spacing:.14em;text-transform:uppercase;margin:0 0 2.2mm;}
+.ej .in .k{color:var(--lime);}
+.ej .out .k{color:var(--teal);}
+.ej pre{margin:0;font:400 7.8pt/1.62 var(--f-mono);white-space:pre-wrap;overflow-wrap:anywhere;tab-size:2;color:var(--code-text);}
+.ej pre b{font-weight:400;color:var(--lime);}
+.ej pre i{font-style:normal;color:#8d8d94;}
+.code pre b{font-weight:400;color:var(--lime);}
+.code pre i{font-style:normal;color:#8d8d94;}
+.r{font-size:9.2pt;line-height:1.5;}
+.r p{margin:0 0 1.6mm;max-width:none;}
+.r p:last-child{margin-bottom:0;}
+.r ul,.r ol{margin:0 0 1.4mm;padding-left:5mm;}
+.r li{margin:0 0 .5mm;}
+.r li::marker{color:var(--teal);}
+.r ul ul,.r ol ol,.r ul ol,.r ol ul{margin:.6mm 0 .6mm;}
+.r code{background:var(--paper-dim);}
+.r a{color:var(--teal);}
+.r blockquote{margin:0 0 1.4mm;padding:.4mm 0 .4mm 3.2mm;border-left:.8mm solid var(--line);color:var(--muted);}
+.r blockquote blockquote{margin:1.4mm 0 0;}
+.r blockquote p{margin:0 0 1mm;}
+.r hr{margin:2.4mm 0;}
+.r .nada{font:400 6.8pt var(--f-mono);letter-spacing:.08em;color:var(--muted);text-transform:uppercase;}
+.mh{font-family:var(--f-display);color:var(--ink);letter-spacing:-.02em;line-height:1.15;margin:0 0 1.6mm;}
+.mh1{font-size:15pt;font-weight:640;}
+.mh2{font-size:13pt;font-weight:640;padding-bottom:.8mm;border-bottom:.2mm solid var(--line);}
+.mh3{font-size:11.4pt;font-weight:600;}
+.mh4{font-size:10.2pt;font-weight:600;}
+.mh5{font-size:9pt;font-weight:600;}
+.mh6{font-size:8.2pt;font-weight:600;color:var(--muted);}
+.r .mh:last-child{margin-bottom:0;}
+.mh1.g{border-bottom:.2mm solid var(--line);padding-bottom:.8mm;}
+
+/* tabla dibujada dentro del resultado */
+.r table{border-collapse:collapse;width:100%;font-size:8.6pt;}
+.r th,.r td{border:.25mm solid var(--line);padding:1.4mm 2.2mm;text-align:left;}
+.r th{background:var(--paper-dim);font-weight:600;}
+.r td.c,.r th.c{text-align:center;}
+.r td.d,.r th.d{text-align:right;}
+.r .tachado{text-decoration:line-through;text-decoration-thickness:.25mm;color:var(--muted);}
+.r sup.fn{font-size:.7em;color:var(--teal);font-weight:600;}
+.r .pie-nota{margin-top:2mm;padding-top:1.6mm;border-top:.25mm solid var(--line);font-size:8pt;color:var(--muted);}
+.r .imagen{border:.25mm dashed var(--mist);border-radius:2mm;padding:6mm 3mm;text-align:center;font:400 7pt var(--f-mono);letter-spacing:.06em;color:var(--muted);text-transform:uppercase;}
+.r .alt{margin-top:1.4mm;font-size:8pt;color:var(--muted);text-align:center;}
+.r .math{font-family:Cambria,'Cambria Math','Times New Roman',serif;font-size:10.5pt;}
+.r .math i{font-style:italic;}
+.r .frac{display:inline-block;text-align:center;vertical-align:middle;margin:0 .6mm;}
+.r .frac span{display:block;padding:0 1mm;}
+.r .frac span:first-child{border-bottom:.25mm solid var(--ink);}
+.r .centrado{text-align:center;margin:2mm 0 0;}
+.r details{border:.25mm solid var(--line);border-radius:2mm;padding:2mm 3mm;background:#fff;}
+.r details summary{list-style:none;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:2mm;}
+.r details summary::-webkit-details-marker{display:none;}
+.r details summary::before{content:"";display:inline-block;width:0;height:0;border-left:1.8mm solid var(--teal);border-top:1.1mm solid transparent;border-bottom:1.1mm solid transparent;transform:rotate(90deg);}
+.r details .cuerpo{margin-top:1.6mm;padding-top:1.6mm;border-top:.25mm solid var(--line);}
+.r .tarea{list-style:none;padding:0;margin:0;}
+.r .tarea li{position:relative;padding-left:5.6mm;margin:0 0 1mm;}
+.r .tarea li::before{content:"";position:absolute;left:0;top:.55mm;width:3.3mm;height:3.3mm;border:.3mm solid var(--ink);border-radius:.7mm;background:#fff;}
+.r .tarea li.on::before{background:var(--lime);}
+.r .tarea li.on::after{content:"";position:absolute;left:1.05mm;top:.95mm;width:1mm;height:1.9mm;border:solid var(--lime-ink);border-width:0 .35mm .35mm 0;transform:rotate(40deg);}
+.r .codigo{background:var(--paper-dim);border-radius:2mm;padding:2.2mm 3mm;font:400 7.6pt/1.55 var(--f-mono);white-space:pre-wrap;overflow-wrap:anywhere;color:var(--ink);margin:0 0 1.4mm;}
+.r .codigo .kw{color:var(--teal);font-weight:600;}
+.r .codigo .st{color:#7a5a00;}
+.r .codigo .cm{color:var(--muted);}
+
+/* ── Tablas de referencia ────────────────────────────────────────────────── */
+.tbl{border:.25mm solid var(--line);border-radius:3mm;background:rgba(255,255,255,.55);margin:4mm 0;overflow:hidden;break-inside:avoid;}
+.tbl table{border-collapse:collapse;width:100%;font-size:8.8pt;line-height:1.42;}
+.tbl th{font:400 6.5pt var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--teal);text-align:left;padding:2.6mm 3.2mm;border-bottom:.25mm solid var(--line);}
+.tbl td{padding:2.2mm 3.2mm;border-bottom:.25mm solid var(--line);vertical-align:top;}
+.tbl tr:last-child td{border-bottom:0;}
+.tbl td:first-child{font-family:var(--f-display);font-weight:600;font-size:9.4pt;letter-spacing:-.01em;}
+.tbl.larga{break-inside:auto;overflow:visible;}
+.tbl.larga tr{break-inside:avoid;}
+.tbl.larga thead{display:table-header-group;}
+.tbl.sin-cap td:first-child{font-family:var(--f-body);font-weight:400;font-size:8.8pt;letter-spacing:0;}
+.tbl code{white-space:normal;}
+.tbl.mono1 td:first-child{font-family:var(--f-body);font-weight:600;font-size:8.8pt;}
+.tbl.mono1 td:nth-child(2) code{background:var(--paper-dim);}
+
+/* ── Figuras (esquemas SVG) ──────────────────────────────────────────────── */
+.fig{margin:5mm 0;break-inside:avoid;}
+.fig svg{display:block;width:100%;height:auto;}
+.fig figcaption{margin-top:2mm;font:400 6.6pt var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.fig .bx{fill:#fff;stroke:var(--ink);stroke-width:1.4;}
+.fig .bx.dim{fill:var(--paper-dim);stroke:var(--line);}
+.fig .fi{fill:var(--ink);stroke:var(--ink);stroke-width:1.4;}
+.fig .fl{fill:var(--lime);stroke:var(--ink);stroke-width:1.4;}
+.fig .ds{fill:none;stroke:var(--ink);stroke-width:1.4;stroke-dasharray:6 5;}
+.fig .ln{stroke:var(--ink);stroke-width:1.5;fill:none;}
+.fig .lb{font-family:var(--f-body);font-size:17px;fill:var(--ink);}
+.fig .lb.b{font-weight:600;}
+.fig .lb.s{font-size:15px;fill:var(--muted);}
+.fig .lb.w{fill:var(--paper);}
+.fig .lb.ws{font-size:15px;fill:var(--mist);}
+.fig .mo{font-family:var(--f-mono);font-size:13px;letter-spacing:.1em;text-transform:uppercase;fill:var(--teal);}
+.fig .mo.m{fill:var(--muted);}
+.fig .mo.l{fill:var(--lime);}
+
+
+.fig.mm .lb{font-size:13.5px;}
+.fig.mm .lb.s{font-size:12.5px;}
+.r.minico .co{margin:0 0 1.6mm;padding:1.9mm 3mm 2mm;border-radius:2mm;}
+.r.minico .co:last-child{margin-bottom:0;}
+.r.minico .co .k{display:inline-block;margin:0 2.4mm 0 0;font-size:5.9pt;}
+.r.minico .co p{display:inline;font-size:8.2pt;line-height:1.4;}
+.tbl.hoja td{padding:.75mm 3.2mm;font-size:8.3pt;line-height:1.28;}
+.tbl.hoja td:first-child{font-family:var(--f-body);font-weight:600;font-size:8.6pt;letter-spacing:0;}
+.tbl.hoja th{padding:1.4mm 3.2mm;}
+
+/* ── Lista de comprobación ───────────────────────────────────────────────── */
+.chk{list-style:none;padding:0;margin:0 0 4mm;break-inside:avoid;}
+.chk li{position:relative;padding-left:7mm;margin:0 0 2.4mm;font-size:9.5pt;line-height:1.45;max-width:150mm;break-inside:avoid;}
+.chk li::before{content:"";position:absolute;left:0;top:.45mm;width:3.8mm;height:3.8mm;border:.35mm solid var(--ink);border-radius:.8mm;background:#fff;}
+
+/* ── Cita destacada ──────────────────────────────────────────────────────── */
+.pull{margin:6mm 0;padding-left:5mm;border-left:.6mm solid var(--teal);break-inside:avoid;}
+.pull p{max-width:140mm;margin:0;font-family:var(--f-display);font-weight:600;font-size:14pt;line-height:1.25;letter-spacing:-.02em;text-wrap:balance;}
+.pull footer{margin-top:2.4mm;font:400 6.6pt var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+
+/* ── Glosario / filas definición ─────────────────────────────────────────── */
+.def{margin:0 0 4mm;border-top:.25mm solid var(--line);}
+.def .row{display:grid;grid-template-columns:38mm minmax(0,1fr);gap:0 6mm;padding:3mm 0;border-bottom:.25mm solid var(--line);break-inside:avoid;}
+.def .t{font-family:var(--f-display);font-weight:600;font-size:10.6pt;letter-spacing:-.01em;margin:0;}
+.def .t small{display:block;font:400 6.4pt var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:1mm;}
+.def .d{margin:0;max-width:none;font-size:9.4pt;}
+
+/* ── Hábitos numerados ───────────────────────────────────────────────────── */
+.hab{list-style:none;padding:0;margin:0 0 4mm;counter-reset:h;}
+.hab li{counter-increment:h;position:relative;padding:3.2mm 0 3.2mm 15mm;margin:0;border-top:.25mm solid var(--line);break-inside:avoid;max-width:none;}
+.hab li:last-child{border-bottom:.25mm solid var(--line);}
+.hab li::before{content:"[ " counter(h, decimal-leading-zero) " ]";position:absolute;left:0;top:3.7mm;font:400 7pt var(--f-mono);letter-spacing:.06em;color:var(--teal);}
+.hab strong{display:block;font-family:var(--f-display);font-weight:600;font-size:10.8pt;letter-spacing:-.01em;margin-bottom:.8mm;}
+.hab span{display:block;font-size:9.4pt;line-height:1.5;}
+
+/* ── Tarjetas de errores (mal / bien) ────────────────────────────────────── */
+.err{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:3mm;margin:0 0 4mm;}
+.err .card{border:.25mm solid var(--line);border-radius:3mm;background:rgba(255,255,255,.55);padding:3mm 3.6mm 3.2mm;break-inside:avoid;}
+.err .card h3{margin:0 0 1.6mm;font-size:10.6pt;}
+.err .card p{font-size:8.8pt;line-height:1.45;margin:0 0 2mm;max-width:none;}
+.err .card .mal,.err .card .bien{margin:0 0 1.4mm;border-radius:1.8mm;padding:1.8mm 2.6mm 1.9mm;font:400 7.4pt/1.5 var(--f-mono);white-space:pre-wrap;overflow-wrap:anywhere;}
+.err .card .mal{background:var(--paper-dim);color:var(--ink);}
+.err .card .bien{background:var(--ink);color:var(--code-text);}
+.err .card .tag{display:block;font:400 5.9pt var(--f-mono);letter-spacing:.14em;text-transform:uppercase;margin-bottom:.8mm;}
+.err .card .mal .tag{color:var(--muted);}
+.err .card .bien .tag{color:var(--lime);}
+.err .card .tag + *{}
+.err .card.ancho{grid-column:1 / -1;}
+
+/* ── Portada ─────────────────────────────────────────────────────────────── */
+.cover{page:cover;position:relative;width:210mm;height:296.4mm;background:var(--ink);color:var(--paper);overflow:hidden;break-after:page;padding:20mm 22mm 18mm;display:flex;flex-direction:column;}
+.cover .wm{font-family:var(--f-display);font-weight:700;font-size:15pt;letter-spacing:-.025em;line-height:1;display:inline-flex;align-items:baseline;gap:.3em;color:var(--paper);}
+.cover .wm b{font-weight:inherit;color:var(--lime);}
+.cover .wm .sub{font:400 .8em var(--f-mono);letter-spacing:0;color:var(--lime);}
+.cover .arriba{display:flex;justify-content:space-between;align-items:baseline;}
+.cover .arriba .tag{font:400 7pt var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--mist);}
+.cover .centro{margin-top:48mm;}
+.cover .centro .eyebrow{display:block;font:400 7.6pt var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--lime);margin:0 0 7mm;}
+.cover h1{font-size:58pt;line-height:.98;color:var(--paper);margin:0 0 9mm;max-width:150mm;}
+.cover h1 em{font-style:normal;color:var(--lime);}
+.cover .sub-t{font-size:13pt;line-height:1.5;color:var(--mist);max-width:128mm;margin:0;}
+.cover .fuente{margin-top:auto;margin-bottom:12mm;border-top:.2mm solid var(--line-dark);padding-top:6mm;display:grid;grid-template-columns:minmax(0,1fr) 62mm;gap:8mm;align-items:end;}
+.cover .fuente pre{margin:0;font:400 8.6pt/1.75 var(--f-mono);color:var(--mist);white-space:pre-wrap;}
+.cover .fuente pre b{font-weight:400;color:var(--lime);}
+.cover .fuente .nota{font:400 6.6pt/1.7 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mist);}
+.cover .pie{display:flex;justify-content:space-between;font:400 7pt var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--paper);}
+.cover .pie span:last-child{color:var(--mist);}
+
+/* ── Índice ──────────────────────────────────────────────────────────────── */
+.indice{page:indice;break-before:page;break-after:page;}
+.indice h1{font-size:28pt;margin-bottom:2mm;}
+.indice .lead{margin-bottom:4mm;font-size:10.6pt;}
+.toc{list-style:none;margin:0;padding:0;}
+.toc li{margin:0;max-width:none;}
+.toc a{display:flex;align-items:baseline;gap:2mm;color:var(--ink);text-decoration:none;}
+.toc .t{flex:none;}
+.toc .l{flex:1;border-bottom:.25mm dotted var(--mist);transform:translateY(-.9mm);min-width:4mm;}
+.toc .p{flex:none;font:400 7.4pt var(--f-mono);letter-spacing:.06em;color:var(--teal);min-width:7mm;text-align:right;}
+.toc .cap-l{margin-top:1.8mm;}
+.toc .cap-l:first-child{margin-top:0;}
+.toc .cap-l a{padding:.6mm 0;font-family:var(--f-display);font-weight:600;font-size:10.6pt;letter-spacing:-.01em;}
+.toc .cap-l .n{font:400 7.4pt var(--f-mono);letter-spacing:.08em;color:var(--teal);margin-right:3mm;display:inline-block;min-width:7mm;}
+.toc .sub-l a{padding:.25mm 0 .25mm 10mm;font-size:8.5pt;line-height:1.3;color:#2a2a2e;}
+.toc .sub-l .n{font:400 7pt var(--f-mono);color:var(--muted);margin-right:2.4mm;display:inline-block;min-width:6mm;}
+.toc .sub-l .p{font-size:7pt;color:var(--muted);}
+.toc .cap-l .m9{font:400 6pt var(--f-mono);letter-spacing:.12em;text-transform:uppercase;background:var(--lime);color:var(--lime-ink);border-radius:99px;padding:.3mm 2mm;margin-left:2.6mm;vertical-align:.3mm;}
+.leyenda{margin-top:6mm;display:grid;grid-template-columns:1fr 1fr;gap:2.4mm;}
+.leyenda div{border-radius:2.4mm;padding:2.6mm 3.4mm;font-size:8.6pt;line-height:1.4;}
+.leyenda .a{background:var(--ink);color:var(--code-text);}
+.leyenda .b{background:rgba(255,255,255,.72);border:.25mm solid var(--line);}
+.leyenda .k{display:block;font:400 6pt var(--f-mono);letter-spacing:.14em;text-transform:uppercase;margin-bottom:1mm;}
+.leyenda .a .k{color:var(--lime);}
+.leyenda .b .k{color:var(--teal);}
+
+/* ── Apertura oscura del capítulo 9 ──────────────────────────────────────── */
+.apertura{background:var(--ink);color:var(--paper);border-radius:4mm;padding:9mm 9mm 8mm;margin:0 0 6mm;break-inside:avoid;}
+.apertura .kicker{color:var(--lime);}
+.apertura h1{color:var(--paper);margin-bottom:4mm;}
+.apertura h1 em{font-style:normal;color:var(--lime);}
+.apertura .lead{color:var(--mist);margin:0;max-width:136mm;}
+
+/* ── Ajustes de impresión ───────────────────────────────────────────────── */
+.salto{break-before:page;}
+.evitar{break-inside:avoid;}
+.dos{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4mm;margin:0 0 4mm;}
+.dos > *{min-width:0;}
+@media screen{
+  body{max-width:210mm;margin:0 auto;padding:0 22mm 24mm;box-shadow:0 0 0 1px var(--line);}
+  .cover{margin:0 -22mm;}
+  .indice{padding-top:18mm;}
+  .cap{padding-top:18mm;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═════════════ PORTADA ═════════════ -->
+<section class="cover" aria-label="Portada">
+  <div class="arriba">
+    <span class="wm"><span><b>[m]</b>.seny</span><span class="sub">/academy</span></span>
+    <span class="tag">Guía de referencia</span>
+  </div>
+  <div class="centro">
+    <span class="eyebrow">CommonMark · GitHub Flavored Markdown · Claude</span>
+    <h1 class="display">Guía de <em>Markdown</em></h1>
+    <p class="sub-t">Cómo escribir texto con formato usando solo caracteres normales: la sintaxis clásica, las extensiones de GitHub y el uso de Markdown con Claude, con el código que se escribe y el resultado que se ve.</p>
+  </div>
+  <div class="fuente" aria-hidden="true">
+<pre><b>#</b> Cierre de octubre de 2026
+<b>##</b> 1. Resumen
+Las ventas ascienden a <b>**</b>1.083.815 €<b>**</b>,
+un <b>**</b>+5,2 %<b>**</b> sobre octubre de 2025.
+
+<b>-</b> Online: +16,6 %
+<b>-</b> Bilbao: −3,4 %</pre>
+    <div class="nota">Texto plano<br>que se lee igual<br>con o sin formato</div>
+  </div>
+  <div class="pie"><span>[m].seny /academy · IA Generativa · M6</span><span>9 capítulos</span></div>
+</section>
+
+<!-- ═════════════ ÍNDICE ═════════════ -->
+<section class="indice" aria-label="Índice">
+  <span class="kicker">[ Contenido ]</span>
+  <h1 class="display">Índice</h1>
+  <p class="lead">En cada apartado, el código que se escribe aparece junto al resultado que produce. El capítulo 9 aplica todo lo anterior a los archivos con los que se configura Claude.</p>
+
+  <ul class="toc">
+    <li class="cap-l"><a href="#cap1" data-s="Capítulo 01"><span class="n">1</span><span class="t">¿Qué es Markdown?</span><span class="l"></span><span class="p">03</span></a></li>
+
+    <li class="cap-l"><a href="#cap2" data-s="Capítulo 02"><span class="n">2</span><span class="t">Sintaxis básica (CommonMark)</span><span class="l"></span><span class="p">05</span></a></li>
+    <li class="sub-l"><a href="#c2-1" data-s="2.1 Encabezados"><span class="n">2.1</span><span class="t">Encabezados</span><span class="l"></span><span class="p">05</span></a></li>
+    <li class="sub-l"><a href="#c2-2" data-s="2.2 Párrafos y saltos de línea"><span class="n">2.2</span><span class="t">Párrafos y saltos de línea</span><span class="l"></span><span class="p">05</span></a></li>
+    <li class="sub-l"><a href="#c2-3" data-s="2.3 Énfasis"><span class="n">2.3</span><span class="t">Énfasis: negrita, cursiva y más</span><span class="l"></span><span class="p">06</span></a></li>
+    <li class="sub-l"><a href="#c2-4" data-s="2.4 Reglas horizontales"><span class="n">2.4</span><span class="t">Reglas horizontales</span><span class="l"></span><span class="p">07</span></a></li>
+    <li class="sub-l"><a href="#c2-5" data-s="2.5 Listas"><span class="n">2.5</span><span class="t">Listas</span><span class="l"></span><span class="p">07</span></a></li>
+    <li class="sub-l"><a href="#c2-6" data-s="2.6 Enlaces"><span class="n">2.6</span><span class="t">Enlaces</span><span class="l"></span><span class="p">08</span></a></li>
+    <li class="sub-l"><a href="#c2-7" data-s="2.7 Imágenes"><span class="n">2.7</span><span class="t">Imágenes</span><span class="l"></span><span class="p">10</span></a></li>
+    <li class="sub-l"><a href="#c2-8" data-s="2.8 Citas"><span class="n">2.8</span><span class="t">Citas</span><span class="l"></span><span class="p">10</span></a></li>
+    <li class="sub-l"><a href="#c2-9" data-s="2.9 Código"><span class="n">2.9</span><span class="t">Código</span><span class="l"></span><span class="p">11</span></a></li>
+    <li class="sub-l"><a href="#c2-10" data-s="2.10 Escapado de caracteres"><span class="n">2.10</span><span class="t">Escapado de caracteres</span><span class="l"></span><span class="p">11</span></a></li>
+    <li class="sub-l"><a href="#c2-11" data-s="2.11 HTML dentro de Markdown"><span class="n">2.11</span><span class="t">HTML dentro de Markdown</span><span class="l"></span><span class="p">12</span></a></li>
+
+    <li class="cap-l"><a href="#cap3" data-s="Capítulo 03"><span class="n">3</span><span class="t">Sintaxis extendida de GitHub (GFM)</span><span class="l"></span><span class="p">13</span></a></li>
+    <li class="sub-l"><a href="#c3-1" data-s="3.1 Tablas"><span class="n">3.1</span><span class="t">Tablas</span><span class="l"></span><span class="p">13</span></a></li>
+    <li class="sub-l"><a href="#c3-2" data-s="3.2 Texto tachado"><span class="n">3.2</span><span class="t">Texto tachado</span><span class="l"></span><span class="p">14</span></a></li>
+    <li class="sub-l"><a href="#c3-3" data-s="3.3 Listas de tareas"><span class="n">3.3</span><span class="t">Listas de tareas</span><span class="l"></span><span class="p">14</span></a></li>
+    <li class="sub-l"><a href="#c3-4" data-s="3.4 Autoenlaces, menciones y referencias"><span class="n">3.4</span><span class="t">Autoenlaces, menciones y referencias</span><span class="l"></span><span class="p">15</span></a></li>
+    <li class="sub-l"><a href="#c3-5" data-s="3.5 Emojis"><span class="n">3.5</span><span class="t">Emojis</span><span class="l"></span><span class="p">15</span></a></li>
+    <li class="sub-l"><a href="#c3-6" data-s="3.6 Notas al pie"><span class="n">3.6</span><span class="t">Notas al pie</span><span class="l"></span><span class="p">16</span></a></li>
+    <li class="sub-l"><a href="#c3-7" data-s="3.7 Alertas"><span class="n">3.7</span><span class="t">Alertas</span><span class="l"></span><span class="p">16</span></a></li>
+    <li class="sub-l"><a href="#c3-8" data-s="3.8 Secciones plegables"><span class="n">3.8</span><span class="t">Secciones plegables</span><span class="l"></span><span class="p">17</span></a></li>
+
+    <li class="cap-l"><a href="#cap4" data-s="Capítulo 04"><span class="n">4</span><span class="t">Contenido avanzado</span><span class="l"></span><span class="p">18</span></a></li>
+    <li class="sub-l"><a href="#c4-1" data-s="4.1 Matemáticas con LaTeX"><span class="n">4.1</span><span class="t">Matemáticas con LaTeX</span><span class="l"></span><span class="p">18</span></a></li>
+    <li class="sub-l"><a href="#c4-2" data-s="4.2 Diagramas con Mermaid"><span class="n">4.2</span><span class="t">Diagramas con Mermaid</span><span class="l"></span><span class="p">19</span></a></li>
+    <li class="sub-l"><a href="#c4-3" data-s="4.3 Front matter"><span class="n">4.3</span><span class="t">Front matter (metadatos YAML)</span><span class="l"></span><span class="p">20</span></a></li>
+
+    <li class="cap-l"><a href="#cap5" data-s="Capítulo 05"><span class="n">5</span><span class="t">Buenas prácticas y errores comunes</span><span class="l"></span><span class="p">21</span></a></li>
+    <li class="cap-l"><a href="#cap6" data-s="Capítulo 06"><span class="n">6</span><span class="t">Hoja de trucos</span><span class="l"></span><span class="p">23</span></a></li>
+    <li class="cap-l"><a href="#cap7" data-s="Capítulo 07"><span class="n">7</span><span class="t">Editores y herramientas</span><span class="l"></span><span class="p">24</span></a></li>
+    <li class="cap-l"><a href="#cap8" data-s="Capítulo 08"><span class="n">8</span><span class="t">Para seguir aprendiendo</span><span class="l"></span><span class="p">25</span></a></li>
+
+    <li class="cap-l"><a href="#cap9" data-s="Capítulo 09"><span class="n">9</span><span class="t">Markdown para Claude</span><span class="m9">Claude</span><span class="l"></span><span class="p">27</span></a></li>
+    <li class="sub-l"><a href="#c9-1" data-s="9.1 Por qué Claude trabaja en Markdown"><span class="n">9.1</span><span class="t">Por qué Claude trabaja en Markdown</span><span class="l"></span><span class="p">27</span></a></li>
+    <li class="sub-l"><a href="#c9-2" data-s="9.2 Instrucciones y CLAUDE.md"><span class="n">9.2</span><span class="t">Instrucciones y CLAUDE.md</span><span class="l"></span><span class="p">28</span></a></li>
+    <li class="sub-l"><a href="#c9-3" data-s="9.3 Anatomía de SKILL.md"><span class="n">9.3</span><span class="t">Anatomía de SKILL.md</span><span class="l"></span><span class="p">29</span></a></li>
+    <li class="sub-l"><a href="#c9-4" data-s="9.4 Plantilla comentada de SKILL.md"><span class="n">9.4</span><span class="t">Plantilla comentada de SKILL.md</span><span class="l"></span><span class="p">31</span></a></li>
+    <li class="sub-l"><a href="#c9-5" data-s="9.5 El archivo de un agente"><span class="n">9.5</span><span class="t">El archivo de un agente</span><span class="l"></span><span class="p">32</span></a></li>
+    <li class="sub-l"><a href="#c9-6" data-s="9.6 Errores típicos"><span class="n">9.6</span><span class="t">Errores típicos</span><span class="l"></span><span class="p">33</span></a></li>
+    <li class="sub-l"><a href="#c9-7" data-s="9.7 Lista de comprobación final"><span class="n">9.7</span><span class="t">Lista de comprobación final</span><span class="l"></span><span class="p">35</span></a></li>
+  </ul>
+</section>
+
+<!-- ═════════════ 1 · ¿QUÉ ES MARKDOWN? ═════════════ -->
+<section class="cap p1" id="cap1">
+  <header class="cap-head">
+    <span class="kicker">[ Capítulo 01 ]</span>
+    <h1 class="display">¿Qué es Markdown?</h1>
+    <p class="lead">Un puñado de marcas escritas con el teclado que se transforman en un documento con formato.</p>
+  </header>
+
+  <p>Markdown es una forma de dar formato a un texto sin salir del propio texto: unas pocas marcas escritas con el teclado (como <code>#</code>, <code>*</code>, <code>-</code> o <code>[ ]</code>) indican qué es un título, qué va en negrita o qué forma parte de una lista, y un programa las convierte después en HTML. Un documento así se visualiza correctamente en cualquier dispositivo, puede almacenarse en sistemas de control de versiones como Git y, aunque nadie lo convierta, se entiende a simple vista.</p>
+  <p>Lo ideó John Gruber en 2004 con un objetivo concreto: que dar formato a un texto fuera tan natural como escribir un mensaje de correo sin adornos. Para conseguirlo sustituyó las etiquetas extensas, como <code>&lt;strong&gt;</code> o <code>&lt;h1&gt;</code>, por símbolos discretos que apenas interrumpen la lectura.</p>
+
+  <div class="co analogia">
+    <span class="k">[ Analogía ]</span>
+    <p>Markdown funciona como las anotaciones que se hacen a mano sobre un borrador: una doble raya bajo el título, un círculo en torno a lo importante, un guion delante de cada elemento de una enumeración. Quien lee el borrador entiende las marcas sin ayuda, y quien lo maqueta sabe exactamente qué formato aplicar.</p>
+  </div>
+
+  <figure class="fig">
+    <svg viewBox="0 0 960 190" role="img" aria-label="Recorrido de un archivo Markdown en tres pasos. Primero, lo que se escribe: un archivo de texto plano con extensión .md y símbolos como almohadilla, asterisco y guion. Después, lo que interpreta: un procesador de Markdown, que sigue CommonMark o GFM y puede ser un editor, GitHub o la interfaz de Claude. Por último, lo que se ve: un resultado con formato, como HTML, PDF o DOCX.">
+      <defs><marker id="fl1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#0a0a0b"/></marker></defs>
+      <text class="mo m" x="20" y="24">Lo que se escribe</text>
+      <rect class="bx" x="20" y="38" width="270" height="124" rx="6"/>
+      <text class="lb b" x="155" y="90" text-anchor="middle">Archivo .md</text>
+      <text class="lb s" x="155" y="118" text-anchor="middle">Texto plano con símbolos</text>
+      <text class="lb s" x="155" y="138" text-anchor="middle">como # * - [ ]</text>
+      <line class="ln" x1="292" y1="100" x2="346" y2="100" marker-end="url(#fl1)"/>
+      <text class="mo m" x="345" y="24">Lo que interpreta</text>
+      <rect class="fi" x="345" y="38" width="270" height="124" rx="6"/>
+      <text class="lb b w" x="480" y="90" text-anchor="middle">Procesador</text>
+      <text class="lb ws" x="480" y="118" text-anchor="middle">Sigue CommonMark o GFM</text>
+      <text class="lb ws" x="480" y="138" text-anchor="middle">Editor, GitHub o Claude</text>
+      <line class="ln" x1="617" y1="100" x2="671" y2="100" marker-end="url(#fl1)"/>
+      <text class="mo m" x="670" y="24">Lo que se ve</text>
+      <rect class="bx" x="670" y="38" width="270" height="124" rx="6"/>
+      <text class="lb b" x="805" y="90" text-anchor="middle">Resultado con formato</text>
+      <text class="lb s" x="805" y="118" text-anchor="middle">HTML, PDF, DOCX…</text>
+      <text class="lb s" x="805" y="138" text-anchor="middle">según el procesador</text>
+    </svg>
+    <figcaption>[ Diagrama 01 ] El recorrido de un archivo Markdown: se escribe como texto, se interpreta y se muestra con formato</figcaption>
+  </figure>
+
+  <h3>Ventajas principales</h3>
+  <ul class="lm">
+    <li><strong>Es texto plano.</strong> Cualquier editor abre un archivo <code>.md</code> y su contenido se entiende sin instalar ningún programa específico.</li>
+    <li><strong>Es portable.</strong> No está atado a una aplicación ni a un formato binario cerrado.</li>
+    <li><strong>Se versiona bien.</strong> Como es texto, Git señala con precisión qué líneas han cambiado entre una versión y otra.</li>
+    <li><strong>Se convierte con facilidad</strong> a HTML, PDF, DOCX y a numerosos formatos más.</li>
+  </ul>
+
+  <h3>Dónde se encuentra</h3>
+  <p>Se utiliza en los <code>README</code> de los repositorios de GitHub y GitLab, en la documentación técnica, en los blogs estáticos, en aplicaciones de notas como Obsidian o Notion y, de forma muy habitual, en la conversación con asistentes de inteligencia artificial: las respuestas de Claude suelen llegar en Markdown y los archivos con los que se configura a Claude (capítulo 9) también lo son.</p>
+
+  <h3>CommonMark y GFM</h3>
+  <p>La descripción original de Gruber dejaba algunos casos sin resolver, y por eso la comunidad redactó <strong>CommonMark</strong>, una especificación que establece con exactitud cómo debe interpretarse cada símbolo. En esta guía, «Markdown básico» equivale a CommonMark. GitHub partió de esa misma base y la amplió con funciones propias, conocidas como <strong>GitHub Flavored Markdown (GFM)</strong>, que ocupan el capítulo 3.</p>
+
+  <div class="co nota">
+    <span class="k">[ Nota ]</span>
+    <p>Cada procesador de Markdown tiene sus particularidades: un mismo archivo puede verse de manera distinta en GitHub, en un editor de notas o en la interfaz de Claude. Si el resultado importa, conviene comprobarlo en el entorno final.</p>
+  </div>
+
+  <h3>Cómo leer esta guía</h3>
+  <p>Cada elemento se presenta en una pareja de bloques: uno oscuro con <strong>lo que escribes</strong>, y otro claro con <strong>lo que se ve</strong>. Cuando el código es largo, el bloque claro pasa debajo. En los bloques oscuros, los símbolos propios de Markdown se resaltan en lima para localizarlos de un vistazo.</p>
+
+  <div class="ej">
+    <div class="in"><span class="k">Lo que escribes</span><pre>Las ventas suben un <b>**</b>5,2 %<b>**</b>
+sobre octubre de 2025.</pre></div>
+    <div class="out"><span class="k">Lo que se ve</span><div class="r"><p>Las ventas suben un <strong>5,2 %</strong> sobre octubre de 2025.</p></div></div>
+  </div>
+
+  <p>A lo largo de la guía aparecen cinco tipos de aviso: <strong>Nota</strong> (información útil), <strong>Consejo</strong> (una forma mejor de hacer algo), <strong>Importante</strong> (lo imprescindible para lograr el objetivo), <strong>Aviso</strong> (algo que exige atención) y <strong>Precaución</strong> (riesgos de una acción). El apartado 3.7 los muestra todos juntos.</p>
+</section>
+
+<!-- ═════════════ 2 · SINTAXIS BÁSICA (COMMONMARK) ═════════════ -->
+<section class="cap p2" id="cap2">
+  <header class="cap-head">
+    <span class="kicker">[ Capítulo 02 ]</span>
+    <h1 class="display">Sintaxis básica (CommonMark)</h1>
+    <p class="lead">Lo necesario para la mayoría de los documentos: títulos, párrafos, énfasis, listas, enlaces, imágenes, citas y código.</p>
+  </header>
+
+  <!-- 2.1 -->
+  <div class="apartado">
+    <h2 id="c2-1"><span class="n">2.1</span>Encabezados</h2>
+    <p>Existen seis niveles de título. Cuantas más almohadillas (<code>#</code>) se escriben, más profundo es el nivel, y entre las almohadillas y el texto hay que dejar siempre un espacio.</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre><b>#</b> Memorándum de cierre
+<b>##</b> 1. Resumen
+<b>###</b> Ventas por tienda
+<b>####</b> Online
+<b>#####</b> Octubre
+<b>######</b> Detalle</pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r">
+        <div class="mh mh1">Memorándum de cierre</div>
+        <div class="mh mh2">1. Resumen</div>
+        <div class="mh mh3">Ventas por tienda</div>
+        <div class="mh mh4">Online</div>
+        <div class="mh mh5">Octubre</div>
+        <div class="mh mh6">Detalle</div>
+      </div></div>
+    </div>
+    <p>Los dos primeros niveles admiten además una forma alternativa: la línea de texto se «subraya» con signos igual (nivel 1) o con guiones (nivel 2).</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre>Memorándum de cierre
+<b>====================</b>
+
+1. Resumen
+<b>----------</b></pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r">
+        <div class="mh mh1 g">Memorándum de cierre</div>
+        <div class="mh mh2">1. Resumen</div>
+      </div></div>
+    </div>
+    <div class="co consejo">
+      <span class="k">[ Consejo ]</span>
+      <p>Lo habitual es un solo título de nivel 1 por documento y seguir el orden de los niveles sin saltos (tras un <code>##</code> viene un <code>###</code>, no un <code>####</code>). Con esa estructura, los lectores de pantalla navegan mejor y los programas pueden elaborar un índice por su cuenta.</p>
+    </div>
+  </div>
+
+  <!-- 2.2 -->
+  <div class="apartado">
+    <h2 id="c2-2"><span class="n">2.2</span>Párrafos y saltos de línea</h2>
+    <p>Una línea vacía marca el final de un párrafo y el comienzo del siguiente. Si varias líneas se escriben una tras otra, sin ese espacio entre ellas, Markdown las funde en un único párrafo.</p>
+    <p>Cuando hace falta cortar una línea sin abrir otro párrafo, hay tres opciones: dejar dos espacios al final y pulsar Intro, escribir la etiqueta <code>&lt;br&gt;</code> o poner una barra invertida (<code>\</code>) como último carácter.</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre>Las ventas de octubre
+crecen un 5,2 %.
+
+El margen se mantiene
+en el 60,1 %.
+
+Cierre del mes: octubre.<b>··</b>
+Envío: lunes 9 de noviembre.</pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r">
+        <p>Las ventas de octubre crecen un 5,2 %.</p>
+        <p>El margen se mantiene en el 60,1 %.</p>
+        <p>Cierre del mes: octubre.<br>Envío: lunes 9 de noviembre.</p>
+      </div></div>
+    </div>
+    <p>Los puntos medios (<code>··</code>) representan los dos espacios del final de la línea, que en el archivo real no se ven.</p>
+    <div class="co aviso">
+      <span class="k">[ Aviso ]</span>
+      <p>Los dos espacios finales son una marca frágil: no se ven, y muchos editores y formateadores los borran al guardar, con lo que el salto se pierde sin ningún aviso. Para que se conserve, es más seguro <code>&lt;br&gt;</code> o la barra invertida.</p>
+    </div>
+  </div>
+
+  <!-- 2.3 -->
+  <div class="apartado">
+    <h2 id="c2-3"><span class="n">2.3</span>Énfasis: negrita, cursiva y más</h2>
+    <p>Para destacar una palabra o una frase se la encierra entre asteriscos o entre guiones bajos.</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre><b>*</b>cursiva<b>*</b> o <b>_</b>cursiva<b>_</b>
+<b>**</b>negrita<b>**</b> o <b>__</b>negrita<b>__</b>
+<b>***</b>negrita y cursiva<b>***</b>
+<b>~~</b>tachado<b>~~</b>  <i>(extensión de GFM)</i></pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r">
+        <p><em>cursiva</em> o <em>cursiva</em><br><strong>negrita</strong> o <strong>negrita</strong><br><strong><em>negrita y cursiva</em></strong><br><span class="tachado">tachado</span></p>
+      </div></div>
+    </div>
+    <div class="co consejo">
+      <span class="k">[ Consejo ]</span>
+      <p>Ambos símbolos dan el mismo resultado, con una diferencia: el guion bajo no actúa en mitad de una palabra. Por eso <code>mi_variable</code> se respeta tal cual, mientras que con asteriscos sí es posible resaltar solo un fragmento (<code>im*por*tante</code>). Conviene tenerlo presente al escribir nombres de archivo o de variable.</p>
+    </div>
+    <p>Dentro del código en línea el formato no se aplica: en <code>`**texto**`</code> los asteriscos aparecen tal cual. Si se quiere destacar un fragmento de código, el énfasis debe quedar fuera de los acentos graves:</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre><b>**</b>`git status`<b>**</b> y <b>*</b>`variable`<b>*</b></pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r"><p><strong><code>git status</code></strong> y <em><code>variable</code></em></p></div></div>
+    </div>
+    <p>El subrayado, el superíndice y el subíndice no cuentan con símbolos propios en Markdown; si el entorno acepta HTML, se resuelven con etiquetas:</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre>Local de 120 m&lt;sup&gt;2&lt;/sup&gt; y
+CO&lt;sub&gt;2&lt;/sub&gt;, con texto
+&lt;u&gt;subrayado&lt;/u&gt;.</pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r"><p>Local de 120 m<sup>2</sup> y CO<sub>2</sub>, con texto <u>subrayado</u>.</p></div></div>
+    </div>
+  </div>
+
+  <!-- 2.4 -->
+  <div class="apartado">
+    <h2 id="c2-4"><span class="n">2.4</span>Reglas horizontales</h2>
+    <p>Para trazar una línea de separación entre dos bloques basta una línea con tres o más guiones, asteriscos o guiones bajos, y nada más.</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre><b>---</b>
+<b>***</b>
+<b>___</b></pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r"><p>Las tres formas trazan la misma línea:</p><hr></div></div>
+    </div>
+    <p>Un fallo habitual es colocar los guiones pegados a la línea de texto anterior:</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre>Total de ventas
+<b>---</b></pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r"><div class="mh mh2">Total de ventas</div><p class="nada">Se convierte en un encabezado de nivel 2</p></div></div>
+    </div>
+    <div class="co precaucion">
+      <span class="k">[ Precaución ]</span>
+      <p>La regla horizontal necesita una línea vacía por encima. Sin ella, Markdown entiende los guiones como el subrayado de un título de nivel 2 y el texto anterior se convierte en encabezado.</p>
+    </div>
+  </div>
+
+  <!-- 2.5 -->
+  <div class="apartado">
+    <h2 id="c2-5"><span class="n">2.5</span>Listas</h2>
+    <p>Hay listas de viñetas (no ordenadas) y listas numeradas (ordenadas). Cada viñeta se abre con <code>-</code>, <code>*</code> o <code>+</code> y un espacio. Las sublistas se consiguen sangrando el elemento dos o cuatro espacios, siempre con el mismo criterio a lo largo del documento.</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre><b>-</b> Ventas por tienda
+<b>-</b> Margen bruto
+<b>-</b> Tesorería
+  <b>-</b> Conciliación bancaria
+  <b>-</b> Partidas en tránsito
+    <b>-</b> Cobros del TPV online
+<b>-</b> Incidencias</pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r">
+        <ul><li>Ventas por tienda</li><li>Margen bruto</li><li>Tesorería
+          <ul><li>Conciliación bancaria</li><li>Partidas en tránsito
+            <ul><li>Cobros del TPV online</li></ul></li></ul></li>
+          <li>Incidencias</li></ul>
+      </div></div>
+    </div>
+    <p>En las listas numeradas, cada elemento lleva un número, un punto y un espacio. Solo importa el primer número, que fija el comienzo de la cuenta (empezar en <code>3.</code> produce 3, 4, 5…); el procesador renumera el resto por su cuenta. De ahí la costumbre de escribir <code>1.</code> delante de todos los elementos y dejar que la numeración se genere sola.</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre><b>1.</b> Descargar el extracto
+<b>2.</b> Conciliar con el mayor
+   <b>1.</b> Marcar lo coincidente
+   <b>2.</b> Listar lo pendiente
+<b>3.</b> Redactar el memorándum</pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r">
+        <ol><li>Descargar el extracto</li><li>Conciliar con el mayor
+          <ol><li>Marcar lo coincidente</li><li>Listar lo pendiente</li></ol></li>
+          <li>Redactar el memorándum</li></ol>
+      </div></div>
+    </div>
+    <p>Dentro de un elemento de lista también caben párrafos, bloques de código o citas, siempre que estén bien sangrados: el contenido debe empezar en la misma columna que el texto del elemento, y no que su marcador. Eso supone dos espacios después de un <code>-</code> y tres después de <code>1.</code>. Con menos sangría, el contenido se escapa de la lista o la numeración se rompe.</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre><b>1.</b> Abrir la carpeta de cierre.
+   Este párrafo es del paso 1
+   (sangría de tres espacios).
+   <b>```</b>text
+   cierre-octubre/
+   <b>```</b>
+<b>2.</b> Pedir la conciliación.</pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r">
+        <ol><li>Abrir la carpeta de cierre.
+          <p style="margin:.6mm 0 1mm">Este párrafo es del paso 1 (sangría de tres espacios).</p>
+          <div class="codigo" style="margin:0 0 1mm">cierre-octubre/</div></li>
+          <li>Pedir la conciliación.</li></ol>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- 2.6 -->
+  <div class="apartado">
+    <h2 id="c2-6"><span class="n">2.6</span>Enlaces</h2>
+    <p>Un enlace puede escribirse de tres maneras: con un texto visible, con un texto y un título que aparece al pasar el cursor, o con la dirección entre ángulos, que se muestra tal cual.</p>
+    <div class="ej st">
+      <div class="in"><span class="k">Lo que escribes</span><pre><b>[</b>Normas de cierre<b>](</b>https://example.com/normas<b>)</b>
+<b>[</b>Normas<b>](</b>https://example.com/normas <b>"</b>Documento interno<b>"</b><b>)</b>
+<b>&lt;</b>https://example.com/normas<b>&gt;</b></pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r"><p><a href="https://example.com/normas">Normas de cierre</a><br><a href="https://example.com/normas">Normas</a><br><a href="https://example.com/normas">https://example.com/normas</a></p></div></div>
+    </div>
+    <p><strong>Enlaces de referencia.</strong> Cuando una dirección es muy larga o se usa varias veces, se declara una única vez con una etiqueta y se cita por ella en el texto, que así queda más ligero:</p>
+    <div class="ej st">
+      <div class="in"><span class="k">Lo que escribes</span><pre>Consulta la <b>[</b>documentación oficial<b>][</b>docs<b>]</b> y la <b>[</b>especificación<b>][</b>spec<b>]</b>.
+
+<b>[</b>docs<b>]:</b> https://example.com/docs
+<b>[</b>spec<b>]:</b> https://example.com/spec</pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r"><p>Consulta la <a href="https://example.com/docs">documentación oficial</a> y la <a href="https://example.com/spec">especificación</a>.</p></div></div>
+    </div>
+    <p><strong>Enlaces internos (anclas).</strong> También es posible enlazar a un título del propio documento. GitHub construye su ancla con estas reglas: (1) pasa el título a minúsculas; (2) cambia los espacios por guiones; (3) suprime los signos de puntuación, pero respeta las letras, con tilde y eñe incluidas; y (4) si dos títulos darían la misma ancla, añade <code>-1</code>, <code>-2</code> y así sucesivamente al final.</p>
+    <div class="ej st">
+      <div class="in"><span class="k">Lo que escribes</span><pre>Véase el apartado <b>[</b>Tablas<b>](#</b>tablas<b>)</b>.
+Y el capítulo <b>[</b>¿Qué es Markdown?<b>](#</b>qué-es-markdown<b>)</b>.</pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r"><p>Véase el apartado <a href="#c3-1">Tablas</a>.<br>Y el capítulo <a href="#cap1">¿Qué es Markdown?</a>.</p></div></div>
+    </div>
+    <div class="co consejo">
+      <span class="k">[ Consejo ]</span>
+      <p>Las anclas varían de un procesador a otro. En GitHub lo más práctico es situar el cursor sobre el título y copiar el icono de enlace que se muestra junto a él, en lugar de intentar adivinar la dirección.</p>
+    </div>
+  </div>
+
+  <!-- 2.7 -->
+  <div class="apartado">
+    <h2 id="c2-7"><span class="n">2.7</span>Imágenes</h2>
+    <p>Una imagen se escribe igual que un enlace, con un signo de exclamación (<code>!</code>) delante. Lo que va entre corchetes es el texto alternativo: lo leen los lectores de pantalla y aparece si la imagen no se carga. La ruta puede ser completa o relativa a la ubicación del documento. Si la imagen se coloca dentro de la sintaxis de un enlace, funciona como botón.</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre><b>![</b>Gráfico de ventas por tienda<b>](</b>img/ventas.png <b>"</b>Ventas de octubre<b>")</b>
+
+<b>[![</b>Gráfico de ventas<b>](</b>img/ventas.png<b>)](</b>https://example.com<b>)</b></pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r">
+        <div class="imagen">[ imagen · img/ventas.png ]</div>
+        <p class="alt">Gráfico de ventas por tienda</p>
+        <div class="imagen" style="margin-top:2mm">[ imagen con enlace ]</div>
+      </div></div>
+    </div>
+    <div class="co consejo">
+      <span class="k">[ Consejo ]</span>
+      <p>Markdown no ofrece forma de fijar el tamaño de una imagen. Cuando hace falta indicar el ancho, se emplea HTML: <code>&lt;img src="img/ventas.png" alt="Descripción" width="300"&gt;</code>.</p>
+    </div>
+  </div>
+
+  <!-- 2.8 -->
+  <div class="apartado">
+    <h2 id="c2-8"><span class="n">2.8</span>Citas</h2>
+    <p>Una cita es un bloque de texto que se separa visualmente del resto. Se obtiene empezando cada línea con <code>&gt;</code>; si el símbolo se repite, la cita queda anidada dentro de otra. Admite además cualquier otro elemento, como el énfasis o las listas.</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre><b>&gt;</b> Las ventas crecen un 5,2 %.
+<b>&gt;</b>
+<b>&gt; &gt;</b> Online sube un 16,6 %.
+
+<b>&gt;</b> **Atención:** Bilbao cae.
+<b>&gt;</b>
+<b>&gt; -</b> Ventas: 97.912 €
+<b>&gt; -</b> Variación: −3,4 %</pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r">
+        <blockquote><p>Las ventas crecen un 5,2 %.</p><blockquote><p>Online sube un 16,6 %.</p></blockquote></blockquote>
+        <blockquote><p><strong>Atención:</strong> Bilbao cae.</p><ul><li>Ventas: 97.912 €</li><li>Variación: −3,4 %</li></ul></blockquote>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- 2.9 -->
+  <div class="apartado">
+    <h2 id="c2-9"><span class="n">2.9</span>Código</h2>
+    <p>Hay dos modalidades de código: el fragmento corto, que va dentro de una frase, y el bloque de varias líneas. El fragmento se encierra entre acentos graves y, si él mismo contiene un acento grave, entre dos.</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre>El archivo es <b>`</b>normas-cierre.docx<b>`</b>.
+
+Con dobles: <b>``</b> el `acento` se respeta <b>``</b></pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r"><p>El archivo es <code>normas-cierre.docx</code>.</p><p>Con dobles: <code>el `acento` se respeta</code></p></div></div>
+    </div>
+    <p>Para los bloques conviene la «cerca» de tres acentos graves, que se abre y se cierra en líneas propias. Si tras la apertura se escribe el nombre del lenguaje, el procesador puede colorear la sintaxis.</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre><b>```</b>python
+def margen(ventas, coste):
+    return (ventas - coste) / ventas
+<b>```</b></pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r"><div class="codigo" style="margin:0"><span class="kw">def</span> margen(ventas, coste):
+    <span class="kw">return</span> (ventas - coste) / ventas</div></div></div>
+    </div>
+    <div class="co nota">
+      <span class="k">[ Nota ]</span>
+      <p>También existe el bloque por sangría, con cuatro espacios al principio de cada línea. Es válido, pero la cerca resulta más clara y admite indicar el lenguaje, de modo que se prefiere en la práctica.</p>
+    </div>
+    <p><strong>Tres acentos graves dentro de un bloque.</strong> Para escribir una cerca dentro de otra (algo habitual al explicar Markdown con ejemplos), la cerca exterior se abre y se cierra con cuatro acentos graves, o más. Basta con que tenga más que cualquiera de las que encierra.</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre><b>````</b>markdown
+<b>```</b>js
+console.log("bloque dentro de otro");
+<b>```</b>
+<b>````</b></pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r"><div class="codigo" style="margin:0">```js
+console.log("bloque dentro de otro");
+```</div></div></div>
+    </div>
+  </div>
+
+  <!-- 2.10 -->
+  <div class="apartado">
+    <h2 id="c2-10"><span class="n">2.10</span>Escapado de caracteres</h2>
+    <p>A veces un símbolo de Markdown debe aparecer como símbolo y no como instrucción: un asterisco, una almohadilla, un guion bajo. Para ello se coloca una barra invertida (<code>\</code>) justo antes, y el símbolo pierde su significado especial.</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre><b>\</b># Pendiente de revisar
+<b>\</b>*Aviso<b>\</b>*: fecha provisional</pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r"><p># Pendiente de revisar<br>*Aviso*: fecha provisional</p></div></div>
+    </div>
+    <p>CommonMark permite escapar cualquier signo de puntuación ASCII. En el uso diario, los más frecuentes son los siguientes:</p>
+    <div class="ej st">
+      <div class="out" style="background:var(--paper-dim);border-color:transparent"><span class="k">Caracteres que se escapan con más frecuencia</span><div class="r" style="font-size:10pt;letter-spacing:.04em;line-height:2"><code>\</code> <code>`</code> <code>*</code> <code>_</code> <code>{ }</code> <code>[ ]</code> <code>( )</code> <code>#</code> <code>+</code> <code>-</code> <code>.</code> <code>!</code> <code>|</code> <code>$</code></div></div>
+    </div>
+    <div class="co consejo">
+      <span class="k">[ Consejo ]</span>
+      <p>En GitHub, escribir <code>\$</code> evita que un importe como <code>$5</code> se interprete como el inicio de una fórmula matemática (véase el apartado 4.1).</p>
+    </div>
+  </div>
+
+  <!-- 2.11 -->
+  <div class="apartado">
+    <h2 id="c2-11"><span class="n">2.11</span>HTML dentro de Markdown</h2>
+    <p>Markdown admite HTML escrito directamente dentro del texto, y eso amplía mucho sus posibilidades. Cuando falta algo (un vídeo incrustado, una tabla compleja, un estilo particular), se escribe la etiqueta correspondiente y casi todos los procesadores la respetan.</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre>&lt;p align="center"&gt;
+  Este párrafo está
+  &lt;strong&gt;centrado&lt;/strong&gt;
+  mediante HTML.
+&lt;/p&gt;</pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r"><p style="text-align:center;margin:3mm 0 0">Este párrafo está <strong>centrado</strong> mediante HTML.</p></div></div>
+    </div>
+    <div class="co aviso">
+      <span class="k">[ Aviso ]</span>
+      <p>No todos los entornos permiten HTML libre. Por motivos de seguridad, plataformas como GitHub eliminan etiquetas como <code>&lt;script&gt;</code> y algunos atributos. Si no se conoce el entorno de destino, es mejor no depender de HTML avanzado.</p>
+    </div>
+    <p><strong>Comentarios.</strong> Markdown carece de una marca de comentario, pero un comentario de HTML cumple esa función: permite dejar anotaciones para quien edite el archivo o apartar un párrafo sin borrarlo. En el resultado final no se ve.</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre>&lt;!-- Revisar cifras con
+Tesorería antes de enviar --&gt;</pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r"><p class="nada">No se muestra nada</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════ 3 · SINTAXIS EXTENDIDA DE GITHUB (GFM) ═════════════ -->
+<section class="cap p3" id="cap3">
+  <header class="cap-head">
+    <span class="kicker">[ Capítulo 03 ]</span>
+    <h1 class="display">Sintaxis extendida de GitHub (GFM)</h1>
+    <p class="lead">Tablas, tachado, listas de tareas, menciones, notas al pie, alertas y secciones plegables.</p>
+  </header>
+
+  <p>La sintaxis básica no lo cubre todo. Para llenar los huecos, GitHub desarrolló <strong>GitHub Flavored Markdown (GFM)</strong>, una ampliación de CommonMark pensada para el trabajo cotidiano. Otras plataformas, como GitLab o los editores de notas, han incorporado buena parte de ella.</p>
+
+  <!-- 3.1 -->
+  <div class="apartado">
+    <h2 id="c3-1"><span class="n">3.1</span>Tablas</h2>
+    <p>Cada columna se delimita con una barra vertical (<code>|</code>) y, debajo de la cabecera, se escribe una fila de guiones que la separa del cuerpo. Los dos puntos de esa fila controlan la alineación: <code>:---</code> a la izquierda, <code>:---:</code> centrada y <code>---:</code> a la derecha.</p>
+    <div class="ej st">
+      <div class="in"><span class="k">Lo que escribes</span><pre><b>|</b> Tienda   <b>|</b> Centro <b>|</b> Ventas (€) <b>|</b>
+<b>| :------- | :----: | ---------: |</b>
+<b>|</b> Madrid   <b>|</b>  T03   <b>|</b>    173.199 <b>|</b>
+<b>|</b> Online   <b>|</b>  T08   <b>|</b>    167.705 <b>|</b>
+<b>|</b> Bilbao   <b>|</b>  T05   <b>|</b>     97.912 <b>|</b></pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r"><table>
+        <thead><tr><th>Tienda</th><th class="c">Centro</th><th class="d">Ventas (€)</th></tr></thead>
+        <tbody><tr><td>Madrid</td><td class="c">T03</td><td class="d">173.199</td></tr>
+        <tr><td>Online</td><td class="c">T08</td><td class="d">167.705</td></tr>
+        <tr><td>Bilbao</td><td class="c">T05</td><td class="d">97.912</td></tr></tbody></table></div></div>
+    </div>
+    <div class="co consejo">
+      <span class="k">[ Consejo ]</span>
+      <p>El código de una tabla no necesita estar alineado para que funcione; igualar el ancho de las columnas solo mejora la lectura del archivo. Casi cualquier editor puede ajustarlas por sí solo, de modo que no merece la pena hacerlo a mano.</p>
+    </div>
+    <p><strong>Límites de las celdas.</strong> Si una celda debe contener una barra vertical, se escribe <code>\|</code>. Tampoco admiten saltos de línea auténticos ni bloques de código con cerca; para varias líneas se recurre a <code>&lt;br&gt;</code>.</p>
+    <div class="ej st">
+      <div class="in"><span class="k">Lo que escribes</span><pre><b>|</b> Concepto       <b>|</b> Tratamiento        <b>|</b>
+<b>| :------------- | :------------------ |</b>
+<b>|</b> `4.2 <b>\|</b> 4.3`    <b>|</b> Ajuste o tránsito   <b>|</b>
+<b>|</b> Limpieza (sep.) <b>|</b> Se imputa&lt;br&gt;a septiembre <b>|</b></pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r"><table>
+        <thead><tr><th>Concepto</th><th>Tratamiento</th></tr></thead>
+        <tbody><tr><td><code>4.2 | 4.3</code></td><td>Ajuste o tránsito</td></tr>
+        <tr><td>Limpieza (sep.)</td><td>Se imputa<br>a septiembre</td></tr></tbody></table></div></div>
+    </div>
+  </div>
+
+  <!-- 3.2 -->
+  <div class="apartado">
+    <h2 id="c3-2"><span class="n">3.2</span>Texto tachado</h2>
+    <p>El texto tachado se consigue encerrándolo entre dobles virgulillas (<code>~~</code>). Sirve para señalar una cifra o una frase que ha sido sustituida sin eliminar lo anterior.</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre>Saldo contable:
+<b>~~</b>373.614,27 €<b>~~</b> 379.816,77 €
+tras los ajustes.</pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r"><p>Saldo contable: <span class="tachado">373.614,27 €</span> 379.816,77 € tras los ajustes.</p></div></div>
+    </div>
+  </div>
+
+  <!-- 3.3 -->
+  <div class="apartado">
+    <h2 id="c3-3"><span class="n">3.3</span>Listas de tareas</h2>
+    <p>Sirven para seguir el estado de las tareas. Se escriben como una lista corriente cuyos elementos comienzan con <code>[ ]</code> cuando la tarea está pendiente o con <code>[x]</code> cuando está hecha.</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre><b>- [x]</b> Descargar el extracto
+<b>- [ ]</b> Conciliar con el mayor
+<b>- [ ]</b> Redactar el memorándum</pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r"><ul class="tarea">
+        <li class="on">Descargar el extracto</li><li>Conciliar con el mayor</li><li>Redactar el memorándum</li></ul></div></div>
+    </div>
+    <div class="co nota">
+      <span class="k">[ Nota ]</span>
+      <p>Las casillas son una función de GFM. GitHub y GitLab las muestran como casillas en las que se puede hacer clic; un procesador que solo siga CommonMark, o ciertos editores, enseñan el texto sin transformar. Con las notas al pie, las alertas y los emojis en forma de <em>shortcode</em> de este capítulo sucede lo mismo: su resultado depende del procesador.</p>
+    </div>
+  </div>
+
+  <!-- 3.4 -->
+  <div class="apartado">
+    <h2 id="c3-4"><span class="n">3.4</span>Autoenlaces, menciones y referencias</h2>
+    <p>GFM incorpora atajos que, en GitHub, enlazan por sí solos con personas y con elementos del repositorio:</p>
+    <ul class="lm">
+      <li><code>@usuario</code> cita a una persona o a una organización y le envía un aviso.</li>
+      <li><code>#123</code> lleva a la incidencia o a la solicitud de cambios con ese número dentro del mismo repositorio.</li>
+      <li><code>propietario/repo#123</code> apunta a un elemento de otro repositorio.</li>
+    </ul>
+    <p>Las direcciones web escritas sin más se transforman en enlaces, sin necesidad de la sintaxis <code>[ ]( )</code>.</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre>Revisado por <b>@</b>tesoreria;
+véanse <b>#</b>42 y
+finanzas/cierre<b>#</b>7.
+Detalle en
+https://example.com.</pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r"><p>Revisado por <a href="#c3-4">@tesoreria</a>; véanse <a href="#c3-4">#42</a> y <a href="#c3-4">finanzas/cierre#7</a>. Detalle en <a href="https://example.com">https://example.com</a>.</p></div></div>
+    </div>
+  </div>
+
+  <!-- 3.5 -->
+  <div class="apartado">
+    <h2 id="c3-5"><span class="n">3.5</span>Emojis</h2>
+    <p>Un emoji puede escribirse con su <em>shortcode</em>, que es su nombre entre dos signos de dos puntos, o pegando el propio carácter Unicode. Este apartado se limita a explicar el mecanismo; en un documento profesional conviene emplearlos con mucha moderación.</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre>Informe listo <b>:rocket:</b></pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r"><p>Informe listo <span style="font-family:'Segoe UI Emoji','Apple Color Emoji','Noto Color Emoji',sans-serif">&#x1F680;</span></p></div></div>
+    </div>
+    <div class="co consejo">
+      <span class="k">[ Consejo ]</span>
+      <p>Un <em>shortcode</em> como <code>:rocket:</code> solo se transforma donde existe el diccionario correspondiente (GitHub, GitLab, Slack...). El carácter Unicode, en cambio, se muestra igual en casi cualquier sitio, de modo que es la opción más portable.</p>
+    </div>
+  </div>
+
+  <!-- 3.6 -->
+  <div class="apartado">
+    <h2 id="c3-6"><span class="n">3.6</span>Notas al pie</h2>
+    <p>Una nota al pie añade una aclaración o una fuente sin cortar la lectura. Se compone de una marca dentro del texto y de su definición, que suele situarse al final del archivo.</p>
+    <div class="ej st">
+      <div class="in"><span class="k">Lo que escribes</span><pre>El margen bruto se mantiene en el 60,1 %.<b>[^1]</b>
+
+<b>[^1]:</b> Margen bruto sobre ventas, frente a octubre de 2025.</pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r"><p>El margen bruto se mantiene en el 60,1 %.<sup class="fn">1</sup></p><div class="pie-nota"><sup class="fn">1</sup> Margen bruto sobre ventas, frente a octubre de 2025.</div></div></div>
+    </div>
+    <div class="co nota">
+      <span class="k">[ Nota ]</span>
+      <p>Aunque la definición esté escrita en mitad del documento, GitHub traslada la nota al final y añade un pequeño enlace para regresar al punto donde se citó. El lugar donde se escriba la definición en el código fuente no cambia el lugar en que se muestra.</p>
+    </div>
+  </div>
+
+  <!-- 3.7 -->
+  <div class="apartado">
+    <h2 id="c3-7"><span class="n">3.7</span>Alertas</h2>
+    <p>Una alerta destaca un mensaje dentro del texto. En GitHub es una cita cuya primera línea lleva un marcador especial; cada alerta es una cita independiente y se separa de la siguiente con una línea en blanco. Hay cinco tipos y su aspecto depende de la plataforma: los avisos de esta guía son una versión propia de ellas.</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre><b>&gt; [!NOTE]</b>
+<b>&gt;</b> Información de contexto.
+
+<b>&gt; [!TIP]</b>
+<b>&gt;</b> Una forma mejor de hacerlo.
+
+<b>&gt; [!IMPORTANT]</b>
+<b>&gt;</b> Información clave.
+
+<b>&gt; [!WARNING]</b>
+<b>&gt;</b> Algo que exige atención.
+
+<b>&gt; [!CAUTION]</b>
+<b>&gt;</b> Riesgos de una acción.</pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r minico">
+        <div class="co nota"><span class="k">[ Nota ]</span><p>Información de contexto.</p></div>
+        <div class="co consejo"><span class="k">[ Consejo ]</span><p>Una forma mejor de hacerlo.</p></div>
+        <div class="co importante"><span class="k">[ Importante ]</span><p>Información clave.</p></div>
+        <div class="co aviso"><span class="k">[ Aviso ]</span><p>Algo que exige atención.</p></div>
+        <div class="co precaucion"><span class="k">[ Precaución ]</span><p>Riesgos de una acción.</p></div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- 3.8 -->
+  <div class="apartado">
+    <h2 id="c3-8"><span class="n">3.8</span>Secciones plegables</h2>
+    <p>La etiqueta HTML <code>&lt;details&gt;</code> produce un bloque que se despliega y se pliega con un clic, adecuado para esconder contenido extenso: registros, soluciones o detalles opcionales.</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre>&lt;details&gt;
+&lt;summary&gt;Ver el detalle&lt;/summary&gt;
+
+El contenido oculto puede
+escribirse con <b>**</b>Markdown<b>**</b>:
+
+<b>-</b> Partida en tránsito
+<b>-</b> Ajuste de comisión
+
+&lt;/details&gt;</pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r"><details open><summary>Ver el detalle</summary><div class="cuerpo"><p>El contenido oculto puede escribirse con <strong>Markdown</strong>:</p><ul><li>Partida en tránsito</li><li>Ajuste de comisión</li></ul></div></details></div></div>
+    </div>
+    <div class="co nota">
+      <span class="k">[ Nota ]</span>
+      <p>Tras <code>&lt;/summary&gt;</code> debe haber una línea vacía; si no, el Markdown del interior no se procesa bien.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════ 4 · CONTENIDO AVANZADO ═════════════ -->
+<section class="cap p4" id="cap4">
+  <header class="cap-head">
+    <span class="kicker">[ Capítulo 04 ]</span>
+    <h1 class="display">Contenido avanzado</h1>
+    <p class="lead">Fórmulas, diagramas y metadatos: contenido enriquecido que depende del procesador.</p>
+  </header>
+
+  <p>Algunas plataformas amplían Markdown con elementos que van más allá del texto. Los tres de este capítulo no pertenecen a CommonMark, por lo que conviene confirmar que el entorno de destino los admite antes de apoyarse en ellos.</p>
+
+  <!-- 4.1 -->
+  <div class="apartado">
+    <h2 id="c4-1"><span class="n">4.1</span>Matemáticas con LaTeX</h2>
+    <p>Varios procesadores, entre ellos GitHub, representan fórmulas escritas en LaTeX. Una fórmula dentro de una frase va entre dos signos de dólar (<code>$</code>); una fórmula en su propia línea, entre dobles (<code>$$</code>).</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre>El margen bruto es <b>$</b>M = V - C<b>$</b> y su
+porcentaje se calcula así:
+
+<b>$$</b>
+\text{Margen} =
+\frac{V - C}{V} \times 100
+<b>$$</b></pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r"><p>El margen bruto es <span class="math"><i>M</i> = <i>V</i> − <i>C</i></span> y su porcentaje se calcula así:</p>
+        <p class="centrado math">Margen = <span class="frac"><span><i>V</i> − <i>C</i></span><span><i>V</i></span></span> × 100</p></div></div>
+    </div>
+    <div class="co precaucion">
+      <span class="k">[ Precaución ]</span>
+      <p>Como el signo de dólar delimita las fórmulas, un texto como <code>importe de $5 y $10</code> puede interpretarse como una fórmula y mostrarse deformado. Si el documento contiene importes en esa divisa, hay que escapar el signo (<code>\$5</code>).</p>
+    </div>
+  </div>
+
+  <!-- 4.2 -->
+  <div class="apartado">
+    <h2 id="c4-2"><span class="n">4.2</span>Diagramas con Mermaid</h2>
+    <p>Mermaid es una biblioteca que dibuja diagramas a partir de una descripción escrita; GitHub y otras plataformas la incluyen. La descripción se coloca en un bloque con cerca cuyo lenguaje es <code>mermaid</code>. El ejemplo recoge el criterio de conciliación del caso práctico del módulo: qué ocurre con cada partida del extracto.</p>
+    <div class="ej st libre">
+      <div class="in"><span class="k">Lo que escribes</span><pre><b>```</b>mermaid
+flowchart TD
+    A[Extracto bancario] <b>--&gt;</b> B{¿Coincide con el mayor?}
+    B <b>--&gt;|</b>Sí<b>|</b> C[Partida conciliada]
+    B <b>--&gt;|</b>No<b>|</b> D[Partida pendiente]
+    D <b>--&gt;</b> E{¿Solo está en el banco?}
+    E <b>--&gt;|</b>Sí<b>|</b> F[Asiento de ajuste]
+    E <b>--&gt;|</b>No<b>|</b> G[Partida en tránsito]
+    C <b>--&gt;</b> H[Memorándum]
+    F <b>--&gt;</b> H
+    G <b>--&gt;</b> H
+<b>```</b></pre></div>
+      <div class="out"><span class="k">Lo que se ve</span>
+        <figure class="fig mm" style="margin:0">
+          <svg viewBox="0 0 720 460" role="img" aria-label="Diagrama de flujo de la conciliación. Del extracto bancario se pasa a la pregunta: ¿coincide con el mayor? Si es que sí, la partida queda conciliada. Si es que no, queda pendiente y se pregunta: ¿solo está en el banco? Si es que sí, se hace un asiento de ajuste. Si es que no, es una partida en tránsito. La partida conciliada, el asiento de ajuste y la partida en tránsito desembocan en el memorándum.">
+            <defs><marker id="fl2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#0a0a0b"/></marker></defs>
+            <rect class="bx" x="260" y="10" width="200" height="40" rx="6"/>
+            <text class="lb b" x="360" y="35" text-anchor="middle">Extracto bancario</text>
+            <line class="ln" x1="360" y1="50" x2="360" y2="82" marker-end="url(#fl2)"/>
+            <polygon class="fl" points="235,125 360,83 485,125 360,167"/>
+            <text class="lb b" x="360" y="121" text-anchor="middle">¿Coincide con</text>
+            <text class="lb b" x="360" y="139" text-anchor="middle">el mayor?</text>
+            <polyline class="ln" points="235,125 140,125 140,212" marker-end="url(#fl2)"/>
+            <text class="lb s" x="188" y="116" text-anchor="middle">Sí</text>
+            <polyline class="ln" points="485,125 580,125 580,212" marker-end="url(#fl2)"/>
+            <text class="lb s" x="532" y="116" text-anchor="middle">No</text>
+            <rect class="bx" x="40" y="215" width="200" height="40" rx="6"/>
+            <text class="lb b" x="140" y="240" text-anchor="middle">Partida conciliada</text>
+            <rect class="bx" x="480" y="215" width="200" height="40" rx="6"/>
+            <text class="lb b" x="580" y="240" text-anchor="middle">Partida pendiente</text>
+            <line class="ln" x1="580" y1="255" x2="580" y2="277" marker-end="url(#fl2)"/>
+            <polygon class="fl" points="450,320 580,278 710,320 580,362"/>
+            <text class="lb b" x="580" y="316" text-anchor="middle">¿Solo está en</text>
+            <text class="lb b" x="580" y="334" text-anchor="middle">el banco?</text>
+            <line class="ln" x1="450" y1="320" x2="402" y2="320" marker-end="url(#fl2)"/>
+            <text class="lb s" x="426" y="311" text-anchor="middle">Sí</text>
+            <line class="ln" x1="580" y1="362" x2="580" y2="398" marker-end="url(#fl2)"/>
+            <text class="lb s" x="594" y="384" text-anchor="start">No</text>
+            <rect class="bx" x="230" y="300" width="170" height="40" rx="6"/>
+            <text class="lb b" x="315" y="325" text-anchor="middle">Asiento de ajuste</text>
+            <rect class="bx" x="480" y="400" width="200" height="40" rx="6"/>
+            <text class="lb b" x="580" y="425" text-anchor="middle">Partida en tránsito</text>
+            <rect class="fi" x="250" y="400" width="200" height="40" rx="6"/>
+            <text class="lb b w" x="350" y="425" text-anchor="middle">Memorándum</text>
+            <polyline class="ln" points="140,255 140,420 248,420" marker-end="url(#fl2)"/>
+            <line class="ln" x1="315" y1="340" x2="315" y2="398" marker-end="url(#fl2)"/>
+            <line class="ln" x1="480" y1="420" x2="452" y2="420" marker-end="url(#fl2)"/>
+          </svg>
+        </figure>
+      </div>
+    </div>
+    <p>Además del diagrama de flujo, Mermaid dibuja diagramas entidad-relación, de estados, de clases, de Gantt y de secuencia, entre otros. El aspecto exacto depende del procesador; el dibujo de esta página reproduce el mismo flujo con el estilo de la guía.</p>
+  </div>
+
+  <!-- 4.3 -->
+  <div class="apartado">
+    <h2 id="c4-3"><span class="n">4.3</span>Front matter (metadatos YAML)</h2>
+    <p>El <em>front matter</em> es un bloque de metadatos escrito en YAML, entre dos líneas de tres guiones, que se coloca al principio del archivo. Lo leen generadores de sitios como Jekyll, Hugo o Astro y muchos gestores de notas; no forma parte del texto visible y sirve para registrar el título, la fecha, las etiquetas u otros datos del documento.</p>
+    <div class="ej">
+      <div class="in"><span class="k">Lo que escribes</span><pre><b>---</b>
+titulo: Memorándum de cierre
+fecha: 2026-11-09
+etiquetas: [finanzas, cierre]
+borrador: false
+<b>---</b>
+<b>#</b> El contenido empieza aquí</pre></div>
+      <div class="out"><span class="k">Lo que se ve</span><div class="r"><div class="mh mh1 g">El contenido empieza aquí</div><p class="nada">El bloque de metadatos no se muestra</p></div></div>
+    </div>
+    <div class="co importante">
+      <span class="k">[ Importante ]</span>
+      <p>El front matter es el mismo mecanismo que usan los archivos <code>SKILL.md</code> y los agentes de Claude, que lo leen para saber cómo se llama cada pieza y cuándo debe usarse. El capítulo 9 explica sus reglas y sus errores más frecuentes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════ 5 · BUENAS PRÁCTICAS Y ERRORES COMUNES ═════════════ -->
+<section class="cap p5" id="cap5">
+  <header class="cap-head">
+    <span class="kicker">[ Capítulo 05 ]</span>
+    <h1 class="display">Buenas prácticas y errores comunes</h1>
+    <p class="lead">Hábitos que previenen los fallos más habituales y un repertorio de errores con su causa y su corrección.</p>
+  </header>
+
+  <div class="apartado">
+    <h2 id="c5-1"><span class="n">5.1</span>Hábitos recomendados</h2>
+    <ol class="hab">
+      <li><strong>Una oración por línea</strong><span>En los archivos que se versionan con Git, escribir una oración en cada línea hace que los cambios se lean mejor al compararlos. Como Markdown junta las líneas contiguas de un párrafo, el resultado visible no varía.</span></li>
+      <li><strong>Espacio alrededor de los bloques</strong><span>Los títulos, las listas, las citas, las tablas y los bloques de código funcionan con más fiabilidad cuando tienen una línea vacía por encima y otra por debajo.</span></li>
+      <li><strong>Sangría uniforme</strong><span>Se elige una medida, de dos o de cuatro espacios, y se mantiene en todo el archivo. Los tabuladores se evitan porque cada procesador los trata de un modo distinto.</span></li>
+      <li><strong>Texto alternativo en todas las imágenes</strong><span>La descripción va entre los corchetes de <code>![ ]</code>: ayuda a quien usa un lector de pantalla y se muestra cuando el archivo gráfico no se encuentra.</span></li>
+      <li><strong>HTML solo cuando es imprescindible</strong><span>Se reserva para lo que Markdown no puede expresar, sabiendo que ciertos entornos lo descartan.</span></li>
+      <li><strong>Símbolos que se interpretan sin querer</strong><span>Cuando un <code>*</code>, un <code>_</code> o un <code>#</code> no se ve como se esperaba, lo normal es que el procesador lo haya tomado por una instrucción; una barra invertida (<code>\</code>) lo corrige.</span></li>
+      <li><strong>Comprobar en el destino</strong><span>Un mismo archivo se muestra de forma diferente según dónde se abra: GitHub, un editor o una página web. Antes de darlo por bueno, se revisa en el sitio donde se va a leer.</span></li>
+    </ol>
+  </div>
+
+  <div class="apartado">
+    <h2 id="c5-2"><span class="n">5.2</span>Errores frecuentes y su causa</h2>
+    <p>La mayoría de los fallos de formato se reconocen por su síntoma. Esta tabla permite ir del efecto visible a su causa más probable y a la corrección.</p>
+    <div class="tbl larga mono1">
+      <table>
+        <thead><tr><th style="width:30%">Síntoma</th><th style="width:36%">Causa probable</th><th>Corrección</th></tr></thead>
+        <tbody>
+          <tr><td>El título no se convierte en encabezado</td><td>Falta el espacio tras las almohadillas: <code>#Título</code></td><td>Escribir <code># Título</code></td></tr>
+          <tr><td>La lista aparece como un párrafo corrido</td><td>Falta la línea en blanco previa a la lista</td><td>Dejar una línea en blanco antes y después</td></tr>
+          <tr><td>Aparece cursiva donde no debía</td><td>Asteriscos sueltos en el texto, como en <code>3*5*2</code></td><td>Escapar con barra invertida (<code>3\*5\*2</code>) o usar código en línea</td></tr>
+          <tr><td>La tabla se ve como texto con barras</td><td>Falta la línea de guiones bajo la cabecera, o la línea en blanco previa</td><td>Añadir <code>| --- | --- |</code> y separar la tabla del párrafo anterior</td></tr>
+          <tr><td>El texto de arriba se convierte en título</td><td>Una línea de guiones o de signos igual pegada al texto</td><td>Dejar una línea en blanco antes de <code>---</code></td></tr>
+          <tr><td>El contenido anidado sale de la lista</td><td>Sangría insuficiente</td><td>Alinear con el texto del elemento: dos espacios tras <code>-</code>, tres tras <code>1.</code></td></tr>
+          <tr><td>El salto de línea ha desaparecido</td><td>Los dos espacios finales se eliminaron al guardar</td><td>Usar <code>&lt;br&gt;</code> o una barra invertida al final de la línea</td></tr>
+          <tr><td>La imagen no se ve</td><td>Ruta incorrecta respecto al documento</td><td>Revisar la ruta y comprobar que el archivo existe</td></tr>
+          <tr><td>Un importe con <code>$</code> se deforma</td><td>Se interpreta como fórmula LaTeX</td><td>Escapar el signo: <code>\$5</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════ 6 · HOJA DE TRUCOS ═════════════ -->
+<section class="cap p6" id="cap6">
+  <header class="cap-head">
+    <span class="kicker">[ Capítulo 06 ]</span>
+    <h1 class="display">Hoja de trucos</h1>
+    <p class="lead">La sintaxis completa en dos tablas, para consultarla de un vistazo.</p>
+  </header>
+
+  <span class="sub-k">Clásico (CommonMark)</span>
+  <div class="tbl hoja" id="c6-1">
+    <table>
+      <thead><tr><th style="width:36%">Elemento</th><th>Sintaxis</th></tr></thead>
+      <tbody>
+        <tr><td>Encabezados</td><td><code># H1</code> … <code>###### H6</code></td></tr>
+        <tr><td>Negrita</td><td><code>**texto**</code></td></tr>
+        <tr><td>Cursiva</td><td><code>*texto*</code></td></tr>
+        <tr><td>Negrita y cursiva</td><td><code>***texto***</code></td></tr>
+        <tr><td>Regla horizontal</td><td><code>---</code> · <code>***</code> · <code>___</code></td></tr>
+        <tr><td>Lista no ordenada</td><td><code>- elemento</code> (o <code>*</code> / <code>+</code>)</td></tr>
+        <tr><td>Lista ordenada</td><td><code>1. elemento</code></td></tr>
+        <tr><td>Enlace</td><td><code>[texto](url)</code></td></tr>
+        <tr><td>Enlace automático</td><td><code>&lt;url&gt;</code></td></tr>
+        <tr><td>Imagen</td><td><code>![alt](url)</code></td></tr>
+        <tr><td>Cita</td><td><code>&gt; texto</code></td></tr>
+        <tr><td>Código en línea</td><td><code>`código`</code></td></tr>
+        <tr><td>Bloque de código</td><td><code>```lenguaje</code> … <code>```</code></td></tr>
+        <tr><td>Escape</td><td><code>\*</code> · <code>\#</code> · …</td></tr>
+        <tr><td>HTML</td><td>Se incrusta directamente</td></tr>
+        <tr><td>Comentario</td><td><code>&lt;!-- no se muestra --&gt;</code></td></tr>
+        <tr><td>Salto de línea</td><td>Dos espacios al final, <code>&lt;br&gt;</code> o <code>\</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <span class="sub-k">GitHub (GFM) y contenido avanzado</span>
+  <div class="tbl hoja" id="c6-2">
+    <table>
+      <thead><tr><th style="width:36%">Elemento</th><th>Sintaxis</th></tr></thead>
+      <tbody>
+        <tr><td>Tabla</td><td><code>| Col | Col |</code> + <code>| --- | --- |</code></td></tr>
+        <tr><td>Alineación de tabla</td><td><code>:---</code> izquierda · <code>:---:</code> centro · <code>---:</code> derecha</td></tr>
+        <tr><td>Tachado</td><td><code>~~texto~~</code></td></tr>
+        <tr><td>Lista de tareas</td><td><code>- [x] hecha</code> · <code>- [ ] pendiente</code></td></tr>
+        <tr><td>Mención</td><td><code>@usuario</code></td></tr>
+        <tr><td>Referencia</td><td><code>#123</code> · <code>propietario/repo#123</code></td></tr>
+        <tr><td>Emoji</td><td><code>:rocket:</code> o el carácter Unicode</td></tr>
+        <tr><td>Nota al pie</td><td><code>texto[^1]</code> + <code>[^1]: definición</code></td></tr>
+        <tr><td>Alerta</td><td><code>&gt; [!NOTE]</code> · <code>TIP</code> · <code>IMPORTANT</code> · <code>WARNING</code> · <code>CAUTION</code></td></tr>
+        <tr><td>Sección plegable</td><td><code>&lt;details&gt;&lt;summary&gt;…&lt;/summary&gt;…&lt;/details&gt;</code></td></tr>
+        <tr><td>Matemáticas</td><td><code>$en línea$</code> · <code>$$en bloque$$</code></td></tr>
+        <tr><td>Diagrama</td><td><code>```mermaid</code> … <code>```</code></td></tr>
+        <tr><td>Front matter</td><td><code>---</code> + metadatos YAML + <code>---</code> al comienzo del archivo</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═════════════ 7 · EDITORES Y HERRAMIENTAS ═════════════ -->
+<section class="cap p7" id="cap7">
+  <header class="cap-head">
+    <span class="kicker">[ Capítulo 07 ]</span>
+    <h1 class="display">Editores y herramientas</h1>
+    <p class="lead">Markdown puede escribirse en cualquier editor de texto; estas herramientas añaden vista previa y comodidades específicas.</p>
+  </header>
+
+  <div class="tbl">
+    <table>
+      <thead><tr><th style="width:22%">Herramienta</th><th style="width:44%">Qué ofrece</th><th>Cuándo conviene</th></tr></thead>
+      <tbody>
+        <tr><td>Visual Studio Code</td><td>Muestra la vista previa dentro del propio editor (<code style="white-space:nowrap">Ctrl/Cmd + Shift + V</code>) y se amplía con extensiones de revisión y formato. <a href="https://code.visualstudio.com">code.visualstudio.com</a></td><td>Documentación de proyectos y archivos de configuración, en un entorno técnico.</td></tr>
+        <tr><td>Obsidian</td><td>Organiza notas guardadas como archivos <code>.md</code> y permite enlazar unas con otras. <a href="https://obsidian.md">obsidian.md</a></td><td>Una base de conocimiento con muchas notas relacionadas entre sí.</td></tr>
+        <tr><td>Typora</td><td>Editor minimalista que muestra el formato mientras se escribe, sin separar el código de la vista previa. <a href="https://typora.io">typora.io</a></td><td>Quien prefiere ver el resultado y no los símbolos.</td></tr>
+        <tr><td>iA Writer</td><td>Editor de interfaz muy sobria, pensado para escribir sin interrupciones. <a href="https://ia.net/writer">ia.net/writer</a></td><td>Textos largos que exigen concentración.</td></tr>
+        <tr><td>StackEdit y Dillinger</td><td>Funcionan desde el navegador, sin instalar ningún programa.</td><td>Pruebas rápidas, o equipos en los que no se pueden instalar programas.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Validación y formato automáticos</h3>
+  <p>Para revisar y dar formato de manera automática existen herramientas como <strong>markdownlint</strong> y <strong>Prettier</strong>, que mantienen un estilo uniforme cuando varias personas escriben en el mismo proyecto. Controlan, por ejemplo, la sangría, las líneas en blanco alrededor de los bloques y la jerarquía de los encabezados. También puede pedirse a Claude que revise un archivo Markdown y señale los errores de sintaxis o de estructura; el capítulo 9 explica qué archivos de Claude están escritos en este formato.</p>
+
+  <h3>Cómo elegir</h3>
+  <ul class="lm">
+    <li>Si solo se va a escribir de vez en cuando, un editor en el navegador es suficiente.</li>
+    <li>Si se trabaja con muchas notas enlazadas entre sí, un gestor de notas como Obsidian resulta más cómodo.</li>
+    <li>Si hay proyectos con control de versiones, un editor de código con un validador evita errores antes de publicar.</li>
+  </ul>
+
+</section>
+
+<!-- ═════════════ 8 · PARA SEGUIR APRENDIENDO ═════════════ -->
+<section class="cap p8" id="cap8">
+  <header class="cap-head">
+    <span class="kicker">[ Capítulo 08 ]</span>
+    <h1 class="display">Para seguir aprendiendo</h1>
+    <p class="lead">Las fuentes de referencia y un ejercicio de repaso antes de pasar a los archivos de Claude.</p>
+  </header>
+
+  <div class="def">
+    <div class="row"><h3 class="t">Especificación de CommonMark<small>Referencia</small></h3><p class="d">Define con precisión el comportamiento de la sintaxis básica. <a href="https://commonmark.org">commonmark.org</a></p></div>
+    <div class="row"><h3 class="t">Tutorial interactivo<small>Práctica</small></h3><p class="d">Ejercicios breves en el navegador para comprobar cada elemento. <a href="https://commonmark.org/help/">commonmark.org/help</a></p></div>
+    <div class="row"><h3 class="t">Guía de GitHub<small>Referencia</small></h3><p class="d">Escritura y formato en GitHub: GFM, alertas, notas al pie y más. <a href="https://docs.github.com/get-started/writing-on-github">docs.github.com/get-started/writing-on-github</a></p></div>
+    <div class="row"><h3 class="t">Documentación de Mermaid<small>Referencia</small></h3><p class="d">Tipos de diagrama y su sintaxis. <a href="https://mermaid.js.org">mermaid.js.org</a></p></div>
+  </div>
+
+  <h3>Ejercicio de repaso</h3>
+  <p>Este texto está en plano. Se propone convertirlo a Markdown: un título de nivel 1, las cifras en negrita, una lista con las tres tiendas que más crecen, una cita con la tienda que cae y una tabla con las variaciones de Online y de Bilbao.</p>
+  <div class="co nota" style="margin-bottom:2mm">
+    <span class="k">[ Texto de partida ]</span>
+    <p>Resumen de octubre. Ventas: 1.083.815 €, un 5,2 % más que en octubre de 2025. Las tiendas que más crecen son Online (+16,6 %), Lisboa (+14,6 %) y Sevilla (+5,1 %). La única tienda que cae es Bilbao (−3,4 %).</p>
+  </div>
+  <h3>Solución</h3>
+  <div class="ej">
+    <div class="in"><span class="k">Lo que escribes</span><pre><b>#</b> Resumen de octubre
+
+Ventas: <b>**</b>1.083.815 €<b>**</b>, un
+<b>**</b>5,2 %<b>**</b> más que en octubre
+de 2025.
+
+Tiendas que más crecen:
+
+<b>-</b> Online (+16,6 %)
+<b>-</b> Lisboa (+14,6 %)
+<b>-</b> Sevilla (+5,1 %)
+
+<b>&gt;</b> La única tienda que cae es
+<b>&gt;</b> Bilbao.
+
+<b>| Tienda | Variación |</b>
+<b>| :----- | --------: |</b>
+<b>|</b> Online <b>|</b>  +16,6 % <b>|</b>
+<b>|</b> Bilbao <b>|</b>   −3,4 % <b>|</b></pre></div>
+    <div class="out"><span class="k">Lo que se ve</span><div class="r">
+      <div class="mh mh1 g">Resumen de octubre</div>
+      <p>Ventas: <strong>1.083.815 €</strong>, un <strong>5,2 %</strong> más que en octubre de 2025.</p>
+      <p>Tiendas que más crecen:</p>
+      <ul><li>Online (+16,6 %)</li><li>Lisboa (+14,6 %)</li><li>Sevilla (+5,1 %)</li></ul>
+      <blockquote><p>La única tienda que cae es Bilbao.</p></blockquote>
+      <table><thead><tr><th>Tienda</th><th class="d">Variación</th></tr></thead>
+      <tbody><tr><td>Online</td><td class="d">+16,6 %</td></tr><tr><td>Bilbao</td><td class="d">−3,4 %</td></tr></tbody></table>
+    </div></div>
+  </div>
+</section>
+
+<!-- ═════════════ 9 · MARKDOWN PARA CLAUDE ═════════════ -->
+<section class="cap p9" id="cap9">
+  <header class="apertura">
+    <span class="kicker">[ Capítulo 09 ]</span>
+    <h1 class="display">Markdown para <em>Claude</em></h1>
+    <p class="lead">Por qué Claude trabaja en Markdown y cómo se escriben los archivos con los que se le configura: instrucciones, skills y agentes.</p>
+  </header>
+
+  <!-- 9.1 -->
+  <div class="apartado">
+    <h2 id="c9-1"><span class="n">9.1</span>Por qué Claude trabaja en Markdown</h2>
+    <p>Markdown es el idioma común entre las personas y Claude por tres razones. La primera es que las respuestas de Claude suelen llegar en Markdown (títulos, listas, tablas y bloques de código) y la interfaz las maqueta; escribir en Markdown permite, a la inversa, indicar con precisión la estructura que se espera. La segunda, que un texto con estructura explícita suele ser más fácil de seguir, para una persona y para un modelo, que un párrafo sin marcas. La tercera, que las piezas con las que se configura a Claude son archivos de texto en Markdown, muchas veces con una cabecera YAML, y por eso pueden leerse, revisarse, compartirse y versionarse como cualquier otro documento.</p>
+
+    <div class="co analogia">
+      <span class="k">[ Analogía ]</span>
+      <p>Cuando un colaborador se incorpora a la empresa recibe tres cosas por escrito: las normas de la casa, los manuales de cada procedimiento y la ficha de su puesto. Con Claude ocurre algo parecido: <code>CLAUDE.md</code> son las normas de la casa, <code>SKILL.md</code> es el manual de un procedimiento y el archivo de un agente es la ficha de un especialista.</p>
+    </div>
+
+    <div class="tbl">
+      <table>
+        <thead><tr><th style="width:22%">Archivo</th><th style="width:40%">Para qué sirve</th><th>Dónde vive</th></tr></thead>
+        <tbody>
+          <tr><td><code>CLAUDE.md</code></td><td>Las normas de la casa: instrucciones que Claude Code lee al empezar cada sesión.</td><td><code>./CLAUDE.md</code> en el proyecto o <code>~/.claude/CLAUDE.md</code> en la carpeta del usuario.</td></tr>
+          <tr><td><code>AGENTS.md</code></td><td>Alternativa a <code>CLAUDE.md</code>: si este no existe, Claude Code lee <code>AGENTS.md</code>.</td><td>En el proyecto.</td></tr>
+          <tr><td><code>SKILL.md</code></td><td>El manual de un procedimiento: qué hace una skill y cómo se ejecuta.</td><td>En la carpeta de la skill, que se sube como ZIP en «Personalización» › «Skills» o forma parte de un plugin (<code>skills/&lt;nombre&gt;/</code>).</td></tr>
+          <tr><td>Archivo de agente</td><td>La ficha de un especialista: su encargo, sus herramientas y su modelo.</td><td><code>.claude/agents/</code>, <code>~/.claude/agents/</code> o <code>agents/</code> dentro de un plugin.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Pedirle a Claude la estructura que se necesita</h3>
+    <p>No hace falta escribir Markdown para obtenerlo: basta con pedir la estructura. Cuanto más concreta sea la petición, más cerca estará el resultado de lo que se busca.</p>
+    <div class="code">
+      <div class="ch"><span class="k">Ejemplo de petición</span><span class="e">Prompt</span></div>
+      <pre>Resume las ventas de octubre por tienda en una tabla con las columnas
+Tienda, Ventas (€) y Variación, ordenada de mayor a menor variación.
+Después, añade tres frases con las conclusiones.</pre>
+    </div>
+  </div>
+
+  <!-- 9.2 -->
+  <div class="apartado">
+    <h2 id="c9-2"><span class="n">9.2</span>Instrucciones y CLAUDE.md</h2>
+    <p>Las instrucciones son el texto que Claude lee antes de empezar a trabajar. En la app hay varias capas, de lo general a lo concreto: las instrucciones de la cuenta, las «Instrucciones globales» de Cowork, las del proyecto, las de una carpeta y, por último, el prompt de cada tarea. Todas son texto libre y todas se benefician de la misma disciplina: frases cortas, listas y títulos claros.</p>
+    <p>En Claude Code, la pestaña «Code» de la app destinada a equipos técnicos, el equivalente es el archivo <code>CLAUDE.md</code>. Puede haber uno en el proyecto y otro personal en la carpeta del usuario. El comando <code>/init</code> genera uno a partir del proyecto y <code>/memory</code> permite editarlo.</p>
+    <div class="code">
+      <div class="ch"><span class="k">CLAUDE.md</span><span class="e">Ejemplo breve</span></div>
+      <pre><b>#</b> Cierre mensual · instrucciones para Claude
+
+<b>##</b> Contexto
+Empresa de calzado y marroquinería con siete tiendas y canal online.
+Los datos de esta carpeta son sintéticos y sirven para practicar.
+
+<b>##</b> Cómo escribir
+<b>-</b> Español de España, registro formal.
+<b>-</b> Importes en euros, sin decimales y con punto de millar (1.083.815 €).
+<b>-</b> Porcentajes con un decimal y coma decimal (5,2 %).
+
+<b>##</b> Reglas de trabajo
+<b>-</b> No modificar los archivos originales: trabajar siempre sobre una copia.
+<b>-</b> Señalar cada supuesto y no inventar datos.
+<b>-</b> Ante una duda sobre los criterios, consultar `normas-cierre.docx`.</pre>
+    </div>
+    <div class="co importante">
+      <span class="k">[ Importante ]</span>
+      <p><code>CLAUDE.md</code> se trata como contexto, no como una regla obligatoria: Claude lo tiene presente, pero no se garantiza que lo cumpla al pie de la letra. Lo que deba cumplirse siempre se configura como un <em>hook</em>, el mecanismo de Claude Code para ejecutar una acción de forma automática en un momento concreto.</p>
+    </div>
+    <div class="co consejo">
+      <span class="k">[ Consejo ]</span>
+      <p>Las instrucciones eficaces son breves, concretas y verificables: «importes en euros sin decimales» puede comprobarse; «sé preciso» no. En la app, estas mismas instrucciones se escriben en los cuadros de texto de la cuenta, de Cowork o del proyecto, sin necesidad de ningún archivo.</p>
+    </div>
+  </div>
+
+  <!-- 9.3 -->
+  <div class="apartado">
+    <h2 id="c9-3"><span class="n">9.3</span>Anatomía de SKILL.md</h2>
+    <p>Una skill es una carpeta con un archivo <code>SKILL.md</code> obligatorio y, si hace falta, tres subcarpetas opcionales. El nombre de la carpeta coincide con el campo <code>name</code> del archivo.</p>
+    <div class="code">
+      <div class="ch"><span class="k">Carpeta de una skill</span><span class="e">Estructura</span></div>
+      <pre>memorandum-cierre/
+  SKILL.md          <i>obligatorio: cabecera YAML + instrucciones</i>
+  scripts/          <i>opcional: código que se ejecuta</i>
+  references/       <i>opcional: documentos de consulta</i>
+  assets/           <i>opcional: plantillas y otros recursos</i></pre>
+    </div>
+    <p><code>SKILL.md</code> tiene dos partes: la cabecera YAML (<em>front matter</em>), delimitada por tres guiones, y el cuerpo en Markdown con las instrucciones. La cabecera se rige por estas reglas:</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th style="width:21%">Campo</th><th style="width:13%">Obligatorio</th><th>Reglas</th></tr></thead>
+        <tbody>
+          <tr><td><code>name</code></td><td>Sí</td><td>Hasta 64 caracteres: minúsculas, números y guiones. No puede contener «anthropic» ni «claude». Coincide con el nombre de la carpeta.</td></tr>
+          <tr><td><code>description</code></td><td>Sí</td><td>Qué hace la skill y cuándo debe usarse, en tercera persona y con las palabras que emplearía quien la pide. El estándar admite hasta 1.024 caracteres; la ayuda de Claude recomienda no pasar de 200.</td></tr>
+          <tr><td><code>license</code></td><td>No</td><td>La licencia con la que se comparte la skill.</td></tr>
+          <tr><td><code>compatibility</code></td><td>No</td><td>Los requisitos del entorno en el que funciona.</td></tr>
+          <tr><td><code>metadata</code></td><td>No</td><td>Datos adicionales, como el autor o la versión.</td></tr>
+          <tr><td><code>allowed-tools</code></td><td>No</td><td>Las herramientas que la skill puede utilizar.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Lo esencial de YAML</h3>
+    <p>La cabecera está escrita en YAML, un formato de texto muy sensible a la sangría. Para una cabecera de skill bastan cinco reglas:</p>
+    <div class="tbl mono1">
+      <table>
+        <thead><tr><th style="width:30%">Qué se quiere</th><th>Cómo se escribe</th></tr></thead>
+        <tbody>
+          <tr><td>Una clave con su valor</td><td><code>name: memorandum-cierre</code></td></tr>
+          <tr><td>Un texto que contiene dos puntos</td><td>Entre comillas: <code>description: "Cierre: cinco apartados"</code></td></tr>
+          <tr><td>Una lista (en otros archivos YAML)</td><td><code>tiendas: [Palma, Bilbao]</code>. La cabecera de una skill no la necesita: solo admite los seis campos de la tabla.</td></tr>
+          <tr><td>Un nivel de anidación</td><td>Dos espacios por nivel, nunca tabuladores</td></tr>
+          <tr><td>Un comentario</td><td><code># texto</code>, hasta el final de la línea</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <figure class="fig">
+      <svg viewBox="0 0 960 320" role="img" aria-label="Carga progresiva de una skill en tres niveles. Nivel 1, siempre presente: el nombre y la descripción de cada skill, unos 100 tokens por skill. Nivel 2, solo si la petición encaja con la descripción: el cuerpo de SKILL.md, recomendado menos de 5.000 tokens. Nivel 3, solo si el cuerpo los cita: los archivos de references, assets y los scripts; de un script solo entra su resultado, no su código.">
+        <text class="mo" x="20" y="48">Nivel 1</text>
+        <text class="lb s" x="20" y="70">Siempre presente</text>
+        <rect class="fl" x="300" y="26" width="250" height="46" rx="6"/>
+        <text class="lb b" x="425" y="56" text-anchor="middle">Nombre y descripción</text>
+        <text class="lb s" x="300" y="96">Unos 100 tokens por skill; Claude los tiene siempre a la vista</text>
+
+        <text class="mo" x="20" y="150">Nivel 2</text>
+        <text class="lb s" x="20" y="172">Si la petición encaja</text>
+        <rect class="fi" x="300" y="128" width="400" height="46" rx="6"/>
+        <text class="lb b w" x="500" y="158" text-anchor="middle">Cuerpo de SKILL.md</text>
+        <text class="lb s" x="300" y="198">Solo cuando encaja con la descripción · recomendado: menos de 5.000 tokens</text>
+
+        <text class="mo" x="20" y="252">Nivel 3</text>
+        <text class="lb s" x="20" y="274">Si el cuerpo los cita</text>
+        <rect class="ds" x="300" y="230" width="640" height="46" rx="6"/>
+        <text class="lb b" x="620" y="260" text-anchor="middle">references/ · assets/ · scripts/</text>
+        <text class="lb s" x="300" y="300">Solo cuando el cuerpo los cita · de un script solo entra su resultado, no su código</text>
+      </svg>
+      <figcaption>[ Diagrama 02 ] Carga progresiva: cuanto más abajo, más específico y menos habitual</figcaption>
+    </figure>
+    <p>La carga progresiva explica dos consejos. La descripción debe ser precisa, porque es lo único que Claude ve siempre. Y el cuerpo debe ser breve, porque cada vez que la skill se activa ocupa espacio en el contexto: lo extenso se traslada a <code>references/</code> y se cita desde <code>SKILL.md</code> a un solo nivel.</p>
+  </div>
+
+  <!-- 9.4 -->
+  <div class="apartado">
+    <h2 id="c9-4"><span class="n">9.4</span>Plantilla comentada de SKILL.md</h2>
+    <p>La plantilla siguiente recoge las partes habituales de una skill. Los comentarios de la cabecera empiezan por <code>#</code> y los del cuerpo van entre <code>&lt;!-- --&gt;</code>; ninguno de los dos se muestra a quien lee el resultado, y pueden borrarse una vez adaptado el texto.</p>
+    <div class="code">
+      <div class="ch"><span class="k">SKILL.md</span><span class="e">Plantilla</span></div>
+      <pre><b>---</b>
+<i># Nombre: igual que la carpeta. Minúsculas, números y guiones.</i>
+<b>name:</b> memorandum-cierre
+<i># Descripción: qué hace y cuándo usarla, en tercera persona y con las</i>
+<i># palabras de quien la pide. Mejor por debajo de 200 caracteres.</i>
+<b>description:</b> Redacta el memorándum de cierre mensual para Dirección General con los cinco apartados y el formato de cifras de las normas de cierre. Úsala al preparar o revisar el cierre de un mes.
+<b>---</b>
+
+<b>#</b> Memorándum de cierre
+
+<i>&lt;!-- El cuerpo son las instrucciones: breves, concretas y con ejemplos. --&gt;</i>
+
+<b>##</b> Cuándo usarla
+<b>-</b> Cuando se pida redactar o revisar el memorándum de un cierre mensual.
+
+<b>##</b> Entradas
+<b>-</b> Las ventas del mes, la conciliación bancaria y las normas de cierre.
+
+<b>##</b> Pasos
+<b>1.</b> Leer `references/formato-memorandum.md`.
+<b>2.</b> Rellenar los cinco apartados con las cifras reales.
+<b>3.</b> Comprobar la fecha de envío frente al calendario de las normas.
+
+<b>##</b> Reglas de formato
+<b>-</b> Importes en euros, sin decimales y con punto de millar.
+<b>-</b> Porcentajes con un decimal.
+<b>-</b> Señalar cada supuesto; no inventar datos.
+
+<b>##</b> Ejemplo
+Entrada: «Prepara el memorándum de octubre».
+Salida: un documento con los apartados 1 a 5, fecha de envío incluida.
+
+<b>##</b> Qué no hacer
+<b>-</b> No modificar los archivos de origen.</pre>
+    </div>
+    <p>Para ponerla en marcha, se guarda el archivo como <code>SKILL.md</code> dentro de la carpeta de la skill, se comprime esa carpeta en un ZIP (con la carpeta de la skill en el nivel superior del ZIP) y se sube en «Personalización» › «Skills». Después se activa con su interruptor. Subir skills requiere que esté activado el interruptor «Ejecución de código en la nube y creación de archivos», en «Capacidades».</p>
+    <div class="co consejo">
+      <span class="k">[ Consejo ]</span>
+      <p>Cuando un proceso deba dar siempre el mismo resultado (cuadrar, convertir, validar), conviene que lo haga un script de la carpeta <code>scripts/</code>: solo su resultado entra en el contexto. El texto de <code>SKILL.md</code> se reserva para el criterio, el tono y el formato.</p>
+    </div>
+  </div>
+
+  <!-- 9.5 -->
+  <div class="apartado">
+    <h2 id="c9-5"><span class="n">9.5</span>El archivo de un agente</h2>
+    <p>Un agente (o subagente) es un especialista al que el orquestador delega una parte del trabajo. Se define en un archivo <code>.md</code> cuyo cuerpo es su prompt de sistema, precedido por una cabecera YAML.</p>
+    <div class="co analogia">
+      <span class="k">[ Analogía ]</span>
+      <p>Es la ficha de un puesto: el nombre, el cometido, las herramientas a su alcance y el modelo que lo ocupa. El cuerpo del archivo es el procedimiento que seguirá quien lo desempeñe.</p>
+    </div>
+    <div class="tbl">
+      <table>
+        <thead><tr><th style="width:21%">Campo</th><th style="width:15%">Obligatorio</th><th>Qué contiene</th></tr></thead>
+        <tbody>
+          <tr><td><code>name</code></td><td>Sí</td><td>El nombre del agente.</td></tr>
+          <tr><td><code>description</code></td><td>Sí</td><td>Qué hace y cuándo conviene delegarle trabajo.</td></tr>
+          <tr><td><code>tools</code></td><td>No</td><td>Lista blanca de las herramientas que puede usar.</td></tr>
+          <tr><td><code>model</code></td><td>No</td><td>El modelo con el que trabaja: <code>sonnet</code>, <code>opus</code>, <code>haiku</code>, <code>fable</code> o <code>inherit</code>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="code">
+      <div class="ch"><span class="k">revisor-cierre.md</span><span class="e">Ejemplo</span></div>
+      <pre><b>---</b>
+<b>name:</b> revisor-cierre
+<b>description:</b> Revisa un memorándum de cierre mensual contra las normas de cierre (fecha, apartados, cifras y conciliación) y devuelve una lista de hallazgos. Úsalo antes de dar por bueno el memorándum.
+<b>tools:</b> Read, Grep, Glob, Write
+<b>model:</b> sonnet
+<b>---</b>
+
+Eres el revisor del cierre mensual. Recibes un memorándum y lo comparas
+con `normas-cierre.docx`.
+
+Comprueba, por este orden:
+
+<b>1.</b> La fecha de envío respeta el calendario (D+7; si cae en fin de
+   semana, el lunes siguiente).
+<b>2.</b> Están los cinco apartados y en el orden previsto.
+<b>3.</b> Las cifras usan punto de millar, sin decimales en euros y con
+   un decimal en porcentajes.
+
+Devuelve una lista numerada de hallazgos. No corrijas el texto: señala el
+problema y el criterio que incumple.</pre>
+    </div>
+    <p>Los agentes pueden guardarse en <code>.claude/agents/</code> (proyecto), en <code>~/.claude/agents/</code> (usuario) o en la carpeta <code>agents/</code> de un plugin. Cowork carga los agentes de los plugins y decide por sí mismo cuándo delegar en ellos; en Claude Code se invocan con un control más fino. La conversación en Chat los ignora.</p>
+  </div>
+
+  <!-- 9.6 -->
+  <div class="apartado">
+    <h2 id="c9-6"><span class="n">9.6</span>Errores típicos</h2>
+    <p>Casi todos los fallos de una skill o de un agente se reducen a un puñado de causas. Cada tarjeta muestra el error, su motivo y la forma correcta.</p>
+    <div class="err">
+      <div class="card">
+        <h3>Descripción vaga</h3>
+        <p>La descripción es lo único que Claude ve siempre: si no dice qué hace ni cuándo, la skill no se activa cuando debe o se activa cuando no debe.</p>
+        <div class="mal"><span class="tag">Mal</span>description: Ayuda con documentos</div>
+        <div class="bien"><span class="tag">Bien</span>description: Redacta el memorándum de cierre mensual. Se activa cuando se pide el memorándum o el informe del mes.</div>
+      </div>
+      <div class="card">
+        <h3>YAML mal sangrado</h3>
+        <p>En YAML, la sangría indica la jerarquía: sin ella, <code>autor</code> deja de pertenecer a <code>metadata</code>.</p>
+        <div class="mal"><span class="tag">Mal</span>metadata:
+autor: Finanzas</div>
+        <div class="bien"><span class="tag">Bien</span>metadata:
+  autor: Finanzas</div>
+      </div>
+      <div class="card">
+        <h3>Tabuladores</h3>
+        <p>YAML no admite tabuladores para sangrar. Hay que usar espacios, dos por nivel, y configurar el editor para que no inserte tabuladores.</p>
+        <div class="mal"><span class="tag">Mal</span>[tab]autor: Finanzas</div>
+        <div class="bien"><span class="tag">Bien</span>··autor: Finanzas</div>
+      </div>
+      <div class="card">
+        <h3>Dos puntos sin comillas</h3>
+        <p>Dos puntos seguidos de un espacio dentro de un valor se leen como el inicio de otro campo y rompen la cabecera. Se evitan o se entrecomilla el valor.</p>
+        <div class="mal"><span class="tag">Mal</span>description: Cierre: cinco apartados</div>
+        <div class="bien"><span class="tag">Bien</span>description: "Cierre: cinco apartados"</div>
+      </div>
+      <div class="card">
+        <h3>Nombre mal formado</h3>
+        <p>Solo minúsculas, números y guiones, hasta 64 caracteres, sin «anthropic» ni «claude», y con el mismo nombre que la carpeta.</p>
+        <div class="mal"><span class="tag">Mal</span>name: Memorándum Cierre</div>
+        <div class="bien"><span class="tag">Bien</span>name: memorandum-cierre</div>
+      </div>
+      <div class="card">
+        <h3>Cuerpo larguísimo</h3>
+        <p>Un cuerpo extenso consume contexto cada vez que la skill se activa. Conviene mantenerlo por debajo de 500 líneas y trasladar el detalle a <code>references/</code>.</p>
+        <div class="mal"><span class="tag">Mal</span>SKILL.md de 1.200 líneas</div>
+        <div class="bien"><span class="tag">Bien</span>SKILL.md de 150 líneas
++ references/kpi.md</div>
+      </div>
+      <div class="card">
+        <h3>Fechas que caducan</h3>
+        <p>Una instrucción que depende de un momento concreto deja de ser cierta sin avisar. Es preferible remitir a un documento que se mantenga al día.</p>
+        <div class="mal"><span class="tag">Mal</span>Hasta junio se usa el criterio A.</div>
+        <div class="bien"><span class="tag">Bien</span>Se usa el criterio de references/criterios.md.</div>
+      </div>
+      <div class="card">
+        <h3>Credenciales en el texto</h3>
+        <p>Una skill, un agente o un <code>CLAUDE.md</code> se comparten y se leen: nunca deben contener claves, contraseñas ni tokens.</p>
+        <div class="mal"><span class="tag">Mal</span>clave: (el valor real escrito aquí)</div>
+        <div class="bien"><span class="tag">Bien</span>Las credenciales las gestiona el conector; no se escriben en el archivo.</div>
+      </div>
+      <div class="card ancho">
+        <h3>ZIP mal empaquetado</h3>
+        <p>Al subir una skill en «Personalización» › «Skills», el nivel superior del ZIP debe ser la carpeta de la skill, no los archivos sueltos.</p>
+        <div class="dos" style="margin:0">
+          <div class="mal"><span class="tag">Mal</span>skill.zip
+  SKILL.md
+  references/</div>
+          <div class="bien"><span class="tag">Bien</span>skill.zip
+  memorandum-cierre/
+    SKILL.md
+    references/</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9.7 -->
+  <div class="apartado">
+    <h2 id="c9-7"><span class="n">9.7</span>Lista de comprobación final</h2>
+    <p>Antes de subir o compartir una skill, conviene repasar estos puntos uno por uno.</p>
+    <ul class="chk">
+      <li>El archivo se llama exactamente <code>SKILL.md</code> y está dentro de la carpeta de la skill.</li>
+      <li><code>name</code> coincide con el nombre de la carpeta, usa solo minúsculas, números y guiones, y no contiene «anthropic» ni «claude».</li>
+      <li><code>description</code> dice qué hace y cuándo usarla, en tercera persona y con las palabras de quien la pide; mejor por debajo de 200 caracteres.</li>
+      <li>La cabecera se abre y se cierra con <code>---</code>, usa espacios (nunca tabuladores) y entrecomilla los valores que llevan dos puntos.</li>
+      <li>El cuerpo tiene menos de 500 líneas; lo extenso está en <code>references/</code>, citado desde <code>SKILL.md</code> a un solo nivel.</li>
+      <li>La terminología es constante, y no hay fechas que caduquen ni credenciales.</li>
+      <li>Incluye ejemplos de entrada y de salida.</li>
+      <li>Lo que debe dar siempre el mismo resultado (cuadrar, convertir, validar) lo hace un script.</li>
+      <li>Se ha probado con al menos tres casos: uno en el que debe activarse, otro en el que no debe activarse y una invocación explícita con «/». Y con más de un modelo.</li>
+      <li>El ZIP tiene la carpeta de la skill en el nivel superior.</li>
+    </ul>
+
+    <blockquote class="pull">
+      <p>«Un texto plano, bien estructurado, es el idioma común entre las personas y Claude.»</p>
+      <footer>Idea clave · Capítulo 9</footer>
+    </blockquote>
+  </div>
+</section>
+
+</body>
+</html>

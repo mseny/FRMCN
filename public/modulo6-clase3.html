@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>M6 · Clase 3 — Orquestación avanzada: pipelines multi-agente · [m].seny /academy</title>
-<meta name="description" content="De hilos de chat aislados a redes complejas de especialistas coordinados en Claude Code y Claude Cowork.">
+<title>M6 · Clase 3 — Personalizar Claude: skills, conectores, plugins y agentes · [m].seny /academy</title>
+<meta name="description" content="Cómo se forma a Claude con los manuales de la casa: skills que fijan procedimientos, conectores que abren otras aplicaciones, plugins que lo reúnen todo y agentes que se reparten el trabajo.">
 <link rel="stylesheet" href="/theme.css">
 <link rel="stylesheet" href="/curso.css">
 </head>
@@ -12,220 +12,981 @@
 <main>
 
   <header class="hero escena">
-    <h1 class="display">Orquestación avanzada: pipelines <em>multi-agente</em>.</h1>
-    <p class="sub">De hilos de chat aislados a redes complejas de especialistas coordinados en Claude Code y Claude Cowork.</p>
+    <h1 class="display">Enseñar a Claude los <em>procedimientos</em> de la casa.</h1>
+    <p class="sub">Cómo se forma a Claude con los manuales de la casa: skills que fijan procedimientos, conectores que abren otras aplicaciones, plugins que lo reúnen todo y agentes que se reparten el trabajo.</p>
     <ul class="esc-cifras">
-      <li><b>3</b> entornos</li>
-      <li><b>5</b> subagentes</li>
-      <li><b>10</b> preguntas</li>
+      <li><b>6</b> peldaños</li>
+      <li><b>3</b> niveles de carga</li>
+      <li><b>1</b> plugin propio</li>
     </ul>
+    <div class="chips"><span class="chip">Skills</span><span class="chip">Conectores</span><span class="chip">Plugins</span><span class="chip">Agentes</span><span class="chip">Markdown</span><span class="chip">Mods</span></div>
   </header>
 
-  <div class="content">
+  <div class="content aire">
 
-    <!-- 1. El modelo mental -->
-    <section class="sec" id="modelo-mental" data-label="Modelo mental">
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">El modelo mental: una redacción, varios cerebros.</h2></div>
-      <p>La limitación más crítica de cualquier sistema conversacional tradicional es la saturación de la <strong>ventana de contexto</strong>. Cuando forzamos a una sola sesión de chat a leer bases de datos completas, realizar análisis, depurar código y redactar informes de forma secuencial, el modelo sufre de «ruido cognitivo» severo, activa compactaciones de memoria y pierde precisión (<em>Lost in the Middle</em>).</p>
-      <div class="grid-cards two">
-        <div class="card dim"><span class="k">[ 01 ]</span><h4>Patrón Orchestrator-Workers</h4><p>El orquestador principal (Claude Opus o Sonnet) actúa como un director ejecutivo. Tiene el objetivo global en mente, planifica, divide tareas y delega la ejecución de micro-tareas complejas a subagentes especialistas, recibiendo únicamente un resumen con el entregable consolidado.</p></div>
-        <div class="card dim"><span class="k">[ 02 ]</span><h4>Aislamiento de contexto</h4><p>Cada subagente corre en su propia ventana de contexto aislada. Esto garantiza que sus micro-decisiones no saturen la conversación principal y que las herramientas de ejecución (como Bash o Python) se acoten estrictamente a lo que requiere su especialidad.</p></div>
-      </div>
-      <div class="callout analogia"><span class="k">[ Analogía ]</span><p><strong>Símil de la redacción de noticias:</strong> En una redacción de prensa, el redactor jefe no escribe la sección de deportes, economía y clima de su puño y letra al mismo tiempo. Delega en tres redactores especializados. Cada especialista trabaja de manera independiente y le entrega una columna limpia y sintetizada. El redactor jefe solo ensambla la portada final.</p></div>
+    <!-- 01 · La escalera de personalización -->
+    <section class="sec respira" id="escalera" data-label="Escalera">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">La escalera de personalización: de las normas al especialista.</h2></div>
+      <p class="sec-intro">Las dos clases anteriores trataron a Claude como un colaborador que se incorpora a la empresa. En la primera recibió mesa, llaves y normas: la app, el contexto y los ajustes. En la segunda recibió encargos con un entregable al final. Esta clase trata de su formación, porque un profesional recién incorporado no rinde por lo mucho que sabe, sino por conocer cómo se trabaja en la casa: qué procedimiento sigue el cierre, dónde están los datos y a quién se encarga cada parte.</p>
+      <p>La app ofrece seis piezas para enseñárselo, ordenadas de lo simple a lo complejo. Cada peldaño se apoya en el anterior y ninguno es obligatorio: se sube solo cuando el peldaño de abajo se queda corto.</p>
+
+      <figure class="figure esquema">
+        <svg viewBox="0 0 960 376" role="img" aria-label="Escalera de seis peldaños que sube de izquierda a derecha. 01, Instrucciones: las normas de la casa. 02, Skill, destacada en oscuro: el manual de procedimiento. 03, Conector: la llave de otra oficina. 04, Plugin: el maletín completo. 05, Agente: el especialista. 06, Mod: reformar la oficina, solo en Claude Code.">
+          <rect class="bx fill" x="40" y="300" width="600" height="46" rx="4"/>
+          <text class="lb" x="58" y="329">01</text>
+          <text class="ti" x="98" y="330">Instrucciones</text>
+          <text class="lb" x="290" y="329">Normas de la casa</text>
+          <rect class="fill-ink" x="94" y="246" width="600" height="46" rx="4"/>
+          <text class="lb on-dark soft" x="112" y="275">02</text>
+          <text class="ti on-dark" x="152" y="276">Skill</text>
+          <text class="lb on-dark" x="344" y="275">Manual de procedimiento</text>
+          <rect class="bx fill" x="148" y="192" width="600" height="46" rx="4"/>
+          <text class="lb" x="166" y="221">03</text>
+          <text class="ti" x="206" y="222">Conector</text>
+          <text class="lb" x="398" y="221">Llave de otra oficina</text>
+          <rect class="bx fill" x="202" y="138" width="600" height="46" rx="4"/>
+          <text class="lb" x="220" y="167">04</text>
+          <text class="ti" x="260" y="168">Plugin</text>
+          <text class="lb" x="452" y="167">Maletín completo</text>
+          <rect class="bx fill" x="256" y="84" width="600" height="46" rx="4"/>
+          <text class="lb" x="274" y="113">05</text>
+          <text class="ti" x="314" y="114">Agente</text>
+          <text class="lb" x="506" y="113">El especialista</text>
+          <rect class="bx fill" x="310" y="30" width="600" height="46" rx="4"/>
+          <text class="lb" x="328" y="59">06</text>
+          <text class="ti" x="368" y="60">Mod</text>
+          <text class="lb" x="560" y="59">Reformar la oficina</text>
+        </svg>
+        <figcaption>[ Diagrama 01 ] Seis peldaños, de lo simple a lo complejo; el último solo existe en Claude Code</figcaption>
+      </figure>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>Pieza</th><th>Qué es</th><th>Dónde se gestiona</th><th>Conversación</th><th>Cowork</th><th>Code</th></tr></thead>
+        <tbody>
+          <tr><td>Instrucciones</td><td>Normas que se aplican siempre: rol, idioma, formato de cifras, qué no hacer.</td><td>Configuración, Configuración → «Cowork» y el bloque «Instrucciones» del proyecto (clase 1)</td><td>Sí</td><td>Sí</td><td>Sí, con <code>CLAUDE.md</code></td></tr>
+          <tr><td>Skill</td><td>Una carpeta con un manual de procedimiento (<code>SKILL.md</code>) y, si hace falta, plantillas, referencias y scripts.</td><td>«Personalización» → «Skills»</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
+          <tr><td>Conector</td><td>Una conexión con una aplicación externa (Drive, Gmail, Slack, Salesforce…) mediante MCP.</td><td>«Personalización» → «Conectores»</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
+          <tr><td>Plugin</td><td>Un paquete que reúne skills, conectores, comandos, agentes y hooks.</td><td>«Personalización» → «Plugins»</td><td>Sus skills y comandos</td><td>Sí</td><td>Sí</td></tr>
+          <tr><td>Agente</td><td>Un especialista con su propio prompt de sistema, sus herramientas y su contexto.</td><td>Dentro de un plugin; en Code, también en <code>.claude/agents/</code></td><td>No</td><td>Sí: Claude decide cuándo delegar</td><td>Sí, con control fino</td></tr>
+          <tr><td>Mod</td><td>Una pequeña función de código que cambia el comportamiento de Claude Code.</td><td>Dentro de un plugin; se le pide a Claude en una sesión de Code</td><td>No</td><td>No</td><td>Sí</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Cuándo subir un peldaño</h3>
+      <ul class="list-mono">
+        <li>Si la indicación vale para todo el trabajo («cifras con punto de millar, porcentajes con un decimal»), basta con las <strong>instrucciones</strong>.</li>
+        <li>Si un procedimiento se repite con los mismos pasos y el mismo formato, como el memorándum de cierre, merece una <strong>skill</strong>.</li>
+        <li>Si el dato vive en otra aplicación, como la carpeta compartida del departamento o el CRM, hace falta un <strong>conector</strong>.</li>
+        <li>Si varias piezas tienen que llegar juntas a todo el equipo, se empaquetan en un <strong>plugin</strong>.</li>
+        <li>Si una parte del trabajo pide un especialista con su propio contexto, como la revisión del memorándum, se define un <strong>agente</strong>.</li>
+        <li>Si lo que hay que cambiar es la herramienta misma, el peldaño es un <strong>mod</strong>, y corresponde a los equipos técnicos.</li>
+      </ul>
+
+      <blockquote class="pull">
+        <p>«Las instrucciones dicen cómo es la casa; las skills, cómo se hace cada trabajo.»</p>
+        <footer class="src">Frase clave · M6 · C3</footer>
+      </blockquote>
     </section>
 
-    <!-- 2. La tríada: Chat vs. Cowork vs. Code -->
-    <section class="sec" id="triada" data-label="La tríada">
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">La tríada de Claude: elegir el entorno adecuado.</h2></div>
-      <p class="sec-intro">Anthropic ofrece tres entornos diferenciados según el grado de control técnico y la naturaleza del flujo de trabajo de cada usuario.</p>
+    <!-- 02 · Markdown: el formato de los manuales -->
+    <section class="sec respira" id="markdown" data-label="Markdown">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Markdown: el idioma en que se escriben los manuales.</h2></div>
+      <p class="sec-intro">Las instrucciones, las skills y los agentes se escriben en Markdown: un texto plano al que se añaden unas pocas marcas para indicar títulos, listas, tablas o fragmentos de código. Claude lee y escribe Markdown con naturalidad, y por eso es el formato de <code>CLAUDE.md</code>, de <code>SKILL.md</code> y de los archivos de los agentes. Conocer diez marcas basta para leer y retocar cualquiera de ellos.</p>
+
+      <div class="lectura">
+        <aside class="margen">
+          <span class="k">Al margen</span>
+          Un archivo <code>.md</code> es texto sin más: se abre y se edita con el Bloc de notas o con cualquier editor.
+        </aside>
+        <div>
+          <p>La ventaja de Markdown es que se lee bien en los dos estados. Escrito, sigue siendo un texto legible por una persona; interpretado, se convierte en un documento con formato. Un manual de procedimiento escrito así lo puede revisar el responsable del departamento sin herramientas especiales y lo puede seguir Claude sin ambigüedad.</p>
+          <div class="callout analogia"><span class="k">[ Analogía ]</span><p>Las marcas que un corrector deja sobre un texto mecanografiado: no forman parte del contenido, pero indican cómo debe verse cada parte. Markdown es ese código de corrección, compartido por quien escribe y por quien interpreta.</p></div>
+        </div>
+      </div>
+
+      <h3>Los diez elementos que más se usan</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Elemento</th><th>Lo que escribes</th><th>Lo que se ve</th></tr></thead>
+        <tbody>
+          <tr><td>Título</td><td><code># Cierre de octubre</code><br><code>## Ventas por tienda</code></td><td>Un título de primer nivel y otro de segundo nivel; cada almohadilla adicional baja un nivel.</td></tr>
+          <tr><td>Negrita</td><td><code>**margen bruto**</code></td><td><strong>margen bruto</strong></td></tr>
+          <tr><td>Cursiva</td><td><code>*devengo*</code></td><td><em>devengo</em></td></tr>
+          <tr><td>Lista</td><td><code>- Palma</code><br><code>- Bilbao</code></td><td>• Palma<br>• Bilbao</td></tr>
+          <tr><td>Lista numerada</td><td><code>1. Conciliar</code><br><code>2. Redactar</code></td><td>1. Conciliar<br>2. Redactar</td></tr>
+          <tr><td>Enlace</td><td><code>[normas](https://…)</code></td><td>La palabra «normas», subrayada y enlazada a la dirección.</td></tr>
+          <tr><td>Código en línea</td><td><code>`SKILL.md`</code></td><td><code>SKILL.md</code>, en tipografía de máquina.</td></tr>
+          <tr><td>Bloque de código</td><td><code>```</code><br><code>python3 conciliar.py</code><br><code>```</code></td><td>Un bloque aparte, en tipografía de máquina, que conserva el texto tal cual.</td></tr>
+          <tr><td>Tabla</td><td><code>| Tienda | Ventas |</code><br><code>|---|---:|</code><br><code>| Lisboa | 102.039 |</code></td><td>Una tabla con cabecera; los dos puntos de la segunda línea alinean la columna a la derecha.</td></tr>
+          <tr><td>Cita</td><td><code>&gt; Las partidas en tránsito no se ajustan.</code></td><td>Un párrafo destacado con una raya vertical a la izquierda.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>La cabecera YAML</h3>
+      <p>Los archivos que Claude carga como piezas —una skill, un agente— empiezan con una cabecera de metadatos en formato YAML, que en inglés se llama <em>frontmatter</em>. Va entre dos líneas de tres guiones y contiene pares <code>clave: valor</code>. Claude lee la cabecera antes que el resto del archivo, y de ella depende que la pieza se reconozca y se cargue en el momento adecuado.</p>
+      <div class="code wrap"><div class="ch"><span class="k">[ YAML · cabecera de una skill ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre><span class="cm">---</span>
+<span class="hl">name:</span> memorandum-cierre
+<span class="hl">description:</span> Redacta el memorándum de cierre mensual para Dirección General con los cinco apartados y el formato de cifras de las normas de cierre. Úsala al preparar o revisar el cierre de un mes.
+<span class="cm">---</span></pre></div>
+      <ul class="list-mono">
+        <li class="check">Las dos líneas de tres guiones abren y cierran la cabecera; sin ellas, no hay cabecera.</li>
+        <li class="check">Cada línea es <code>clave: valor</code>, con un espacio después de los dos puntos.</li>
+        <li class="cross">Los tabuladores rompen el YAML: se sangra siempre con espacios.</li>
+        <li class="cross">Un valor que contiene dos puntos seguidos de espacio («Nota: …») debe ir entre comillas.</li>
+      </ul>
+
+      <a class="card ink link" href="/practica/m6c3/guia-markdown-mseny.pdf" download>
+        <span class="k">[ Descargar · PDF ]</span>
+        <h4>Guía de Markdown [m].seny</h4>
+        <p>Nueve capítulos, del primer título a las tablas, las notas al pie, los diagramas y la cabecera YAML, con cada elemento en dos columnas: lo que se escribe y lo que se ve. El capítulo 9, «Markdown para Claude», explica <code>CLAUDE.md</code>, la anatomía de <code>SKILL.md</code> con una plantilla comentada, el archivo de un agente y los errores más frecuentes. Es la lectura previa del laboratorio.</p>
+      </a>
+    </section>
+
+    <!-- 03 · Anatomía de una skill -->
+    <section class="sec respira" id="skills" data-label="Skills">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Anatomía de una skill: una carpeta y un manual.</h2></div>
+      <p class="sec-intro">Una skill es un manual de procedimiento que Claude consulta cuando el trabajo lo pide. Físicamente es una carpeta con un archivo obligatorio, <code>SKILL.md</code>, y, si hace falta, tres subcarpetas: <code>references/</code> para la documentación de consulta, <code>assets/</code> para plantillas y otros recursos, y <code>scripts/</code> para el código. El nombre de la carpeta coincide con el nombre de la skill. La de esta clase, <code>memorandum-cierre</code>, redacta el memorándum de cierre con el formato de las normas de la casa.</p>
+
+      <div class="code"><div class="ch"><span class="k">[ Árbol · memorandum-cierre/ ]</span></div><pre class="tree"><span class="hl">memorandum-cierre/</span>
+├── SKILL.md                    <span class="cm">← obligatorio: cabecera e instrucciones</span>
+└── <span class="hl">references/</span>
+    ├── formato-memorandum.md   <span class="cm">← plantilla de los cinco apartados</span>
+    └── kpi.md                  <span class="cm">← definiciones de las normas de cierre</span></pre></div>
+
+      <h3>Los tres archivos de la skill</h3>
+      <p>El cuerpo de <code>SKILL.md</code> sigue un orden que conviene copiar en cualquier skill: cuándo usarla, qué entradas necesita, los pasos, el formato, las reglas, las comprobaciones finales y lo que no debe hacer. Las referencias guardan el detalle que no hace falta leer siempre: la plantilla del memorándum y las definiciones de los KPI.</p>
+      <div class="tabs">
+        <div role="tablist" aria-label="Archivos de la skill memorandum-cierre">
+          <button type="button" role="tab" aria-selected="true" aria-controls="tab-skill" id="tabb-skill">SKILL.md</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="tab-formato" id="tabb-formato">formato-memorandum.md</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="tab-kpi" id="tabb-kpi">kpi.md</button>
+        </div>
+        <div role="tabpanel" id="tab-skill" aria-labelledby="tabb-skill"><div class="code wrap"><div class="ch"><span class="k">[ Archivo · memorandum-cierre/SKILL.md ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre>---
+name: memorandum-cierre
+description: Redacta el memorándum de cierre mensual para Dirección General con los cinco apartados y el formato de cifras de las normas de cierre. Úsala al preparar o revisar el cierre de un mes.
+---
+
+# Memorándum de cierre mensual
+
+Esta skill redacta el memorándum que Dirección Financiera envía a Dirección General al cerrar cada mes. El formato lo fijan las normas de cierre de la empresa; la skill las aplica sin añadir apartados ni cambiar el orden.
+
+## Cuándo usarla
+
+- Cuando se pide el memorándum, el informe o la nota de cierre de un mes.
+- Cuando se pide revisar un borrador de memorándum antes de enviarlo.
+- No se usa para informes trimestrales ni para presupuestos: tienen otro formato.
+
+## Entradas
+
+Antes de redactar, localiza en la carpeta o en el proyecto de trabajo:
+
+1. **Normas de cierre** (`normas-cierre.docx`): calendario (apartado 1), conciliación (apartado 4), KPI (apartado 5) y formato del memorándum (apartado 6). Mandan sobre esta skill si hay contradicción.
+2. **Ventas del año** (`ventas-tiendas-*.xlsx`): hoja del año en curso y hoja del año anterior, con una fila por mes, tienda y familia.
+3. **Memorándum del mes anterior**: modelo de estilo y de extensión. No copies sus cifras.
+4. **Resultado de la conciliación bancaria**, si existe (por ejemplo, el que produce la skill `conciliacion-bancaria`).
+5. **Gastos del mes ya depurados**, si existen: reimputaciones por devengo y supuestos de centro de coste.
+
+Si falta una entrada obligatoria (1 o 2), dilo y detente. Si falta una opcional (3, 4 o 5), redacta el apartado correspondiente con la frase «Pendiente: no se ha recibido…» en lugar de inventar el dato.
+
+## Pasos
+
+1. **Fecha de envío.** D es el último día natural del mes cerrado. El memorándum se envía en D+7 (días naturales). Si D+7 cae en sábado o domingo, se envía el lunes siguiente. Escribe la fecha completa, con el día de la semana comprobado.
+2. **Cifras del mes.** Calcula los KPI con las definiciones de `references/kpi.md`: ventas, margen bruto %, variación interanual, total y por tienda. Usa el mismo mes del año anterior para la comparación.
+3. **Las tres tiendas que más crecen.** Ordena las tiendas por variación interanual y toma las tres primeras. Señala también cualquier tienda con variación negativa.
+4. **Redacción.** Rellena la plantilla de `references/formato-memorandum.md`, apartado por apartado, con el registro del memorándum del mes anterior: formal, frases completas, sin adjetivos de valoración.
+5. **Tesorería.** Toma de la conciliación el saldo conciliado, los asientos de ajuste y las partidas en tránsito (estas se listan con su fecha prevista; no se ajustan).
+6. **Incidencias.** Recoge los gastos reimputados por devengo, los ajustes de inventario superiores al 1 % y cualquier supuesto que se haya hecho (por ejemplo, un centro de coste asignado sin dato de origen).
+7. **Comprobaciones finales** (abajo) antes de entregar.
+
+## Formato
+
+- Una página. Cinco apartados, en este orden y con estos títulos: «1. Resumen», «2. Ventas por tienda», «3. Margen», «4. Tesorería y conciliación», «5. Incidencias y ajustes».
+- Encabezado: «Para: Dirección General · De: Dirección Financiera · Fecha: …».
+- Cierre: «Dirección Financiera».
+- Entrega en el formato que se pida (documento de Word, artefacto o Markdown). Si no se indica, documento de Word.
+
+## Reglas de cifras
+
+- Euros **sin decimales** y con **punto de millar**: `1.083.815 €`.
+- Porcentajes con **un decimal** y coma decimal: `60,1 %`. Variaciones con signo: `+5,2 %`, `−3,4 %`.
+- Redondea solo al presentar; calcula siempre con los importes completos.
+- Cada cifra debe salir de una de las entradas. Si una cifra no se puede calcular, no la estimes: indícalo.
+
+## Comprobaciones finales
+
+Antes de entregar, comprueba y enumera el resultado de cada punto:
+
+- [ ] La fecha es D+7 o, si D+7 cae en fin de semana, el lunes siguiente.
+- [ ] Están los cinco apartados, con los títulos exactos y en orden.
+- [ ] La suma de las ventas por tienda coincide con el total del resumen.
+- [ ] Las tres tiendas destacadas son las de mayor variación interanual.
+- [ ] Todas las cifras en euros van sin decimales y con punto de millar; todos los porcentajes, con un decimal.
+- [ ] El saldo de tesorería coincide con el saldo conciliado y las partidas en tránsito no se han ajustado.
+- [ ] Cada supuesto está escrito como supuesto.
+
+## Qué no hacer
+
+- No inventes cifras, causas ni incidencias. Si la causa de una variación no figura en los datos, escribe que está pendiente de análisis.
+- No cambies los títulos ni el orden de los apartados, ni añadas otros.
+- No copies cifras del memorándum del mes anterior.
+- No envíes el memorándum: la skill lo redacta; el envío lo decide una persona.
+- No incluyas datos personales ni credenciales.</pre></div></div>
+        <div role="tabpanel" id="tab-formato" aria-labelledby="tabb-formato" hidden><div class="code wrap"><div class="ch"><span class="k">[ Archivo · references/formato-memorandum.md ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre># Plantilla del memorándum de cierre
+
+Sustituye cada `{…}` por su valor. No añadas apartados ni cambies los títulos. Cifras en euros sin decimales y con punto de millar; porcentajes con un decimal.
+
+---
+
+# Memorándum de cierre · {mes} de {año}
+
+Para: Dirección General · De: Dirección Financiera · Fecha: {día de la semana} {día} de {mes de envío} de {año} (D+7{, trasladado al lunes por caer en fin de semana})
+
+## 1. Resumen
+
+Las ventas de {mes} suman {ventas del mes} €, un {variación interanual} {más | menos} que en {mes} de {año anterior}. El margen bruto se sitúa en el {margen %} ({margen % del año anterior} hace un año). Las tres tiendas que más crecen son {tienda 1}, {tienda 2} y {tienda 3}.
+
+## 2. Ventas por tienda
+
+| Tienda | Ventas (€) | Var. interanual | Margen % |
+|---|---:|---:|---:|
+| {tienda} | {ventas} | {+0,0 %} | {0,0 %} |
+| … | … | … | … |
+| **Total** | **{ventas del mes}** | **{variación}** | **{margen %}** |
+
+Ordena las filas de mayor a menor venta. Destaca en el texto las tres tiendas que más crecen y cualquier tienda con variación negativa.
+
+## 3. Margen
+
+El margen bruto pasa del {margen % del año anterior} al {margen %}. {Causa principal de la variación, si consta en los datos; si no consta: «La causa de la variación está pendiente de análisis.»}
+
+## 4. Tesorería y conciliación
+
+Saldo de bancos conciliado a {fecha D}: {saldo conciliado} €. Asientos de ajuste: {lista breve con importes}. Partidas en tránsito: {lista con importe y fecha prevista, o «Sin partidas en tránsito.»}.
+
+## 5. Incidencias y ajustes
+
+{Gastos reimputados por devengo (criterio 3.2), con importe y mes de destino.} {Ajustes de inventario superiores al 1 % (criterio 3.5), o «Sin ajustes de inventario superiores al 1 %.»} {Supuestos aplicados y cualquier otra incidencia.}
+
+Dirección Financiera</pre></div></div>
+        <div role="tabpanel" id="tab-kpi" aria-labelledby="tabb-kpi" hidden><div class="code wrap"><div class="ch"><span class="k">[ Archivo · references/kpi.md ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre># Definiciones de KPI (normas de cierre, apartado 5)
+
+Estas definiciones reproducen las de las normas de cierre. Si las normas cambian, mandan las normas.
+
+| KPI | Definición | Cómo se calcula con la hoja de ventas |
+|---|---|---|
+| Ventas | Unidades vendidas por PVP medio, netas de devoluciones aceptadas. | Suma de la columna «Ventas (€)» del mes, para todas las familias de la tienda (o de todas las tiendas, para el total). |
+| Margen bruto | Ventas menos coste de las ventas. | Suma de «Margen bruto (€)» o, si no existe, «Ventas (€)» − «Coste de las ventas (€)». |
+| Margen bruto % | Margen bruto / ventas. | Margen bruto del mes / ventas del mes. Nunca se promedian porcentajes de tiendas o familias. |
+| Variación interanual | (Ventas del mes / ventas del mismo mes del año anterior) − 1. | Ventas del mes en la hoja del año en curso / ventas del mismo mes en la hoja del año anterior − 1. |
+
+## Criterios de imputación que afectan a los KPI
+
+- **3.1** Toda venta se imputa a la tienda que la realiza; las ventas web, al canal Online (T08).
+- **3.3** Las devoluciones minoran la venta del canal de origen en el mes en que se aceptan.
+- **3.4** Los gastos centrales (CC-LOG, CC-MKT, CC-ADM) no se reparten entre tiendas en el cierre mensual.
+
+## Precisión
+
+- Calcula con todos los decimales y redondea solo al presentar.
+- Euros sin decimales con punto de millar (`1.083.815 €`); porcentajes con un decimal (`60,1 %`).
+- Una variación se presenta con signo: `+5,2 %`, `−3,4 %`.</pre></div></div>
+      </div>
+
+      <h3>Los campos de la cabecera</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Campo</th><th>¿Obligatorio?</th><th>Reglas</th></tr></thead>
+        <tbody>
+          <tr><td><code>name</code></td><td>Sí</td><td>Hasta 64 caracteres; solo minúsculas, números y guiones; no puede contener «anthropic» ni «claude». Coincide con el nombre de la carpeta.</td></tr>
+          <tr><td><code>description</code></td><td>Sí</td><td>Qué hace la skill y cuándo usarla. El estándar admite hasta 1.024 caracteres; la ayuda de Claude recomienda no pasar de 200. La de <code>memorandum-cierre</code> tiene 183.</td></tr>
+          <tr><td><code>license</code></td><td>No</td><td>La licencia con que se comparte la skill.</td></tr>
+          <tr><td><code>compatibility</code></td><td>No</td><td>Los requisitos de entorno, si los hay.</td></tr>
+          <tr><td><code>metadata</code></td><td>No</td><td>Datos adicionales, como el autor o la versión.</td></tr>
+          <tr><td><code>allowed-tools</code></td><td>No</td><td>Las herramientas que la skill puede usar.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>La carga progresiva</h3>
+      <p>Una cuenta puede tener decenas de skills instaladas sin que Claude se sature, porque no las lee enteras: las carga en tres niveles y solo baja de nivel cuando hace falta. Del primero depende todo lo demás, y por eso la descripción es la línea más importante de una skill.</p>
+
+      <figure class="figure esquema">
+        <svg class="pc-diagram" viewBox="0 0 960 466" role="img" aria-label="Diagrama animado: llega la petición «Prepara el memorándum de octubre». En el nivel 1, siempre presente, están el nombre y la descripción de todas las skills, unos 100 tokens por skill: memorandum-cierre, conciliacion-bancaria y checklist-cierre. Claude compara la petición con las tres descripciones y encaja con la de memorandum-cierre. Solo de esa skill se carga el nivel 2, el cuerpo de SKILL.md, de menos de 5.000 tokens, que cita dos referencias; y del nivel 3 entran solo esos dos archivos, kpi.md y formato-memorandum.md. Las otras dos skills se quedan en el nivel 1: sus cuerpos y el script conciliar.py, del que solo entraría su salida, quedan fuera del contexto. Al final de la secuencia, todo lo cargado queda en oscuro.">
+          <style>
+            @keyframes pc-req{0%{opacity:0;transform:translateY(-12px)}5%{opacity:1;transform:translateY(0)}94%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(0)}}
+            @keyframes pc-s1{0%,7%{opacity:0}10%{opacity:1}14%,30%{opacity:0}34%,94%{opacity:1}100%{opacity:0}}
+            @keyframes pc-s2{0%,13%{opacity:0}16%{opacity:1}20%,100%{opacity:0}}
+            @keyframes pc-s3{0%,19%{opacity:0}22%{opacity:1}26%,100%{opacity:0}}
+            @keyframes pc-a0{0%,30%{stroke-dashoffset:110}35%,94%{stroke-dashoffset:0}100%{stroke-dashoffset:110}}
+            @keyframes pc-h0{0%,34%{opacity:0}35%,94%{opacity:1}100%{opacity:0}}
+            @keyframes pc-a1{0%,37%{stroke-dashoffset:30}41%,94%{stroke-dashoffset:0}100%{stroke-dashoffset:30}}
+            @keyframes pc-h1{0%,40%{opacity:0}41%,94%{opacity:1}100%{opacity:0}}
+            @keyframes pc-l2{0%,41%{opacity:0}47%,94%{opacity:1}100%{opacity:0}}
+            @keyframes pc-a2a{0%,51%{stroke-dashoffset:66}55%,94%{stroke-dashoffset:0}100%{stroke-dashoffset:66}}
+            @keyframes pc-h2a{0%,54%{opacity:0}55%,94%{opacity:1}100%{opacity:0}}
+            @keyframes pc-l3a{0%,55%{opacity:0}60%,94%{opacity:1}100%{opacity:0}}
+            @keyframes pc-a2b{0%,61%{stroke-dashoffset:48}65%,94%{stroke-dashoffset:0}100%{stroke-dashoffset:48}}
+            @keyframes pc-h2b{0%,64%{opacity:0}65%,94%{opacity:1}100%{opacity:0}}
+            @keyframes pc-l3b{0%,65%{opacity:0}70%,94%{opacity:1}100%{opacity:0}}
+            .esquema .pc-diagram .pc-out{stroke-width:3}
+            .pc-diagram .pc-s2,.pc-diagram .pc-s3{opacity:0}
+            .pc-diagram .pc-a0{stroke-dasharray:110}
+            .pc-diagram .pc-a1{stroke-dasharray:30}
+            .pc-diagram .pc-a2a{stroke-dasharray:66}
+            .pc-diagram .pc-a2b{stroke-dasharray:48}
+            .pc-diagram .pc-req{animation:pc-req 11s ease-in-out infinite}
+            .pc-diagram .pc-s1{animation:pc-s1 11s ease-in-out infinite}
+            .pc-diagram .pc-s2{animation:pc-s2 11s ease-in-out infinite}
+            .pc-diagram .pc-s3{animation:pc-s3 11s ease-in-out infinite}
+            .pc-diagram .pc-a0{animation:pc-a0 11s ease-in-out infinite}
+            .pc-diagram .pc-h0{animation:pc-h0 11s ease-in-out infinite}
+            .pc-diagram .pc-a1{animation:pc-a1 11s ease-in-out infinite}
+            .pc-diagram .pc-h1{animation:pc-h1 11s ease-in-out infinite}
+            .pc-diagram .pc-l2{animation:pc-l2 11s ease-in-out infinite}
+            .pc-diagram .pc-a2a{animation:pc-a2a 11s ease-in-out infinite}
+            .pc-diagram .pc-h2a{animation:pc-h2a 11s ease-in-out infinite}
+            .pc-diagram .pc-l3a{animation:pc-l3a 11s ease-in-out infinite}
+            .pc-diagram .pc-a2b{animation:pc-a2b 11s ease-in-out infinite}
+            .pc-diagram .pc-h2b{animation:pc-h2b 11s ease-in-out infinite}
+            .pc-diagram .pc-l3b{animation:pc-l3b 11s ease-in-out infinite}
+            @media (prefers-reduced-motion: reduce){
+              .pc-diagram *{animation:none!important}
+            }
+          </style>
+          <g class="pc-req">
+            <rect class="bx fill" x="40" y="16" width="420" height="46" rx="4"/>
+            <text class="lb b" x="58" y="45">«Prepara el memorándum de octubre»</text>
+            <text class="lb" x="480" y="45">La petición</text>
+          </g>
+          <path class="ln ac pc-a0" d="M290 62 V170"/>
+          <path class="ln ac pc-h0" d="M284 162 L290 170 L296 162"/>
+
+          <text class="ti" x="40" y="104">Nivel 1</text>
+          <text class="lb" x="130" y="104">Siempre</text>
+          <text class="lb" x="40" y="130">~100 tokens por skill</text>
+          <text class="ti" x="340" y="104">Nivel 2</text>
+          <text class="lb" x="430" y="104">Si encaja</text>
+          <text class="lb" x="340" y="130">Menos de 5.000 tokens</text>
+          <text class="ti" x="640" y="104">Nivel 3</text>
+          <text class="lb" x="730" y="104">Si se citan</text>
+          <text class="lb" x="640" y="130">scripts/: solo su salida</text>
+
+          <rect class="fill-ink" x="40" y="172" width="264" height="56" rx="4"/>
+          <text class="lb on-dark" x="172" y="206" text-anchor="middle">memorandum-cierre</text>
+          <rect class="bx on-bx pc-out pc-s1" x="33" y="165" width="278" height="70" rx="7"/>
+          <path class="ln ac pc-a1" d="M312 200 H340"/>
+          <path class="ln ac pc-h1" d="M332 194 L340 200 L332 206"/>
+          <rect class="bx fill" x="340" y="150" width="264" height="100" rx="4"/>
+          <text class="lb" x="472" y="194" text-anchor="middle">Cuerpo de SKILL.md</text>
+          <text class="lb" x="472" y="222" text-anchor="middle">Cita dos referencias</text>
+          <g class="pc-l2">
+            <rect class="fill-ink" x="340" y="150" width="264" height="100" rx="4"/>
+            <text class="lb on-dark" x="472" y="194" text-anchor="middle">Cuerpo de SKILL.md</text>
+            <text class="lb on-dark soft" x="472" y="222" text-anchor="middle">Cita dos referencias</text>
+          </g>
+          <path class="ln ac pc-a2a" d="M604 200 H622 V172 H640"/>
+          <path class="ln ac pc-h2a" d="M632 166 L640 172 L632 178"/>
+          <path class="ln ac pc-a2b" d="M622 200 V228 H640"/>
+          <path class="ln ac pc-h2b" d="M632 222 L640 228 L632 234"/>
+          <rect class="bx fill" x="640" y="150" width="280" height="44" rx="4"/>
+          <text class="lb" x="780" y="178" text-anchor="middle">kpi.md</text>
+          <g class="pc-l3a">
+            <rect class="fill-ink" x="640" y="150" width="280" height="44" rx="4"/>
+            <text class="lb on-dark" x="780" y="178" text-anchor="middle">kpi.md</text>
+          </g>
+          <rect class="bx fill" x="640" y="206" width="280" height="44" rx="4"/>
+          <text class="lb" x="780" y="234" text-anchor="middle">formato-memorandum.md</text>
+          <g class="pc-l3b">
+            <rect class="fill-ink" x="640" y="206" width="280" height="44" rx="4"/>
+            <text class="lb on-dark" x="780" y="234" text-anchor="middle">formato-memorandum.md</text>
+          </g>
+
+          <rect class="fill-ink" x="40" y="268" width="264" height="56" rx="4"/>
+          <text class="lb on-dark" x="172" y="302" text-anchor="middle">conciliacion-bancaria</text>
+          <rect class="bx on-bx pc-out pc-s2" x="33" y="261" width="278" height="70" rx="7"/>
+          <rect class="ln" x="340" y="268" width="264" height="56" rx="4" stroke-dasharray="6 6"/>
+          <text class="lb" x="472" y="302" text-anchor="middle">Cuerpo de SKILL.md</text>
+          <rect class="ln" x="640" y="268" width="280" height="56" rx="4" stroke-dasharray="6 6"/>
+          <text class="lb" x="780" y="302" text-anchor="middle">scripts/conciliar.py</text>
+
+          <rect class="fill-ink" x="40" y="348" width="264" height="56" rx="4"/>
+          <text class="lb on-dark" x="172" y="382" text-anchor="middle">checklist-cierre</text>
+          <rect class="bx on-bx pc-out pc-s3" x="33" y="341" width="278" height="70" rx="7"/>
+          <rect class="ln" x="340" y="348" width="264" height="56" rx="4" stroke-dasharray="6 6"/>
+          <text class="lb" x="472" y="382" text-anchor="middle">Cuerpo de SKILL.md</text>
+
+          <rect class="fill-ink" x="40" y="432" width="18" height="18" rx="2"/>
+          <text class="lb" x="68" y="447">En el contexto</text>
+          <rect class="ln" x="260" y="432" width="18" height="18" rx="2" stroke-dasharray="4 3"/>
+          <text class="lb" x="288" y="447">Fuera del contexto</text>
+        </svg>
+        <figcaption>[ Diagrama 02 ] Siempre la descripción; el cuerpo, si la petición encaja; el resto, si el cuerpo lo cita</figcaption>
+      </figure>
+
       <div class="grid-cards three">
         <div class="card">
-          <span class="k">[ 01 ]</span>
-          <h4>Claude Chat (web/móvil)</h4>
-          <p>La interfaz conversacional tradicional.</p>
-          <ul class="list-mono">
-            <li class="check">Preguntas y respuestas rápidas.</li>
-            <li class="check">Redacción creativa y formateo ágil.</li>
-            <li class="cross">Sin acceso a archivos locales o herramientas de sistema.</li>
-          </ul>
-          <p><span class="k">Perfil: General</span></p>
+          <span class="k">[ Nivel 1 ] Siempre</span>
+          <h4>Nombre y descripción</h4>
+          <p>Están presentes en todo momento, unos 100 tokens por skill. Con ellos, Claude decide si una petición encaja con alguna skill instalada.</p>
         </div>
         <div class="card">
-          <span class="k">[ 02 · Productividad ]</span>
-          <h4>Claude Cowork</h4>
-          <p>El agente de escritorio de conocimiento.</p>
+          <span class="k">[ Nivel 2 ] Si encaja</span>
+          <h4>El cuerpo de SKILL.md</h4>
+          <p>Solo se carga cuando la petición encaja con la descripción. Se recomienda que quede por debajo de 5.000 tokens y de 500 líneas.</p>
+        </div>
+        <div class="card">
+          <span class="k">[ Nivel 3 ] Si se citan</span>
+          <h4>Referencias, recursos y scripts</h4>
+          <p>Entran solo cuando el cuerpo los cita. De un script no entra su código, sino su resultado.</p>
+        </div>
+      </div>
+
+      <h3>Una descripción buena y una mala</h3>
+      <div class="grid-cards two">
+        <div class="card dim">
+          <span class="k">[ × ] Mal escrita</span>
+          <h4>«Ayuda con documentos.»</h4>
           <ul class="list-mono">
-            <li class="check">Ejecución de flujos complejos multi-paso.</li>
-            <li class="check">Lectura y escritura de carpetas locales.</li>
-            <li class="check">Integración visual de plugins y conectores.</li>
+            <li class="cross">No dice qué hace ni con qué documentos.</li>
+            <li class="cross">No dice cuándo usarla: Claude no sabrá cuándo cargarla.</li>
+            <li class="cross">No contiene las palabras que usaría quien la pide: memorándum, cierre, mes.</li>
           </ul>
-          <p><span class="k">Perfil: Knowledge Worker / Manager</span></p>
         </div>
         <div class="card ink">
-          <span class="k">[ 03 ]</span>
-          <h4>Claude Code (CLI)</h4>
-          <p>La interfaz de comandos agéntica.</p>
+          <span class="k">[ ✓ ] Bien escrita</span>
+          <h4>«Redacta el memorándum de cierre mensual… Úsala al preparar o revisar el cierre de un mes.»</h4>
           <ul class="list-mono">
-            <li class="check">Operaciones autónomas sobre repositorios.</li>
-            <li class="check">Ejecución directa de comandos bash y scripts.</li>
-            <li class="check">Control granular de agentes y skills en .md.</li>
+            <li class="check">En tercera persona: describe la skill, no habla en su nombre.</li>
+            <li class="check">Dice qué hace y cuándo usarla, en menos de 200 caracteres.</li>
+            <li class="check">Usa las palabras con que el equipo pide ese trabajo.</li>
           </ul>
-          <p><span class="k">Perfil: Desarrollador / Analista Técnico</span></p>
         </div>
+      </div>
+
+      <h3>Texto o script</h3>
+      <p>El texto de una skill sirve para lo que requiere criterio: el tono, el formato, qué destacar, qué no hacer. Cuando un proceso tiene que dar siempre el mismo resultado —cuadrar, convertir, validar—, es mejor un script: lo calcula de forma determinista y solo su salida entra en el contexto. La conciliación bancaria es el ejemplo de manual.</p>
+      <div class="ba">
+        <div class="before"><p class="k">Con instrucciones en texto</p><h4>Claude empareja los movimientos leyéndolos</h4><p>Lee los 31 movimientos del extracto y los 30 del mayor y los compara uno a uno. El resultado puede variar entre ejecuciones y todo el detalle ocupa contexto.</p></div>
+        <div class="after"><p class="k">Con un script</p><h4>Claude ejecuta <code>conciliar.py</code> e interpreta la salida</h4><p>El script empareja por importe con una tolerancia de cinco días, detecta duplicados y transposiciones y devuelve un resumen. Con los mismos archivos, el mismo resultado: 376.334,62 €.</p></div>
+      </div>
+
+      <h3>Buenas prácticas</h3>
+      <ul class="list-mono">
+        <li class="check">La descripción, en tercera persona, con qué hace y cuándo usarla, y con las palabras que usaría quien la pide.</li>
+        <li class="check">El cuerpo de <code>SKILL.md</code>, por debajo de 500 líneas; el detalle, en <code>references/</code>, a un solo nivel de distancia.</li>
+        <li class="check">Ejemplos de entrada y de salida, y la misma terminología de principio a fin.</li>
+        <li class="check">Scripts que gestionan sus propios errores con mensajes claros.</li>
+        <li class="check">Al menos tres casos de prueba antes de darla por buena, y una prueba con varios modelos.</li>
+        <li class="cross">Fechas que caducan («este trimestre», un mes concreto) dentro de las instrucciones.</li>
+        <li class="cross">Credenciales, contraseñas o claves de API, nunca, ni en el texto ni en los scripts.</li>
+      </ul>
+
+      <div class="glossary">
+        <div class="row"><h3 class="term">Skill<small>Manual de procedimiento</small></h3><p class="def">Carpeta con un archivo <code>SKILL.md</code> y, si hace falta, referencias, recursos y scripts, que enseña a Claude a hacer un trabajo concreto a la manera de la casa. Se carga sola cuando la petición encaja con su descripción. <span class="an">[ Analogía ] El manual de procedimiento del cierre que se entrega a quien se incorpora al departamento.</span></p></div>
+        <div class="row"><h3 class="term">Carga progresiva<small>Tres niveles</small></h3><p class="def">Forma en que Claude lee las skills: primero solo el nombre y la descripción; el cuerpo, si la petición encaja; las referencias y los scripts, si el cuerpo los cita. <span class="an">[ Analogía ] El índice de un archivador: se consulta siempre, y solo se saca la carpeta que hace falta.</span></p></div>
+        <div class="row"><h3 class="term">Determinista</h3><p class="def">Que da siempre el mismo resultado con los mismos datos. Es la razón para confiar un cuadre a un script y no a una lectura. <span class="an">[ Ejemplo ] La fórmula de una hoja de cálculo frente a la suma hecha de cabeza.</span></p></div>
       </div>
     </section>
 
-    <!-- 3. Componentes del ecosistema -->
-    <section class="sec" id="componentes" data-label="Componentes">
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">La anatomía extensible: skills, conectores y plugins.</h2></div>
-      <p class="sec-intro">Para automatizar tu entorno de forma robusta en Cowork o Code, debes comprender cómo se expanden las capacidades del modelo.</p>
-      <div class="grid-cards three">
-        <div class="card dim">
-          <span class="k">[ 01 ]</span>
-          <h4>Skills</h4>
-          <p>Son el <strong>cómo hacer las cosas</strong>. Archivos de Markdown que especifican procedimientos, reglas de formato e instrucciones precisas de ejecución que Claude carga bajo demanda.</p>
-          <p><span class="k">[ Carga bajo demanda ]</span></p>
-        </div>
-        <div class="card dim">
-          <span class="k">[ 02 ]</span>
-          <h4>Connectors (MCP)</h4>
-          <p>Son las <strong>ventanas al mundo real</strong>. Basados en el estándar de Anthropic (Model Context Protocol), enlazan de manera nativa a Claude con apps como Google Drive, Slack, Notion o HubSpot.</p>
-          <p><span class="k">[ Integración de datos ]</span></p>
-        </div>
-        <div class="card dim">
-          <span class="k">[ 03 ]</span>
-          <h4>Plugins (.plugin)</h4>
-          <p>Son el <strong>paquete empaquetado total</strong>. Un archivo ZIP o carpeta que reúne en una sola unidad Skills, subagentes (Agents), conectores MCP y Hooks de sistema automatizados.</p>
-          <p><span class="k">[ Ecosistema completo ]</span></p>
-        </div>
-      </div>
+    <!-- 04 · Crear una skill -->
+    <section class="sec respira" id="crear" data-label="Crear skill">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Crear una skill: dos caminos y tres pruebas.</h2></div>
+      <p class="sec-intro">Para crear una skill no hace falta escribir la carpeta a mano. Hay dos caminos, y los dos terminan en el mismo sitio: la skill instalada en «Personalización» → «Skills», con su interruptor. Los dos requieren que esté activado el interruptor «Ejecución de código en la nube y creación de archivos», en Configuración → «Capacidades».</p>
+      <figure class="figure"><img src="/img/m6c3-personalizacion.png" alt="Captura de la app de Claude en la página «Personalización»: arriba, las pestañas «Skills», «Conectores» y «Plugins», los filtros «Tuyos» y «Descubrir» (activo), el cuadro «Buscar», los iconos de filtrar y ordenar y el botón «+ Agregar» con desplegable; debajo, tarjetas de skills con su nombre, una descripción breve, su origen («de Anthropic» o «Anthropic Directory») y un botón «+» para añadirlas, agrupadas en la sección «Nuevas Skills» y en la de «Skills más instaladas»." width="1600" height="869" loading="lazy"><figcaption>[ Captura ] «Personalización» → «Skills» en la vista «Descubrir»: el catálogo, con el origen de cada skill y el botón «+» para añadirla</figcaption></figure>
+      <p>La página «Personalización» reúne las tres piezas de esta clase en pestañas: «Skills», «Conectores» y «Plugins». En cada una, «Tuyos» y «Descubrir» separan lo que ya se tiene del catálogo, en el que cada tarjeta indica el origen de la pieza —«de Anthropic» o «Anthropic Directory»— y se añade con el botón «+». El botón «Agregar», con su desplegable, es el punto de partida para incorporar una pieza propia.</p>
+      <!-- CAPTURA PENDIENTE: el desplegable «Agregar» de «Skills» abierto y la vista «Tuyos» con los interruptores de las skills instaladas -->
 
-      <h3>El secreto de la Progressive Disclosure (carga escalonada)</h3>
-      <p>En Claude Code y plugins estructurados, los skills se diseñan con carga escalonada de 3 capas. Esto reduce los costes en tokens radicalmente en un 90%:</p>
-      <div class="grid-cards three">
-        <div class="card"><span class="k">Capa 1</span><h4>Metadata (fijo)</h4><p>Claude mantiene fijos en la ventana de contexto solo el <code>name</code> y <code>description</code> de todos los skills del directorio. Esto permite al orquestador saber que existen gastando muy pocos tokens fijos.</p></div>
-        <div class="card"><span class="k">Capa 2</span><h4>Body (al activarse)</h4><p>Solo cuando Claude decide que un skill se ajusta a la petición, el cuerpo del fichero <code>SKILL.md</code> con todas sus instrucciones detalladas se vuelca e inyecta en el contexto de la sesión.</p></div>
-        <div class="card"><span class="k">Capa 3</span><h4>References (bajo demanda)</h4><p>La documentación extendida de la carpeta <code>references/</code> nunca entra automáticamente al contexto. Claude debe llamar de manera explícita a la herramienta de lectura para leerlos.</p></div>
-      </div>
-    </section>
-
-    <!-- 4. Cómo crear agentes -->
-    <section class="sec" id="creacion" data-label="Creación">
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Cómo crear agentes y subagentes.</h2></div>
-      <p>Dependiendo de si utilizas la terminal con <strong>Claude Code</strong> o la interfaz de escritorio con <strong>Claude Cowork</strong>, la creación y configuración de agentes se adapta con flujos optimizados. A continuación, exploramos los dos caminos sin desbordar el contexto:</p>
       <div class="grid-cards two">
         <div class="card">
-          <span class="k">[ CLI ]</span>
-          <h4>En Claude Code (CLI)</h4>
-          <p>Anthropic recomienda encarecidamente utilizar el asistente interactivo integrado. Esto evita errores de sintaxis en el formato YAML del frontmatter y agiliza el proceso de desarrollo.</p>
-          <div class="code"><div class="ch"><span class="k">[ Terminal ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre><span class="ac">$</span> claude /agents</pre></div>
-          <p>Este comando despliega una interfaz paso a paso que te guía para definir el nombre, la descripción (triggers), el modelo y las herramientas permitidas.</p>
-          <p><span class="k">Ruta de guardado automático:</span><code>.claude/agents/ (A nivel de proyecto)</code></p>
+          <span class="k">[ Camino A ] Conversando</span>
+          <h4>Pedírsela a Claude</h4>
+          <p>Se describe en una conversación el procedimiento que se quiere convertir en skill. Claude usa su propia skill de creación de skills: hace preguntas, redacta la cabecera y el cuerpo, y entrega la skill empaquetada, lista para instalar.</p>
         </div>
         <div class="card">
-          <span class="k">[ Desktop ]</span>
-          <h4>En Claude Cowork (Desktop)</h4>
-          <p>En el ecosistema visual de escritorio, los subagentes se integran mediante empaquetados modulares o asistentes conversacionales integrados:</p>
-          <ul class="list-mono">
-            <li class="check"><strong>Plugin Create</strong><br>Asistente visual integrado que te guía en lenguaje natural para programar y consolidar tus subagentes desde un chat.</li>
-            <li class="check"><strong>Archivos .plugin (ZIP)</strong><br>Puedes empaquetar tus archivos Markdown y subirlos como un archivo comprimido que se despliega al instante en tu Workspace.</li>
-          </ul>
-          <p><span class="k">Estructura del empaquetado:</span><code>plugin/agents/mi-agente.md</code></p>
+          <span class="k">[ Camino B ] Subiendo un ZIP</span>
+          <h4>Subir la carpeta comprimida</h4>
+          <p>Si la skill ya está escrita, se comprime su carpeta y se sube en «Personalización» → «Skills». El nivel superior del ZIP debe ser la carpeta de la skill, no los archivos sueltos. Es el camino de las plantillas de esta clase.</p>
         </div>
       </div>
+
+      <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Camino A ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Quiero crear una skill llamada imputacion-gastos para el departamento financiero. Debe asignar a cada factura de gastos su centro de coste según los criterios 3.1 a 3.4 de las normas de cierre adjuntas, imputar por devengo al mes del servicio y señalar como supuesto cualquier factura que llegue sin centro. Hazme las preguntas que necesites, propón la descripción y entrégame la skill empaquetada.»</pre></div>
+
+      <h3>De la carpeta al uso</h3>
+      <div class="stepper vertical">
+        <div class="step"><span class="n">01</span><h4>Activar</h4><p>Cada skill instalada tiene un interruptor en «Personalización» → «Skills». Una skill desactivada no se carga nunca.</p></div>
+        <div class="step"><span class="n">02</span><h4>Invocar</h4><p>Se invoca sola cuando la petición encaja con su descripción. También se puede llamar a propósito: al escribir «/» en el cuadro de prompt aparecen las skills y los comandos disponibles.</p></div>
+        <div class="step"><span class="n">03</span><h4>Probar</h4><p>Tres pruebas como mínimo: una petición que debe activarla, otra que no debe activarla y una invocación explícita con «/». La tabla siguiente las detalla.</p></div>
+        <div class="step"><span class="n">04</span><h4>Iterar</h4><p>Si no se activa cuando debe, la descripción no contiene las palabras con que se pide ese trabajo; si se activa cuando no debe, es demasiado general. Se corrige la descripción, se vuelve a subir y se repiten las pruebas.</p></div>
+        <div class="step final"><span class="n">[✓]</span><h4>Compartir</h4><p>Las skills personales son privadas. En las cuentas de empresa se pueden compartir con compañeros o publicar en la organización, para que todo el departamento trabaje con el mismo procedimiento.</p></div>
+      </div>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>Prueba</th><th>Prompt de ejemplo</th><th>Qué debe pasar</th></tr></thead>
+        <tbody>
+          <tr><td>Debe activarse</td><td>«Prepara el memorándum de cierre de octubre.»</td><td>Claude carga la skill y sigue sus pasos sin que se le pida.</td></tr>
+          <tr><td>No debe activarse</td><td>«Resume este correo en tres líneas.»</td><td>Claude responde sin cargar la skill: la petición no tiene nada que ver con su descripción.</td></tr>
+          <tr><td>Invocación explícita</td><td>«/memorandum-cierre» seguido del encargo</td><td>La skill se aplica porque se ha pedido por su nombre.</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout nota"><span class="k">[ Skills de serie ]</span><p>Anthropic incluye skills para Excel, Word, PowerPoint y PDF. Son las que Claude usa cuando se le pide un archivo de esos formatos, y explican por qué el interruptor «Ejecución de código en la nube y creación de archivos» es imprescindible.</p></div>
+
+      <div class="callout regla"><span class="k">[ Regla de trabajo ]</span><p>Una skill no está terminada hasta que pasa las tres pruebas. Si falla una, se corrige primero la descripción, que es lo que Claude lee para decidir; el cuerpo, solo después.</p></div>
     </section>
 
-    <!-- 5. El pipeline visual de los 5 agentes -->
-    <section class="sec" id="pipeline-visual" data-label="Pipeline">
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Pipeline de inteligencia de marketing (caso de estudio).</h2></div>
-      <p class="sec-intro">A continuación se muestra de forma gráfica y reactiva el pipeline de procesamiento multi-agente. Un orquestador central (Claude Opus) reparte y delega de manera secuencial a 5 subagentes especialistas, compartiendo una capa persistente de archivos e histórico de métricas.</p>
+    <!-- 05 · Conectores y extensiones -->
+    <section class="sec respira" id="conectores" data-label="Conectores">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Conectores: la llave de las otras oficinas.</h2></div>
+      <p class="sec-intro">Una skill enseña a hacer un trabajo, pero no da acceso a los datos que viven en otras aplicaciones. Para eso están los conectores: conectan Claude con una aplicación externa —Google Drive, Gmail, Slack, Notion, Salesforce…— para que pueda leer y, si se le permite, actuar en ella. Todos funcionan con <strong>MCP</strong> (Model Context Protocol), un estándar abierto creado por Anthropic.</p>
 
-      <figure class="figure esquema" style="max-width:var(--read-w)">
-        <svg viewBox="0 0 700 764" role="img" aria-label="Diagrama del pipeline multi-agente sobre un eje vertical: de la petición del usuario arranca la línea del orquestador (Opus, 0. marketing-orchestrator, que planifica, delega, consolida y mantiene el contexto limpio) y de ella cuelgan en orden los cinco subagentes especialistas — paid-media-analyzer, que lee Drive y normaliza los datos crudos; behavior-insights, que saca patrones e histórico; report-builder, que redacta informes ejecutivos por campo; deck-dashboard, que genera PPTX y dashboards; y synergy-strategist, que cruza sinergias y decisiones — antes de pasar por la capa compartida de archivos locales de proyecto y terminar en el entregable final.">
-          <line class="ln ac" x1="70" y1="32" x2="70" y2="719"/>
+      <div class="callout analogia"><span class="k">[ Analogía ]</span><p>Un enchufe estándar. Cualquier aparato con la clavija correcta funciona en cualquier pared, sin adaptadores a medida. MCP es la clavija común: una aplicación que la ofrece se conecta a Claude del mismo modo que cualquier otra.</p></div>
 
-          <line class="ln" x1="70" y1="32" x2="100" y2="32"/>
-          <rect class="bx fill" x="100" y="8" width="560" height="48" rx="10"/>
-          <text class="ti" x="122" y="39">Petición / Objetivo Global</text>
-          <text class="lb" x="638" y="39" text-anchor="end">Usuario</text>
-
-          <line class="ln" x1="70" y1="113" x2="100" y2="113"/>
-          <rect class="bx fill on-bx" x="100" y="68" width="560" height="90" rx="10"/>
-          <text class="ti" x="122" y="98">0. marketing-orchestrator</text>
-          <text class="lb" x="638" y="98" text-anchor="end">Orquestador (Opus)</text>
-          <text class="lb" x="122" y="122">Planifica · Delega · Consolida</text>
-          <text class="lb" x="122" y="144">Contexto limpio</text>
-
-          <line class="ln" x1="70" y1="205" x2="100" y2="205"/>
-          <rect class="bx fill" x="100" y="170" width="560" height="70" rx="12"/>
-          <text class="ti" x="122" y="200">paid-media-analyzer</text>
-          <text class="lb" x="638" y="200" text-anchor="end">Worker 1</text>
-          <text class="lb" x="122" y="224">Lee Drive y normaliza datos crudos</text>
-
-          <line class="ln" x1="70" y1="287" x2="100" y2="287"/>
-          <rect class="bx fill" x="100" y="252" width="560" height="70" rx="12"/>
-          <text class="ti" x="122" y="282">behavior-insights</text>
-          <text class="lb" x="638" y="282" text-anchor="end">Worker 2</text>
-          <text class="lb" x="122" y="306">Saca patrones e histórico</text>
-
-          <line class="ln" x1="70" y1="369" x2="100" y2="369"/>
-          <rect class="bx fill" x="100" y="334" width="560" height="70" rx="12"/>
-          <text class="ti" x="122" y="364">report-builder</text>
-          <text class="lb" x="638" y="364" text-anchor="end">Worker 3</text>
-          <text class="lb" x="122" y="388">Informes ejecutivos por campo</text>
-
-          <line class="ln" x1="70" y1="451" x2="100" y2="451"/>
-          <rect class="bx fill" x="100" y="416" width="560" height="70" rx="12"/>
-          <text class="ti" x="122" y="446">deck-dashboard</text>
-          <text class="lb" x="638" y="446" text-anchor="end">Worker 4</text>
-          <text class="lb" x="122" y="470">Genera PPTX y dashboards</text>
-
-          <line class="ln" x1="70" y1="533" x2="100" y2="533"/>
-          <rect class="bx fill" x="100" y="498" width="560" height="70" rx="12"/>
-          <text class="ti" x="122" y="528">synergy-strategist</text>
-          <text class="lb" x="638" y="528" text-anchor="end">Worker 5</text>
-          <text class="lb" x="122" y="552">Sinergias y decisiones cruzadas</text>
-
-          <line class="ln" x1="70" y1="625" x2="100" y2="625"/>
-          <rect class="bx fill" x="100" y="580" width="560" height="90" rx="10"/>
-          <text class="ti" x="122" y="610">Archivos locales de proyecto</text>
-          <text class="lb" x="638" y="610" text-anchor="end">Capa compartida</text>
-          <text class="lb" x="122" y="634">historic-paidmedia.md · historic-crm.md</text>
-          <text class="lb" x="122" y="656">memoria persistente de sesión</text>
-
-          <line class="ln" x1="70" y1="719" x2="100" y2="719"/>
-          <rect class="bx fill on-bx" x="100" y="682" width="560" height="74" rx="10"/>
-          <text class="ti" x="122" y="712">Informes + Deck PPTX +</text>
-          <text class="lb" x="638" y="712" text-anchor="end">Entregable final</text>
-          <text class="ti" x="122" y="739">Dashboard + Sinergias</text>
+      <figure class="figure esquema">
+        <svg viewBox="0 0 960 420" role="img" aria-label="En el centro, Claude, rodeado por un anillo rotulado «MCP · un enchufe estándar». A la izquierda, cinco conectores remotos de ejemplo, Google Drive, Gmail, Slack, Notion y Salesforce, se unen en una misma línea que atraviesa el anillo y llega a Claude, con el rótulo «Tu cuenta, tus permisos». A la derecha, separada, «Esta computadora», con una extensión de escritorio (MCP local) que entra por el mismo anillo, y la nota «Solo las aprobadas por IT».">
+          <text class="lb" x="40" y="30">Conectores remotos</text>
+          <rect class="bx fill" x="40" y="44" width="156" height="44" rx="4"/>
+          <text class="lb b" x="118" y="72" text-anchor="middle">Google Drive</text>
+          <rect class="bx fill" x="40" y="122" width="156" height="44" rx="4"/>
+          <text class="lb b" x="118" y="150" text-anchor="middle">Gmail</text>
+          <rect class="bx fill" x="40" y="200" width="156" height="44" rx="4"/>
+          <text class="lb b" x="118" y="228" text-anchor="middle">Slack</text>
+          <rect class="bx fill" x="40" y="278" width="156" height="44" rx="4"/>
+          <text class="lb b" x="118" y="306" text-anchor="middle">Notion</text>
+          <rect class="bx fill" x="40" y="356" width="156" height="44" rx="4"/>
+          <text class="lb b" x="118" y="384" text-anchor="middle">Salesforce</text>
+          <path class="ln" d="M196 66 H236 M196 144 H236 M196 222 H236 M196 300 H236 M196 378 H236 M236 66 V378 M236 222 H464"/>
+          <rect class="bx fill" x="252" y="196" width="156" height="52" rx="4"/>
+          <text class="lb b" x="330" y="217" text-anchor="middle">Tu cuenta,</text>
+          <text class="lb b" x="330" y="239" text-anchor="middle">tus permisos</text>
+          <circle class="bx on-bx" cx="510" cy="222" r="92"/>
+          <circle class="bx on-bx" cx="510" cy="222" r="80"/>
+          <path class="ln ac" d="M510 314 V342"/>
+          <rect class="bx fill on-bx" x="352" y="342" width="316" height="40" rx="4"/>
+          <text class="lb b" x="510" y="368" text-anchor="middle">MCP · un enchufe estándar</text>
+          <circle class="fill-ink" cx="510" cy="222" r="46"/>
+          <text class="ti on-dark" x="510" y="229" text-anchor="middle">Claude</text>
+          <path class="ln" d="M556 222 H642"/>
+          <rect class="bx" x="626" y="118" width="318" height="208" rx="6"/>
+          <text class="ti" x="642" y="156">Esta computadora</text>
+          <rect class="bx fill" x="642" y="176" width="286" height="88" rx="4"/>
+          <text class="lb b" x="785" y="212" text-anchor="middle">Extensión de escritorio</text>
+          <text class="lb" x="785" y="240" text-anchor="middle">(MCP local)</text>
+          <text class="lb" x="642" y="300">Solo las aprobadas por IT</text>
         </svg>
-        <figcaption>[ Diagrama ] El pipeline de procesamiento multi-agente</figcaption>
+        <figcaption>[ Diagrama 03 ] Un mismo enchufe para todas las aplicaciones; cada conector trabaja con la cuenta de quien lo conecta</figcaption>
       </figure>
-    </section>
 
-    <!-- 6. Despiece de los agentes e instrucciones de configuración -->
-    <section class="sec" id="agentes-detalle" data-label="Agentes">
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Anatomía de los 5 agentes especialistas.</h2></div>
-      <p class="sec-intro">Explora el diseño técnico exacto de cada subagente. Haz clic en las pestañas para inspeccionar su configuración YAML de entrada, su modelo recomendado, su lista blanca de herramientas y su sistema de instrucciones de comportamiento (<em>system prompt</em>).</p>
-      <div class="tabs">
-        <div role="tablist" aria-label="Agentes del pipeline">
-          <button type="button" role="tab" aria-selected="true" aria-controls="tab-ag0" id="tabb-ag0">0. El Orquestador</button>
-          <button type="button" role="tab" aria-selected="false" aria-controls="tab-ag1" id="tabb-ag1">1. paid-media-analyzer</button>
-          <button type="button" role="tab" aria-selected="false" aria-controls="tab-ag2" id="tabb-ag2">2. behavior-insights</button>
-          <button type="button" role="tab" aria-selected="false" aria-controls="tab-ag3" id="tabb-ag3">3. report-builder</button>
-          <button type="button" role="tab" aria-selected="false" aria-controls="tab-ag4" id="tabb-ag4">4. deck-dashboard</button>
-          <button type="button" role="tab" aria-selected="false" aria-controls="tab-ag5" id="tabb-ag5">5. synergy-strategist</button>
+      <h3>Lo esencial</h3>
+      <div class="grid-cards three">
+        <div class="card ink">
+          <span class="k">[ Personalización ]</span>
+          <h4>Añadir</h4>
+          <p>Los conectores se añaden en «Personalización» → «Conectores». En una cuenta de empresa, un propietario de la organización los habilita y cada persona conecta después su propia cuenta. <strong>Cuándo:</strong> una vez por aplicación.</p>
         </div>
-        <div id="agent-panels"><!-- paneles generados desde agentsCode (script al final) --></div>
+        <div class="card ink">
+          <span class="k">[ Cuadro de prompt ]</span>
+          <h4>Activar</h4>
+          <p>En cada conversación, los conectores que se van a usar se activan desde el botón «+» del cuadro de prompt. <strong>Cuándo:</strong> al empezar una conversación que necesita datos de esa aplicación.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ Cowork ]</span>
+          <h4>Permisos por herramienta</h4>
+          <p>Cada herramienta de un conector puede estar en permitir siempre, pedir aprobación o bloqueada. <strong>Cuándo:</strong> antes de dejar trabajar a Cowork con un conector que puede escribir, enviar o borrar.</p>
+        </div>
+      </div>
+      <!-- CAPTURA PENDIENTE: Personalización → Conectores, y los permisos por herramienta de un conector en Cowork -->
+
+      <h3>Conector, extensión y plugin</h3>
+      <p>Tres piezas que se confunden con facilidad, porque las tres amplían lo que Claude puede hacer. La diferencia está en dónde se ejecutan y en quién debe aprobarlas.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Aspecto</th><th>Conector</th><th>Extensión de escritorio</th><th>Plugin</th></tr></thead>
+        <tbody>
+          <tr><td>Qué es</td><td>Una conexión con una aplicación externa mediante MCP</td><td>Un servidor MCP local que se instala en el ordenador</td><td>Un paquete de skills, conectores, comandos, agentes y hooks</td></tr>
+          <tr><td>Dónde se gestiona</td><td>«Personalización» → «Conectores»</td><td>Configuración → «Extensiones»</td><td>«Personalización» → «Plugins»</td></tr>
+          <tr><td>Dónde se ejecuta</td><td>Fuera del equipo, en un servidor remoto</td><td>En el propio equipo: es código que corre en él</td><td>Depende de lo que contenga</td></tr>
+          <tr><td>Quién lo aprueba</td><td>En empresa, un propietario de la organización</td><td>Solo las aprobadas por IT; la organización decide cuáles se permiten</td><td>En empresa, la organización puede publicarlo para todos</td></tr>
+          <tr><td>Dónde funciona</td><td>Conversación, Cowork y Code</td><td>Solo en el equipo donde se instala</td><td>Según la pieza: ver la sección 06</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout aviso"><span class="k">[ ! ] Aviso</span><p>Un conector trabaja con la cuenta de la persona que lo conecta: lo que esa cuenta puede ver, Claude puede consultarlo. En Cowork, con datos de clientes o información financiera, las herramientas que escriben, envían o borran se dejan en «pedir aprobación». Y una extensión de escritorio es código que se ejecuta en el equipo: solo se instalan las aprobadas por IT.</p></div>
+
+      <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Con el conector de Google Drive ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «En la carpeta compartida "Cierres" de Google Drive, busca el memorándum de cierre de septiembre y las normas de cierre. Dime en qué apartado de las normas se define el formato del memorándum y qué partidas en tránsito se listaron en septiembre. No modifiques ningún archivo.»</pre></div>
+
+      <div class="glossary">
+        <div class="row"><h3 class="term">MCP<small>Model Context Protocol</small></h3><p class="def">Estándar abierto, creado por Anthropic, con el que una aplicación ofrece sus datos y sus acciones a Claude. Los conectores remotos y las extensiones de escritorio lo usan por igual. <span class="an">[ Analogía ] La clavija común de todos los aparatos de la oficina.</span></p></div>
+        <div class="row"><h3 class="term">Extensión de escritorio<small>MCP local</small></h3><p class="def">Servidor MCP que se instala en el ordenador y se ejecuta en él, como cualquier otro programa. Se gestiona en Configuración → «Extensiones». <span class="an">[ Analogía ] Una cerradura instalada en la propia mesa: útil, pero la instala quien tiene la llave maestra.</span></p></div>
       </div>
     </section>
 
-    <!-- 7. Test (banda tinta) -->
-    <section class="sec sec-dark" id="practica" data-label="Test">
-      <p class="sec-eyebrow">[ Validación de conceptos ]</p>
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Test de arquitectura agéntica.</h2></div>
-      <p class="sec-intro">Demuestra tu conocimiento técnico sobre el diseño y la coordinación de subagentes en Cowork y Code.</p>
-      <div class="quiz" data-quiz="quizData" data-title="Test de arquitectura agéntica"></div>
+    <!-- 06 · Plugins -->
+    <section class="sec respira" id="plugins" data-label="Plugins">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Plugins: el maletín completo del departamento.</h2></div>
+      <p class="sec-intro">Cuando un procedimiento necesita varias piezas a la vez —dos skills, un agente que revisa, quizá un conector—, instalarlas una a una en cada cuenta del equipo es lento y deja versiones distintas en cada mesa. Un plugin las reúne en un solo paquete, de modo que cualquier persona tiene el equipo de trabajo configurado desde la primera conversación.</p>
+
+      <div class="callout analogia"><span class="k">[ Analogía ]</span><p>El maletín que recibe quien se incorpora al departamento: los manuales de procedimiento, las llaves de las oficinas y el teléfono de los especialistas, todo junto y en su versión vigente.</p></div>
+
+      <h3>Qué contiene el plugin del cierre</h3>
+      <div class="code"><div class="ch"><span class="k">[ Árbol · cierre-mensual/ ]</span></div><pre class="tree"><span class="hl">cierre-mensual/</span>
+├── <span class="hl">.claude-plugin/</span>
+│   └── plugin.json               <span class="cm">← manifiesto: nombre, versión, descripción y autor</span>
+├── README.md                     <span class="cm">← qué hace, cómo se usa y qué datos maneja</span>
+├── LICENSE                       <span class="cm">← licencia MIT</span>
+├── <span class="hl">skills/</span>
+│   ├── <span class="hl">conciliacion-bancaria/</span>
+│   │   ├── SKILL.md
+│   │   └── scripts/conciliar.py  <span class="cm">← el cuadre, siempre con el mismo resultado</span>
+│   └── <span class="hl">memorandum-cierre/</span>        <span class="cm">← la skill de la sección 03</span>
+│       ├── SKILL.md
+│       └── references/
+└── <span class="hl">agents/</span>
+    └── revisor-cierre.md         <span class="cm">← el especialista que revisa (sección 07)</span></pre></div>
+
+      <div class="code wrap"><div class="ch"><span class="k">[ Archivo · .claude-plugin/plugin.json ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre>{
+  "name": "cierre-mensual",
+  "displayName": "Cierre mensual",
+  "version": "1.0.0",
+  "description": "Herramientas del cierre mensual de Dirección Financiera: conciliación bancaria con un script reproducible, memorándum de cierre con el formato de la casa y un agente que lo revisa contra las normas.",
+  "author": {
+    "name": "[m].seny · curso IA Generativa"
+  },
+  "license": "MIT"
+}</pre></div>
+
+      <p>Solo el manifiesto va dentro de <code>.claude-plugin/</code>; todo lo demás, en el nivel superior del plugin. En Claude Code, el único campo obligatorio del manifiesto es <code>name</code>. Para publicar en el directorio público de Claude hacen falta, además, un <code>README</code> de al menos 40 palabras y una licencia. Un plugin puede llevar también <code>commands/</code>, <code>hooks/hooks.json</code> y un <code>.mcp.json</code> con sus conectores; el del cierre no los necesita.</p>
+
+      <h3>Qué funciona dónde</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Componente</th><th>Conversación</th><th>Cowork</th><th>Claude Code</th></tr></thead>
+        <tbody>
+          <tr><td>Skills y comandos</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
+          <tr><td>Agentes y hooks</td><td>No: la conversación los ignora</td><td>Sí</td><td>Sí</td></tr>
+          <tr><td>MCP remoto</td><td>Sí, como conector</td><td>Sí</td><td>Sí</td></tr>
+          <tr><td>MCP local</td><td>No</td><td>Sí, solo en ese equipo</td><td>Sí</td></tr>
+        </tbody>
+      </table></div>
+
+      <ul class="list-mono">
+        <li class="cross">El nombre de un plugin no puede empezar por <code>claude-</code> ni por <code>anthropic-</code>.</li>
+        <li class="cross">Una carpeta <code>bin/</code> en el plugin impide instalarlo en la app y en Cowork.</li>
+        <li class="cross">Un <code>CLAUDE.md</code> en la raíz del plugin no se carga: las instrucciones del plugin van en sus skills.</li>
+        <li class="check">Los comandos (<code>commands/</code>) se mantienen por compatibilidad; para un procedimiento, se prefiere una skill.</li>
+      </ul>
+
+      <h3>Instalar</h3>
+      <p>Todo se hace en «Personalización» → «Plugins», desde donde un plugin también se desactiva o se elimina. Lo que se instala ahí se sincroniza con Cowork y con Claude Code.</p>
+      <div class="stepper">
+        <div class="step"><span class="n">01</span><h4>Descubrir</h4><p>El catálogo de plugins disponibles para la cuenta.</p></div>
+        <div class="step"><span class="n">02</span><h4>Marketplace</h4><p>Añadir un repositorio de GitHub que publica plugins.</p></div>
+        <div class="step"><span class="n">03</span><h4>Subir</h4><p>Un <code>.zip</code> o un <code>.plugin</code>, hasta 200 MB y 5.000 archivos.</p></div>
+        <div class="step"><span class="n">04</span><h4>Crear con Claude</h4><p>Describirlo en una conversación y dejar que Claude lo monte.</p></div>
+      </div>
+      <p>En Cowork, los comandos de un plugin se invocan con <code>/plugin:comando</code>; las skills del plugin se cargan solas cuando la petición encaja, o se eligen con «/».</p>
+
+      <h3>Compartir, publicar y evaluar</h3>
+      <div class="grid-cards three">
+        <div class="card dim">
+          <span class="k">[ Equipo ]</span>
+          <h4>Personas concretas</h4>
+          <p>Un plugin se comparte con compañeros determinados, que lo instalan en su cuenta.</p>
+        </div>
+        <div class="card dim">
+          <span class="k">[ Organización ]</span>
+          <h4>Biblioteca de la empresa</h4>
+          <p>En las cuentas de empresa se publica en la biblioteca de la organización, a disposición de todos.</p>
+        </div>
+        <div class="card dim">
+          <span class="k">[ Directorio ]</span>
+          <h4>Directorio público</h4>
+          <p>Se envía desde <code>claude.ai/directory/manage</code> a partir de un repositorio público de GitHub. Pasa una validación automática, un análisis de seguridad y la revisión de una persona.</p>
+        </div>
+      </div>
+      <p>Para los equipos técnicos, Claude Code añade dos órdenes: <code>claude plugin validate</code> revisa la sintaxis del plugin, y <code>claude plugin eval</code> ejecuta casos de prueba con el plugin y sin él y compara los resultados, que es la forma de medir si el plugin mejora el trabajo.</p>
+
+      <div class="callout aviso"><span class="k">[ ! ] Seguridad</span><p>Un plugin amplía lo que Claude puede hacer: sus skills pueden ejecutar scripts y sus conectores, acceder a otras aplicaciones. Se instalan solo plugins de fuentes de confianza, y antes de instalar uno conviene leer su <code>README</code> y abrir sus skills.</p></div>
+    </section>
+
+    <!-- 07 · Agentes -->
+    <section class="sec respira" id="agentes" data-label="Agentes">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Agentes: el orquestador y sus especialistas.</h2></div>
+      <p class="sec-intro">En una tarea larga, un solo Claude que lo hace todo acaba con el contexto lleno de detalles que no necesita: los movimientos del banco cuando redacta, las cifras de ventas cuando concilia. Los agentes resuelven ese problema. El Claude principal actúa como <strong>orquestador</strong>: divide el trabajo y lo encarga a <strong>subagentes</strong>, especialistas con su propio prompt de sistema, sus propias herramientas y su propia ventana de contexto, que comparten los archivos de la carpeta o del proyecto.</p>
+
+      <div class="callout analogia"><span class="k">[ Analogía ]</span><p>La redacción de la clase 2, vista ahora desde dentro: cada especialista tiene por escrito su propio encargo, que se redacta una vez y sirve para cada cierre. Ninguno de los redactores necesita leer lo que escriben los demás para hacer bien su parte.</p></div>
+
+      <figure class="figure esquema">
+        <svg viewBox="0 0 960 368" role="img" aria-label="Dentro de un marco que representa la carpeta compartida cierre-octubre, el orquestador, destacado en oscuro, se encarga del plan y del montaje y reparte el trabajo a dos especialistas en paralelo: el conciliador, que trabaja con el extracto y el mayor, y el analista de ventas, que calcula ventas y margen. Sus resultados confluyen en el borrador del memorándum, que pasa al revisor, que devuelve los hallazgos.">
+          <rect class="bx" x="16" y="16" width="928" height="336" rx="6"/>
+          <rect class="fill-ink" x="40" y="120" width="180" height="84" rx="4"/>
+          <text class="ti on-dark" x="130" y="158" text-anchor="middle">Orquestador</text>
+          <text class="lb on-dark soft" x="130" y="185" text-anchor="middle">Plan y montaje</text>
+          <line class="ln ac" x1="220" y1="162" x2="250" y2="162"/>
+          <line class="ln ac" x1="250" y1="78" x2="250" y2="246"/>
+          <line class="ln ac" x1="250" y1="78" x2="280" y2="78"/>
+          <path class="ln ac" d="M272 72 L280 78 L272 84"/>
+          <line class="ln ac" x1="250" y1="246" x2="280" y2="246"/>
+          <path class="ln ac" d="M272 240 L280 246 L272 252"/>
+          <rect class="bx fill" x="280" y="40" width="230" height="76" rx="4"/>
+          <text class="lb b" x="395" y="72" text-anchor="middle">Conciliador</text>
+          <text class="lb" x="395" y="98" text-anchor="middle">Extracto y mayor</text>
+          <rect class="bx fill" x="280" y="208" width="230" height="76" rx="4"/>
+          <text class="lb b" x="395" y="240" text-anchor="middle">Analista de ventas</text>
+          <text class="lb" x="395" y="266" text-anchor="middle">Ventas y margen</text>
+          <line class="ln ac" x1="510" y1="78" x2="540" y2="78"/>
+          <line class="ln ac" x1="510" y1="246" x2="540" y2="246"/>
+          <line class="ln ac" x1="540" y1="78" x2="540" y2="246"/>
+          <line class="ln ac" x1="540" y1="162" x2="570" y2="162"/>
+          <path class="ln ac" d="M562 156 L570 162 L562 168"/>
+          <rect class="bx fill" x="570" y="120" width="170" height="84" rx="4"/>
+          <text class="lb b" x="655" y="158" text-anchor="middle">Memorándum</text>
+          <text class="lb" x="655" y="185" text-anchor="middle">Borrador</text>
+          <line class="ln ac" x1="740" y1="162" x2="776" y2="162"/>
+          <path class="ln ac" d="M768 156 L776 162 L768 168"/>
+          <rect class="bx fill" x="776" y="120" width="146" height="84" rx="4"/>
+          <text class="lb b" x="849" y="158" text-anchor="middle">Revisor</text>
+          <text class="lb" x="849" y="185" text-anchor="middle">Hallazgos</text>
+          <text class="lb" x="40" y="334">Carpeta compartida · cierre-octubre/</text>
+        </svg>
+        <figcaption>[ Diagrama 04 ] El orquestador reparte; cada especialista trabaja con su propio contexto sobre la misma carpeta</figcaption>
+      </figure>
+
+      <h3>Cowork y Claude Code no delegan igual</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Aspecto</th><th>Cowork</th><th>Claude Code</th></tr></thead>
+        <tbody>
+          <tr><td>Quién decide delegar</td><td>El orquestador, por sí solo: decide cuándo dividir el trabajo y lanza subagentes en paralelo.</td><td>El orquestador o la persona, que puede invocar a cada agente con control fino.</td></tr>
+          <tr><td>De dónde salen los agentes</td><td>De los plugins instalados.</td><td>De <code>.claude/agents/</code> (proyecto), <code>~/.claude/agents/</code> (usuario) y los plugins.</td></tr>
+          <tr><td>Qué hace la persona</td><td>Da el objetivo al orquestador y supervisa el plan; no invoca a los subagentes uno a uno.</td><td>Diseña el reparto, elige qué agente interviene y revisa cada resultado.</td></tr>
+          <tr><td>Contexto y archivos</td><td colspan="2">Cada subagente trabaja con su propia ventana de contexto, sin arrastrar el historial completo, y todos comparten los archivos de la carpeta o del proyecto.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>El archivo de un agente</h3>
+      <p>Un agente es un archivo Markdown con cabecera YAML cuyo cuerpo es su prompt de sistema: las instrucciones permanentes del especialista. Son obligatorios <code>name</code> y <code>description</code>; entre los opcionales, <code>tools</code> fija la lista blanca de herramientas que puede usar y <code>model</code> elige el modelo (<code>sonnet</code>, <code>opus</code>, <code>haiku</code>, <code>fable</code> o <code>inherit</code>, que hereda el de la sesión). El revisor del plugin solo lee archivos y escribe su informe, y trabaja con Sonnet porque su tarea está bien definida.</p>
+      <div class="code wrap"><div class="ch"><span class="k">[ Archivo · agents/revisor-cierre.md ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre>---
+name: revisor-cierre
+description: Revisa un memorándum de cierre mensual contra las normas de cierre (fecha, apartados, cifras y conciliación) y devuelve una lista de hallazgos. Úsalo antes de dar por bueno el memorándum.
+tools: Read, Grep, Glob, Write
+model: sonnet
+---
+
+Eres el revisor del cierre mensual de Dirección Financiera. Tu trabajo es comprobar un memorándum de cierre contra las normas de cierre de la empresa y devolver una lista de hallazgos. No reescribes el memorándum ni corriges nada: señalas.
+
+## Qué recibes
+
+- El memorándum que hay que revisar (documento de Word, Markdown o texto).
+- Las normas de cierre (`normas-cierre.docx` o su texto). Si no puedes leerlas, pide al orquestador que te pase su texto; no revises de memoria.
+- Si existen, el resultado de la conciliación bancaria y la hoja de ventas del mes.
+
+## Qué compruebas, en este orden
+
+1. **Fecha.** D es el último día natural del mes cerrado; el memorándum se envía en D+7 y, si D+7 cae en sábado o domingo, el lunes siguiente. Comprueba el día de la semana.
+2. **Estructura.** Cinco apartados, con estos títulos y en este orden: «1. Resumen», «2. Ventas por tienda», «3. Margen», «4. Tesorería y conciliación», «5. Incidencias y ajustes». Una página.
+3. **Formato de cifras.** Euros sin decimales y con punto de millar; porcentajes con un decimal.
+4. **Coherencia interna.** La suma de las ventas por tienda coincide con el total del resumen; las tres tiendas destacadas son las de mayor variación interanual.
+5. **Tesorería.** El saldo coincide con el saldo conciliado; las partidas en tránsito se listan y no se ajustan (normas, 4.3).
+6. **Incidencias.** Los gastos reimputados por devengo (3.2) y los ajustes de inventario superiores al 1 % (3.5) figuran en el apartado 5; los supuestos están señalados como tales.
+
+## Qué devuelves
+
+Una tabla Markdown con una fila por comprobación:
+
+| # | Comprobación | Resultado | Detalle |
+|---|---|---|---|
+
+- **Resultado**: «Correcto», «Error» o «No comprobable» (cuando falta el dato para comprobarlo).
+- **Detalle**: qué has visto y dónde (apartado y frase o cifra).
+
+Debajo, una línea final: «Listo para enviar» si no hay ningún error, o «Requiere correcciones: N errores».
+
+Si te lo piden, guarda la tabla en `revision-memorandum.md` en la carpeta de trabajo. No modifiques ningún otro archivo.
+
+## Reglas
+
+- No inventes normas: comprueba solo lo que dicen las normas de cierre.
+- No des por correcta una comprobación que no has podido hacer: márcala como «No comprobable».
+- Sé breve: un hallazgo, una fila.</pre></div>
+
+      <div class="callout regla"><span class="k">[ Regla de trabajo ]</span><p>Un especialista, una tarea y las herramientas justas para ella. Un revisor que puede modificar el documento que revisa deja de ser un revisor.</p></div>
+
+      <div class="glossary">
+        <div class="row"><h3 class="term">Orquestador</h3><p class="def">El Claude principal de una tarea: recibe el objetivo, lo divide, reparte las partes entre subagentes y monta el resultado. <span class="an">[ Analogía ] El redactor jefe que encarga las secciones y compone la portada.</span></p></div>
+        <div class="row"><h3 class="term">Subagente<small>Especialista</small></h3><p class="def">Un Claude con un encargo acotado, su propio prompt de sistema, sus herramientas y su propia ventana de contexto. Entrega su parte al orquestador. <span class="an">[ Ejemplo ] El revisor del cierre, que solo comprueba el memorándum contra las normas.</span></p></div>
+        <div class="row"><h3 class="term">Ventana de contexto</h3><p class="def">Todo lo que Claude tiene presente en un momento dado: instrucciones, conversación, archivos leídos y resultados. Repartir el trabajo entre subagentes evita llenarla de detalles ajenos a cada tarea. <span class="an">[ Analogía ] La mesa de trabajo: cuantos más papeles ajenos hay encima, más cuesta encontrar el que importa.</span></p></div>
+      </div>
+    </section>
+
+    <!-- 08 · Claude Code y mods -->
+    <section class="sec respira" id="code" data-label="Code y mods">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Code y mods: el peldaño de los equipos técnicos.</h2></div>
+      <p class="sec-intro">La pestaña «Code» abre Claude Code, el entorno de programación agéntico de Claude, que trabaja con sesiones locales, en la nube, por SSH o en WSL. Un departamento financiero rara vez lo necesitará, pero conviene saber qué es para entenderse con el equipo técnico: allí viven las instrucciones del proyecto en <code>CLAUDE.md</code> y allí se construyen los mods, el último peldaño de la escalera.</p>
+
+      <h3><code>CLAUDE.md</code>: las instrucciones del proyecto</h3>
+      <p>Claude Code lee <code>CLAUDE.md</code> al empezar cada sesión: el del proyecto (<code>./CLAUDE.md</code>) y el del usuario (<code>~/.claude/CLAUDE.md</code>). Si no encuentra ninguno, lee <code>AGENTS.md</code>. Su contenido se trata como contexto, no como una regla que se cumpla siempre: lo que deba cumplirse sin excepción se configura en un hook. Es el equivalente, en Code, de las instrucciones del proyecto de la clase 1.</p>
+      <div class="code wrap"><div class="ch"><span class="k">[ Archivo · CLAUDE.md ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre><span class="hl"># Informes de cierre · Dirección Financiera</span>
+
+Repositorio con los scripts que generan los informes del cierre mensual.
+
+<span class="hl">## Normas</span>
+- Español de España. Cifras en euros sin decimales y con punto de millar; porcentajes con un decimal.
+- Los datos de origen están en `datos/` y no se modifican nunca.
+- Antes de dar por terminado un cambio, ejecuta la conciliación de prueba y comprueba que cuadra.
+
+<span class="hl">## Estructura</span>
+- `scripts/`: conciliación y cálculo de KPI.
+- `plantillas/`: plantilla del memorándum.</pre></div>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>Orden o archivo</th><th>Qué hace</th><th>Cuándo usarlo</th></tr></thead>
+        <tbody>
+          <tr><td><code>/init</code></td><td>Genera un <code>CLAUDE.md</code> a partir del proyecto.</td><td>Al empezar a trabajar en un proyecto que no lo tiene.</td></tr>
+          <tr><td><code>/memory</code></td><td>Abre <code>CLAUDE.md</code> para editarlo.</td><td>Cuando una norma del proyecto cambia.</td></tr>
+          <tr><td><code>/compact</code></td><td>Resume la conversación para liberar contexto.</td><td>En una sesión larga, antes de cambiar de tarea dentro del mismo tema.</td></tr>
+          <tr><td><code>/clear</code></td><td>Empieza con el contexto vacío.</td><td>Al pasar a una tarea que no tiene relación con la anterior.</td></tr>
+          <tr><td><code>MEMORY.md</code></td><td>La memoria automática de Claude Code: notas que toma por su cuenta, distintas de la memoria de la app.</td><td>Se revisa de vez en cuando, como la memoria de la app.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Mods: reformar la oficina</h3>
+      <p>Un mod es una pequeña función, escrita en TypeScript o JavaScript dentro de un plugin, que se engancha a Claude Code y cambia cómo funciona. Funciona en la terminal y en la pestaña «Code» de la app. Es el peldaño más alto de la personalización y una herramienta pensada para equipos técnicos.</p>
+      <div class="grid-cards three">
+        <div class="card ink">
+          <span class="k">[ Qué hace ]</span>
+          <h4>Cambia la herramienta</h4>
+          <p>Puede retener o reescribir una llamada a una herramienta, dibujar interfaz, añadir un comando o sustituir una función de serie.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ Cómo se pide ]</span>
+          <h4>Conversando, no programando</h4>
+          <p>No hace falta escribirlo a mano: se le pide a Claude en una sesión de Code y Claude lo escribe.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ Seguridad ]</span>
+          <h4>Con los permisos del usuario</h4>
+          <p>Se ejecuta con los permisos de quien lo usa y sin aislamiento. Los administradores pueden restringir los mods en la organización.</p>
+        </div>
+      </div>
+      <p>Los ejemplos de la documentación oficial dan una idea de la escala: una barra dibujada sobre el cuadro de prompt que muestra cuánto de la ventana de contexto está ocupado y que se activa con un comando, o un indicador con la rama de git en la que se está trabajando.</p>
+
+      <div class="callout clave"><span class="k">[ Para el departamento ]</span><p>No hace falta programar para aprovechar las clases 1 a 3 de este módulo. Instrucciones, skills, conectores y plugins se crean conversando con Claude o subiendo un ZIP; los mods y Claude Code quedan para cuando el equipo técnico se suma al proyecto.</p></div>
+    </section>
+
+    <!-- 09 · Práctica (banda tinta) y test -->
+    <section class="sec respira sec-dark" id="practica" data-label="Práctica">
+      <p class="sec-eyebrow">[ Parte práctica ]</p>
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Laboratorio: el plugin de cierre del departamento.</h2></div>
+      <p class="sec-intro">La práctica continúa el cierre de octubre de 2026 de las clases anteriores, con la misma carpeta <code>cierre-octubre</code> y el proyecto «Cierre mensual». Primero se escribe y se prueba una skill propia; después se instala el plugin del departamento y se usa en Cowork para conciliar, redactar y revisar. Al terminar, el procedimiento del cierre queda escrito y cualquier compañero puede repetirlo el mes siguiente con el mismo resultado.</p>
+
+      <h3>Archivos de la práctica</h3>
+      <div class="grid-cards three">
+        <a class="card link" href="/practica/m6c3/guia-markdown-mseny.pdf" download>
+          <span class="k">[ Descargar · PDF ]</span>
+          <h4>guia-markdown-mseny.pdf</h4>
+          <p>La guía de Markdown de [m].seny, en nueve capítulos. El capítulo 9, «Markdown para Claude», es la lectura previa del ejercicio 1.</p>
+        </a>
+        <a class="card link" href="/practica/m6c3/skill-memorandum-cierre.zip" download>
+          <span class="k">[ Descargar · ZIP ]</span>
+          <h4>skill-memorandum-cierre.zip</h4>
+          <p>La skill <code>memorandum-cierre</code>: <code>SKILL.md</code> y sus dos referencias, la plantilla del memorándum y las definiciones de KPI.</p>
+        </a>
+        <a class="card link" href="/practica/m6c3/plugin-cierre-mensual.zip" download>
+          <span class="k">[ Descargar · ZIP ]</span>
+          <h4>plugin-cierre-mensual.zip</h4>
+          <p>El plugin <code>cierre-mensual</code>: las skills de conciliación bancaria (con su script) y de memorándum, y el agente <code>revisor-cierre</code>.</p>
+        </a>
+      </div>
+      <p>Si no se hicieron las prácticas anteriores, la carpeta de trabajo está en <a href="/practica/m6c1/carpeta-cierre-octubre.zip" download>carpeta-cierre-octubre.zip</a>: se descomprime en Documentos y se crea el proyecto «Cierre mensual» como se explica en la clase 1.</p>
+
+      <ol class="exercises">
+        <li>
+          <h4>Leer una skill antes de escribirla</h4>
+          <p>Primero, lee el capítulo 9 de la guía. Después, descomprime <code>skill-memorandum-cierre.zip</code> y abre <code>SKILL.md</code> con el Bloc de notas o con cualquier editor de texto. Por último, localiza sus tres partes: la cabecera YAML entre las dos líneas de guiones, el cuerpo con las instrucciones y las dos referencias que el cuerpo cita.</p>
+          <p><strong>Resultado esperado:</strong> <code>name: memorandum-cierre</code>, igual que el nombre de la carpeta; una descripción de 183 caracteres, por debajo de los 200 recomendados; un cuerpo de unas 65 líneas; y dos referencias, <code>references/kpi.md</code> (citada en el paso 2) y <code>references/formato-memorandum.md</code> (citada en el paso 4).</p>
+        </li>
+        <li>
+          <h4>Escribir la skill <code>checklist-cierre</code></h4>
+          <p>Primero, crea una carpeta llamada <code>checklist-cierre</code>. Después, crea dentro un archivo de texto llamado <code>SKILL.md</code> y copia en él la plantilla siguiente; revísala contra las normas de cierre y ajústala si el departamento trabaja de otra manera.</p>
+          <div class="code"><div class="ch"><span class="k">[ Plantilla · checklist-cierre/SKILL.md ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre>---
+name: checklist-cierre
+description: Prepara la checklist del cierre mensual con la fecha real de cada hito del calendario de las normas de cierre. Úsala al planificar el cierre de un mes.
+---
+
+# Checklist del cierre mensual
+
+## Cuándo usarla
+- Cuando se pide la checklist, el calendario o los plazos del cierre de un mes.
+
+## Entradas
+- Las normas de cierre (normas-cierre.docx), apartado 1: calendario de cierre.
+- El mes que se cierra.
+
+## Pasos
+1. Calcula D, el último día natural del mes que se cierra, y su día de la semana.
+2. Calcula D+3, D+5 y D+7 en días naturales, con el día de la semana de cada uno.
+3. Aplica la regla de las normas: si D+7 cae en sábado o domingo, el memorándum se envía el lunes siguiente.
+4. Si otro hito cae en fin de semana y las normas no fijan regla para él, señálalo como incidencia y no lo muevas.
+5. Para cada hito, indica qué se entrega, quién lo entrega y qué archivo necesita.
+
+## Formato de salida
+Una tabla: Hito · Fecha · Día · Qué se entrega · Responsable · Archivo.
+Debajo, un apartado «Supuestos e incidencias» con cada fecha señalada.
+
+## Qué no hacer
+- No inventes reglas de calendario que no figuren en las normas.
+- No muevas una fecha sin indicarlo.</pre></div>
+          <p>También puedes seguir el camino A y pedírsela a Claude en una conversación con las normas adjuntas:</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · La skill, conversando ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Quiero crear una skill llamada checklist-cierre. Debe preparar la checklist del cierre mensual a partir del calendario de las normas de cierre adjuntas: calcular D (el último día natural del mes), D+3, D+5 y D+7 con su día de la semana; aplicar la regla de que, si D+7 cae en sábado o domingo, el memorándum se envía el lunes siguiente; y señalar, sin moverlo, cualquier otro hito que caiga en fin de semana. Hazme las preguntas que necesites y entrégamela empaquetada en un ZIP.»</pre></div>
+        </li>
+        <li>
+          <h4>Subirla y activarla</h4>
+          <p>Primero, comprime la carpeta <code>checklist-cierre</code> entera, no los archivos de su interior: el nivel superior del ZIP debe ser la carpeta. Después, en «Personalización» → «Skills», sube el ZIP. Por último, comprueba que el interruptor de la skill está activado. Si la subida falla, revisa que «Ejecución de código en la nube y creación de archivos» esté activada en Configuración → «Capacidades» y que la cabecera empiece y termine con tres guiones.</p>
+        </li>
+        <li>
+          <h4>Las tres pruebas</h4>
+          <p>Abre una conversación en el proyecto «Cierre mensual», con las normas en su contexto, y lanza los tres prompts siguientes, cada uno en una conversación distinta.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Debe activarse ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Prepara la checklist del cierre de noviembre de 2026.»</pre></div>
+          <p><strong>Resultado esperado:</strong> la skill se activa sola. D es el lunes 30 de noviembre; D+3, el jueves 3 de diciembre; D+5, el <strong>sábado 5 de diciembre</strong>, que debe aparecer señalado como incidencia, porque las normas no fijan regla de fin de semana para D+5 y la skill no debe moverlo por su cuenta; y D+7, el lunes 7 de diciembre.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · No debe activarse ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Resume este correo en tres líneas: "Hola, os confirmo que el proveedor de transporte entregará el pedido de bolsos el miércoles por la mañana en el almacén central. Un saludo."»</pre></div>
+          <p><strong>Resultado esperado:</strong> un resumen breve, sin rastro de la skill.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Invocación explícita ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; /checklist-cierre octubre de 2026</pre></div>
+          <p><strong>Resultado esperado:</strong> D es el sábado 31 de octubre; D+3, el martes 3 de noviembre; D+5, el jueves 5 de noviembre; D+7 cae en sábado 7, de modo que el memorándum se envía el <strong>lunes 9 de noviembre</strong>. Si alguna prueba falla, corrige la descripción, vuelve a subir la skill y repite.</p>
+        </li>
+        <li>
+          <h4>Instalar el plugin del departamento</h4>
+          <p>En «Personalización» → «Plugins», elige subir un plugin y selecciona <code>plugin-cierre-mensual.zip</code> sin descomprimirlo; el ZIP contiene la carpeta <code>cierre-mensual</code> con el manifiesto en <code>.claude-plugin/plugin.json</code>. Después, comprueba en la ficha del plugin que aparecen dos skills, <code>conciliacion-bancaria</code> y <code>memorandum-cierre</code>, y el agente <code>revisor-cierre</code>. Si instalaste por tu cuenta la skill suelta de <code>skill-memorandum-cierre.zip</code>, desactívala para no tener dos versiones del mismo procedimiento.</p>
+        </li>
+        <li>
+          <h4>El cierre en Cowork: conciliar, redactar y revisar</h4>
+          <p>Abre una tarea de Cowork en el proyecto «Cierre mensual», con la carpeta <code>cierre-octubre</code>. Con los datos reales de la empresa se trabajaría en «Manual»; con estos archivos sintéticos puedes probar el modo automático. Lanza los tres encargos siguientes en orden y revisa cada resultado antes de pasar al siguiente.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · 1 · Conciliación ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Concilia el banco de octubre con la skill conciliacion-bancaria del plugin, a partir de extracto-bancario-octubre.csv y mayor-bancos-octubre.xlsx. Guarda el informe en conciliacion-octubre.md y no modifiques los archivos originales.»</pre></div>
+          <p><strong>Resultado esperado:</strong> el mismo de la clase 2. Saldo final según el banco, 376.334,62 €; saldo contable, 373.614,27 €; diferencia, 2.720,35 €; y estas partidas:</p>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Partida</th><th>Efecto en el mayor (€)</th><th>Tratamiento</th></tr></thead>
+            <tbody>
+              <tr><td>Comisión de mantenimiento (31/10)</td><td>−45,60</td><td>Solo en el banco: asiento de ajuste</td></tr>
+              <tr><td>Devolución de recibo Boutique Azul y su comisión (17/10)</td><td>−2.115,40 y −6,50</td><td>Solo en el banco: asientos de ajuste</td></tr>
+              <tr><td>Pago a Curtidos Levante, F-2026-0912</td><td>+8.640,00</td><td>Duplicado en el mayor: anular</td></tr>
+              <tr><td>Alquiler del local de Lisboa (20/10)</td><td>−270,00</td><td>Transposición (1.524 frente a 1.254): corregir</td></tr>
+              <tr><td>Cobros TPV Online 30-31/10</td><td>— (3.482,15 en tránsito)</td><td>En tránsito: no se ajusta, se lista</td></tr>
+            </tbody>
+          </table></div>
+          <p>Ajustes netos, <strong>+6.202,50 €</strong>; saldo contable ajustado, 379.816,77 €; menos 3.482,15 € en tránsito, <strong>376.334,62 €</strong>, igual que el banco.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · 2 · Memorándum ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Redacta el memorándum de cierre de octubre de 2026 con la skill memorandum-cierre, a partir de las normas de cierre, ventas-tiendas-2026.xlsx, el memorándum de septiembre y conciliacion-octubre.md, y gastos-octubre-limpio.xlsx si existe. Entrégalo como memorandum-cierre-octubre.docx.»</pre></div>
+          <p><strong>Resultado esperado:</strong> fecha, lunes 9 de noviembre de 2026; ventas, 1.083.815 €, un +5,2 % sobre los 1.030.048 € de octubre de 2025; margen bruto, 60,1 %, el mismo que hace un año; las tres tiendas que más crecen, Online (+16,6 %), Lisboa (+14,6 %) y Sevilla (+5,1 %), y Bilbao (−3,4 %) como la única que cae; y un saldo de bancos conciliado de 376.335 €, con 3.482 € en tránsito. Si se hizo la limpieza de gastos de la clase 2, el apartado 5 recoge además los 2.400 € reimputados a septiembre y el supuesto de CC-ADM para la telefonía.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · 3 · Revisión ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Pide al agente revisor-cierre que revise memorandum-cierre-octubre.docx contra normas-cierre.docx y que guarde sus hallazgos en revision-memorandum.md. No corrijas nada todavía: primero quiero ver la lista.»</pre></div>
+          <p><strong>Resultado esperado:</strong> una tabla con una fila por comprobación: la fecha (D+7 cae en sábado, así que el envío es el lunes 9 de noviembre), los cinco apartados con sus títulos y en orden, el formato de las cifras, la coherencia entre la tabla y el resumen y la tesorería. Al final, «Listo para enviar» o el número de errores. Si hay errores, pide a Claude que los corrija y vuelve a pasar el revisor.</p>
+        </li>
+        <li>
+          <h4>Opcional · Un conector de documentos</h4>
+          <p>Si la organización tiene un conector de almacenamiento de documentos —por ejemplo, Google Drive o el gestor documental de la empresa—, comprueba primero que el memorándum de septiembre está en la carpeta compartida del departamento; si no está, súbelo desde la carpeta <code>cierre-octubre</code>. Después, abre una conversación en el proyecto «Cierre mensual», activa el conector desde «+» → «Conectores» y lanza el prompt siguiente. Mientras trabaja, observa qué herramientas del conector usa Claude y qué permisos te pide antes de usarlas.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Con un conector ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Localiza el memorándum de cierre de septiembre en la carpeta compartida del departamento y compara sus apartados con los cinco que fijan las normas de cierre del proyecto. Dime si falta alguno, si sobra alguno o si alguno cambia de título o de orden. Indica en qué carpeta y con qué nombre lo has encontrado. No modifiques ningún archivo.»</pre></div>
+          <p><strong>Resultado esperado:</strong> Claude encuentra el archivo con la cuenta de quien ha conectado el conector; si esa cuenta no tiene acceso a la carpeta, no lo encuentra. Indica la carpeta compartida y el nombre del archivo. Enumera los cinco apartados de las normas —«1. Resumen», «2. Ventas por tienda», «3. Margen», «4. Tesorería y conciliación» y «5. Incidencias y ajustes»— y confirma que el memorándum de septiembre los sigue con los mismos títulos y en el mismo orden. No modifica ningún archivo.</p>
+        </li>
+        <li>
+          <h4>Opcional · Compartir el plugin</h4>
+          <p>En una cuenta de empresa, comparte el plugin con un compañero desde «Personalización» → «Plugins», o publícalo en la biblioteca de la organización si tienes permiso para hacerlo. Pide a ese compañero que repita el ejercicio 6 y compara con él los resultados de la conciliación: deben coincidir al céntimo.</p>
+        </li>
+      </ol>
+
+      <div class="callout ok"><span class="k">[✓] Resultado esperado</span><p>Al terminar, el departamento tiene su procedimiento de cierre escrito en piezas que Claude aplica igual cada mes: una skill propia probada con tres casos, un plugin con dos skills y un revisor, y un cierre de octubre conciliado a 376.334,62 €, redactado con el formato de la casa y revisado contra las normas. El mes siguiente basta con cambiar los archivos de la carpeta.</p></div>
+
+      <div class="quiz" data-quiz="quizData" data-title="Test de la clase"></div>
     </section>
 
   </div><!-- /.content -->
@@ -235,311 +996,118 @@
 <script src="/curso-data.js"></script>
 <script src="/curso.js"></script>
 <script>
-  // --- CODES STORE (5 Agents + Orchestrator from DOC 3) --- verbatim de la página original.
-  const agentsCode = [
-      {
-          fileName: "orchestrator.md",
-          code: `---
-name: marketing-orchestrator
-description: Coordina el pipeline de inteligencia de marketing. Úsalo
-  cuando se pida analizar campañas end-to-end, desde datos crudos hasta
-  conclusiones estratégicas. Reparte a los 5 especialistas y consolida.
-model: opus
-effort: high
----
-Eres el orquestador de un equipo de inteligencia de marketing.
-Tu trabajo NO es analizar tú; es planificar, delegar y consolidar.
-
-Flujo obligatorio (respeta las dependencias):
-1. Lanza paid-media-analyzer sobre la carpeta de Drive indicada.
-2. Pasa su salida a behavior-insights para patrones + comparativa histórica.
-3. Pasa ambas a report-builder para los informes por campo.
-4. Pasa los informes a deck-dashboard para presentación y dashboards.
-5. Cierra con synergy-strategist para conclusiones entre departamentos.
-
-Reglas:
-- Cada subagente trabaja en su propio contexto. Pásale SOLO lo que necesita.
-- Conserva tu contexto limpio: recibe resúmenes, no volcados completos.
-- Si un agente falla o devuelve datos incompletos, reintenta con
-  instrucciones más específicas antes de continuar.
-- Entrega final: carpeta /outputs con informes, deck y resumen ejecutivo.`
-      },
-      {
-          fileName: "paid-media-analyzer.md",
-          code: `---
-name: paid-media-analyzer
-description: Lee y normaliza datos de paid media, ROAS y CRM desde Drive.
-  Úsalo como PRIMER paso de cualquier análisis de campañas, cuando haya
-  que extraer y estructurar datos crudos de carpetas en la nube.
-tools: Read, Grep, Glob
-model: sonnet
-skills: [data-analyst, xlsx]
----
-Eres analista de datos de paid media. Solo extraes y normalizas; no
-interpretas (eso es del siguiente agente).
-
-Dónde buscar:
-- Carpeta de Drive indicada por el orquestador.
-- Tipos de archivo: exports de Google Ads, Meta Ads, TikTok Ads,
-  LinkedIn Ads, GA4 y el CRM (CSV/XLSX).
-
-Métricas que debes localizar y normalizar por campaña/canal/fecha:
-- Inversión (spend), impresiones, clics, CTR, CPC, CPM.
-- Conversiones, CPA, tasa de conversión, valor de conversión.
-- ROAS = valor de conversión / inversión.
-- Del CRM: leads, MQL, SQL, oportunidades, ventas, ciclo de venta, LTV.
-
-Tu salida (estructurada, lista para el siguiente agente):
-- Tabla normalizada única (mismos nombres de columna entre fuentes).
-- Cobertura temporal y huecos de datos detectados.
-- Anomalías evidentes (gasto sin conversiones, picos atípicos).
-- NO saques conclusiones de negocio. Solo datos limpios + banderas.`
-      },
-      {
-          fileName: "behavior-insights.md",
-          code: `---
-name: behavior-insights
-description: Extrae patrones de comportamiento, buyer persona y rendimiento
-  de campaña a partir de datos normalizados. Compara con el histórico y lo
-  actualiza. Úsalo tras paid-media-analyzer.
-tools: Read, Write, Grep, Glob
-model: sonnet
-skills: [data-analyst, xlsx, docx]
-memory: true
----
-Eres analista de comportamiento y estrategia de audiencias.
-
-Entrada: la tabla normalizada del paid-media-analyzer.
-
-Qué debes producir:
-- Patrones de comportamiento por canal, formato y segmento.
-- Definición / refinamiento de buyer persona basada en datos reales
-  (qué segmentos convierten mejor, a qué coste, en qué fase del funnel).
-- Rendimiento comparado de campañas (qué escala, qué saturó, qué cae).
-- Compartir con el histórico: variación vs trimestres anteriores,
-  tendencias sostenidas vs ruido puntual.
-
-Gestión del histórico (CRÍTICO):
-- Mantén un archivo .md por tipo de dato: historic-paidmedia.md,
-  historic-crm.md, historic-personas.md, etc.
-- Al terminar, AÑADE una entrada fechada con las métricas clave del
-  periodo y los cambios observados. No sobrescribas; acumula.
-- Si no existe el histórico, créalo con este periodo como línea base.
-
-Entrega: informe de insights + histórico actualizado.`
-      },
-      {
-          fileName: "report-builder.md",
-          code: `---
-name: report-builder
-description: Crea informes por campo (canal, campaña, audiencia, funnel)
-  con propuestas de mejora objetivas basadas en datos e histórico.
-  Úsalo tras behavior-insights.
-tools: Read, Write
-model: sonnet
-skills: [docx, xlsx, data-analyst]
----
-Eres consultor de marketing que redacta informes accionables.
-
-Entrada: insights + histórico de los agentes anteriores.
-
-Para CADA campo (canal, campaña, audiencia, etapa de funnel) produce:
-- Estado actual: qué dicen los números, sin adornos.
-- Lectura vs histórico: ¿mejora, empeora o se mantiene? ¿desde cuándo?
-- Diagnóstico: causa probable, distinguiendo correlación de causalidad.
-- Propuesta de mejora OBJETIVA: acción concreta, métrica objetivo
-  esperada, y por qué (anclada en lo que ya funcionó históricamente).
-- Prioridad: alto/medio/bajo impacto x esfuerzo.
-
-Reglas:
-- Cada propuesta debe ser verificable: "subir CPA objetivo a X" no
-  "optimizar campañas". Nada de recomendaciones genéricas.
-- Si los datos no soportan una conclusión, dilo explícitamente.
-
-Entrega: un .docx por campo + un .xlsx maestro con las propuestas
-priorizadas.`
-      },
-      {
-          fileName: "deck-dashboard.md",
-          code: `---
-name: deck-dashboard
-description: Crea presentaciones y dashboards interactivos a partir de los
-  informes. Úsalo tras report-builder, cuando haga falta material visual
-  para presentar resultados.
-tools: Read, Write
-model: sonnet
-skills: [pptx, xlsx]
----
-Eres diseñador de comunicación de datos.
-
-Entrada: los informes por campo del report-builder.
-
-Produce:
-- Presentación (PPTX): una historia, no un volcado. Estructura sugerida:
-  resumen ejecutivo > rendimiento global > hallazgos por campo >
-  propuestas priorizadas > siguientes pasos. Una idea por slide.
-- Dashboard interactivo: KPIs principales con filtros por canal y
-  periodo, gráficos de tendencia vs histórico, y semáforos de objetivos.
-
-Reglas de diseño:
-- Cada slide responde a una pregunta de negocio concreta.
-- Los gráficos muestran la comparativa con el histórico, no solo el dato
-  aislado.
-- Sin jerga: el deck lo verá gente de otros departamentos.
-
-Entrega: deck.pptx + dashboard (xlsx con tablas dinámicas, o HTML).`
-      },
-      {
-          fileName: "synergy-strategist.md",
-          code: `---
-name: synergy-strategist
-description: Genera conclusiones data-driven para mejorar cada campo y
-  crear sinergias entre departamentos y estrategias. Es el ÚLTIMO paso,
-  la síntesis estratégica de todo el pipeline.
-tools: Read, Write
-model: opus
-effort: high
-skills: [docx, pptx]
----
-Eres director de estrategia. No repites lo que dijeron los demás:
-conectas los puntos que ellos vieron por separado.
-
-Entrada: insights, informes y deck de los agentes anteriores.
-
-Produce:
-- Conclusiones data-driven transversales: qué patrón aparece en varios
-  campos a la vez y qué significa para el negocio.
-- Sinergias entre departamentos: cómo lo que funciona en paid media
-  puede alimentar a ventas, contenido, producto o CRM, y viceversa.
-  Ejemplo: si un segmento convierte barato en Meta, ¿qué debería hacer
-  el equipo de contenido y el de ventas con esa señal?
-- Estrategias combinadas: 3-5 jugadas que crucen equipos, con el dato
-  que las justifica y el impacto esperado.
-
-Reglas:
-- Cada sinergia parte de una evidencia concreta del análisis, no de una
-  buena intención.
-- Prioriza por impacto y por facilidad de coordinación entre equipos.
-
-Entrega: documento de estrategia + slides de cierre para el deck.`
-      }
-  ];
-
-  // Paneles de las pestañas: un .code por agente, generado desde agentsCode.
-  // Se ejecuta antes de DOMContentLoaded, así que curso.js (tabs + copiar) los encuentra al arrancar.
-  (function () {
-    var host = document.getElementById('agent-panels');
-    if (!host) return;
-    function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
-    host.innerHTML = agentsCode.map(function (a, i) {
-      var code = esc(a.code).replace(/^(---[\s\S]*?---)/, '<span class="hl">$1</span>');
-      return '<div role="tabpanel" id="tab-ag' + i + '" aria-labelledby="tabb-ag' + i + '"' + (i ? ' hidden' : '') + '>' +
-        '<div class="code"><div class="ch"><span class="k">[ Archivo · ' + esc(a.fileName) + ' ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre>' + code + '</pre></div>' +
-        '</div>';
-    }).join('');
-  })();
-
-  // Preguntas del test: verbatim de la página original. a = índice de la opción correcta.
-  const quizData = [
+  // Test de la clase. a = índice de la opción correcta; why = explicación de una frase.
+  // `var` (no `const`): curso.js lee el array como window[data-quiz].
+  var quizData = [
     {
-      q: "¿Cuál es el motivo técnico principal para implementar un patrón de delegación multi-agente (Orchestrator-Workers)?",
+      q: "¿Qué pieza de personalización conviene para un procedimiento que se repite cada mes con los mismos pasos, como redactar el memorándum de cierre?",
       opts: [
-        "Reducir el tiempo de espera por llamada a la API.",
-        "Evitar la saturación de la ventana de contexto aislando las tareas de cada especialista.",
-        "Asegurar que todas las llamadas usen obligatoriamente Claude Opus.",
-        "Eludir las restricciones de cuota de Anthropic."
+        "Una instrucción de la cuenta, porque se aplica a todas las conversaciones y no hace falta invocarla nunca.",
+        "Una skill con los pasos, el formato y las comprobaciones del memorándum.",
+        "Un mod, porque es la única pieza capaz de cambiar cómo trabaja Claude con los documentos del departamento.",
+        "Un conector de Google Drive, que guarda el procedimiento en una carpeta compartida del equipo."
       ],
-      a: 1
+      a: 1,
+      why: "Las instrucciones dicen cómo es la casa; un procedimiento con pasos, formato y comprobaciones propias es el terreno de una skill."
     },
     {
-      q: "En Claude Code, ¿en qué campo del frontmatter YAML de un subagente se configuran las condiciones que el orquestador lee para decidir si delegar la tarea automáticamente?",
+      q: "¿Qué es la cabecera YAML (frontmatter) de un archivo SKILL.md?",
       opts: [
-        "name",
-        "tools",
-        "description",
-        "trigger"
+        "Un bloque entre dos líneas de tres guiones con pares clave: valor, como name y description.",
+        "El primer título del archivo, escrito con una almohadilla, que Claude muestra como nombre de la skill en el menú.",
+        "Un archivo aparte, con extensión .yaml, que se guarda en la carpeta references/ junto a las plantillas.",
+        "La firma que añade la app al subir la skill para comprobar que nadie ha modificado el archivo."
       ],
-      a: 2
+      a: 0,
+      why: "Va al principio del archivo, entre dos líneas de tres guiones, y Claude la lee antes que el cuerpo."
     },
     {
-      q: "Al finalizar su ejecución, ¿qué le devuelve exactamente un subagente al orquestador principal?",
+      q: "¿Cuál de estos valores del campo name es válido para una skill guardada en la carpeta memorandum-cierre?",
       opts: [
-        "Toda su ventana de contexto con el historial de llamadas intermedio.",
-        "Un resumen consolidado o entregable final, descartándose su contexto interno de trabajo.",
-        "Su archivo .mcp de conexión a herramientas externas.",
-        "Un código JSON encriptado con la firma de Anthropic."
+        "Memorandum_Cierre",
+        "claude-memorandum",
+        "memorandum-cierre",
+        "memorándum de cierre mensual"
       ],
-      a: 1
+      a: 2,
+      why: "Solo minúsculas, números y guiones, hasta 64 caracteres, sin «anthropic» ni «claude», e igual al nombre de la carpeta."
     },
     {
-      q: "Si necesitas que tus subagentes recuerden datos históricos de campañas anteriores sesión tras sesión, ¿cómo se gestiona esta persistencia en la arquitectura?",
+      q: "Según la carga progresiva de las skills, ¿qué tiene Claude presente en todo momento?",
       opts: [
-        "Se guardan en la memoria RAM del ordenador automáticamente.",
-        "Utilizando y actualizando archivos físicos dedicados (como historic-*.md) en la capa de archivos compartida.",
-        "Claude los guarda en su servidor global de forma invisible.",
-        "No es posible tener persistencia entre sesiones en esta versión."
+        "El cuerpo completo de cada SKILL.md instalado, para poder elegir siempre la skill adecuada.",
+        "Los archivos de references/ y el código de los scripts de todas las skills activadas.",
+        "El nombre y la descripción de cada skill, que le bastan para decidir cuál aplicar.",
+        "Nada: las skills solo se cargan cuando se invocan escribiendo «/» en el cuadro de prompt."
       ],
-      a: 1
+      a: 2,
+      why: "El nivel 1 son el nombre y la descripción (unos 100 tokens por skill); el cuerpo entra si la petición encaja y el resto, si el cuerpo lo cita."
     },
     {
-      q: "¿Cuál es la misión fundamental de 'paid-media-analyzer' (Agente 1) en el pipeline de marketing?",
+      q: "¿Qué descripción de skill sigue las buenas prácticas?",
       opts: [
-        "Redactar propuestas de mejora creativas para redes sociales.",
-        "Extraer, limpiar y normalizar datos crudos de Drive, entregándolos estructurados sin interpretar.",
-        "Generar el diseño final de los informes corporativos en formato .docx.",
-        "Configurar la conexión OAuth de Google Analytics."
+        "«Ayuda con documentos.»",
+        "«Soy experta en finanzas y escribo informes muy completos para cualquier necesidad del departamento.»",
+        "«Skill del cierre, versión de octubre.»",
+        "«Redacta el memorándum de cierre mensual con el formato de las normas. Úsala al preparar o revisar el cierre de un mes.»"
       ],
-      a: 1
+      a: 3,
+      why: "En tercera persona, dice qué hace y cuándo usarla con las palabras de quien la pide, y no lleva fechas que caduquen."
     },
     {
-      q: "¿Cuál de las siguientes afirmaciones sobre las Scheduled Tasks (Tareas Programadas) es VERDADERA?",
+      q: "¿Por qué la skill de conciliación bancaria del plugin usa un script en lugar de instrucciones en texto?",
       opts: [
-        "Tienen acceso directo al historial completo de tus chats anteriores.",
-        "Se ejecutan en paralelo con otras tareas del sistema compartiendo contexto activo.",
-        "Cada ejecución arranca de cero de forma totalmente autocontenida y requiere prompts específicos que no asuman memoria previa.",
-        "Solo pueden ejecutarse con el modelo Claude Haiku."
+        "Porque las instrucciones en texto no permiten a Claude abrir archivos CSV ni hojas de Excel.",
+        "Porque el cuadre debe dar siempre el mismo resultado, y del script solo entra su salida en el contexto.",
+        "Porque los scripts se ejecutan fuera de la cuenta y no consumen cuota de uso, mientras que el texto de una skill sí la consume.",
+        "Porque una skill sin script no se puede subir comprimida en un ZIP."
       ],
-      a: 2
+      a: 1,
+      why: "Cuadrar, convertir o validar exige un resultado determinista; el texto queda para el criterio, el tono y el formato."
     },
     {
-      q: "¿Qué modelo de Anthropic se recomienda explícitamente para el Orquestador y el Synergy-Strategist en el pipeline debido a la necesidad de razonamiento complejo?",
+      q: "¿Qué es MCP (Model Context Protocol)?",
       opts: [
-        "Claude Haiku",
-        "Claude Sonnet",
-        "Claude Opus",
-        "Google Gemini Flash"
+        "Un estándar abierto, creado por Anthropic, para conectar Claude con aplicaciones externas.",
+        "El formato de archivo que sustituye a SKILL.md cuando una skill incluye scripts o plantillas.",
+        "La memoria automática de Claude Code, donde se guardan las notas de cada proyecto en MEMORY.md.",
+        "Un modo de permiso de Cowork que bloquea todas las herramientas de los conectores."
       ],
-      a: 2
+      a: 0,
+      why: "Es la clavija común: los conectores remotos y las extensiones de escritorio lo usan por igual."
     },
     {
-      q: "En la jerarquía de instrucciones de Claude Cowork, ¿qué capa afecta a absolutamente TODAS las sesiones de la aplicación?",
+      q: "Un plugin contiene dos skills y un agente. ¿Qué ocurre al usarlo en una conversación normal?",
       opts: [
-        "Global instructions (en Settings > Cowork).",
-        "Folder instructions.",
-        "El prompt del mensaje enviado.",
-        "El archivo CLAUDE.md del proyecto."
+        "El plugin no se puede instalar si contiene agentes; hay que quitarlos antes de subir el ZIP.",
+        "El agente se ejecuta en la conversación y las skills se desactivan para no duplicar el trabajo.",
+        "Funcionan las dos piezas, pero solo si la conversación está dentro de un proyecto.",
+        "Las skills funcionan y el agente se ignora: los agentes se cargan en Cowork y en Code."
       ],
-      a: 0
+      a: 3,
+      why: "Skills y comandos funcionan en la conversación, en Cowork y en Code; agentes y hooks, solo en Cowork y en Code."
     },
     {
-      q: "Si queremos compartir un 'bundle' empaquetado de subagentes, conectores y habilidades con el resto del equipo en Cowork, ¿qué componente creamos?",
+      q: "¿Qué diferencia hay entre trabajar con agentes en Cowork y en Claude Code?",
       opts: [
-        "Un archivo AGENT.md.",
-        "Un Plugin (.plugin).",
-        "Un conector MCP.",
-        "Una Scheduled Task."
+        "En Cowork el orquestador decide solo cuándo delegar; en Claude Code se invocan con control fino.",
+        "En Cowork cada agente necesita su propia cuenta de usuario; en Claude Code todos comparten la misma cuenta.",
+        "Ninguna: en los dos entornos hay que invocar a cada agente por su nombre y en el orden correcto.",
+        "En Cowork los agentes no pueden leer los archivos de la carpeta de trabajo; en Claude Code, sí."
       ],
-      a: 1
+      a: 0,
+      why: "En Cowork se da el objetivo al orquestador y se supervisa el plan; el control fino de cada agente es propio de Claude Code."
     },
     {
-      q: "¿Cuál es el rol técnico del agente 'synergy-strategist' (Agente 5) en el flujo?",
+      q: "¿Qué afirmación sobre los mods es correcta?",
       opts: [
-        "Normalizar tablas de Google Sheets.",
-        "Diseñar las diapositivas de la presentación final en PPTX.",
-        "Conectar los puntos de forma transversal, proponiendo sinergias y estrategias basadas en datos reales entre departamentos.",
-        "Enviar correos masivos a través del conector de Gmail."
+        "Son skills con otro nombre y funcionan igual en la conversación, en Cowork y en Claude Code.",
+        "Solo se pueden escribir a mano en TypeScript, y para usarlos hay que publicarlos antes en el directorio de Claude.",
+        "Se le piden a Claude en una sesión de Code y se ejecutan con los permisos del usuario.",
+        "Son la forma recomendada de que un departamento financiero comparta sus procedimientos de cierre."
       ],
-      a: 2
+      a: 2,
+      why: "Son el peldaño más alto, para equipos técnicos: funcionan en Claude Code, sin aislamiento, y los administradores pueden restringirlos."
     }
   ];
 </script>

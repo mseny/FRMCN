@@ -1,0 +1,10 @@
+{
+  "name": "cierre-mensual",
+  "displayName": "Cierre mensual",
+  "version": "1.0.0",
+  "description": "Herramientas del cierre mensual de Dirección Financiera: conciliación bancaria con un script reproducible, memorándum de cierre con el formato de la casa y un agente que lo revisa contra las normas.",
+  "author": {
+    "name": "[m].seny · curso IA Generativa"
+  },
+  "license": "MIT"
+}

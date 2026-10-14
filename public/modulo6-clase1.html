@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>M6 · Clase 1 — Claude: el asistente de IA como socio de trabajo · [m].seny /academy</title>
-<meta name="description" content="De la interfaz de chat al ecosistema agentic autónomo. Profundizando en el modelo más humano y analítico de Anthropic.">
+<title>M6 · Clase 1 — La app de Claude: espacio de trabajo, modos y ajustes · [m].seny /academy</title>
+<meta name="description" content="La app de Claude por dentro: cómo se organiza la pantalla, cuándo conversar y cuándo encargar una tarea, dónde se guardan el contexto y la memoria y qué controla cada ajuste.">
 <link rel="stylesheet" href="/theme.css">
 <link rel="stylesheet" href="/curso.css">
 </head>
@@ -12,200 +12,834 @@
 <main>
 
   <header class="hero escena">
-    <h1 class="display">Claude: el asistente de IA como <em>socio</em> de trabajo.</h1>
-    <p class="sub">De la interfaz de chat al ecosistema agentic autónomo. Profundizando en el modelo más humano y analítico de Anthropic.</p>
+    <h1 class="display">Claude: un espacio de <em>trabajo</em>, no una ventana de chat.</h1>
+    <p class="sub">La app de Claude por dentro: cómo se organiza la pantalla, cuándo conversar y cuándo encargar una tarea, dónde se guardan el contexto y la memoria y qué controla cada ajuste.</p>
     <ul class="esc-cifras">
-      <li><b>4</b> entornos</li>
-      <li><b>5</b> archivos agentic</li>
-      <li><b>3</b> comandos</li>
+      <li><b>4</b> modelos</li>
+      <li><b>3</b> modos de permiso</li>
+      <li><b>20</b> ajustes</li>
     </ul>
-    <div class="chips"><span class="chip">claude.ai</span><span class="chip">Claude Cowork</span><span class="chip">Claude Design</span><span class="chip">Claude Code</span></div>
+    <div class="chips"><span class="chip">Claude</span><span class="chip">Chat</span><span class="chip">Cowork</span><span class="chip">Proyectos</span><span class="chip">Memoria</span><span class="chip">Ajustes</span></div>
   </header>
 
-  <div class="content">
+  <div class="content aire">
 
-    <!-- 1. Introducción y ecosistema -->
-    <section class="sec" id="intro" data-label="Ecosistema Claude">
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">El ecosistema Claude (2026).</h2></div>
-      <p>Claude es el modelo fundacional de IA desarrollado por <strong>Anthropic</strong>. A diferencia de ChatGPT (versátil) o Gemini (integrado en Workspace), Claude destaca por su extrema naturalidad en la redacción, su razonamiento ético (Constitutional AI) y su capacidad inigualable para codificar y no perderse en documentos masivos.</p>
-      <div class="grid-cards two">
-        <div class="card"><span class="k">[ 01 ]</span><h4>Web / Mobile</h4><p>La interfaz clásica (claude.ai). Ideal para consultas rápidas, redacción y análisis de PDFs subidos manualmente. No tiene acceso a tus archivos locales.</p></div>
-        <div class="card dim"><span class="k">[ 02 · Pro ]</span><h4>Claude Cowork</h4><p>El agente de escritorio. Con permisos, puede leer carpetas locales, aplicaciones y actuar como un verdadero compañero de trabajo en tu sistema operativo.</p></div>
-        <div class="card dim"><span class="k">[ 03 · UI / UX ]</span><h4>Claude Design</h4><p>El entorno visual. Te permite generar código (HTML/React), renderizar interfaces y previsualizar prototipos web interactivos en tiempo real.</p></div>
-        <div class="card ink"><span class="k">[ 04 ]</span><h4>Claude Code</h4><p>Interfaz de Terminal (CLI) para tareas <em>agentic</em>. Lee repositorios, ejecuta scripts y modifica archivos de forma autónoma sin interfaz gráfica.</p></div>
+    <!-- 01 · Qué es Claude hoy: la app y sus superficies -->
+    <section class="sec respira" id="familia" data-label="Familia">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Claude hoy: una app con varias superficies de trabajo.</h2></div>
+      <p class="sec-intro">Claude es el asistente de inteligencia artificial de Anthropic. Se utiliza a través de una app que funciona en el navegador, en el ordenador —Windows y macOS— y en el móvil, y que conviene entender como un espacio de trabajo y no como una ventana de conversación: en ella se conversa, se encargan tareas, se organizan proyectos, se producen documentos y presentaciones y se programa trabajo recurrente, todo con la misma cuenta.</p>
+      <p>Las tres versiones no ofrecen las mismas funciones. Cowork, el trabajo con las carpetas del ordenador y Claude in Chrome requieren la <strong>app de escritorio</strong>, y por eso las prácticas de este módulo se hacen en ella. En la web y en el móvil, esas tres funciones no están disponibles.</p>
+
+      <div class="callout analogia"><span class="k">[ Analogía · El hilo del módulo ]</span>
+        <p>A lo largo de las tres clases, Claude se trata como un colaborador que se incorpora a la Dirección Financiera. En esta primera clase se le da <strong>mesa, llaves y normas</strong>: la app, el contexto y los ajustes. En la segunda se le <strong>encarga trabajo</strong>: tareas y entregables. En la tercera se le <strong>forma con los manuales de la casa</strong>: skills, conectores, plugins y agentes.</p>
       </div>
-    </section>
-
-    <!-- 2. Arquitectura .MD (archivos de configuración automática) -->
-    <section class="sec" id="arquitectura" data-label="Arquitectura .MD">
-      <p class="sec-eyebrow">[ Automatización de contexto ]</p>
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">La arquitectura «.MD» (el cerebro permanente).</h2></div>
-      <p class="sec-intro">El mayor error productivo es escribir: <em>«Actúa como un experto de mi marca, lee este PDF de estilo y haz X»</em>, cada vez que abres un chat. Claude Code y los entornos avanzados automatizan esto usando <strong>archivos de configuración en la raíz de tu proyecto</strong>.</p>
 
       <figure class="figure esquema">
-        <svg viewBox="0 0 640 356" role="img" aria-label="Diagrama de la arquitectura .MD: CLAUDE.md es el punto de entrada; de él cuelgan SOUL.md, SKILL.md y WORKFLOW.md; y los tres desembocan en AGENT.md, el archivo maestro que los orquesta.">
-          <!-- el cableado entre los cinco archivos -->
-          <line class="ln" x1="320" y1="84" x2="320" y2="116"/>
-          <line class="ln" x1="116" y1="116" x2="524" y2="116"/>
-          <line class="ln" x1="116" y1="116" x2="116" y2="148"/>
-          <line class="ln" x1="320" y1="116" x2="320" y2="148"/>
-          <line class="ln" x1="524" y1="116" x2="524" y2="148"/>
-          <line class="ln" x1="116" y1="208" x2="116" y2="240"/>
-          <line class="ln" x1="320" y1="208" x2="320" y2="240"/>
-          <line class="ln" x1="524" y1="208" x2="524" y2="240"/>
-          <line class="ln" x1="116" y1="240" x2="524" y2="240"/>
-          <line class="ln" x1="320" y1="240" x2="320" y2="272"/>
-          <g>
-            <rect class="bx fill" x="210" y="24" width="220" height="60" rx="12"/>
-            <text class="ti" x="320" y="61" text-anchor="middle">CLAUDE.md</text>
-          </g>
-          <g>
-            <rect class="bx fill" x="22" y="148" width="188" height="60" rx="12"/>
-            <text class="ti" x="116" y="185" text-anchor="middle">SOUL.md</text>
-          </g>
-          <g>
-            <rect class="bx fill" x="226" y="148" width="188" height="60" rx="12"/>
-            <text class="ti" x="320" y="185" text-anchor="middle">SKILL.md</text>
-          </g>
-          <g>
-            <rect class="bx fill" x="430" y="148" width="188" height="60" rx="12"/>
-            <text class="ti" x="524" y="185" text-anchor="middle">WORKFLOW.md</text>
-          </g>
-          <g>
-            <rect class="bx fill" x="210" y="272" width="220" height="60" rx="12"/>
-            <text class="ti" x="320" y="309" text-anchor="middle">AGENT.md</text>
-          </g>
+        <svg viewBox="0 0 1000 340" role="img" aria-label="Mapa de la app de Claude. A la izquierda, un recuadro grande, la pestaña Inicio, agrupa las superficies de trabajo de oficina en cuatro columnas: Conversar, con Chat y Proyectos; Encargar, con Cowork, Programadas y Chrome; Producir, con Artefactos y Diseño; y Personalizar, con Skills, Conectores y Plugins. Al pie del recuadro: una cuenta, un historial y los mismos ajustes. A la derecha, aparte, la pestaña Code: programación agéntica para equipos técnicos.">
+          <rect class="bx fill" x="24" y="20" width="760" height="300" rx="4"/>
+          <text class="ti" x="48" y="58">Pestaña Inicio</text>
+          <rect class="fill-ink" x="44" y="76" width="172" height="44" rx="4"/>
+          <text class="ti on-dark" x="130" y="105" text-anchor="middle">Conversar</text>
+          <rect class="fill-ink" x="228" y="76" width="172" height="44" rx="4"/>
+          <text class="ti on-dark" x="314" y="105" text-anchor="middle">Encargar</text>
+          <rect class="fill-ink" x="412" y="76" width="172" height="44" rx="4"/>
+          <text class="ti on-dark" x="498" y="105" text-anchor="middle">Producir</text>
+          <rect class="fill-ink" x="596" y="76" width="172" height="44" rx="4"/>
+          <text class="ti on-dark" x="682" y="105" text-anchor="middle">Personalizar</text>
+          <rect class="bx" x="44" y="132" width="172" height="38" rx="4"/>
+          <text class="lb b" x="130" y="157" text-anchor="middle">Chat</text>
+          <rect class="bx" x="44" y="178" width="172" height="38" rx="4"/>
+          <text class="lb b" x="130" y="203" text-anchor="middle">Proyectos</text>
+          <rect class="bx" x="228" y="132" width="172" height="38" rx="4"/>
+          <text class="lb b" x="314" y="157" text-anchor="middle">Cowork</text>
+          <rect class="bx" x="228" y="178" width="172" height="38" rx="4"/>
+          <text class="lb b" x="314" y="203" text-anchor="middle">Programadas</text>
+          <rect class="bx" x="228" y="224" width="172" height="38" rx="4"/>
+          <text class="lb b" x="314" y="249" text-anchor="middle">Chrome</text>
+          <rect class="bx" x="412" y="132" width="172" height="38" rx="4"/>
+          <text class="lb b" x="498" y="157" text-anchor="middle">Artefactos</text>
+          <rect class="bx" x="412" y="178" width="172" height="38" rx="4"/>
+          <text class="lb b" x="498" y="203" text-anchor="middle">Diseño</text>
+          <rect class="bx" x="596" y="132" width="172" height="38" rx="4"/>
+          <text class="lb b" x="682" y="157" text-anchor="middle">Skills</text>
+          <rect class="bx" x="596" y="178" width="172" height="38" rx="4"/>
+          <text class="lb b" x="682" y="203" text-anchor="middle">Conectores</text>
+          <rect class="bx" x="596" y="224" width="172" height="38" rx="4"/>
+          <text class="lb b" x="682" y="249" text-anchor="middle">Plugins</text>
+          <text class="lb" x="404" y="300" text-anchor="middle">Una cuenta · un historial · los mismos ajustes</text>
+          <rect class="bx" x="812" y="20" width="164" height="300" rx="4"/>
+          <text class="ti" x="894" y="58" text-anchor="middle">Pestaña Code</text>
+          <text class="lb" x="894" y="132" text-anchor="middle">Programación</text>
+          <text class="lb" x="894" y="158" text-anchor="middle">agéntica</text>
+          <text class="lb b" x="894" y="226" text-anchor="middle">Equipos</text>
+          <text class="lb b" x="894" y="252" text-anchor="middle">técnicos</text>
         </svg>
-        <figcaption>[ Diagrama ] Cinco archivos, un mismo cerebro.</figcaption>
+        <figcaption>[ Diagrama 01 ] La pestaña Inicio agrupa el trabajo de oficina en cuatro usos; Code queda aparte</figcaption>
       </figure>
 
-      <div class="grid-cards">
-        <div class="card ink">
-          <span class="k">[ 01 · El punto de entrada ]</span>
-          <h3>CLAUDE.md</h3>
-          <p>Cuando ejecutas Claude en una carpeta (vía CLI o Cowork), busca automáticamente un archivo llamado <code>CLAUDE.md</code>. Si lo encuentra, lo lee de forma invisible antes de que tú digas «Hola».</p>
-          <p>Este archivo contiene las reglas globales del proyecto, el tono de marca y, lo más importante, <strong>apunta a otros archivos especializados</strong> para que Claude sepa dónde buscar la información técnica sin saturar su memoria.</p>
-        </div>
-      </div>
+      <h3>Las superficies, una a una</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Superficie</th><th>Para qué sirve</th><th>Dónde está</th></tr></thead>
+        <tbody>
+          <tr><td>Conversación (Chat)</td><td>Preguntar, redactar, resumir o analizar un archivo adjunto. Cada intercambio es una pregunta y una respuesta.</td><td>Cuadro de prompt de «Inicio», con el conmutador en «Chat».</td></tr>
+          <tr><td>Tareas (Cowork)</td><td>Encargar un trabajo de varios pasos sobre una carpeta o un proyecto, que termina en archivos.</td><td>Cuadro de prompt de «Inicio», con el conmutador en «Cowork» (app de escritorio).</td></tr>
+          <tr><td>Proyectos</td><td>Reunir las instrucciones, los archivos de referencia, la memoria, la carpeta y las tareas programadas de un mismo asunto.</td><td>Barra lateral → «Proyectos».</td></tr>
+          <tr><td>Artefactos</td><td>Piezas autónomas que Claude crea junto a la conversación: Docs, Slides, Design, Dashboards, Motion y Apps.</td><td>Barra lateral → «Artefactos».</td></tr>
+          <tr><td>Programadas</td><td>Tareas que se ejecutan solas con una frecuencia fija o cuando se lanzan a mano.</td><td>Barra lateral → «Programadas».</td></tr>
+          <tr><td>Diseño</td><td>Diseños, prototipos y presentaciones sobre un lienzo, con el sistema de diseño de la marca.</td><td>Barra lateral → «Diseño».</td></tr>
+          <tr><td>Personalización</td><td>Skills, conectores y plugins: los procedimientos y las conexiones que amplían lo que Claude sabe hacer.</td><td>Barra lateral → «Personalización».</td></tr>
+          <tr><td>Claude in Chrome</td><td>Una extensión que permite a Claude navegar, leer páginas y completar pasos en el navegador desde un panel lateral.</td><td>Navegador Chrome, junto con la app de escritorio.</td></tr>
+          <tr><td>Code</td><td>El entorno de programación agéntico, pensado para equipos técnicos.</td><td>Pestaña «Code», arriba a la izquierda.</td></tr>
+        </tbody>
+      </table></div>
 
-      <h3>El framework de archivos agentic</h3>
-      <div class="grid-cards">
-        <div class="card"><span class="k">[ 02 · El alma / La marca ]</span><h4>SOUL.md</h4><p>Define <strong>quién</strong> es el agente. Contiene el tono de voz, la ética corporativa, las restricciones de marca y el <em>Brand Guidelines</em>. Determina su «personalidad».</p></div>
-        <div class="card"><span class="k">[ 03 · Las habilidades ]</span><h4>SKILL.md</h4><p>Define <strong>qué</strong> sabe hacer. Contiene instrucciones técnicas exactas: cómo usar una API específica, cómo dar formato a un informe financiero o cómo escribir código.</p></div>
-        <div class="card"><span class="k">[ 04 · El proceso (SOP) ]</span><h4>WORKFLOW.md</h4><p>Define el <strong>paso a paso</strong>. «1. Lee los emails. 2. Extrae quejas. 3. Clasifícalas. 4. Genera el JSON». Evita que la IA se salte pasos importantes.</p></div>
-        <div class="card"><span class="k">[ 05 · La orquestación ]</span><h4>AGENT.md</h4><p>El archivo maestro. Conecta el Soul, el Skill y el Workflow para una tarea autónoma concreta. Es el «script» que lee un <em>Scheduled Task</em> (Tarea Programada).</p></div>
+      <div class="glossary">
+        <div class="row"><h3 class="term">Modelo<small>Fable · Opus · Sonnet · Haiku</small></h3><p class="def">El sistema de inteligencia artificial que genera las respuestas. La app permite elegir entre varios, que se diferencian en capacidad, rapidez y consumo; la sección 04 explica cuándo conviene cada uno. <span class="an">[ Analogía ] Los profesionales de un despacho: todos son competentes, pero no se asigna el mismo encargo a la socia que dirige la auditoría que al asociado de primer año.</span></p></div>
+        <div class="row"><h3 class="term">Agente<small>Responde y actúa</small></h3><p class="def">Un modelo que no se limita a responder, sino que actúa: planifica un trabajo, usa herramientas —leer y escribir archivos, buscar en la web, consultar una aplicación— y encadena pasos hasta terminarlo. Cowork es la forma de trabajar con Claude como agente. <span class="an">[ Analogía ] La diferencia entre preguntar a un compañero cómo se concilia una cuenta y pedirle que la concilie.</span></p></div>
       </div>
     </section>
 
-    <!-- 3. Memoria, comandos y continuidad -->
-    <section class="sec" id="memoria" data-label="Memoria &amp; Autonomía">
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">La memoria: el arte de no olvidar (ni saturar).</h2></div>
-      <p class="sec-intro">Hablar con un Agente IA no es como hablar con un humano. Su memoria RAM se satura rápido y cuesta dinero. Para que Claude sea un compañero útil a largo plazo, debemos enseñarle a recordar de forma eficiente.</p>
+    <!-- 02 · La pantalla de inicio: despiece sobre la captura real -->
+    <section class="sec respira sec-ancho" id="interfaz" data-label="Interfaz">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">La pantalla de inicio, zona a zona.</h2></div>
+      <p class="sec-intro">La captura muestra la pantalla de inicio de la app de escritorio en Windows, con el conmutador en «Chat». Es el punto de partida de casi todo el trabajo, y conviene reconocer sus siete zonas antes de seguir, porque el resto de la clase vuelve sobre ellas. Se recomienda tener la app abierta al lado y localizar cada zona en la propia pantalla durante la lectura.</p>
 
-      <h3>1. El control manual (comandos)</h3>
-      <div class="grid-cards two">
-        <div class="card dim">
-          <span class="k">[ Comando ]</span>
-          <h4><code>/compact</code> — El botón de comprimir</h4>
-          <p><strong>El problema:</strong> Tras horas de chat, la ventana de memoria se satura, Claude se vuelve lento y te cuesta dinero por cada mensaje.</p>
-          <p><strong>La solución:</strong> Al usar <code>/compact</code>, detienes la IA. Claude hace un resumen ultradenso de todo lo hablado, borra el historial gigante y usa ese pequeño resumen como su nueva «memoria base».</p>
+      <div class="despiece" data-despiece>
+        <div class="dp-media">
+          <ul class="dp-nav">
+            <li><button type="button" data-go="pestanas">01 <i>Pestañas</i></button></li>
+            <li><button type="button" data-go="barra">02 <i>Barra</i></button></li>
+            <li><button type="button" data-go="historial">03 <i>Historial</i></button></li>
+            <li><button type="button" data-go="prompt">04 <i>Prompt</i></button></li>
+            <li><button type="button" data-go="modo">05 <i>Modo</i></button></li>
+            <li><button type="button" data-go="voz">06 <i>Modelo y voz</i></button></li>
+            <li><button type="button" data-go="cuenta">07 <i>Cuenta</i></button></li>
+          </ul>
+          <div class="dp-stage dp-foto dp-oscura">
+            <img class="base" src="/img/m6c1-inicio.png" alt="Captura de la pantalla de inicio de la app de escritorio de Claude en Windows. A la izquierda, las pestañas Inicio y Code; la barra lateral con Nuevo, Proyectos, Artefactos, Programadas, Diseño, Personalización y Más; debajo, Fijados y Chats y tareas, con una lupa y un icono de filtros; y abajo, la cuenta. En el centro, un saludo y el cuadro de prompt «¿Cómo puedo ayudarte hoy?» con el botón +, el conmutador Chat | Cowork, el selector Opus 5.5 Medio, un micrófono y un icono de ondas. Arriba a la derecha, el icono de un fantasma." width="1600" height="791" loading="lazy">
+            <svg class="dp-capa" data-capa="pestanas" viewBox="0 0 1600 791" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+              <path class="st" d="M2 54 v-12 h12"/>
+              <path class="st" d="M248 54 v-12 h-12"/>
+              <path class="st" d="M2 60 v12 h12"/>
+              <path class="st" d="M248 60 v12 h-12"/>
+              <line class="st dash" x1="248" y1="57" x2="300" y2="57"/>
+              <circle class="dot" cx="248" cy="57" r="8"/>
+              <text x="312" y="70">Inicio y Code</text>
+            </svg>
+            <svg class="dp-capa" data-capa="barra" viewBox="0 0 1600 791" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+              <path class="st" d="M2 98 v-14 h14"/>
+              <path class="st" d="M250 98 v-14 h-14"/>
+              <path class="st" d="M2 252 v14 h14"/>
+              <path class="st" d="M250 252 v14 h-14"/>
+              <line class="st dash" x1="250" y1="175" x2="300" y2="175"/>
+              <circle class="dot" cx="250" cy="175" r="8"/>
+              <text x="312" y="188">Siete apartados</text>
+            </svg>
+            <svg class="dp-capa" data-capa="historial" viewBox="0 0 1600 791" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+              <path class="st" d="M2 298 v-12 h12"/>
+              <path class="st" d="M250 298 v-12 h-12"/>
+              <path class="st" d="M2 346 v12 h12"/>
+              <path class="st" d="M250 346 v12 h-12"/>
+              <line class="st dash" x1="258" y1="300" x2="300" y2="300"/>
+              <circle class="dot" cx="258" cy="300" r="8"/>
+              <text x="312" y="313">Lo fijado</text>
+              <line class="st dash" x1="258" y1="343" x2="300" y2="370"/>
+              <circle class="dot" cx="258" cy="343" r="8"/>
+              <text x="312" y="384">Historial</text>
+            </svg>
+            <svg class="dp-capa" data-capa="prompt" viewBox="0 0 1600 791" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+              <path class="st" d="M598 390 v-16 h16"/>
+              <path class="st" d="M1262 390 v-16 h-16"/>
+              <path class="st" d="M598 474 v16 h16"/>
+              <path class="st" d="M1262 474 v16 h-16"/>
+              <line class="st dash" x1="1262" y1="404" x2="1300" y2="404"/>
+              <circle class="dot" cx="1262" cy="404" r="8"/>
+              <text x="1312" y="417">El encargo</text>
+              <line class="st dash" x1="630" y1="490" x2="630" y2="562"/>
+              <circle class="dot" cx="630" cy="490" r="8"/>
+              <text x="600" y="602">El botón +</text>
+            </svg>
+            <svg class="dp-capa" data-capa="modo" viewBox="0 0 1600 791" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+              <path class="st" d="M644 452 v-10 h10"/>
+              <path class="st" d="M772 452 v-10 h-10"/>
+              <path class="st" d="M644 470 v10 h10"/>
+              <path class="st" d="M772 470 v10 h-10"/>
+              <line class="st dash" x1="708" y1="480" x2="708" y2="562"/>
+              <circle class="dot" cx="708" cy="480" r="8"/>
+              <text x="708" y="602" text-anchor="middle">Chat o Cowork</text>
+            </svg>
+            <svg class="dp-capa" data-capa="voz" viewBox="0 0 1600 791" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+              <path class="st" d="M1043 454 v-10 h10"/>
+              <path class="st" d="M1252 454 v-10 h-10"/>
+              <path class="st" d="M1043 468 v10 h10"/>
+              <path class="st" d="M1252 468 v10 h-10"/>
+              <line class="st dash" x1="1105" y1="478" x2="1050" y2="562"/>
+              <circle class="dot" cx="1105" cy="478" r="8"/>
+              <text x="1050" y="602" text-anchor="middle">Modelo</text>
+              <line class="st dash" x1="1193" y1="478" x2="1193" y2="650"/>
+              <circle class="dot" cx="1193" cy="478" r="8"/>
+              <text x="1193" y="690" text-anchor="middle">Dictado</text>
+              <line class="st dash" x1="1233" y1="478" x2="1330" y2="540"/>
+              <circle class="dot" cx="1233" cy="478" r="8"/>
+              <text x="1340" y="553">Modo voz</text>
+            </svg>
+            <svg class="dp-capa" data-capa="cuenta" viewBox="0 0 1600 791" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+              <path class="st" d="M2 766 v-10 h10"/>
+              <path class="st" d="M128 766 v-10 h-10"/>
+              <path class="st" d="M2 778 v10 h10"/>
+              <path class="st" d="M128 778 v10 h-10"/>
+              <line class="st dash" x1="128" y1="771" x2="300" y2="740"/>
+              <circle class="dot" cx="128" cy="771" r="8"/>
+              <text x="312" y="752">La cuenta</text>
+              <path class="st" d="M1484 12 v-10 h10"/>
+              <path class="st" d="M1518 12 v-10 h-10"/>
+              <path class="st" d="M1484 20 v10 h10"/>
+              <path class="st" d="M1518 20 v10 h-10"/>
+              <line class="st dash" x1="1501" y1="30" x2="1501" y2="80"/>
+              <circle class="dot" cx="1501" cy="30" r="8"/>
+              <text x="1540" y="118" text-anchor="end">Incógnito</text>
+            </svg>
+          </div>
+          <p class="dp-cap">Una pantalla. Siete zonas.</p>
         </div>
-        <div class="card dim">
-          <span class="k">[ Comando ]</span>
-          <h4><code>/clear</code> — Hacer borrón y cuenta nueva</h4>
-          <p>Borra todo el contexto y la memoria de la sesión actual al instante. Indispensable cuando cambias de tarea radicalmente dentro del mismo proyecto para evitar que la IA confunda instrucciones (contaminación cruzada).</p>
-        </div>
+        <ol class="dp-steps">
+          <li class="dp-step" data-capa="pestanas" data-cap="Zona 01 · Las pestañas Inicio y Code"><p class="k">[ 01 ] Zona</p><h3>Inicio y Code</h3><p>Arriba a la izquierda, dos pestañas separan dos entornos. «Inicio» reúne el trabajo de oficina: conversaciones, tareas, proyectos y artefactos. «Code» abre el entorno de programación, pensado para equipos técnicos; un profesional de Finanzas puede trabajar sin abrirlo nunca. Encima quedan los iconos de menú, de mostrar u ocultar la barra lateral y de atrás y adelante, como en un navegador.</p></li>
+          <li class="dp-step" data-capa="barra" data-cap="Zona 02 · La barra lateral"><p class="k">[ 02 ] Zona</p><h3>La barra lateral</h3><p>Siete apartados llevan a las superficies de la app: «Nuevo», que abre una conversación o una tarea en blanco, «Proyectos», «Artefactos», «Programadas», «Diseño», «Personalización» y «Más». Cada uno tiene su lugar en el módulo: los proyectos, en esta clase; las tareas programadas, los artefactos y el diseño, en la segunda; la personalización, en la tercera.</p></li>
+          <li class="dp-step" data-capa="historial" data-cap="Zona 03 · Fijados, chats y tareas"><p class="k">[ 03 ] Zona</p><h3>Fijados, chats y tareas</h3><p>Debajo de la barra está el historial. «Fijados» reúne las conversaciones que se quieren tener a mano, como la del cierre en curso, y «Chats y tareas» recoge todo lo demás: las conversaciones y las tareas de Cowork, juntas. La lupa busca en el historial y el icono contiguo abre los filtros.</p></li>
+          <li class="dp-step" data-capa="prompt" data-cap="Zona 04 · El cuadro de prompt"><p class="k">[ 04 ] Zona</p><h3>El cuadro de prompt</h3><p>Es donde se escribe el encargo, en el espacio que muestra el texto «¿Cómo puedo ayudarte hoy?». El botón «+» añade archivos, conectores, skills y otras opciones, y la tecla «/» abre las skills y los comandos disponibles; la sección 03 los recorre. El saludo que aparece encima cambia cada vez que se abre la app y no tiene ninguna función.</p></li>
+          <li class="dp-step" data-capa="modo" data-cap="Zona 05 · El conmutador Chat | Cowork"><p class="k">[ 05 ] Zona</p><h3>Chat o Cowork</h3><p>El conmutador decide la forma de trabajar: «Chat» para conversar, con una pregunta y una respuesta; «Cowork» para encargar una tarea de varios pasos que termina en archivos. Al pasar a Cowork aparecen bajo el cuadro dos controles más, la carpeta de trabajo y el modo de permiso, que se explican en la sección 05.</p></li>
+          <li class="dp-step" data-capa="voz" data-cap="Zona 06 · Modelo, dictado y modo voz"><p class="k">[ 06 ] Zona</p><h3>Modelo, dictado y modo voz</h3><p>«Opus 5.5 · Medio» indica el modelo y el nivel de esfuerzo; al pulsarlo se abre el selector que estudia la sección 04. El micrófono es el <strong>dictado</strong>: convierte la voz en texto, que queda en el cuadro para revisarlo antes de enviarlo. El icono de ondas abre el <strong>modo voz</strong>, una conversación hablada. En Cowork solo hay dictado.</p></li>
+          <li class="dp-step" data-capa="cuenta" data-cap="Zona 07 · La cuenta y el chat incógnito"><p class="k">[ 07 ] Zona</p><h3>La cuenta y el chat incógnito</h3><p>Abajo a la izquierda figuran el nombre y el tipo de cuenta con la que se trabaja; en una cuenta de empresa, la organización gestiona parte de los ajustes (sección 08). Arriba a la derecha, el icono del fantasma abre un <strong>chat incógnito</strong>: no se guarda en el historial ni en la memoria y nunca se usa para entrenar modelos.</p></li>
+        </ol>
       </div>
 
-      <h3>2. La continuidad diaria (el diario de a bordo)</h3>
-      <p><strong>El problema:</strong> El «Chat del Martes» no sabe lo que hablasteis en el «Chat del Lunes». Intentar mantener vivo un solo chat durante un mes cuesta muchísimo dinero en tokens.</p>
-      <p><strong>La solución (el truco de <code>context.md</code>):</strong> En lugar de depender de la memoria del chat, usamos un archivo físico de «memoria transaccional».</p>
-      <div class="stepper vertical">
-        <div class="step"><span class="n">01</span><p>Creas un archivo vacío llamado <code>context.md</code> en tu proyecto.</p></div>
-        <div class="step"><span class="n">02</span><p>En tu configuración inicial (<code>CLAUDE.md</code>), añades la regla de oro: <em>«Antes de hacer nada, lee context.md para saber qué hicimos ayer. Cuando terminemos de trabajar hoy, actualiza context.md con un resumen de tus progresos.»</em></p></div>
-        <div class="step final"><span class="n">[✓]</span><h4>El resultado</h4><p>Puedes apagar el ordenador, volver al día siguiente, abrir un chat totalmente nuevo (limpio y barato) y Claude retomará el trabajo exactamente donde lo dejó leyendo su propio diario.</p></div>
+      <div class="callout nota"><span class="k">[ «Más» y la barra a medida ]</span>
+        <p>Al desplegar «Más» aparece «Editar barra lateral», que permite elegir qué apartados se muestran en la barra. Si alguno de los que cita esta clase no se ve, conviene mirar ahí antes de darlo por inexistente. Si tampoco aparece en esa lista, es probable que la organización no lo haya activado para la cuenta.</p>
       </div>
+    </section>
 
-      <h3>3. Mantenimiento autónomo (Auto Dream)</h3>
-      <h4><code>/dream</code> — El sueño REM para tu agente</h4>
-      <p>La función más inteligente y silenciosa de Claude Code en 2026.</p>
-      <div class="grid-cards two">
-        <div class="card dim">
-          <span class="k">[ ! ] El problema</span>
-          <h4>El escritorio caótico</h4>
-          <p>Hace meses, Claude incorporó «Auto Memory» (se escribía pequeñas notas a sí mismo sobre cómo te gusta trabajar). En teoría era genial.</p>
-          <p>En la práctica, tras 20 sesiones de trabajo, su archivo de memoria se convertía en un escritorio lleno de <em>post-its</em> contradictorios, reglas antiguas y desorden. El agente colapsaba por exceso de ruido cognitivo y empezaba a fallar.</p>
+    <!-- 03 · El cuadro de prompt: «+», «/», dictado y voz -->
+    <section class="sec respira" id="prompt" data-label="El cuadro">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">El cuadro de prompt: lo que cabe en un encargo.</h2></div>
+      <p class="sec-intro">El cuadro de prompt es algo más que un campo de texto. Desde él se adjuntan archivos, se activan conectores y skills, se pide una búsqueda en la web o una investigación con fuentes y se decide si la conversación alimenta la memoria. Una comparación de oficina ayuda a ordenarlo: el texto es el encargo; el botón «+», la carpeta con la documentación que se entrega junto al encargo; y la tecla «/», la llamada a un procedimiento ya escrito.</p>
+
+      <h3>Lo esencial</h3>
+      <div class="grid-cards">
+        <div class="card ink">
+          <span class="k">[ Botón + ]</span>
+          <h4>Adjuntar y activar</h4>
+          <p>Añade archivos, lleva la conversación a un proyecto y activa skills, conectores, el sistema de diseño, plugins, la búsqueda web o «Investigación». <strong>Cuándo:</strong> siempre que la respuesta dependa de un documento o de otra aplicación.</p>
         </div>
         <div class="card ink">
-          <span class="k">[✓] La solución</span>
-          <h4>El turno de noche</h4>
-          <p>Auto Dream (<code>/dream</code>) imita cómo el cerebro humano limpia la memoria durante el sueño. Se ejecuta <strong>solo, en segundo plano</strong> (tras 24 horas inactivo o 5 sesiones) y hace de «servicio de limpieza»:</p>
+          <span class="k">[ Tecla / ]</span>
+          <h4>Skills y comandos</h4>
+          <p>Al escribir «/» en el cuadro se abren las skills y los comandos disponibles, para invocar uno sin esperar a que Claude lo elija. <strong>Cuándo:</strong> cuando ya se sabe qué procedimiento se quiere aplicar.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ Micrófono ]</span>
+          <h4>Dictado</h4>
+          <p>Convierte la voz en texto editable, que queda en el cuadro para revisarlo antes de enviarlo. Funciona también en Cowork. <strong>Cuándo:</strong> para dictar un encargo largo sin teclearlo.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ Ondas ]</span>
+          <h4>Modo voz</h4>
+          <p>Una conversación hablada, de ida y vuelta, como una llamada. No está disponible en Cowork. <strong>Cuándo:</strong> para repasar en voz alta un planteamiento lejos del teclado.</p>
         </div>
       </div>
+
+      <h3>Las opciones del botón «+»</h3>
+      <figure class="figure">
+        <img src="/img/m6c1-menu.png" alt="Captura del menú del botón + abierto sobre el cuadro de prompt. En un primer grupo, «Subir o agregar archivos» con el atajo Ctrl+U, «Agregar al proyecto» y «Agregar desde GitHub»; en un segundo grupo, «Skills», «Conectores» con un aviso numérico, «Sistema de diseño» y «Plugins», cada uno con una flecha que abre un submenú; y en un tercer grupo, «Investigación», «Búsqueda web» marcada y «Memoria» marcada." width="1600" height="867" loading="lazy">
+        <figcaption>[ Captura ] El menú «+»: añadir contexto, ampliar capacidades y decidir cómo trabaja la conversación</figcaption>
+      </figure>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Opción</th><th>Qué hace</th><th>Cuándo usarla</th></tr></thead>
+        <tbody>
+          <tr><td>«Subir o agregar archivos» (Ctrl+U)</td><td>Sube a la conversación un documento, una hoja de cálculo, un PDF o una captura de pantalla.</td><td>Para preguntar por un archivo concreto: «¿qué dice el criterio 3.2 de estas normas?».</td></tr>
+          <tr><td>«Agregar al proyecto»</td><td>Lleva la conversación a un proyecto, con sus instrucciones y su contexto.</td><td>Cuando la consulta pertenece a un asunto que ya tiene proyecto, como el cierre mensual.</td></tr>
+          <tr><td>«Agregar desde GitHub»</td><td>Añade a la conversación contenido de un repositorio de GitHub.</td><td>En Finanzas se usa poco; es propio de equipos técnicos.</td></tr>
+          <tr><td>«Skills»</td><td>Pone a disposición de la conversación los procedimientos guardados (tercera clase).</td><td>Cuando una tarea sigue siempre el mismo procedimiento, como el formato del memorándum.</td></tr>
+          <tr><td>«Conectores»</td><td>Activa para esa conversación las aplicaciones conectadas, como Google Drive, Gmail o Slack (tercera clase). Un aviso numérico indica que un conector necesita atención.</td><td>Cuando el dato está en otra aplicación de la empresa.</td></tr>
+          <tr><td>«Sistema de diseño»</td><td>Aplica un sistema de diseño de la organización a lo que se produce (segunda clase).</td><td>Para documentos y presentaciones con la identidad de la marca.</td></tr>
+          <tr><td>«Plugins»</td><td>Pone a disposición los plugins instalados (tercera clase).</td><td>Cuando el departamento tiene un plugin propio, como el del cierre.</td></tr>
+          <tr><td>«Investigación»</td><td>Elabora un informe con fuentes y citas; tarda unos minutos en completarse.</td><td>Para un análisis de fondo, como la evolución del sector del calzado en la península.</td></tr>
+          <tr><td>«Búsqueda web»</td><td>Permite a Claude buscar en internet información que no está en los archivos de la conversación. Aparece marcada cuando está activa.</td><td>Para un dato público y actual: una norma publicada o un tipo de interés oficial.</td></tr>
+          <tr><td>«Memoria»</td><td>Viene marcada. Desmarcarla antes del primer mensaje desactiva la memoria en esa conversación.</td><td>Para una consulta puntual que no debe influir en las siguientes.</td></tr>
+        </tbody>
+      </table></div>
+
+      <p>Un encargo bien planteado indica qué se adjunta, qué se pide y qué no debe hacerse. El ejemplo siguiente adjunta las normas de cierre de la Dirección Financiera y limita la respuesta a lo que figura en ellas, de modo que cualquier dato que no proceda del documento queda descartado desde el principio.</p>
+      <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Con archivo adjunto ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Adjunto las normas de cierre de la Dirección Financiera. Resume en una tabla los cinco criterios de imputación del apartado 3, con tres columnas: número, criterio y un ejemplo de aplicación en una tienda de calzado. No añadas nada que no figure en el documento.»</pre></div>
+    </section>
+
+    <!-- 04 · Modelo y esfuerzo -->
+    <section class="sec respira" id="modelo" data-label="Modelo">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Modelo y esfuerzo: a quién se encarga y cuánto piensa.</h2></div>
+      <p class="sec-intro">El selector situado a la derecha del cuadro decide dos cosas distintas: qué modelo hace el trabajo y cuánto esfuerzo dedica a razonar antes de responder. Los modelos actuales razonan siempre antes de contestar; el esfuerzo regula cuánto. La elección afecta a la calidad de la respuesta, al tiempo que tarda y al consumo de los límites de uso, de modo que conviene ajustarla a cada encargo en lugar de dejarla siempre en el máximo.</p>
+
+      <figure class="figure">
+        <img src="/img/m6c1-modelo.png" alt="Captura del selector de modelo abierto en la app de Claude. En el menú, Fable 5.1, «Para tus desafíos más difíciles»; Opus 5.5, «Para trabajo complejo y tareas cotidianas», marcado; Sonnet 5.5, «Más eficiente para tareas más simples»; Haiku 5.5, «Más rápido para respuestas rápidas»; Esfuerzo, Medio; y Más modelos. A la derecha, el submenú de esfuerzo con su explicación y los niveles Bajo, Medio (Recomendado, marcado), Alto, Extra y Máx, este con el aviso «5.5× o más de uso»." width="1600" height="873" loading="lazy">
+        <figcaption>[ Captura ] El selector abierto: los modelos a la izquierda y los cinco niveles de esfuerzo a la derecha</figcaption>
+      </figure>
+
+      <div class="callout analogia"><span class="k">[ Analogía ]</span><p>En un despacho, ante cada encargo se decide a quién se asigna y cuánto tiempo se le da para pensarlo. Una consulta rutinaria se encarga a quien la resuelve con rapidez; un informe para el consejo de administración, a la persona más experimentada y con tiempo para revisarlo. En Claude, el modelo responde a la pregunta de a quién, y el esfuerzo, a la de cuánto tiempo.</p></div>
+
+      <h3>Los cuatro modelos</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Modelo</th><th>Cómo lo describe la app</th><th>Cuándo usarlo (criterio del curso)</th></tr></thead>
+        <tbody>
+          <tr><td>Fable 5.1</td><td>«Para tus desafíos más difíciles». Es el más capaz y el más lento.</td><td>Cuando Opus 5.5 con más esfuerzo se queda corto: un análisis con muchas variables y documentos.</td></tr>
+          <tr><td>Opus 5.5</td><td>«Para trabajo complejo y tareas cotidianas». Es el predeterminado.</td><td>El trabajo diario, en «Medio»: redactar, analizar una hoja, preparar el memorándum.</td></tr>
+          <tr><td>Sonnet 5.5</td><td>«Más eficiente para tareas más simples».</td><td>Tareas bien definidas y repetitivas: reformatear una tabla o normalizar una lista de proveedores.</td></tr>
+          <tr><td>Haiku 5.5</td><td>«Más rápido para respuestas rápidas». Es el más rápido.</td><td>Clasificar, extraer o responder en volumen: proponer el centro de coste de cien líneas de gasto.</td></tr>
+        </tbody>
+      </table></div>
+      <p>Al final de la lista, la entrada «Más modelos» despliega otras opciones. La tabla recoge un criterio de uso elaborado para este curso, no una regla de Anthropic: sirve como punto de partida y se corrige con la experiencia de cada departamento.</p>
+
+      <figure class="figure esquema">
+        <svg viewBox="0 0 1040 504" role="img" aria-label="Mapa de los modelos y del esfuerzo, sin cifras. En el eje horizontal, de más rápido y ligero a más capaz y lento, los cuatro modelos en este orden: Haiku 5.5, Sonnet 5.5, Opus 5.5, destacado en oscuro como predeterminado, y Fable 5.1. En el eje vertical, el esfuerzo, de Bajo abajo a Máx arriba, pasando por Medio, Alto y Extra: más esfuerzo significa más profundidad y más consumo. En la columna de Opus 5.5, a la altura de Medio, una marca oscura señala el trabajo diario.">
+          <rect class="bx fill" x="585" y="64" width="210" height="300" rx="4"/>
+          <line class="ln" x1="140" y1="94" x2="1020" y2="94" stroke-dasharray="3 7"/>
+          <line class="ln" x1="140" y1="154" x2="1020" y2="154" stroke-dasharray="3 7"/>
+          <line class="ln" x1="140" y1="214" x2="1020" y2="214" stroke-dasharray="3 7"/>
+          <line class="ln" x1="140" y1="274" x2="1020" y2="274" stroke-dasharray="3 7"/>
+          <line class="ln" x1="140" y1="334" x2="1020" y2="334" stroke-dasharray="3 7"/>
+          <text class="lb b" x="140" y="40">Más esfuerzo: más profundidad y más consumo</text>
+          <line class="ln ac" x1="120" y1="364" x2="120" y2="58"/>
+          <path class="ln ac" d="M114 66 L120 58 L126 66"/>
+          <line class="ln ac" x1="113" y1="94" x2="127" y2="94"/>
+          <line class="ln ac" x1="113" y1="154" x2="127" y2="154"/>
+          <line class="ln ac" x1="113" y1="214" x2="127" y2="214"/>
+          <line class="ln ac" x1="113" y1="274" x2="127" y2="274"/>
+          <line class="ln ac" x1="113" y1="334" x2="127" y2="334"/>
+          <text class="lb" x="100" y="100" text-anchor="end">Máx</text>
+          <text class="lb" x="100" y="160" text-anchor="end">Extra</text>
+          <text class="lb" x="100" y="220" text-anchor="end">Alto</text>
+          <text class="lb b" x="100" y="280" text-anchor="end">Medio</text>
+          <text class="lb" x="100" y="340" text-anchor="end">Bajo</text>
+          <rect class="fill-ink" x="590" y="246" width="200" height="56" rx="4"/>
+          <text class="ti on-dark" x="690" y="270" text-anchor="middle">Trabajo diario</text>
+          <text class="lb on-dark soft" x="690" y="293" text-anchor="middle">Opus 5.5 · Medio</text>
+          <rect class="bx" x="150" y="380" width="200" height="60" rx="4"/>
+          <text class="ti" x="250" y="417" text-anchor="middle">Haiku 5.5</text>
+          <rect class="bx" x="370" y="380" width="200" height="60" rx="4"/>
+          <text class="ti" x="470" y="417" text-anchor="middle">Sonnet 5.5</text>
+          <rect class="fill-ink" x="590" y="380" width="200" height="60" rx="4"/>
+          <text class="ti on-dark" x="690" y="405" text-anchor="middle">Opus 5.5</text>
+          <text class="lb on-dark soft" x="690" y="429" text-anchor="middle">predeterminado</text>
+          <rect class="bx" x="810" y="380" width="200" height="60" rx="4"/>
+          <text class="ti" x="910" y="417" text-anchor="middle">Fable 5.1</text>
+          <line class="ln ac" x1="158" y1="462" x2="1002" y2="462"/>
+          <path class="ln ac" d="M166 456 L158 462 L166 468"/>
+          <path class="ln ac" d="M994 456 L1002 462 L994 468"/>
+          <text class="lb" x="150" y="492">Más rápido y ligero</text>
+          <text class="lb b" x="580" y="492" text-anchor="middle">Modelo</text>
+          <text class="lb" x="1010" y="492" text-anchor="end">Más capaz y lento</text>
+        </svg>
+        <figcaption>[ Diagrama 02 ] Primero el modelo y después el esfuerzo; si el resultado se queda corto, se sube el esfuerzo antes de cambiar de modelo</figcaption>
+      </figure>
+
+      <h3>Los cinco niveles de esfuerzo</h3>
+      <p>El submenú «Esfuerzo» lo explica en una frase: «Un mayor esfuerzo significa respuestas más completas, pero lleva más tiempo y consume tus límites más rápido.» Antes de cambiar de modelo, suele ser más eficaz subir el esfuerzo del que ya se está usando.</p>
+      <div class="stepper">
+        <div class="step"><span class="n">01</span><h4>«Bajo»</h4><p>Preguntas simples y encargos mecánicos.</p></div>
+        <div class="step"><span class="n">02</span><h4>«Medio»</h4><p>«Recomendado». El adecuado para el trabajo diario.</p></div>
+        <div class="step"><span class="n">03</span><h4>«Alto»</h4><p>Análisis con varios archivos o cálculos encadenados.</p></div>
+        <div class="step"><span class="n">04</span><h4>«Extra»</h4><p>Problemas complejos en los que «Alto» no basta.</p></div>
+        <div class="step"><span class="n">05</span><h4>«Máx»</h4><p>«5.5× o más de uso». Solo si mejora el resultado de forma medible.</p></div>
+      </div>
+
+      <div class="callout aviso"><span class="k">[ ! ] «Máx» consume cinco veces y media o más</span><p>La propia app advierte de que «Máx» supone «5.5× o más de uso». Los límites se comparten entre la conversación, Cowork y Code, de modo que una sesión de trabajo en «Máx» puede agotar el límite mucho antes de lo previsto. Se reserva para el caso en que se haya comprobado que mejora el resultado de forma medible; para el resto, «Medio».</p></div>
+    </section>
+
+    <!-- 05 · Conversar o encargar: Chat y Cowork -->
+    <section class="sec respira" id="modos" data-label="Chat y Cowork">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Conversar o encargar: Chat y Cowork.</h2></div>
+      <p class="sec-intro">El conmutador «Chat | Cowork» define dos formas de trabajar con el mismo asistente. En Chat se conversa: una pregunta, una respuesta, y lo que se haga después con ella queda en manos del usuario. En Cowork se encarga un trabajo: Claude lo planifica, lo divide en pasos, lo ejecuta en un entorno aislado y entrega el resultado en archivos. Es la misma arquitectura agéntica que Claude Code utiliza para programar, llevada al trabajo de oficina y sin necesidad de terminal.</p>
+
+      <div class="ba">
+        <div class="before"><p class="k">[ Analogía ] Chat · la consulta en el pasillo</p><h4>Preguntar a un experto</h4><p>Se le plantea una duda y responde con lo que sabe y con lo que se le enseña en ese momento. La decisión y el trabajo posterior siguen siendo de quien pregunta.</p></div>
+        <div class="after"><p class="k">[ Analogía ] Cowork · el encargo con expediente</p><h4>Encargar a un colaborador</h4><p>Se le entrega la carpeta del expediente y un objetivo. Organiza el trabajo, lo ejecuta y devuelve los documentos terminados para su revisión.</p></div>
+      </div>
+
+      <figure class="figure">
+        <img src="/img/m6c1-cowork.png" alt="Captura de la pantalla de inicio de la app de Claude con el conmutador en Cowork. Bajo el cuadro de prompt aparecen dos desplegables, «Proyecto o carpeta» y «Manual», y un icono de información; debajo, la lista «En curso» con tres tareas abiertas y el enlace «Borrar activo» a la derecha." width="1600" height="790" loading="lazy">
+        <figcaption>[ Captura ] En modo Cowork aparecen «Proyecto o carpeta», «Manual» y la lista «En curso»</figcaption>
+      </figure>
+      <p>En modo Cowork aparecen bajo el cuadro dos desplegables. «Proyecto o carpeta» indica dónde trabaja Claude: Cowork <strong>no ve ningún archivo</strong> hasta que se le da una carpeta o un proyecto. «Manual» es el <strong>modo de permiso</strong>, que se explica más abajo; a la derecha queda un icono de información. Debajo, la lista «En curso» muestra las tareas abiertas, junto al enlace «Borrar activo». El dictado sigue disponible; el modo voz, no.</p>
+
+      <figure class="figure esquema">
+        <svg viewBox="0 0 960 320" role="img" aria-label="Ciclo de una tarea de Cowork, de izquierda a derecha. El encargo pasa a un plan; el plan se reparte en tres subtareas en paralelo, dentro de un recuadro que representa la ejecución aislada; las subtareas confluyen en la entrega en archivos, destacada en oscuro; y la entrega pasa a revisión. Una línea vuelve desde la revisión hasta el encargo: si falta algo, se corrige.">
+          <rect class="bx" x="20" y="108" width="118" height="56" rx="4"/>
+          <text class="lb b" x="79" y="142" text-anchor="middle">Encargo</text>
+          <line class="ln ac" x1="138" y1="136" x2="162" y2="136"/>
+          <path class="ln ac" d="M154 130 L162 136 L154 142"/>
+          <rect class="bx" x="162" y="108" width="96" height="56" rx="4"/>
+          <text class="lb b" x="210" y="142" text-anchor="middle">Plan</text>
+          <rect class="bx fill" x="280" y="24" width="300" height="272" rx="4"/>
+          <line class="ln ac" x1="258" y1="136" x2="298" y2="136"/>
+          <line class="ln ac" x1="298" y1="68" x2="298" y2="204"/>
+          <line class="ln ac" x1="298" y1="68" x2="316" y2="68"/>
+          <line class="ln ac" x1="298" y1="136" x2="316" y2="136"/>
+          <line class="ln ac" x1="298" y1="204" x2="316" y2="204"/>
+          <rect class="bx" x="316" y="44" width="230" height="48" rx="4"/>
+          <text class="lb b" x="431" y="74" text-anchor="middle">Subtarea A</text>
+          <rect class="bx" x="316" y="112" width="230" height="48" rx="4"/>
+          <text class="lb b" x="431" y="142" text-anchor="middle">Subtarea B</text>
+          <rect class="bx" x="316" y="180" width="230" height="48" rx="4"/>
+          <text class="lb b" x="431" y="210" text-anchor="middle">Subtarea C</text>
+          <text class="lb" x="430" y="270" text-anchor="middle">Ejecución aislada</text>
+          <line class="ln ac" x1="546" y1="68" x2="564" y2="68"/>
+          <line class="ln ac" x1="546" y1="136" x2="564" y2="136"/>
+          <line class="ln ac" x1="546" y1="204" x2="564" y2="204"/>
+          <line class="ln ac" x1="564" y1="68" x2="564" y2="204"/>
+          <line class="ln ac" x1="564" y1="136" x2="600" y2="136"/>
+          <path class="ln ac" d="M592 130 L600 136 L592 142"/>
+          <rect class="fill-ink" x="600" y="100" width="170" height="72" rx="4"/>
+          <text class="ti on-dark" x="685" y="131" text-anchor="middle">Entrega</text>
+          <text class="lb on-dark soft" x="685" y="157" text-anchor="middle">en archivos</text>
+          <line class="ln ac" x1="770" y1="136" x2="800" y2="136"/>
+          <path class="ln ac" d="M792 130 L800 136 L792 142"/>
+          <rect class="bx" x="800" y="108" width="136" height="56" rx="4"/>
+          <text class="lb b" x="868" y="142" text-anchor="middle">Revisión</text>
+          <path class="ln" d="M868 164 V306 H79 V164"/>
+          <path class="ln" d="M73 172 L79 164 L85 172"/>
+          <text class="lb" x="730" y="246" text-anchor="middle">Si falta algo,</text>
+          <text class="lb" x="730" y="272" text-anchor="middle">se corrige</text>
+        </svg>
+        <figcaption>[ Diagrama 03 ] El ciclo de una tarea: plan, subtareas en paralelo, entrega en archivos y revisión</figcaption>
+      </figure>
+
+      <p>Cuando el trabajo lo permite, el Claude principal actúa como <strong>orquestador</strong>: divide el encargo y lanza <strong>subagentes</strong> que trabajan en paralelo, cada uno con su propia ventana de contexto —no arrastra el historial completo— y todos sobre los mismos archivos de la carpeta o del proyecto. El usuario no los dirige uno a uno: da el objetivo al orquestador y supervisa el plan. La segunda clase desarrolla esta forma de trabajar con el cierre de octubre.</p>
+      <ul class="list-mono">
+        <li>Trabajar en Cowork <strong>consume más cuota</strong> que conversar: conviene agrupar en una misma tarea el trabajo relacionado, en lugar de abrir una tarea por cada archivo.</li>
+        <li>El resultado se entrega en archivos: Cowork lee carpetas, escribe documentos, crea hojas de cálculo y organiza archivos.</li>
+      </ul>
+
+      <h3>Los tres modos de permiso</h3>
+      <p>El desplegable «Manual» fija cuánta autonomía tiene Claude dentro de la tarea. Es el control más importante de Cowork, porque decide si cada acción espera una aprobación o se ejecuta sin consulta.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Modo</th><th>Qué hace</th><th>Cuándo usarlo</th><th>Riesgo</th></tr></thead>
+        <tbody>
+          <tr><td>«Manual»</td><td>Claude pide aprobación antes de cada acción. Es el modo predeterminado.</td><td>Con datos reales de la empresa y mientras se aprende a trabajar con Cowork.</td><td>Bajo: nada ocurre sin aprobación, a cambio de atención constante.</td></tr>
+          <tr><td>Automático</td><td>Claude aprueba por sí mismo lo seguro, un revisor de seguridad bloquea lo inseguro y la tarea se detiene cuando algo necesita revisión. Consume algo más. En las tareas programadas aparece como «Aprobar automáticamente».</td><td>Con tareas conocidas y archivos de poco riesgo, como los archivos sintéticos de la práctica.</td><td>Medio: se revisa el resultado, no cada paso.</td></tr>
+          <tr><td>Omitir</td><td>No pide ninguna aprobación.</td><td>Según el criterio del curso, no en un departamento financiero.</td><td>Alto: Claude usa sin consulta todos los permisos concedidos.</td></tr>
+        </tbody>
+      </table></div>
+
+      <figure class="figure esquema">
+        <svg class="pm-diagram" viewBox="0 0 990 410" role="img" aria-label="Diagrama animado: tres carriles, uno por modo de permiso, con las mismas cuatro acciones en orden: leer, crear, modificar y borrar. Por cada carril avanza una ficha. En Manual, la ficha se detiene ante cada acción y aparece el distintivo «Aprobar» en las cuatro. En Automático, pasa sola por leer y crear, se detiene en modificar con el distintivo «Revisar», como ejemplo de una acción que necesita revisión, y vuelve a detenerse en borrar con «Aprobar». En Omitir, pasa sin parar hasta borrar, donde también se detiene con «Aprobar». Tras borrar, una columna oscura cruza los tres carriles: borrado permanente, siempre pide permiso. Al final, las tres fichas quedan ante borrar y todos los distintivos a la vista.">
+          <style>
+            @keyframes pm-fm{0%{transform:translateX(-450px);opacity:0}3%{transform:translateX(-450px);opacity:1}6%,16%{transform:translateX(-390px)}21%,31%{transform:translateX(-260px)}36%,46%{transform:translateX(-130px)}51%,96%{transform:translateX(0);opacity:1}99%,100%{transform:translateX(0);opacity:0}}
+            @keyframes pm-fa{0%{transform:translateX(-450px);opacity:0}3%{transform:translateX(-450px);opacity:1}16%,34%{transform:translateX(-130px)}39%,96%{transform:translateX(0);opacity:1}99%,100%{transform:translateX(0);opacity:0}}
+            @keyframes pm-fo{0%{transform:translateX(-450px);opacity:0}3%{transform:translateX(-450px);opacity:1}21%,96%{transform:translateX(0);opacity:1}99%,100%{transform:translateX(0);opacity:0}}
+            @keyframes pm-b07{0%,6%{opacity:0}8%,96%{opacity:1}99%,100%{opacity:0}}
+            @keyframes pm-b17{0%,16%{opacity:0}18%,96%{opacity:1}99%,100%{opacity:0}}
+            @keyframes pm-b22{0%,21%{opacity:0}23%,96%{opacity:1}99%,100%{opacity:0}}
+            @keyframes pm-b37{0%,36%{opacity:0}38%,96%{opacity:1}99%,100%{opacity:0}}
+            @keyframes pm-b40{0%,39%{opacity:0}41%,96%{opacity:1}99%,100%{opacity:0}}
+            @keyframes pm-b52{0%,51%{opacity:0}53%,96%{opacity:1}99%,100%{opacity:0}}
+            .pm-diagram .pm-ficha{fill:var(--color-accent-deep);}
+            .pm-diagram .pm-fm{animation:pm-fm 12s linear infinite}
+            .pm-diagram .pm-fa{animation:pm-fa 12s linear infinite}
+            .pm-diagram .pm-fo{animation:pm-fo 12s linear infinite}
+            .pm-diagram .pm-b07{animation:pm-b07 12s linear infinite}
+            .pm-diagram .pm-b17{animation:pm-b17 12s linear infinite}
+            .pm-diagram .pm-b22{animation:pm-b22 12s linear infinite}
+            .pm-diagram .pm-b37{animation:pm-b37 12s linear infinite}
+            .pm-diagram .pm-b40{animation:pm-b40 12s linear infinite}
+            .pm-diagram .pm-b52{animation:pm-b52 12s linear infinite}
+            @media (prefers-reduced-motion: reduce){
+              .pm-diagram *{animation:none!important}
+              .pm-diagram .pm-f,.pm-diagram .pm-b{opacity:1!important;transform:none!important}
+            }
+          </style>
+          <text class="lb" x="40" y="52">Modo de permiso</text>
+          <text class="lb b" x="350" y="52" text-anchor="middle">Leer</text>
+          <text class="lb b" x="480" y="52" text-anchor="middle">Crear</text>
+          <text class="lb b" x="610" y="52" text-anchor="middle">Modificar</text>
+          <text class="lb b" x="740" y="52" text-anchor="middle">Borrar</text>
+
+          <rect class="bx fill" x="20" y="70" width="772" height="100" rx="4"/>
+          <text class="ti" x="40" y="118">Manual</text>
+          <text class="lb" x="40" y="146">Pide en cada acción</text>
+          <line class="ln" x1="280" y1="140" x2="780" y2="140"/>
+          <line class="ln" x1="350" y1="132" x2="350" y2="148"/>
+          <line class="ln" x1="480" y1="132" x2="480" y2="148"/>
+          <line class="ln" x1="610" y1="132" x2="610" y2="148"/>
+          <line class="ln" x1="740" y1="132" x2="740" y2="148"/>
+          <g class="pm-b pm-b07"><rect class="fill-ink" x="304" y="82" width="92" height="30" rx="4"/><text class="lb on-dark" x="350" y="103" text-anchor="middle">Aprobar</text></g>
+          <g class="pm-b pm-b22"><rect class="fill-ink" x="434" y="82" width="92" height="30" rx="4"/><text class="lb on-dark" x="480" y="103" text-anchor="middle">Aprobar</text></g>
+          <g class="pm-b pm-b37"><rect class="fill-ink" x="564" y="82" width="92" height="30" rx="4"/><text class="lb on-dark" x="610" y="103" text-anchor="middle">Aprobar</text></g>
+          <g class="pm-b pm-b52"><rect class="fill-ink" x="694" y="82" width="92" height="30" rx="4"/><text class="lb on-dark" x="740" y="103" text-anchor="middle">Aprobar</text></g>
+          <g class="pm-f pm-fm"><circle class="pm-ficha" cx="740" cy="140" r="11"/></g>
+
+          <rect class="bx fill" x="20" y="180" width="772" height="100" rx="4"/>
+          <text class="ti" x="40" y="228">Automático</text>
+          <text class="lb" x="40" y="256">Aprueba lo seguro</text>
+          <line class="ln" x1="280" y1="250" x2="780" y2="250"/>
+          <line class="ln" x1="350" y1="242" x2="350" y2="258"/>
+          <line class="ln" x1="480" y1="242" x2="480" y2="258"/>
+          <line class="ln" x1="610" y1="242" x2="610" y2="258"/>
+          <line class="ln" x1="740" y1="242" x2="740" y2="258"/>
+          <g class="pm-b pm-b17"><rect class="bx on-bx fill" x="564" y="192" width="92" height="30" rx="4"/><text class="lb b" x="610" y="213" text-anchor="middle">Revisar</text></g>
+          <g class="pm-b pm-b40"><rect class="fill-ink" x="694" y="192" width="92" height="30" rx="4"/><text class="lb on-dark" x="740" y="213" text-anchor="middle">Aprobar</text></g>
+          <g class="pm-f pm-fa"><circle class="pm-ficha" cx="740" cy="250" r="11"/></g>
+
+          <rect class="bx fill" x="20" y="290" width="772" height="100" rx="4"/>
+          <text class="ti" x="40" y="338">Omitir</text>
+          <text class="lb" x="40" y="366">No pide aprobación</text>
+          <line class="ln" x1="280" y1="360" x2="780" y2="360"/>
+          <line class="ln" x1="350" y1="352" x2="350" y2="368"/>
+          <line class="ln" x1="480" y1="352" x2="480" y2="368"/>
+          <line class="ln" x1="610" y1="352" x2="610" y2="368"/>
+          <line class="ln" x1="740" y1="352" x2="740" y2="368"/>
+          <g class="pm-b pm-b22"><rect class="fill-ink" x="694" y="302" width="92" height="30" rx="4"/><text class="lb on-dark" x="740" y="323" text-anchor="middle">Aprobar</text></g>
+          <g class="pm-f pm-fo"><circle class="pm-ficha" cx="740" cy="360" r="11"/></g>
+
+          <rect class="fill-ink" x="806" y="70" width="164" height="320" rx="4"/>
+          <text class="ti on-dark" x="888" y="206" text-anchor="middle">Borrado</text>
+          <text class="ti on-dark" x="888" y="232" text-anchor="middle">permanente:</text>
+          <text class="lb on-dark soft" x="888" y="266" text-anchor="middle">siempre pide</text>
+          <text class="lb on-dark soft" x="888" y="290" text-anchor="middle">permiso</text>
+        </svg>
+        <figcaption>[ Diagrama 04 ] Lo único que cambia entre modos es dónde se detiene Claude; el borrado permanente, siempre</figcaption>
+      </figure>
+      <ul class="list-mono">
+        <li class="check"><strong>En todos los modos</strong>, Claude pide permiso antes de borrar un archivo de forma permanente.</li>
+        <li class="check">Los conectores tienen además permisos propios por herramienta: permitir siempre, pedir aprobación o bloquear.</li>
+        <li class="cross">El aislamiento protege el ordenador, pero no limita lo que Claude puede hacer con los permisos que se le conceden.</li>
+      </ul>
+
+      <div class="callout regla"><span class="k">[ Regla de trabajo ]</span><p>Con datos reales de la empresa, empieza en «Manual». La recomendación de Anthropic es empezar en ese modo con tareas reales de poco riesgo y no dar a Cowork acceso a documentos financieros sensibles ni a credenciales. Los archivos sintéticos de la práctica permiten, en cambio, probar el modo automático sin consecuencias.</p></div>
+
+      <div class="callout nota"><span class="k">[ Una sola experiencia ]</span><p>Anthropic está unificando Chat y Cowork en una sola experiencia. En ella no hace falta elegir: Claude decide si la petición necesita una respuesta o una tarea y, si no está claro, pregunta. Por defecto pide permiso antes de actuar, y se le puede dejar trabajar para que consulte solo cuando algo merezca revisión. Según la cuenta, el conmutador «Chat | Cowork» puede no aparecer; la diferencia entre conversar y encargar se mantiene igualmente, y lo explicado en esta sección sigue siendo válido.</p></div>
+
+      <blockquote class="pull">
+        <p>«Chat para preguntas. Cowork para flujos de trabajo. Code para código.»</p>
+        <footer class="src">Frase para la pizarra · M6</footer>
+      </blockquote>
+    </section>
+
+    <!-- 06 · Proyectos: el expediente de un asunto -->
+    <section class="sec respira" id="proyectos" data-label="Proyectos">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Proyectos: el expediente de un asunto.</h2></div>
+      <p class="sec-intro">Una conversación suelta empieza sin contexto: hay que explicar cada vez quién pregunta, qué normas se aplican y qué formato se espera. Un proyecto resuelve ese problema. Reúne en un solo espacio las instrucciones, los archivos de referencia, la memoria, la carpeta de trabajo y las tareas programadas de un mismo asunto, y todo ello está disponible en cada conversación y en cada tarea que se abre dentro de él.</p>
+
+      <figure class="figure">
+        <img src="/img/m6c1-proyecto.png" alt="Captura de un proyecto abierto en la app de Claude, «Claude prueba». Arriba, la ruta Proyectos / Claude prueba y los iconos de fijar y de menú. A la izquierda, el cuadro de prompt con el conmutador Chat | Cowork y, debajo, el mensaje «Claude usa el mismo conocimiento cada vez que hablas con él en este proyecto.». A la derecha, cinco bloques: Instrucciones, con «Asesor financiero» y un lápiz; Memoria, con el distintivo «Solo tú» y el enlace «Ver memoria»; Contexto, con un botón + para añadir archivos; Carpeta, con el distintivo «Solo tú» y la carpeta vinculada; y Programado, con un botón +." width="1600" height="872" loading="lazy">
+        <figcaption>[ Captura ] Un proyecto abierto: el cuadro de prompt a la izquierda y sus cinco bloques a la derecha</figcaption>
+      </figure>
+
+      <h3>Qué va en cada bloque</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Bloque</th><th>Qué es</th><th>En el proyecto «Cierre mensual»</th></tr></thead>
+        <tbody>
+          <tr><td>Cuadro de prompt</td><td>Funciona como el de inicio, con «Chat | Cowork», pero todo lo que se pregunta parte del contexto del proyecto. La app lo resume así: «Claude usa el mismo conocimiento cada vez que hablas con él en este proyecto.»</td><td>Las preguntas sobre el cierre y las tareas sobre la carpeta del mes.</td></tr>
+          <tr><td>«Instrucciones»</td><td>Cómo debe trabajar Claude en este proyecto; se aplican a todas sus conversaciones y tareas. Se editan con el lápiz. En la captura, «Asesor financiero».</td><td>El rol, el formato de las cifras y la obligación de citar el criterio de las normas que se aplica.</td></tr>
+          <tr><td>«Memoria»</td><td>Lo que Claude aprende de las conversaciones del proyecto, separado del resto de la memoria. Hasta que hay contenido muestra «La memoria del proyecto se mostrará aquí después de algunos chats.»; «Ver memoria» lo abre.</td><td>Las preferencias y los acuerdos que surgen al trabajar el cierre.</td></tr>
+          <tr><td>«Contexto»</td><td>Los archivos de referencia —PDF, documentos u otros textos— que Claude reutiliza en cada conversación. Cuando el conocimiento crece mucho, Claude busca dentro de él en lugar de leerlo entero.</td><td>Las normas de cierre y el memorándum del mes anterior.</td></tr>
+          <tr><td>«Carpeta»</td><td>La carpeta del ordenador vinculada al proyecto, sobre la que trabajan las tareas de Cowork.</td><td>La carpeta <code>cierre-octubre</code>, con los seis archivos del mes.</td></tr>
+          <tr><td>«Programado»</td><td>Las tareas recurrentes propias del proyecto: «Configura tareas recurrentes para este proyecto.»</td><td>Un resumen semanal de tesorería, que se prepara en la segunda clase.</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout nota"><span class="k">[ «Solo tú» ]</span><p>En cuentas de empresa, un proyecto se puede compartir con compañeros con permiso «Puede ver» o «Puede editar». El distintivo «Solo tú» señala las partes que siguen siendo privadas aunque el proyecto se comparta: la memoria del proyecto y la carpeta local. El equipo comparte las instrucciones y el contexto; cada persona conserva su memoria y sus archivos.</p></div>
+
+      <h3>Crear un proyecto</h3>
+      <div class="grid-cards two">
+        <div class="stepper vertical">
+          <div class="step"><span class="n">01</span><h4>«Nuevo proyecto»</h4><p>En «Proyectos», arriba a la derecha. Se abre «Crear un proyecto».</p></div>
+          <div class="step"><span class="n">02</span><h4>«¿En qué estás trabajando?»</h4><p>El nombre del proyecto: «Cierre mensual».</p></div>
+          <div class="step"><span class="n">03</span><h4>«¿Qué quieres lograr?»</h4><p>El objetivo, el tema y el alcance, en dos o tres frases.</p></div>
+          <div class="step final"><span class="n">[✓]</span><h4>«Usar una carpeta» y «Crear proyecto»</h4><p>Se vincula la carpeta de trabajo y se crea el proyecto.</p></div>
+        </div>
+        <figure class="figure">
+          <img src="/img/m6c1-proyecto-nuevo.png" alt="Captura del cuadro «Crear un proyecto» abierto sobre la página Proyectos: campo «¿En qué estás trabajando?» con el texto de ayuda «Asigna un nombre a tu proyecto», campo «¿Qué quieres lograr?» con «Describe tu proyecto, objetivos, tema, etc…», el botón «Usar una carpeta» y los botones «Cancelar» y «Crear proyecto»." width="1600" height="871" loading="lazy">
+          <figcaption>[ Captura ] El cuadro «Crear un proyecto»</figcaption>
+        </figure>
+      </div>
+      <p>Una vez creado el proyecto, se completan dentro de él las «Instrucciones», con el lápiz, y el «Contexto», con el botón «+». La práctica de esta clase recorre los dos pasos con el proyecto «Cierre mensual».</p>
+
+      <h3>Tres proyectos para un departamento financiero</h3>
+      <p>Un proyecto resulta más útil cuanto más contexto evita repetir. Los tres casos siguientes corresponden a trabajos recurrentes de una Dirección Financiera; en cada uno se indica qué conviene cargar y qué instrucción fija el criterio de las respuestas. Lo razonable es empezar por el que hoy obliga a repetir más contexto.</p>
       <div class="grid-cards three">
-        <div class="card"><span class="k">[ 01 ]</span><h4>Refactoriza</h4><p>Elimina y tira a la basura las memorias contradictorias o reglas viejas obsoletas.</p></div>
-        <div class="card"><span class="k">[ 02 ]</span><h4>Consolida</h4><p>Organiza cientos de notas dispersas de varias sesiones en un solo índice limpio y estructurado.</p></div>
-        <div class="card"><span class="k">[ 03 ]</span><h4>Contextualiza</h4><p>Cambia notas vagas como «Ayer falló la base de datos» por fechas exactas como «El 12 de Mayo falló la base de datos».</p></div>
+        <div class="card dim">
+          <span class="k">[ Proyecto 01 ]</span>
+          <h4>Cierre mensual</h4>
+          <p><strong>Contexto:</strong> las normas de cierre y el memorándum del mes anterior. <strong>Carpeta:</strong> la del mes en curso.</p>
+          <p><strong>Instrucción:</strong> «Cita el criterio de las normas que aplicas.»</p>
+        </div>
+        <div class="card dim">
+          <span class="k">[ Proyecto 02 ]</span>
+          <h4>Presupuesto anual</h4>
+          <p><strong>Contexto:</strong> el presupuesto del ejercicio anterior, los supuestos de crecimiento por tienda y el calendario de aprobación.</p>
+          <p><strong>Instrucción:</strong> «Separa siempre los supuestos de los datos.»</p>
+        </div>
+        <div class="card dim">
+          <span class="k">[ Proyecto 03 ]</span>
+          <h4>Auditoría de cuentas</h4>
+          <p><strong>Contexto:</strong> los requerimientos del auditor, las cuentas anuales del ejercicio anterior y las actas.</p>
+          <p><strong>Instrucción:</strong> «Indica en cada respuesta el documento de soporte.»</p>
+        </div>
       </div>
-      <div class="callout nota"><span class="k">[ Operación en la sombra ]</span><p>Se activa solo sin interrumpir tu trabajo. Actúa en modo de <em>solo lectura</em> en el código de tu proyecto, pero tiene acceso de escritura a sus propios archivos de memoria para auto-optimizarse.</p></div>
     </section>
 
-    <!-- 4. Economía de tokens en Claude -->
-    <section class="sec" id="economia" data-label="Economía de tokens">
-      <p class="sec-eyebrow">[ Gestión financiera ]</p>
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Economía de tokens en entornos de producción.</h2></div>
-      <p class="sec-intro">Cuando tu IA analiza repositorios enteros o libros legales repetidamente, la factura de la API puede dispararse. Así es como la reducimos drásticamente.</p>
+    <!-- 07 · Instrucciones y memoria -->
+    <section class="sec respira" id="memoria" data-label="Memoria">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Instrucciones y memoria: lo que Claude sabe antes de empezar.</h2></div>
+      <p class="sec-intro">Antes de leer el primer mensaje, Claude ya dispone de cierta información: las instrucciones que se le han dado en distintos niveles y lo que la memoria ha recogido de conversaciones anteriores. Saber qué contiene cada nivel permite colocar cada norma en su sitio, de modo que no haya que repetirla, y evita que un dato privado acabe donde no debe.</p>
+
+      <figure class="figure esquema">
+        <svg viewBox="0 0 960 320" role="img" aria-label="Cinco capas de instrucciones apiladas, cada una más estrecha que la anterior, de lo general a lo concreto: instrucciones de la cuenta, que se aplican a todo lo que se hace; instrucciones globales de Cowork, a cada tarea de Cowork; instrucciones del proyecto, a todo el proyecto; instrucciones de carpeta, a esa carpeta; y, al final, destacado en oscuro, el prompt, que se aplica a esa tarea.">
+          <line class="ln ac" x1="20" y1="30" x2="20" y2="288"/>
+          <path class="ln ac" d="M14 280 L20 288 L26 280"/>
+          <rect class="bx fill" x="40" y="20" width="880" height="48" rx="4"/>
+          <text class="lb b" x="64" y="51">Instrucciones de la cuenta</text>
+          <text class="lb" x="896" y="51" text-anchor="end">Todo lo que se hace</text>
+          <rect class="bx fill" x="100" y="78" width="760" height="48" rx="4"/>
+          <text class="lb b" x="124" y="109">Instrucciones globales de Cowork</text>
+          <text class="lb" x="836" y="109" text-anchor="end">Cada tarea de Cowork</text>
+          <rect class="bx fill" x="160" y="136" width="640" height="48" rx="4"/>
+          <text class="lb b" x="184" y="167">Instrucciones del proyecto</text>
+          <text class="lb" x="776" y="167" text-anchor="end">Todo el proyecto</text>
+          <rect class="bx fill" x="220" y="194" width="520" height="48" rx="4"/>
+          <text class="lb b" x="244" y="225">Instrucciones de carpeta</text>
+          <text class="lb" x="716" y="225" text-anchor="end">Esa carpeta</text>
+          <rect class="fill-ink" x="280" y="252" width="400" height="48" rx="4"/>
+          <text class="lb on-dark" x="304" y="283">El prompt</text>
+          <text class="lb on-dark soft" x="656" y="283" text-anchor="end">Esta tarea</text>
+        </svg>
+        <figcaption>[ Diagrama 05 ] Cinco capas de instrucciones, de lo general a lo concreto, con su alcance a la derecha</figcaption>
+      </figure>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>Capa</th><th>Dónde se configura</th><th>Qué poner</th><th>Alcance</th></tr></thead>
+        <tbody>
+          <tr><td>Instrucciones de la cuenta</td><td>Configuración; en la experiencia unificada, «General» → «Instrucciones para Claude».</td><td>Quién es el usuario, el idioma, el registro y el formato de las cifras.</td><td>Todas las conversaciones y tareas.</td></tr>
+          <tr><td>«Instrucciones globales» de Cowork</td><td>Configuración → «Cowork».</td><td>Cómo tratar los archivos: no modificar los originales, cómo nombrar las salidas, señalar los supuestos.</td><td>Cada tarea de Cowork.</td></tr>
+          <tr><td>Instrucciones del proyecto</td><td>Bloque «Instrucciones» del proyecto.</td><td>El rol, las normas que deben citarse y el formato de los entregables del asunto.</td><td>Las conversaciones y tareas del proyecto.</td></tr>
+          <tr><td>Instrucciones de carpeta</td><td>Contexto ligado a una carpeta local en Cowork; Claude puede actualizarlo durante una tarea.</td><td>Qué contiene la carpeta, cómo se llaman sus archivos y qué no debe tocarse.</td><td>Las tareas que trabajan en esa carpeta.</td></tr>
+          <tr><td>El prompt</td><td>El cuadro de prompt.</td><td>El encargo concreto: objetivo, archivos de entrada, entregable y formato.</td><td>Esa conversación o esa tarea.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>La memoria: lo esencial</h3>
+      <p>La memoria es lo que Claude recuerda de una conversación a otra sin que haya que repetírselo. Se gestiona en Configuración → «Memoria». En cuentas de empresa, el administrador decide si está disponible y cada persona decide si la activa.</p>
+      <div class="grid-cards three">
+        <div class="card ink">
+          <span class="k">[ 01 ]</span>
+          <h4>Aprende de las conversaciones</h4>
+          <p>Con «Generar memoria a partir de los chats», Claude recoge lo que conviene recordar: el puesto, las normas habituales, los formatos preferidos. <strong>Cuándo:</strong> para no repetir el mismo contexto en cada conversación.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ 02 ]</span>
+          <h4>Una memoria por proyecto</h4>
+          <p>Cada proyecto tiene su memoria, separada del resto: lo aprendido en el cierre no se mezcla con el presupuesto. <strong>Cuándo:</strong> siempre que un asunto tenga proyecto propio.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ 03 ]</span>
+          <h4>Se lee y se corrige</h4>
+          <p>«Temas» muestra lo recordado, que se puede leer, editar o borrar. <strong>Cuándo:</strong> al terminar cada cierre, para retirar lo que ya no procede.</p>
+        </div>
+      </div>
+
+      <h3>Los controles de la memoria</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Control</th><th>Qué hace</th><th>Cuándo tocarlo</th></tr></thead>
+        <tbody>
+          <tr><td>«Buscar y consultar conversaciones»</td><td>«Permitir que Claude busque detalles relevantes en chats anteriores.»</td><td>Para retomar un asunto sin volver a explicarlo.</td></tr>
+          <tr><td>«Generar memoria a partir de los chats»</td><td>Claude extrae de las conversaciones lo que conviene recordar.</td><td>Activado para el trabajo habitual, si la organización lo permite.</td></tr>
+          <tr><td>«Incluir temas sensibles en la memoria»</td><td>Permite que la memoria guarde detalles sobre temas sensibles, «como afecciones de salud o creencias religiosas». Viene desactivado.</td><td>Dejarlo desactivado.</td></tr>
+          <tr><td>«Importar memoria de otros proveedores de IA»</td><td>Con el botón «Iniciar importación», Claude da un prompt para traer la memoria de otra cuenta.</td><td>Solo si se viene de otro asistente.</td></tr>
+          <tr><td>«Tú» y «Temas»</td><td>El perfil y la lista de lo recordado, con su fecha de actualización, que se puede leer, editar o borrar. Debajo, una caja permite escribir directamente algo que Claude debe recordar.</td><td>En cada revisión periódica.</td></tr>
+          <tr><td>«Pausar memoria»</td><td>Conserva lo guardado y deja de añadir.</td><td>Durante un trabajo puntual que no debe dejar huella.</td></tr>
+          <tr><td>«Restablecer memoria»</td><td>Borra toda la memoria, también la de los proyectos. No se puede deshacer.</td><td>Solo cuando se quiere empezar de cero, sabiendo que no tiene vuelta atrás.</td></tr>
+          <tr><td>Memoria de una conversación</td><td>Se desmarca «Memoria» en el menú «+», antes del primer mensaje.</td><td>Para una consulta concreta que no debe influir en las siguientes.</td></tr>
+        </tbody>
+      </table></div>
+      <figure class="figure">
+        <img src="/img/m6c1-memoria.png" alt="Captura de Configuración → Memoria: los interruptores «Buscar y consultar conversaciones» y «Generar memoria a partir de los chats», activados; «Incluir temas sensibles en la memoria», desactivado; «Importar memoria de otros proveedores de IA» con el botón «Iniciar importación»; y, debajo, el apartado «Tú» con la lista de lo recordado, difuminada en la captura, y una caja para escribir un recuerdo." width="1600" height="872" loading="lazy">
+        <figcaption>[ Captura ] Configuración → «Memoria». Lo recordado aparece difuminado a propósito</figcaption>
+      </figure>
+
+      <div class="callout analogia"><span class="k">[ Analogía ]</span><p>La memoria de un proyecto se parece al expediente de un cliente: todo lo que contiene se refiere a ese asunto y sirve a quien lo lleve. La memoria general se parece más a la agenda personal: recoge las preferencias y las costumbres de quien la usa. Lo que pertenece al expediente no debe quedarse en la agenda, y lo que es personal no debe acabar en el expediente.</p></div>
+
+      <div class="callout aviso"><span class="k">[ ! ] Qué no dejar en la memoria</span>
+        <ul class="list-mono">
+          <li class="cross">Contraseñas, claves de acceso o cualquier otra credencial.</li>
+          <li class="cross">Datos personales de clientes, empleados o proveedores.</li>
+          <li class="cross">Cifras provisionales que después cambian, como un avance de ventas que aún no está cerrado.</li>
+        </ul>
+        <p>Borrar una conversación no borra lo que la memoria haya aprendido de ella: lo aprendido se retira desde «Temas». Para una consulta que no debe dejar rastro está el <strong>chat incógnito</strong>, el icono del fantasma, que no se guarda en el historial ni en la memoria y nunca se usa para entrenar modelos.</p>
+      </div>
+    </section>
+
+    <!-- 08 · Los ajustes: veinte entradas en cuatro grupos -->
+    <section class="sec respira" id="ajustes" data-label="Ajustes">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Los ajustes: veinte entradas en cuatro grupos.</h2></div>
+      <p class="sec-intro">La configuración de la app reúne veinte entradas repartidas en cuatro grupos. No hace falta revisarlas todas el primer día: cuatro de ellas deciden casi todo lo que se puede hacer con Claude en el trabajo diario. En una cuenta de empresa, además, la organización fija parte de estos ajustes, de modo que algunas opciones pueden no estar al alcance del usuario.</p>
+
       <div class="grid-cards two">
-        <div class="card"><span class="k">[ 01 ]</span><h4>Prompt Caching (nativo)</h4><p>La funcionalidad clave de Anthropic. Si subes un PDF de 100 páginas, la primera vez pagas el 100%. Pero Claude «guarda en caché» ese documento (hasta 1 hora). Si le haces 10 preguntas seguidas sobre ese PDF, las siguientes 9 preguntas te costarán un <strong>90% menos de dinero</strong> y se responderán al instante.</p></div>
-        <div class="card"><span class="k">[ 02 ]</span><h4>Optimización vía SKILLS.md</h4><p>Los LLMs son «educados» por defecto y gastan tokens en saludos largos («Claro, estaré encantado de ayudarte…»). Crear un <code>SKILLS.md</code> que le enseñe la habilidad de «Concisión Extrema» o el uso de abreviaturas técnicas de tu empresa, ahorra cientos de tokens de salida inútiles en cada interacción diaria.</p></div>
-        <div class="card"><span class="k">[ 03 ]</span><h4>Compresión de historial</h4><p>El coste invisible: cada vez que envías un nuevo mensaje en un chat largo, la IA te cobra por «re-leer» todo el historial anterior para poder contestarte. Utilizar el comando <code>/compact</code> visto anteriormente corta esta hemorragia financiera de raíz.</p></div>
-        <div class="card"><span class="k">[ 04 ]</span><h4>Tareas modulares</h4><p>Nunca pidas a un solo Agente que «Investigue, escriba y programe». Eso satura el contexto. Divide: un Agente barato busca datos. Un Agente experto (Opus) redacta el informe. Un Agente codificador (Sonnet) programa.</p></div>
+        <figure class="figure">
+          <img src="/img/m6c1-ajustes.png" alt="Captura del menú de configuración de la app de Claude en dos columnas. En la primera, el grupo Configuración con General, Cuenta, Privacidad, Facturación, Uso, Capacidades, Memoria, Sistemas de diseño, Reflexión, Tiempo y enfoque, Claude Code, Cowork y Claude in Chrome. En la segunda, el grupo Esta computadora con Sistema, Extensiones y Desarrollador; el grupo Personalización con Skills, Conectores y Plugins, y el grupo Plataforma con Claves de API y una flecha que indica que se abre fuera de la app." width="698" height="887" loading="lazy">
+          <figcaption>[ Captura ] El menú de configuración: veinte entradas en cuatro grupos</figcaption>
+        </figure>
+        <div>
+        <div class="glossary">
+          <div class="row"><h3 class="term">«Configuración»<small>13 entradas</small></h3><p class="def">Las preferencias de la app y de la cuenta: privacidad, uso, capacidades, memoria y sistemas de diseño, más los ajustes propios de Code, Cowork y Claude in Chrome. Es el grupo que más se consulta.</p></div>
+          <div class="row"><h3 class="term">«Esta computadora»<small>3 entradas</small></h3><p class="def">Lo que afecta al ordenador en el que está instalada la app: el uso de la pantalla y de las aplicaciones, las extensiones de escritorio y las opciones de desarrollador. Lo que se decide aquí vale solo para ese equipo.</p></div>
+          <div class="row"><h3 class="term">«Personalización»<small>3 entradas</small></h3><p class="def">Accesos directos a skills, conectores y plugins, que se gestionan en «Personalización» de la barra lateral. Se estudian en la tercera clase.</p></div>
+          <div class="row"><h3 class="term">«Plataforma»<small>1 entrada</small></h3><p class="def">«Claves de API», que abre fuera de la app la plataforma de desarrolladores. Solo interesa a quien integra Claude en una aplicación propia.</p></div>
+        </div>
+        <div class="callout nota"><span class="k">[ Cuentas de empresa ]</span><p>En una cuenta de empresa, la organización fija parte de estos ajustes, como las capacidades, la memoria o las extensiones permitidas, y gestiona la facturación. «Reflexión» y «Tiempo y enfoque» solo existen en cuentas individuales: si no aparecen en el menú, no es un error. Ante cualquier opción bloqueada, la consulta se dirige al administrador de la organización.</p></div>
+        </div>
       </div>
+
+      <h3>Lo esencial: los cuatro ajustes que se revisan primero</h3>
+      <div class="grid-cards two">
+        <div class="card ink">
+          <span class="k">[ Capacidades ]</span>
+          <h4>«Ejecución de código y creación de archivos»</h4>
+          <p>Imprescindible el interruptor «Ejecución de código en la nube y creación de archivos» para que Claude cree archivos de Word, Excel, PowerPoint y PDF, y para usar skills y artefactos. En empresa, la fija la organización. <strong>Cuándo:</strong> el primer día; sin ella, la práctica del módulo no funciona.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ Privacidad ]</span>
+          <h4>El tratamiento de los datos</h4>
+          <p>En cuentas de empresa, las conversaciones no se usan para entrenar modelos; en cuentas individuales existe el interruptor «Ayudar a mejorar nuestros modelos de IA». <strong>Cuándo:</strong> antes de trabajar con información de la empresa.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ Memoria ]</span>
+          <h4>Qué se recuerda y qué no</h4>
+          <p>Los interruptores de la sección 07, «Temas», «Pausar memoria» y «Restablecer memoria». <strong>Cuándo:</strong> al empezar y, después, en cada revisión periódica.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ Cowork ]</span>
+          <h4>«Instrucciones globales»</h4>
+          <p>Las instrucciones que se aplican a cada tarea de Cowork, las carpetas de confianza y los sitios permitidos al navegador. <strong>Cuándo:</strong> antes de encargar la primera tarea.</p>
+        </div>
+      </div>
+
+      <figure class="figure">
+        <img src="/img/m6c1-capacidades.png" alt="Captura de Configuración → Capacidades. Bloque General: «Modo de acceso a herramientas» con el valor «Cargar herramientas cuando sea necesario», «Búsqueda de conectores» desactivado y «Cambiar de modelo cuando se marque un mensaje» activado. Bloque Elementos visuales: «Artefactos», «Artefactos impulsados por IA» y «Visualizaciones en el chat», activados. Bloque Ejecución de código y creación de archivos: «Ejecución de código en la nube y creación de archivos» y «Permitir acceso de red saliente», activados." width="1600" height="871" loading="lazy">
+        <figcaption>[ Captura ] Configuración → «Capacidades»: el interruptor que importa está en el último bloque</figcaption>
+      </figure>
+      <p>Los otros interruptores de «Capacidades» también conviene conocerlos. «Artefactos impulsados por IA» permite que una app creada por Claude use a su vez a Claude, y «Visualizaciones en el chat» muestra gráficos y diagramas dentro de la conversación. «Búsqueda de conectores» deja que Claude proponga conectores del directorio. «Cambiar de modelo cuando se marque un mensaje» decide qué ocurre cuando las medidas de seguridad marcan un mensaje: activado, la conversación sigue con otro modelo; desactivado, se pausa. «Permitir acceso de red saliente» deja a Claude instalar paquetes y bibliotecas para análisis avanzados; la propia app advierte de que conlleva riesgos de seguridad, y en empresa lo decide la organización.</p>
+
+      <h3>«Configuración»: las trece entradas</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Ajuste</th><th>Qué contiene</th><th>Cuándo tocarlo</th></tr></thead>
+        <tbody>
+          <tr><td>«General»</td><td>Preferencias de la app y, en la experiencia unificada, las «Instrucciones para Claude».</td><td>Al empezar, para escribir las instrucciones de la cuenta.</td></tr>
+          <tr><td>«Cuenta»</td><td>Datos de la cuenta y de la sesión.</td><td>Cuando hace falta consultarlos.</td></tr>
+          <tr><td>«Privacidad»</td><td>El tratamiento de los datos, descrito arriba. Los chats incógnito nunca se usan para entrenar modelos.</td><td>Antes de trabajar con información de la empresa.</td></tr>
+          <tr><td>«Facturación»</td><td>El plan y las facturas; en empresa lo gestiona la organización.</td><td>En una cuenta de empresa, normalmente nunca.</td></tr>
+          <tr><td>«Uso»</td><td>El consumo frente a los límites: uno de sesión, que se renueva cada cinco horas, y uno semanal. Chat, Cowork y Code cuentan juntos; Cowork y el esfuerzo alto consumen más.</td><td>Antes de encargar una tarea larga en Cowork.</td></tr>
+          <tr><td>«Capacidades»</td><td>Bloques «General», «Elementos visuales» y «Ejecución de código y creación de archivos», con los interruptores «Ejecución de código en la nube y creación de archivos» y «Permitir acceso de red saliente»; en empresa, la organización fija estas opciones.</td><td>El primer día.</td></tr>
+          <tr><td>«Memoria»</td><td>Los interruptores, «Temas», pausar y restablecer (sección 07).</td><td>Al empezar y en cada revisión.</td></tr>
+          <tr><td>«Sistemas de diseño»</td><td>La lista de sistemas de diseño —nombre, quién puede usarlo y cuál es el predeterminado— y la opción de crear uno.</td><td>Cuando la marca tenga sistema de diseño (segunda clase).</td></tr>
+          <tr><td>«Reflexión»</td><td>Un resumen mensual de cómo se usa Claude. No es el razonamiento del modelo. Solo existe en cuentas individuales y requiere la memoria.</td><td>Opcional, en cuentas individuales.</td></tr>
+          <tr><td>«Tiempo y enfoque»</td><td>«Recordatorios de descanso» y «Horas silenciosas»: avisos voluntarios, distintos de los límites de uso. Cuentas individuales.</td><td>Si se quieren esos avisos.</td></tr>
+          <tr><td>«Claude Code»</td><td>Los ajustes de la pestaña «Code».</td><td>Solo en equipos técnicos.</td></tr>
+          <tr><td>«Cowork»</td><td>«Instrucciones globales», «Carpetas de Cowork de confianza», «Sitios permitidos», «Navegador preferido», «Requerir dispositivos de confianza» y la ubicación de los «Archivos de Cowork».</td><td>Antes de la primera tarea.</td></tr>
+          <tr><td>«Claude in Chrome»</td><td>Los permisos de la extensión.</td><td>Al instalar la extensión (segunda clase).</td></tr>
+        </tbody>
+      </table></div>
+      <figure class="figure">
+        <img src="/img/m6c1-cowork-ajustes-2.png" alt="Captura de Configuración → Cowork: «Navegador preferido» con el valor «Navegador integrado», «Abrir enlaces en el navegador integrado» desactivado, «Sitios permitidos» con el botón «Administrar» y, al final, «Instrucciones globales» con su explicación y el botón «Editar»." width="1600" height="871" loading="lazy">
+        <figcaption>[ Captura ] Configuración → «Cowork»: navegador, sitios permitidos e «Instrucciones globales»</figcaption>
+      </figure>
+
+      <h3>«Esta computadora», «Personalización» y «Plataforma»</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Ajuste</th><th>Qué contiene</th><th>Cuándo tocarlo</th></tr></thead>
+        <tbody>
+          <tr><td>«Sistema»</td><td>El uso del ordenador: permitir que Claude maneje la pantalla y las aplicaciones. Viene desactivado y tiene una lista de aplicaciones denegadas.</td><td>Solo si hace falta, y con la lista de aplicaciones denegadas revisada.</td></tr>
+          <tr><td>«Extensiones»</td><td>Extensiones de escritorio: servidores MCP locales que se instalan en el equipo. En empresa, la organización controla cuáles se permiten.</td><td>Solo con extensiones aprobadas por IT: son código que se ejecuta en el ordenador.</td></tr>
+          <tr><td>«Desarrollador»</td><td>Opciones avanzadas para desarrolladores.</td><td>No es necesario tocarlo.</td></tr>
+          <tr><td>«Skills»</td><td>Acceso directo a las skills.</td><td>Tercera clase.</td></tr>
+          <tr><td>«Conectores»</td><td>Acceso directo a los conectores.</td><td>Tercera clase.</td></tr>
+          <tr><td>«Plugins»</td><td>Acceso directo a los plugins.</td><td>Tercera clase.</td></tr>
+          <tr><td>«Claves de API»</td><td>Abre, fuera de la app, la plataforma de desarrolladores para crear claves con las que una aplicación propia usa Claude.</td><td>Solo para integrar Claude en una aplicación propia. Una clave nunca se pega en un chat ni dentro de una skill.</td></tr>
+        </tbody>
+      </table></div>
+
     </section>
 
-    <!-- 5. Práctica (banda tinta) -->
-    <section class="sec sec-dark" id="practica" data-label="Práctica">
+    <!-- 09 · Práctica (banda tinta) y test -->
+    <section class="sec respira sec-dark" id="practica" data-label="Práctica">
       <p class="sec-eyebrow">[ Parte práctica ]</p>
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Laboratorio de arquitectura agentic.</h2></div>
-      <p class="sec-intro">Vamos a escribir el código fundacional (los archivos .md) para parametrizar a Claude como nuestro socio operativo.</p>
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Laboratorio: el espacio de trabajo del cierre de octubre.</h2></div>
+      <p class="sec-intro">La práctica prepara el espacio de trabajo con el que se hará, en las dos clases siguientes, el cierre de octubre de 2026 de una empresa ficticia de calzado y marroquinería con siete tiendas y canal online. Los archivos contienen datos sintéticos. Todo se hace en la app de escritorio: primero se ajusta la cuenta; después se crea el proyecto «Cierre mensual» con sus instrucciones, su contexto y su carpeta; se comprueba con cuatro preguntas que Claude ha entendido las normas; y, por último, se encarga a Cowork una primera tarea con el permiso en «Manual».</p>
+
+      <h3>Archivos de la práctica</h3>
+      <div class="grid-cards two">
+        <a class="card link" href="/practica/m6c1/carpeta-cierre-octubre.zip" download>
+          <span class="k">[ Descargar · carpeta de trabajo ]</span>
+          <h4>carpeta-cierre-octubre.zip</h4>
+          <p>La carpeta <code>cierre-octubre</code> con los seis archivos del módulo: las normas de cierre, el memorándum de septiembre, las ventas, el extracto bancario de octubre, el mayor de bancos y los gastos de octubre. Es la carpeta que se vincula al proyecto y sobre la que trabaja Cowork.</p>
+        </a>
+        <a class="card link" href="/practica/m6c1/normas-cierre.docx" download>
+          <span class="k">[ Descargar ]</span>
+          <h4>normas-cierre.docx</h4>
+          <p>Las normas de la Dirección Financiera: calendario D+3, D+5 y D+7, centros de coste, criterios de imputación 3.1 a 3.5, conciliación bancaria 4.1 a 4.4, definiciones de KPI y, en el apartado 6, el formato del memorándum.</p>
+        </a>
+        <a class="card link" href="/practica/m6c1/memorandum-cierre-septiembre.docx" download>
+          <span class="k">[ Descargar ]</span>
+          <h4>memorandum-cierre-septiembre.docx</h4>
+          <p>El memorándum del mes anterior, fechado el 7 de octubre: ventas de septiembre de 1.036.744 € (+6,5 %) y margen bruto del 59,9 %, frente al 60,2 % de un año antes. Sirve de modelo de estructura.</p>
+        </a>
+        <a class="card link" href="/practica/m6c1/ventas-tiendas-2026.xlsx" download>
+          <span class="k">[ Descargar ]</span>
+          <h4>ventas-tiendas-2026.xlsx</h4>
+          <p>Hoja «Ventas 2026», de enero a octubre (tabla «Ventas2026»), y hoja «Ventas 2025» (tabla «Ventas2025»), por mes, tienda y familia: unidades, ventas, coste de las ventas y margen bruto, ya calculados.</p>
+        </a>
+      </div>
 
       <ol class="exercises">
         <li>
-          <h4>El cerebro (CLAUDE.md)</h4>
-          <p>Este es el archivo raíz que la IA lee automáticamente. Define el flujo general y le enseña dónde buscar su personalidad y su memoria (el contexto).</p>
-          <div class="code wrap"><div class="ch"><span class="k">[ Archivo · CLAUDE.md ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre># CLAUDE.md - Proyecto Alpha
-## Reglas Globales
-- Eres el asistente operativo principal del proyecto.
-- Idioma base: Español técnico de negocios.
-- Evita párrafos introductorios ("Claro, aquí tienes"). Ve directo al dato.
-
-## Flujo de Trabajo Obligatorio
-1. Antes de iniciar cualquier tarea, lee `SOUL.md` para adoptar nuestro tono corporativo.
-2. Revisa siempre `context.md` para saber en qué punto se quedó el equipo de humanos ayer.
-3. Antes de dar por finalizada una tarea, actualiza `context.md` con un log de tus decisiones.</pre></div>
+          <h4>Preparación</h4>
+          <p>Descarga <code>carpeta-cierre-octubre.zip</code> y descomprímelo en una ubicación fácil de encontrar, por ejemplo en Documentos. Comprueba que la carpeta <code>cierre-octubre</code> contiene los seis archivos. Después, abre la app de escritorio de Claude con la cuenta de la empresa y fíjate en la esquina inferior izquierda: debe figurar la cuenta de trabajo.</p>
         </li>
         <li>
-          <h4>La personalidad (SOUL.md)</h4>
-          <p>Aquí inyectamos el ADN de la empresa. Separar la personalidad del archivo principal evita que el <code>CLAUDE.md</code> se vuelva ilegible y pesado.</p>
-          <div class="code wrap"><div class="ch"><span class="k">[ Archivo · SOUL.md ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre># SOUL.md - Identidad Corporativa
-
-## Tono de Voz
-- Eres directo, altamente analítico y ligeramente irreverente.
-- Nos dirigimos al cliente de 'tú', con respeto pero sin servilismo corporativo.
-- **Prohibido:** Usar jerga vacía de marketing (evita palabras como "sinergias", "revolucionario", "paradigma").
-
-## Valores Innegociables
-- Priorizas la exactitud matemática sobre la complacencia.
-- Si una idea del equipo humano carece de sentido lógico, debes señalarlo frontalmente proponiendo una alternativa basada en datos.</pre></div>
+          <h4>Los ajustes de la cuenta</h4>
+          <p>Primero, en Configuración → «Capacidades», comprueba que «Ejecución de código en la nube y creación de archivos» está activada; en una cuenta de empresa puede que la fije la organización. Después, revisa «Privacidad» y «Memoria»: decide si activas «Generar memoria a partir de los chats» y comprueba que «Incluir temas sensibles en la memoria» sigue desactivado. Por último, escribe las instrucciones de la cuenta («General» → «Instrucciones para Claude», si la cuenta tiene la experiencia unificada) o las «Instrucciones globales» de Cowork (Configuración → «Cowork») con el texto siguiente:</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Instrucciones · Cuenta o Cowork ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Trabajo como analista en la Dirección Financiera de una empresa de calzado y marroquinería. Responde en español de España, con un registro formal. Escribe las cifras en euros sin decimales y con punto de millar, y los porcentajes con un decimal. Señala siempre los supuestos que hagas y sepáralos de los datos. No inventes cifras ni fechas: si un dato no figura en los archivos, dilo.»</pre></div>
         </li>
         <li>
-          <h4>Test de despliegue</h4>
-          <p>Abre tu entorno de Claude, arrastra tus archivos recién creados (<code>CLAUDE.md</code> y <code>SOUL.md</code>) al área de trabajo y dale una única instrucción simple:</p>
-          <div class="code prompt"><div class="ch"><span class="k">[ Prompt ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Inicia operaciones, analízame brevemente tu rol y dime qué dice nuestro archivo de contexto hoy.»</pre></div>
+          <h4>El proyecto «Cierre mensual»</h4>
+          <p>Primero, en la barra lateral, abre «Proyectos» → «Nuevo proyecto». En «¿En qué estás trabajando?» escribe «Cierre mensual»; en «¿Qué quieres lograr?», el primer texto de abajo; con «Usar una carpeta», elige <code>cierre-octubre</code>; y pulsa «Crear proyecto». Después, con el lápiz del bloque «Instrucciones», pega las instrucciones del proyecto. Por último, en «Contexto» → «+», sube <code>normas-cierre.docx</code> y <code>memorandum-cierre-septiembre.docx</code>.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ ¿Qué quieres lograr? ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Cierre contable mensual de una empresa de calzado y marroquinería con siete tiendas y canal online: ventas por tienda, conciliación bancaria, gastos del mes y memorándum de cierre para Dirección General.»</pre></div>
+          <div class="code prompt"><div class="ch"><span class="k">[ Instrucciones · Proyecto ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Este proyecto prepara el cierre mensual según las normas de cierre del contexto. Cita el criterio que aplicas (por ejemplo, 3.2) cada vez que imputes una venta o un gasto. Usa como modelo de estructura el memorándum del mes anterior. No modifiques los archivos originales de la carpeta: guarda los resultados como archivos aparte. Si las normas no resuelven un caso, señálalo en lugar de suponer una regla.»</pre></div>
+        </li>
+        <li>
+          <h4>Cuatro preguntas de control en Chat</h4>
+          <p>Dentro del proyecto, con el conmutador en «Chat» y el selector en «Opus 5.5 · Medio», lanza las cuatro preguntas siguientes, una a una, y compara cada respuesta con la esperada. Si alguna no coincide o no cita las normas, revisa el «Contexto» antes de seguir.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Control 1 ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «¿Qué día debe enviarse a Dirección General el memorándum de cierre de octubre de 2026?»</pre></div>
+          <p><strong>Respuesta esperada:</strong> D es el sábado 31 de octubre y D+7 cae en sábado 7 de noviembre; como las normas trasladan al lunes siguiente el envío que cae en fin de semana, el memorándum se envía el <strong>lunes 9 de noviembre de 2026</strong>.</p>
+          <p><strong>Comparación:</strong> repite el control 1 en una conversación nueva del proyecto, para que la primera respuesta no influya, con el selector en «Haiku 5.5 · Bajo», y compara las dos respuestas. Comprueba si la nueva aplica la regla del fin de semana y si cita las normas. Si no lo hace, has visto por qué el trabajo diario se hace en «Opus 5.5 · Medio»; si lo hace, has visto que una pregunta sencilla no necesita más modelo ni más esfuerzo. Antes del control 2, vuelve a dejar el selector en «Opus 5.5 · Medio».</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Control 2 ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «¿A qué centro de coste se imputa una venta hecha en la tienda web?»</pre></div>
+          <p><strong>Respuesta esperada:</strong> al canal Online, T08, por el criterio 3.1.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Control 3 ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Llega en octubre la factura de la limpieza de las tiendas de septiembre. ¿A qué mes se imputa?»</pre></div>
+          <p><strong>Respuesta esperada:</strong> a septiembre, el mes del servicio, por devengo (criterio 3.2).</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Control 4 ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «¿Qué apartados debe tener el memorándum de cierre y en qué orden?»</pre></div>
+          <p><strong>Respuesta esperada:</strong> los cinco del formato de las normas, en este orden: «1. Resumen», «2. Ventas por tienda», «3. Margen», «4. Tesorería y conciliación» y «5. Incidencias y ajustes».</p>
+        </li>
+        <li>
+          <h4>La primera tarea en Cowork</h4>
+          <p>En el proyecto, pasa el conmutador a «Cowork», comprueba que la carpeta es <code>cierre-octubre</code> y que el permiso está en «Manual», y encarga la tarea siguiente. Observa cómo Claude presenta su plan y pide aprobación antes de cada acción; lee cada petición antes de aprobarla.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Encargo · Cowork ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «En la carpeta cierre-octubre, crea un archivo llamado checklist-cierre-octubre.md con las tareas del calendario de cierre de octubre de 2026 según normas-cierre.docx. Para cada hito (D+3, D+5 y D+7) indica la fecha real con el día de la semana, qué hay que hacer y qué archivo de la carpeta se necesita. Aplica la regla de fin de semana de las normas. No modifiques, muevas ni borres ningún otro archivo.»</pre></div>
+          <p><strong>Resultado esperado:</strong> un único archivo añadido a la carpeta, <code>checklist-cierre-octubre.md</code>, con D+3 el martes 3 de noviembre, D+5 el jueves 5 de noviembre y D+7 trasladado del sábado 7 al lunes 9 de noviembre. El resto de los archivos, intactos.</p>
+        </li>
+        <li>
+          <h4>Revisar la memoria</h4>
+          <p>Después de varias conversaciones en el proyecto, abre «Ver memoria» en el bloque «Memoria» y lee lo que Claude ha retenido del cierre; si aún muestra «La memoria del proyecto se mostrará aquí después de algunos chats.», es normal. Después, en Configuración → «Memoria» → «Temas», revisa la memoria general y borra lo que no proceda: un dato personal, una cifra provisional o algo que pertenezca al proyecto y no a la cuenta.</p>
         </li>
       </ol>
 
-      <div class="callout ok"><span class="k">[✓] Resultado esperado</span><p>Observarás cómo Claude absorbe automáticamente tu tono «irreverente y directo» y respeta las reglas de estructuración sin que hayas tenido que escribir un prompt kilométrico en el chat. Has creado un agente parametrizado.</p></div>
+      <div class="callout ok"><span class="k">[✓] Resultado esperado</span><p>Al terminar tienes la cuenta ajustada; el proyecto «Cierre mensual» con sus instrucciones, su contexto y la carpeta <code>cierre-octubre</code> vinculada; cuatro respuestas comprobadas contra las normas; y una primera tarea de Cowork aprobada paso a paso. Es el espacio de trabajo con el que la segunda clase hará la conciliación bancaria, la limpieza de gastos y el memorándum de octubre.</p></div>
+
+      <div class="quiz" data-quiz="quizData" data-title="Test de la clase"></div>
     </section>
 
   </div><!-- /.content -->
@@ -214,5 +848,121 @@
 
 <script src="/curso-data.js"></script>
 <script src="/curso.js"></script>
+<script>
+  // Test de la clase. a = índice de la opción correcta; why = explicación de una frase.
+  // `var` (no `const`): curso.js lee el array como window[data-quiz].
+  var quizData = [
+    {
+      q: "¿Qué funciones de Claude requieren la app de escritorio?",
+      opts: [
+        "Ninguna: la versión web, la de escritorio y la del móvil ofrecen exactamente las mismas funciones.",
+        "Cowork, el trabajo con las carpetas del ordenador y Claude in Chrome.",
+        "Solo el dictado y el modo voz, porque necesitan el micrófono del ordenador.",
+        "Los proyectos y la memoria, que se guardan en el disco y no se sincronizan."
+      ],
+      a: 1,
+      why: "Cowork, las carpetas del ordenador y Claude in Chrome necesitan la app de escritorio; la web y el móvil no los ofrecen."
+    },
+    {
+      q: "En la pantalla de inicio, ¿para qué sirve el icono del fantasma de la esquina superior derecha?",
+      opts: [
+        "Oculta la barra lateral y deja el cuadro de prompt a pantalla completa.",
+        "Cambia la app al tema oscuro durante la noche.",
+        "Muestra las tareas de Cowork que siguen en curso en segundo plano, con su estado.",
+        "Abre un chat incógnito, que no se guarda en el historial ni en la memoria."
+      ],
+      a: 3,
+      why: "El chat incógnito no queda en el historial ni en la memoria y nunca se usa para entrenar modelos."
+    },
+    {
+      q: "¿Qué ocurre al escribir «/» en el cuadro de prompt?",
+      opts: [
+        "Se abren las skills y los comandos disponibles.",
+        "Se pasa al modo Cowork.",
+        "Se activa la búsqueda web para que la respuesta cite páginas de internet.",
+        "Se adjunta el último archivo abierto en el ordenador."
+      ],
+      a: 0,
+      why: "«/» invoca un procedimiento ya escrito; el botón «+» es el que adjunta archivos y activa conectores, skills o la búsqueda web."
+    },
+    {
+      q: "Con Opus 5.5 en «Medio», un análisis complejo se queda corto. Según el criterio del curso, ¿qué conviene probar primero?",
+      opts: [
+        "Pasar directamente a «Máx», porque el resultado mejora siempre en proporción al uso que consume.",
+        "Cambiar a Haiku 5.5, porque es el modelo más rápido.",
+        "Subir el esfuerzo a «Alto» o «Extra», y pasar a Fable 5.1 si aun así no basta.",
+        "Repetir la pregunta en un chat incógnito para que la memoria no interfiera."
+      ],
+      a: 2,
+      why: "El esfuerzo regula cuánto razona el modelo; Fable 5.1 se reserva para cuando Opus con más esfuerzo no basta, y «Máx», para cuando mejora el resultado de forma medible."
+    },
+    {
+      q: "¿Qué diferencia hay entre Chat y Cowork?",
+      opts: [
+        "Chat usa los modelos rápidos y Cowork los más capaces.",
+        "Chat responde; Cowork planifica un trabajo de varios pasos, lo ejecuta y entrega archivos.",
+        "Chat funciona con cuentas individuales y Cowork solo con cuentas de empresa.",
+        "Son dos nombres de la misma función: uno para la versión web y otro para la de escritorio."
+      ],
+      a: 1,
+      why: "Chat es conversación; Cowork lleva al trabajo de oficina la arquitectura agéntica de Claude Code y entrega el resultado en archivos."
+    },
+    {
+      q: "En Cowork, ¿qué hace el modo de permiso «Manual»?",
+      opts: [
+        "Claude pide aprobación antes de cada acción.",
+        "La tarea solo se ejecuta cuando el usuario la lanza.",
+        "Claude aprueba lo seguro por sí mismo y se detiene solo ante lo que necesita revisión.",
+        "El usuario hace cada paso y Claude lo revisa al final."
+      ],
+      a: 0,
+      why: "Es el modo predeterminado y el recomendado con datos reales; la tercera opción describe el modo automático."
+    },
+    {
+      q: "Incluso en el modo de permiso que no pide ninguna aprobación, ¿qué acción sigue requiriendo el permiso del usuario?",
+      opts: [
+        "Leer cualquier archivo de la carpeta de trabajo.",
+        "Crear un archivo con el resultado de la tarea.",
+        "Usar el modelo Fable 5.1.",
+        "Borrar un archivo de forma permanente."
+      ],
+      a: 3,
+      why: "En todos los modos, Claude pide permiso antes de borrar un archivo de forma permanente."
+    },
+    {
+      q: "En un proyecto compartido con el equipo, ¿qué significa el distintivo «Solo tú» de los bloques «Memoria» y «Carpeta»?",
+      opts: [
+        "Que solo quien creó el proyecto puede escribir en él; el resto del equipo solo puede leer.",
+        "Que esos bloques están vacíos hasta que se sube el primer archivo.",
+        "Que esa parte sigue siendo privada aunque el proyecto se comparta.",
+        "Que la memoria y la carpeta se borran al cerrar la app."
+      ],
+      a: 2,
+      why: "Cada proyecto tiene su memoria y la carpeta es local: aunque el proyecto se comparta con «Puede ver» o «Puede editar», esas partes son privadas."
+    },
+    {
+      q: "¿Cuál es el orden de las capas de instrucciones, de lo general a lo concreto?",
+      opts: [
+        "Cuenta, Cowork global, proyecto, carpeta y prompt.",
+        "Prompt, carpeta, proyecto, Cowork global y, por último, cuenta.",
+        "Proyecto, cuenta, prompt, carpeta y, al final, Cowork global.",
+        "Cuenta, proyecto, prompt, Cowork global y carpeta."
+      ],
+      a: 0,
+      why: "Las instrucciones de la cuenta se aplican a todo; las globales de Cowork, a cada tarea; las del proyecto y las de carpeta, a su ámbito; el prompt, a la tarea concreta."
+    },
+    {
+      q: "¿Qué ajuste hay que comprobar para que Claude pueda crear archivos de Word, Excel, PowerPoint y PDF?",
+      opts: [
+        "«Reflexión», que activa el razonamiento del modelo antes de escribir.",
+        "«Ejecución de código en la nube y creación de archivos», en «Capacidades».",
+        "«Tiempo y enfoque», que reserva tiempo para las tareas largas.",
+        "«Sistema», en «Esta computadora», que da acceso a la pantalla y a las aplicaciones."
+      ],
+      a: 1,
+      why: "Sin esa capacidad no hay archivos, skills ni artefactos; «Reflexión» es un resumen mensual del uso, no el razonamiento del modelo."
+    }
+  ];
+</script>
 </body>
 </html>

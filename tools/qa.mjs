@@ -22,7 +22,7 @@ const require = createRequire(import.meta.url);
 const ROOT = resolve(dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1')), '..');
 const PUB = join(ROOT, 'public');
 const CURSO = require(join(PUB, 'curso-data.js'));
-const NO_DARK = new Set(['m6c2', 'm9c1']); // sin sección práctica
+const NO_DARK = new Set(['m9c1']); // sin sección práctica
 
 const errors = [], warns = [];
 const err = (f, m) => errors.push(`${f}: ${m}`);

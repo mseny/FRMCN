@@ -31,7 +31,7 @@ Web del alumno del curso «IA Generativa» de [m].seny. Páginas HTML planas en 
 | M3 · Estudio Creativo IA (Imagen) | 3 | `modulo3-clase1..3.html` |
 | M4 · Estudio Creativo IA (Automatización) | 2 | `modulo4-clase1..2.html` |
 | M5 · Copilot suite | 1 | `modulo5-clase1.html` |
-| M6 · Claude suite | 3 | `modulo6-clase1..3.html` |
+| M6 · Claude suite | 3 | `modulo6-clase1..3.html` (práctica en `public/practica/m6c1..3/`; guía de Markdown y plantillas en `docs/guia-markdown/` y `docs/m6c3-plantillas/`) |
 | M7 · Cerebros de IA | 3 | `modulo7-clase1..3.html` |
 | M8 · Desarrollo de software | 1 | `modulo8-clase1.html` |
 | M9 · MVP Empresarial (PFC) | 1 | `pfc-marketing.html` (bloqueado) |
@@ -47,12 +47,12 @@ El nivel viaja en el JWT de Supabase como `user_metadata.access_level` y se edit
 | `completo` | todos |
 | `diseno` | M1, M2, M3, M4 |
 | `marketing` | M1, M2, M6, M7, M8 |
-| `finanzas` | M1, M2, M5 (se le abren más módulos según avanza el curso) |
+| `finanzas` | M1, M2, M5 y, del M6, solo la clase 1 (se le abren más módulos o clases según avanza el curso) |
 | *(sin valor)* | M1 — red de seguridad, ver abajo |
 
 **Da siempre un `access_level` al crear un usuario.** Quien no lo lleve cae en `sin_asignar` y solo ve M1. Es deliberado: antes el valor por defecto era `completo` y un alta sin nivel regalaba el curso entero.
 
-Qué módulos ve cada nivel se define en `levels` dentro de `public/curso-data.js`; es el único sitio que hay que tocar, porque de ahí beben la home, las páginas de clase y el middleware. Un módulo fuera de tu nivel **no aparece** en el temario: no se muestra bloqueado, sencillamente no está. M9 lleva además `locked: true`, así que sí se ve —para quien lo tenga en su nivel— pero todavía no se abre.
+Qué módulos ve cada nivel se define en `levels` dentro de `public/curso-data.js`; es el único sitio que hay que tocar, porque de ahí beben la home, las páginas de clase y el middleware. Un nivel abre módulos enteros (`modules`) o clases sueltas (`classes`, p. ej. `['m6c1']`): con clases sueltas, el módulo aparece en el temario solo con esas clases y el middleware deja abrir solo esas. Un módulo fuera de tu nivel **no aparece** en el temario: no se muestra bloqueado, sencillamente no está. M9 lleva además `locked: true`, así que sí se ve —para quien lo tenga en su nivel— pero todavía no se abre.
 
 Son dos preguntas distintas y conviene no mezclarlas: `inLevel()` decide qué se enseña y `canAccess()` decide qué se puede abrir. El middleware usa `canAccess()`, de modo que esconder un módulo es una mejora de presentación, no la barrera: la barrera sigue estando en el borde.
 

@@ -215,12 +215,13 @@ export default async function middleware(request) {
     if (payload.aud && payload.aud !== 'authenticated' && !(Array.isArray(payload.aud) && payload.aud.includes('authenticated'))) return toLogin();
     if (payload.exp && payload.exp < now) return toLogin();
 
-    // Nivel de acceso por módulo (M9 está bloqueado para todos mientras locked:true)
-    const mod = CURSO.moduleOfFile(pathname);
-    if (mod) {
+    // Nivel de acceso por clase: un nivel puede tener módulos enteros o clases
+    // sueltas (M9 está bloqueado para todos mientras locked:true)
+    const cls = CURSO.classByFile(pathname);
+    if (cls) {
         const level = CURSO.levelFromPayload(payload);
-        if (!CURSO.canAccess(level, mod.id)) {
-            return Response.redirect(new URL(`/index.html#${mod.id}`, request.url), 302);
+        if (!CURSO.canAccess(level, cls.module.id, cls.id)) {
+            return Response.redirect(new URL(`/index.html#${cls.module.id}`, request.url), 302);
         }
     }
 

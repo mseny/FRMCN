@@ -265,6 +265,8 @@ hr.rule{border:0;border-top:1px solid var(--color-line);margin:8px 0 24px;}
 .exercises h4,.exercises h3{margin:0 0 4px;font-family:var(--font-display);font-weight:600;font-size:18.5px;letter-spacing:-.02em;color:var(--color-ink);}
 .exercises p{margin:0;font-size:17.5px;line-height:1.6;color:var(--color-muted);}
 .exercises .code{margin:10px 0 0;}
+/* En móvil el número del ejercicio pasa encima: la columna de 44 px dejaba el texto de la práctica en unos 140 px. */
+@media (max-width:620px){.exercises > li{grid-template-columns:minmax(0,1fr);padding:16px 14px;}.exercises > li::before{grid-row:auto;}.exercises > li > *{grid-column:1;}}
 .checklist{list-style:none;padding:0;margin:0 0 16px;display:flex;flex-direction:column;gap:6px;}
 .checklist li{display:flex;align-items:flex-start;gap:12px;}
 .checklist input{position:absolute;opacity:0;width:1px;height:1px;}

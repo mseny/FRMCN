@@ -79,18 +79,18 @@
 
     {
       id: 'm6', num: 6, title: 'Claude suite', short: 'Claude suite',
-      quote: '«La jerarquía de complejidad va desde una simple instrucción (Skill) hasta la conexión con aplicaciones externas (Connector).»', quoteSrc: 'M6 · C2 — Claude Cowork',
-      desc: 'Claude como socio de trabajo: la app, Cowork y Claude Code. De la conversación suelta a un sistema con instrucciones, memoria y agentes que ejecutan.',
+      quote: '«Claude no es una ventana de chat, sino un espacio de trabajo: se le da contexto, se le encargan tareas y se le enseñan los procedimientos de la casa.»', quoteSrc: 'M6 · C1 — La app de Claude',
+      desc: 'La app de Claude a día de hoy: conversación y tareas, proyectos y ajustes; entregables con Cowork, artefactos y diseño; y una Claude a medida con skills, conectores, plugins y agentes.',
       classes: [
-        { id: 'm6c1', file: 'modulo6-clase1.html', num: 1, kind: 'teórica', duration: 'Teoría 40 min · Práctica 50 min', topic: 'Claude como socio de trabajo',
-          title: 'Claude: el asistente de IA como socio de trabajo', short: 'Claude: el asistente de IA como socio de trabajo',
-          tools: ['claude.ai', 'Claude Cowork', 'Claude Code', 'Claude Design'] },
-        { id: 'm6c2', file: 'modulo6-clase2.html', num: 2, kind: 'referencia', duration: '45 min', topic: 'Skills, agentes y hooks',
-          title: 'Claude Cowork: guía de referencia', short: 'Claude Cowork: guía de referencia',
-          tools: ['Claude Cowork'] },
-        { id: 'm6c3', file: 'modulo6-clase3.html', num: 3, kind: 'práctica', duration: 'Teoría 30 min · Práctica 30 min', topic: 'Pipelines multi-agente',
-          title: 'Orquestación avanzada: pipelines multi-agente', short: 'Orquestación avanzada: pipelines multi-agente',
-          tools: ['Claude Code', 'Claude Cowork', 'MCP'] }
+        { id: 'm6c1', file: 'modulo6-clase1.html', num: 1, kind: 'teórica', duration: 'Teoría 45 min · Práctica 45 min', topic: 'La app de Claude y sus ajustes',
+          title: 'La app de Claude: espacio de trabajo, modos y ajustes', short: 'La app de Claude',
+          tools: ['Claude', 'Cowork', 'Proyectos', 'Memoria', 'Ajustes'] },
+        { id: 'm6c2', file: 'modulo6-clase2.html', num: 2, kind: 'práctica', duration: 'Teoría 45 min · Práctica 60 min', topic: 'Tareas, artefactos y diseño',
+          title: 'Producir con Claude: tareas, artefactos y diseño', short: 'Producir con Claude',
+          tools: ['Cowork', 'Programadas', 'Artefactos', 'Claude Design', 'Dashboards', 'Motion'] },
+        { id: 'm6c3', file: 'modulo6-clase3.html', num: 3, kind: 'práctica', duration: 'Teoría 40 min · Práctica 60 min', topic: 'Skills, conectores, plugins y agentes',
+          title: 'Personalizar Claude: skills, conectores, plugins y agentes', short: 'Personalizar Claude',
+          tools: ['Skills', 'Conectores', 'Plugins', 'Agentes', 'Markdown'] }
       ]
     },
     {
@@ -135,14 +135,17 @@
      user_metadata.access_level. Se edita en Supabase, en Authentication >
      Users > User Metadata.
      Nota: m9 lleva `locked: true`, así que hoy no entra nadie aunque figure en
-     la lista de un nivel. */
+     la lista de un nivel.
+     `modules` abre módulos enteros; `classes` (opcional) abre clases sueltas de
+     un módulo que el nivel no tiene entero. El módulo aparece en el temario solo
+     con esas clases, y el middleware deja abrir solo esas. */
   var levels = {
     completo:  { label: 'Acceso completo', modules: '*' },
     diseno:    { label: 'Diseño',    modules: ['m1', 'm2', 'm3', 'm4'] },
     marketing: { label: 'Marketing', modules: ['m1', 'm2', 'm6', 'm7', 'm8'] },
-    /* Finanzas abre por goteo: hoy M1, M2 y M5, y Marc va sumando módulos a esta
-       lista a medida que avanza el curso. */
-    finanzas:  { label: 'Finanzas',  modules: ['m1', 'm2', 'm5'] },
+    /* Finanzas abre por goteo: hoy M1, M2 y M5 enteros y, del M6, solo la
+       clase 1. Marc va sumando módulos o clases a medida que avanza el curso. */
+    finanzas:  { label: 'Finanzas',  modules: ['m1', 'm2', 'm5'], classes: ['m6c1'] },
     /* Red de seguridad, no un nivel que se reparta. Si a alguien se le olvida
        el access_level en Supabase, cae aquí y ve el mínimo, no el curso entero.
        Antes el defecto era 'completo' y un alta sin nivel regalaba todo. */
@@ -164,17 +167,30 @@
      alumno: lo que queda fuera de su nivel no aparece en el temario, ni
      bloqueado ni de ninguna otra forma. `canAccess` decide si además puede
      abrirlo ahora, y es la que usa el middleware. Un módulo con `locked` sigue
-     a la vista de quien lo tiene en su nivel, pero todavía no se abre. */
+     a la vista de quien lo tiene en su nivel, pero todavía no se abre.
+     Con `classId`, `canAccess` responde por una clase concreta: es lo que pregunta
+     el middleware, para que una clase suelta abra solo esa clase. */
+  function levelOf(level) { return levels[level] || levels[DEFAULT_LEVEL]; }
+  function wholeModule(lv, moduleId) { return lv.modules === '*' || lv.modules.indexOf(moduleId) !== -1; }
+  /* Las clases de un módulo que ve un nivel: todas si lo tiene entero; si no,
+     solo las que figuren en `classes`. */
+  function classesInLevel(level, m) {
+    var lv = levelOf(level);
+    if (wholeModule(lv, m.id)) return m.classes.slice();
+    var extra = lv.classes || [];
+    return m.classes.filter(function (c) { return extra.indexOf(c.id) !== -1; });
+  }
   function inLevel(level, moduleId) {
     var m = moduleById(moduleId);
     if (!m) return false;
-    var lv = levels[level] || levels[DEFAULT_LEVEL];
-    return lv.modules === '*' || lv.modules.indexOf(moduleId) !== -1;
+    return wholeModule(levelOf(level), moduleId) || classesInLevel(level, m).length > 0;
   }
-  function canAccess(level, moduleId) {
+  function canAccess(level, moduleId, classId) {
     var m = moduleById(moduleId);
     if (!m || m.locked) return false;
-    return inLevel(level, moduleId);
+    if (classId == null) return inLevel(level, moduleId);
+    if (wholeModule(levelOf(level), moduleId)) return true;
+    return classesInLevel(level, m).some(function (c) { return c.id === classId; });
   }
   function moduleById(id) { for (var i = 0; i < modules.length; i++) if (modules[i].id === id) return modules[i]; return null; }
   function classById(id) {
@@ -194,7 +210,7 @@
     var out = [];
     visibleModules().forEach(function (m) {
       if (!canAccess(level, m.id)) return;
-      m.classes.forEach(function (c) { out.push(withModule(c, m)); });
+      classesInLevel(level, m).forEach(function (c) { out.push(withModule(c, m)); });
     });
     return out;
   }
@@ -215,7 +231,7 @@
   return {
     modules: modules, levels: levels, DEFAULT_LEVEL: DEFAULT_LEVEL,
     published: published, visibleModules: visibleModules, levelFromPayload: levelFromPayload,
-    inLevel: inLevel, canAccess: canAccess, moduleById: moduleById, classById: classById, classByFile: classByFile,
+    inLevel: inLevel, canAccess: canAccess, classesInLevel: classesInLevel, moduleById: moduleById, classById: classById, classByFile: classByFile,
     orderedClasses: orderedClasses, prevNext: prevNext, moduleOfFile: moduleOfFile, toolsOf: toolsOf
   };
 });
