@@ -143,9 +143,9 @@
     completo:  { label: 'Acceso completo', modules: '*' },
     diseno:    { label: 'Diseño',    modules: ['m1', 'm2', 'm3', 'm4'] },
     marketing: { label: 'Marketing', modules: ['m1', 'm2', 'm6', 'm7', 'm8'] },
-    /* Finanzas abre por goteo: hoy M1, M2 y M5 enteros y, del M6, solo la
-       clase 1. Marc va sumando módulos o clases a medida que avanza el curso. */
-    finanzas:  { label: 'Finanzas',  modules: ['m1', 'm2', 'm5'], classes: ['m6c1'] },
+    /* Finanzas abre por goteo: hoy M1, M2 y M5 enteros y, del M6, las clases
+       1 y 2. Marc va sumando módulos o clases a medida que avanza el curso. */
+    finanzas:  { label: 'Finanzas',  modules: ['m1', 'm2', 'm5'], classes: ['m6c1', 'm6c2'] },
     /* Red de seguridad, no un nivel que se reparta. Si a alguien se le olvida
        el access_level en Supabase, cae aquí y ve el mínimo, no el curso entero.
        Antes el defecto era 'completo' y un alta sin nivel regalaba todo. */
