@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Empaqueta las plantillas de M6 · C3 en public/practica/m6c3/.
+"""Empaqueta las plantillas de M6 · C3 en docs/m6c3-plantillas/zip/ (no se publican:
+   desde el 28 oct 2026 la clase no ofrece archivos de ejemplo; los alumnos los construyen).
 
 Uso (desde la raíz del repositorio):  python docs/m6c3-plantillas/empaquetar.py
 
@@ -22,7 +23,7 @@ from pathlib import Path
 
 BASE = Path(__file__).resolve().parent
 RAIZ = BASE.parents[1]
-SALIDA = RAIZ / "public" / "practica" / "m6c3"
+SALIDA = BASE / "zip"
 SKILL = BASE / "memorandum-cierre"
 PLUGIN = BASE / "cierre-mensual"
 FECHA_ZIP = (2026, 10, 14, 0, 0, 0)  # fecha fija: ZIP reproducibles

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>M6 · Clase 3 — Personalizar Claude: skills, conectores, plugins y agentes · [m].seny /academy</title>
-<meta name="description" content="Cómo se forma a Claude con los manuales de la casa: skills que fijan procedimientos, conectores que abren otras aplicaciones, plugins que lo reúnen todo y agentes que se reparten el trabajo.">
+<meta name="description" content="Un recorrido de seis pasos para que Claude haga el trabajo del departamento a la manera de la casa: pulir un proceso conversando, convertirlo en skill, reunir las skills en un plugin, darle un disparador y criterio para decidir, programarlo y encadenarlo con otros.">
 <link rel="stylesheet" href="/theme.css">
 <link rel="stylesheet" href="/curso.css">
 </head>
@@ -13,13 +13,13 @@
 
   <header class="hero escena">
     <h1 class="display">Enseñar a Claude los <em>procedimientos</em> de la casa.</h1>
-    <p class="sub">Cómo se forma a Claude con los manuales de la casa: skills que fijan procedimientos, conectores que abren otras aplicaciones, plugins que lo reúnen todo y agentes que se reparten el trabajo.</p>
+    <p class="sub">Un recorrido de seis pasos para que Claude haga el trabajo del departamento a la manera de la casa: pulir un proceso conversando, convertirlo en skill, reunir las skills en un plugin, darle un disparador y criterio para decidir, programarlo y encadenarlo con otros.</p>
     <ul class="esc-cifras">
-      <li><b>6</b> peldaños</li>
-      <li><b>3</b> niveles de carga</li>
+      <li><b>6</b> pasos</li>
+      <li><b>4</b> vías para crear una skill</li>
       <li><b>1</b> plugin propio</li>
     </ul>
-    <div class="chips"><span class="chip">Skills</span><span class="chip">Conectores</span><span class="chip">Plugins</span><span class="chip">Agentes</span><span class="chip">Markdown</span><span class="chip">Mods</span></div>
+    <div class="chips"><span class="chip">Skills</span><span class="chip">Plugins</span><span class="chip">Agentes</span><span class="chip">Programadas</span><span class="chip">Markdown</span><span class="chip">Conectores</span></div>
   </header>
 
   <div class="content aire">
@@ -27,11 +27,10 @@
     <!-- 01 · La escalera de personalización -->
     <section class="sec respira" id="escalera" data-label="Escalera">
       <div class="sec-head"><span class="sec-num"></span><h2 class="display">La escalera de personalización: de las normas al especialista.</h2></div>
-      <p class="sec-intro">Las dos clases anteriores trataron a Claude como un colaborador que se incorpora a la empresa. En la primera recibió mesa, llaves y normas: la app, el contexto y los ajustes. En la segunda recibió encargos con un entregable al final. Esta clase trata de su formación, porque un profesional recién incorporado no rinde por lo mucho que sabe, sino por conocer cómo se trabaja en la casa: qué procedimiento sigue el cierre, dónde están los datos y a quién se encarga cada parte.</p>
-      <p>La app ofrece seis piezas para enseñárselo, ordenadas de lo simple a lo complejo. Cada peldaño se apoya en el anterior y ninguno es obligatorio: se sube solo cuando el peldaño de abajo se queda corto.</p>
+      <p class="sec-intro">Las dos clases anteriores trataron a Claude como un colaborador que se incorpora a la empresa: en la primera recibió mesa, llaves y normas; en la segunda, encargos con un entregable al final. Esta trata de su formación, porque un profesional recién incorporado no rinde por lo mucho que sabe, sino por conocer cómo se trabaja en la casa. La app ofrece seis piezas para enseñárselo, ordenadas de lo simple a lo complejo; cada una se apoya en la anterior y ninguna es obligatoria: se sube un peldaño solo cuando el de abajo se queda corto.</p>
 
       <figure class="figure esquema">
-        <svg viewBox="0 0 960 376" role="img" aria-label="Escalera de seis peldaños que sube de izquierda a derecha. 01, Instrucciones: las normas de la casa. 02, Skill, destacada en oscuro: el manual de procedimiento. 03, Conector: la llave de otra oficina. 04, Plugin: el maletín completo. 05, Agente: el especialista. 06, Mod: reformar la oficina, solo en Claude Code.">
+        <svg viewBox="0 0 960 376" role="img" aria-label="Escalera de seis peldaños que sube de izquierda a derecha. 01, Instrucciones: las normas de la casa. 02, Skill, destacada en oscuro: el manual de procedimiento. 03, Conector: la llave de otra oficina. 04, Plugin: el maletín completo. 05, Subagente: el especialista. 06, Mod: reformar la oficina, solo en Claude Code.">
           <rect class="bx fill" x="40" y="300" width="600" height="46" rx="4"/>
           <text class="lb" x="58" y="329">01</text>
           <text class="ti" x="98" y="330">Instrucciones</text>
@@ -50,7 +49,7 @@
           <text class="lb" x="452" y="167">Maletín completo</text>
           <rect class="bx fill" x="256" y="84" width="600" height="46" rx="4"/>
           <text class="lb" x="274" y="113">05</text>
-          <text class="ti" x="314" y="114">Agente</text>
+          <text class="ti" x="314" y="114">Subagente</text>
           <text class="lb" x="506" y="113">El especialista</text>
           <rect class="bx fill" x="310" y="30" width="600" height="46" rx="4"/>
           <text class="lb" x="328" y="59">06</text>
@@ -61,26 +60,20 @@
       </figure>
 
       <div class="table-wrap"><table>
-        <thead><tr><th>Pieza</th><th>Qué es</th><th>Dónde se gestiona</th><th>Conversación</th><th>Cowork</th><th>Code</th></tr></thead>
+        <thead><tr><th>Pieza</th><th>Qué es</th><th>Dónde se gestiona</th><th>Conversación</th><th>Cowork</th><th>Code</th><th>Cuándo subir</th></tr></thead>
         <tbody>
-          <tr><td>Instrucciones</td><td>Normas que se aplican siempre: rol, idioma, formato de cifras, qué no hacer.</td><td>Configuración, Configuración → «Cowork» y el bloque «Instrucciones» del proyecto (clase 1)</td><td>Sí</td><td>Sí</td><td>Sí, con <code>CLAUDE.md</code></td></tr>
-          <tr><td>Skill</td><td>Una carpeta con un manual de procedimiento (<code>SKILL.md</code>) y, si hace falta, plantillas, referencias y scripts.</td><td>«Personalización» → «Skills»</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
-          <tr><td>Conector</td><td>Una conexión con una aplicación externa (Drive, Gmail, Slack, Salesforce…) mediante MCP.</td><td>«Personalización» → «Conectores»</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
-          <tr><td>Plugin</td><td>Un paquete que reúne skills, conectores, comandos, agentes y hooks.</td><td>«Personalización» → «Plugins»</td><td>Sus skills y comandos</td><td>Sí</td><td>Sí</td></tr>
-          <tr><td>Agente</td><td>Un especialista con su propio prompt de sistema, sus herramientas y su contexto.</td><td>Dentro de un plugin; en Code, también en <code>.claude/agents/</code></td><td>No</td><td>Sí: Claude decide cuándo delegar</td><td>Sí, con control fino</td></tr>
-          <tr><td>Mod</td><td>Una pequeña función de código que cambia el comportamiento de Claude Code.</td><td>Dentro de un plugin; se le pide a Claude en una sesión de Code</td><td>No</td><td>No</td><td>Sí</td></tr>
+          <tr><td>Instrucciones</td><td>Normas que se aplican siempre: rol, idioma, formato de cifras, qué no hacer. En Claude Code toman la forma de <code>CLAUDE.md</code>, que se lee al empezar cada sesión.</td><td>Configuración, Configuración → «Cowork» y el bloque «Instrucciones» del proyecto (clase 1); en Code, <code>CLAUDE.md</code></td><td>Sí</td><td>Sí</td><td>Sí, con <code>CLAUDE.md</code></td><td>La indicación vale para todo el trabajo: «cifras con punto de millar, porcentajes con un decimal».</td></tr>
+          <tr><td>Skill</td><td>Una carpeta con un manual de procedimiento (<code>SKILL.md</code>) y, si hace falta, plantillas, referencias y scripts.</td><td>«Personalización» → «Skills»</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Un procedimiento se repite con los mismos pasos y el mismo formato, como la checklist del cierre.</td></tr>
+          <tr><td>Conector</td><td>Una conexión con una aplicación externa (Drive, Gmail, Slack, Salesforce…) mediante MCP.</td><td>«Personalización» → «Conectores»</td><td>Sí</td><td>Sí</td><td>Sí</td><td>El dato vive en otra aplicación, como la carpeta compartida del departamento o el CRM.</td></tr>
+          <tr><td>Plugin</td><td>Un paquete que reúne skills, conectores, comandos, agentes y hooks.</td><td>«Personalización» → «Plugins»</td><td>Sus skills y comandos</td><td>Sí</td><td>Sí</td><td>Varias piezas tienen que llegar juntas a todo el equipo.</td></tr>
+          <tr><td>Subagente</td><td>Un especialista con su propio prompt de sistema, sus herramientas y su contexto.</td><td>Dentro de un plugin; en Code, también en <code>.claude/agents/</code></td><td>No</td><td>Sí: el orquestador decide cuándo delegar</td><td>Sí, con control fino</td><td>Una parte del trabajo pide un especialista con su propio contexto, como la revisión del memorándum.</td></tr>
+          <tr><td>Mod</td><td>Una pequeña función de código que cambia el comportamiento de Claude Code.</td><td>Dentro de un plugin; se le pide a Claude en una sesión de Code</td><td>No</td><td>No</td><td>Sí</td><td>Lo que hay que cambiar es la herramienta misma.</td></tr>
         </tbody>
       </table></div>
 
-      <h3>Cuándo subir un peldaño</h3>
-      <ul class="list-mono">
-        <li>Si la indicación vale para todo el trabajo («cifras con punto de millar, porcentajes con un decimal»), basta con las <strong>instrucciones</strong>.</li>
-        <li>Si un procedimiento se repite con los mismos pasos y el mismo formato, como el memorándum de cierre, merece una <strong>skill</strong>.</li>
-        <li>Si el dato vive en otra aplicación, como la carpeta compartida del departamento o el CRM, hace falta un <strong>conector</strong>.</li>
-        <li>Si varias piezas tienen que llegar juntas a todo el equipo, se empaquetan en un <strong>plugin</strong>.</li>
-        <li>Si una parte del trabajo pide un especialista con su propio contexto, como la revisión del memorándum, se define un <strong>agente</strong>.</li>
-        <li>Si lo que hay que cambiar es la herramienta misma, el peldaño es un <strong>mod</strong>, y corresponde a los equipos técnicos.</li>
-      </ul>
+      <p>El peldaño 05 se llama subagente para no confundirlo con el agente del recorrido de la sección siguiente. Un subagente es un especialista al que el orquestador encarga una parte del trabajo; el agente del recorrido es un plugin que, además, tiene un disparador y criterio para decidir qué hacer.</p>
+
+      <div class="callout nota"><span class="k">[ 06 · Mods, para equipos técnicos ]</span><p>Un mod es una pequeña función en TypeScript o JavaScript, dentro de un plugin, que se engancha a Claude Code para retener o reescribir una llamada a una herramienta, dibujar interfaz o añadir un comando; se le pide a Claude en una sesión de Code y se ejecuta con los permisos del usuario, sin aislamiento, y los administradores pueden restringirlos. Nada de lo que sigue en esta clase lo necesita: instrucciones, skills, conectores, plugins y tareas programadas se crean conversando con Claude.</p></div>
 
       <blockquote class="pull">
         <p>«Las instrucciones dicen cómo es la casa; las skills, cómo se hace cada trabajo.»</p>
@@ -88,10 +81,130 @@
       </blockquote>
     </section>
 
-    <!-- 02 · Markdown: el formato de los manuales -->
+    <!-- 02 · El recorrido: del proceso al agente -->
+    <section class="sec respira" id="recorrido" data-label="Recorrido">
+      <p class="sec-eyebrow">[ Marco del curso · Pasos 1–6 ]</p>
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">El recorrido: del proceso que se explica al agente que lo ejecuta.</h2></div>
+      <p class="sec-intro">Las piezas de la escalera se entienden mejor como un recorrido que como un catálogo. El curso propone seis pasos que llevan un proceso del departamento desde la primera conversación hasta un agente que trabaja sin que se le pida. Cada paso se apoya en el anterior y en cada uno se obtiene algo útil por sí mismo: no hace falta llegar al final para sacarle provecho. El hilo de esta clase es ese recorrido, aplicado al cierre mensual de octubre.</p>
+
+      <figure class="figure esquema">
+        <svg class="rc-diagram" viewBox="0 0 1000 326" role="img" aria-label="Diagrama animado: seis estaciones en fila, unidas por una vía, divididas en dos zonas. En la zona «Capacidad en reposo»: paso 1, pulir conversando, del que se obtiene un proceso validado; paso 2, convertir en skill, del que se obtiene una skill; paso 3, agrupar en un plugin, del que se obtiene un plugin. En la zona «Trabaja sin que se le pida»: paso 4, disparador y decisión, del que se obtiene un agente; paso 5, programar la ejecución, del que se obtiene una tarea programada; paso 6, escalar y encadenar, del que se obtiene una plantilla digital. Un marcador recorre la vía de estación en estación y cada una se enciende al llegar; al final, las seis quedan encendidas.">
+          <style>
+            @keyframes rc-mk{0%{transform:translateX(-707px);opacity:0}3%,9%{transform:translateX(-707px);opacity:1}15%,20%{transform:translateX(-571px);opacity:1}26%,31%{transform:translateX(-435px);opacity:1}39%,44%{transform:translateX(-272px);opacity:1}50%,55%{transform:translateX(-136px);opacity:1}61%,96%{transform:translateX(0);opacity:1}100%{transform:translateX(0);opacity:0}}
+            @keyframes rc-pr{0%,9%{stroke-dashoffset:707}15%,20%{stroke-dashoffset:571}26%,31%{stroke-dashoffset:435}39%,44%{stroke-dashoffset:272}50%,55%{stroke-dashoffset:136}61%,96%{stroke-dashoffset:0}100%{stroke-dashoffset:707}}
+            @keyframes rc-s1{0%,4%{opacity:0}6%,96%{opacity:1}100%{opacity:0}}
+            @keyframes rc-s2{0%,14%{opacity:0}16%,96%{opacity:1}100%{opacity:0}}
+            @keyframes rc-s3{0%,25%{opacity:0}27%,96%{opacity:1}100%{opacity:0}}
+            @keyframes rc-s4{0%,38%{opacity:0}40%,96%{opacity:1}100%{opacity:0}}
+            @keyframes rc-s5{0%,49%{opacity:0}51%,96%{opacity:1}100%{opacity:0}}
+            @keyframes rc-s6{0%,60%{opacity:0}62%,96%{opacity:1}100%{opacity:0}}
+            @keyframes rc-r1{0%,4%{opacity:.25}6%,96%{opacity:1}100%{opacity:.25}}
+            @keyframes rc-r2{0%,14%{opacity:.25}16%,96%{opacity:1}100%{opacity:.25}}
+            @keyframes rc-r3{0%,25%{opacity:.25}27%,96%{opacity:1}100%{opacity:.25}}
+            @keyframes rc-r4{0%,38%{opacity:.25}40%,96%{opacity:1}100%{opacity:.25}}
+            @keyframes rc-r5{0%,49%{opacity:.25}51%,96%{opacity:1}100%{opacity:.25}}
+            @keyframes rc-r6{0%,60%{opacity:.25}62%,96%{opacity:1}100%{opacity:.25}}
+            .rc-diagram .rc-ring{fill:none;stroke:var(--color-accent-deep);stroke-width:3}
+            .esquema .rc-diagram .rc-pr{stroke-width:3;stroke-dasharray:707}
+            .rc-diagram .rc-mk{animation:rc-mk 12s linear infinite}
+            .rc-diagram .rc-pr{animation:rc-pr 12s linear infinite}
+            .rc-diagram .rc-s1{animation:rc-s1 12s linear infinite}
+            .rc-diagram .rc-s2{animation:rc-s2 12s linear infinite}
+            .rc-diagram .rc-s3{animation:rc-s3 12s linear infinite}
+            .rc-diagram .rc-s4{animation:rc-s4 12s linear infinite}
+            .rc-diagram .rc-s5{animation:rc-s5 12s linear infinite}
+            .rc-diagram .rc-s6{animation:rc-s6 12s linear infinite}
+            .rc-diagram .rc-r1{animation:rc-r1 12s linear infinite}
+            .rc-diagram .rc-r2{animation:rc-r2 12s linear infinite}
+            .rc-diagram .rc-r3{animation:rc-r3 12s linear infinite}
+            .rc-diagram .rc-r4{animation:rc-r4 12s linear infinite}
+            .rc-diagram .rc-r5{animation:rc-r5 12s linear infinite}
+            .rc-diagram .rc-r6{animation:rc-r6 12s linear infinite}
+            @media (prefers-reduced-motion: reduce){
+              .rc-diagram *{animation:none!important}
+              .rc-diagram .rc-on,.rc-diagram .rc-r,.rc-diagram .rc-mk{opacity:1!important;transform:none!important}
+              .esquema .rc-diagram .rc-pr{stroke-dashoffset:0!important}
+            }
+          </style>
+          <text class="lb b" x="140" y="38">Capacidad en reposo</text>
+          <text class="lb b" x="575" y="38">Trabaja sin que se le pida</text>
+          <rect class="bx" x="140" y="54" width="415" height="256" rx="6"/>
+          <rect class="bx" x="575" y="54" width="415" height="256" rx="6"/>
+          <text class="lb" x="20" y="118">Paso</text>
+          <text class="lb" x="20" y="262">Se obtiene</text>
+
+          <line class="ln" x1="211" y1="112" x2="918" y2="112"/>
+          <path class="ln ac rc-pr" d="M211 112 H918"/>
+
+          <circle class="bx fill" cx="211" cy="112" r="26"/><text class="lb b" x="211" y="118" text-anchor="middle">1</text>
+          <g class="rc-on rc-s1"><circle class="fill-ink" cx="211" cy="112" r="26"/><text class="lb on-dark" x="211" y="118" text-anchor="middle">1</text></g>
+          <circle class="bx fill" cx="347" cy="112" r="26"/><text class="lb b" x="347" y="118" text-anchor="middle">2</text>
+          <g class="rc-on rc-s2"><circle class="fill-ink" cx="347" cy="112" r="26"/><text class="lb on-dark" x="347" y="118" text-anchor="middle">2</text></g>
+          <circle class="bx fill" cx="483" cy="112" r="26"/><text class="lb b" x="483" y="118" text-anchor="middle">3</text>
+          <g class="rc-on rc-s3"><circle class="fill-ink" cx="483" cy="112" r="26"/><text class="lb on-dark" x="483" y="118" text-anchor="middle">3</text></g>
+          <circle class="bx fill" cx="646" cy="112" r="26"/><text class="lb b" x="646" y="118" text-anchor="middle">4</text>
+          <g class="rc-on rc-s4"><circle class="fill-ink" cx="646" cy="112" r="26"/><text class="lb on-dark" x="646" y="118" text-anchor="middle">4</text></g>
+          <circle class="bx fill" cx="782" cy="112" r="26"/><text class="lb b" x="782" y="118" text-anchor="middle">5</text>
+          <g class="rc-on rc-s5"><circle class="fill-ink" cx="782" cy="112" r="26"/><text class="lb on-dark" x="782" y="118" text-anchor="middle">5</text></g>
+          <circle class="bx fill" cx="918" cy="112" r="26"/><text class="lb b" x="918" y="118" text-anchor="middle">6</text>
+          <g class="rc-on rc-s6"><circle class="fill-ink" cx="918" cy="112" r="26"/><text class="lb on-dark" x="918" y="118" text-anchor="middle">6</text></g>
+          <g class="rc-mk"><circle class="rc-ring" cx="918" cy="112" r="34"/></g>
+
+          <text class="lb b" x="211" y="166" text-anchor="middle">Pulir</text><text class="lb b" x="211" y="190" text-anchor="middle">conversando</text>
+          <text class="lb b" x="347" y="166" text-anchor="middle">Convertir</text><text class="lb b" x="347" y="190" text-anchor="middle">en skill</text>
+          <text class="lb b" x="483" y="166" text-anchor="middle">Agrupar en</text><text class="lb b" x="483" y="190" text-anchor="middle">un plugin</text>
+          <text class="lb b" x="646" y="166" text-anchor="middle">Disparador</text><text class="lb b" x="646" y="190" text-anchor="middle">y decisión</text>
+          <text class="lb b" x="782" y="166" text-anchor="middle">Programar</text><text class="lb b" x="782" y="190" text-anchor="middle">la ejecución</text>
+          <text class="lb b" x="918" y="166" text-anchor="middle">Escalar y</text><text class="lb b" x="918" y="190" text-anchor="middle">encadenar</text>
+
+          <g class="rc-r rc-r1"><rect class="bx fill" x="149" y="222" width="124" height="64" rx="4"/><text class="lb" x="211" y="249" text-anchor="middle">Proceso</text><text class="lb" x="211" y="273" text-anchor="middle">validado</text></g>
+          <g class="rc-r rc-r2"><rect class="bx fill" x="285" y="222" width="124" height="64" rx="4"/><text class="lb" x="347" y="260" text-anchor="middle">Skill</text></g>
+          <g class="rc-r rc-r3"><rect class="bx fill" x="421" y="222" width="124" height="64" rx="4"/><text class="lb" x="483" y="260" text-anchor="middle">Plugin</text></g>
+          <g class="rc-r rc-r4"><rect class="bx fill" x="584" y="222" width="124" height="64" rx="4"/><text class="lb" x="646" y="260" text-anchor="middle">Agente</text></g>
+          <g class="rc-r rc-r5"><rect class="bx fill" x="720" y="222" width="124" height="64" rx="4"/><text class="lb" x="782" y="249" text-anchor="middle">Tarea</text><text class="lb" x="782" y="273" text-anchor="middle">programada</text></g>
+          <g class="rc-r rc-r6"><rect class="bx fill" x="856" y="222" width="124" height="64" rx="4"/><text class="lb" x="918" y="249" text-anchor="middle">Plantilla</text><text class="lb" x="918" y="273" text-anchor="middle">digital</text></g>
+        </svg>
+        <figcaption>[ Diagrama 02 ] Seis pasos del proceso al agente: los tres primeros dejan capacidad en reposo; los tres últimos, trabajo que se hace sin pedirlo</figcaption>
+      </figure>
+
+      <div class="callout analogia"><span class="k">[ Analogía ]</span><p>El colaborador que se incorpora al departamento. Primero se le explica el trabajo a pie de mesa (paso 1); después recibe el manual (2) y el maletín con todo lo necesario (3). Cuando ya tiene criterio, basta un aviso para que se ponga a trabajar (4); más adelante tiene un horario (5); y, con el tiempo, varios como él forman una plantilla (6).</p></div>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>Paso</th><th>Qué se hace</th><th>Qué se obtiene</th><th>Dónde en la app</th><th>Sección</th></tr></thead>
+        <tbody>
+          <tr><td>1 · Definir y pulir el proceso conversando</td><td>Se itera con Opus 5.5 sobre un caso real, como un Excel del cierre, hasta que ejecute bien todos los pasos. Ahí se fijan las instrucciones y los puntos de control.</td><td>Un proceso validado</td><td>Una conversación o una tarea de Cowork en el proyecto</td><td>05</td></tr>
+          <tr><td>2 · Convertirlo en skill</td><td>Cuando el proceso ya funciona, se empaqueta como skill reutilizable.</td><td>Una skill</td><td>La propia tarea y «Personalización» → «Skills»</td><td>04 y 05</td></tr>
+          <tr><td>3 · Agrupar skills en un plugin</td><td>Varias skills relacionadas, con sus recursos, forman un plugin. En reposo es solo capacidad: una caja de herramientas.</td><td>Un plugin</td><td>«Personalización» → «Plugins»</td><td>07</td></tr>
+          <tr><td>4 · Añadir un disparador y decisión</td><td>Agente = plugin + disparador + capacidad de decidir qué skill usar según lo que encuentra. Si el disparador lanza siempre la misma secuencia fija, es automatización, no agencia.</td><td>Un agente</td><td>«Programadas», con instrucciones que piden decidir</td><td>09</td></tr>
+          <tr><td>5 · Programar la ejecución</td><td>Una tarea programada invoca la skill o el plugin a una hora fija, con acceso a las carpetas de entrada. La responsabilidad diaria es dejar los documentos en su sitio antes de esa hora; los pasos sensibles, con aprobación humana.</td><td>Una tarea programada</td><td>«Programadas» → «Nueva tarea»</td><td>10</td></tr>
+          <tr><td>6 · Escalar a una «empresa de IA»</td><td>Cuando suficientes procesos —facturación, soporte, informes de gestión…— están cubiertos por agentes fiables y encadenados, el conjunto se parece más a una plantilla digital que a una colección de automatizaciones sueltas.</td><td>Una plantilla digital</td><td>Varias tareas programadas que se pasan archivos</td><td>10</td></tr>
+        </tbody>
+      </table></div>
+
+      <p>El criterio del paso 4 no es una ocurrencia del curso. En «<a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noopener">Building effective agents</a>», Anthropic distingue entre un <em>workflow</em>, en el que el modelo y las herramientas siguen rutas predefinidas, y un <em>agente</em>, en el que el modelo dirige su propio proceso y decide qué herramientas usar; y aconseja empezar por la solución más simple que funcione. Una tarea que lanza siempre la misma secuencia es lo primero; una que decide qué skill usar según lo que encuentra, lo segundo.</p>
+
+      <div class="callout clave"><span class="k">[ Lo que hace a un agente ]</span><p>Lo que hace a un agente es la decisión, no el disparador: Cowork ya planifica y decide pasos sin ningún disparador cuando se le encarga una tarea. El disparador le da autonomía en el tiempo; la decisión, autonomía en el método. Sin decisión es una automatización; sin disparador, un asistente que trabaja cuando se le pide.</p></div>
+
+      <div class="grid-cards two">
+        <div class="card dim">
+          <span class="k">[ En la app ]</span>
+          <h4>Los pasos 4 y 5 se tocan</h4>
+          <p>En la app, el disparador disponible es «Programadas». La tarea programada aporta el cuándo, y sus instrucciones, si piden decidir según lo que se encuentre, aportan el criterio. La sección 10 recorre los disparadores que existen hoy.</p>
+        </div>
+        <div class="card dim">
+          <span class="k">[ Pausas de aprobación ]</span>
+          <h4>Dónde se detiene de verdad</h4>
+          <p>Una skill no tiene un mecanismo propio para detenerse a pedir permiso. Las pausas fiables están en el modo de permiso «Manual» y en «Necesita aprobación» en las herramientas de conector que escriben o envían. El patrón seguro: la tarea deja un borrador y decide una persona.</p>
+        </div>
+      </div>
+
+      <div class="callout analogia"><span class="k">[ Analogía · «Empresa de IA» ]</span><p>«Empresa de IA» no es un término oficial, sino una imagen del curso: la de una plantilla digital. Y, como cualquier plantilla, solo funciona con condiciones: cada agente, probado antes de programarlo; una persona responsable de cada uno; el historial de ejecuciones, revisado; los permisos, mínimos; y nada que envíe, pague o toque datos sensibles sin revisión. Además, cada ejecución consume cuota: una plantilla grande también es un consumo grande.</p></div>
+    </section>
+
+    <!-- 03 · Markdown: el formato de los manuales -->
     <section class="sec respira" id="markdown" data-label="Markdown">
       <div class="sec-head"><span class="sec-num"></span><h2 class="display">Markdown: el idioma en que se escriben los manuales.</h2></div>
-      <p class="sec-intro">Las instrucciones, las skills y los agentes se escriben en Markdown: un texto plano al que se añaden unas pocas marcas para indicar títulos, listas, tablas o fragmentos de código. Claude lee y escribe Markdown con naturalidad, y por eso es el formato de <code>CLAUDE.md</code>, de <code>SKILL.md</code> y de los archivos de los agentes. Conocer diez marcas basta para leer y retocar cualquiera de ellos.</p>
+      <p class="sec-intro">Las instrucciones, las skills y los agentes se escriben en Markdown: un texto plano al que se añaden unas pocas marcas para indicar títulos, listas, tablas o fragmentos de código. Claude lee y escribe Markdown con naturalidad, y por eso es el formato de <code>CLAUDE.md</code>, de <code>SKILL.md</code> y de los archivos de los agentes. Conocer diez marcas basta para leer y retocar cualquiera de ellos, aunque sea Claude quien los escriba.</p>
 
       <div class="lectura">
         <aside class="margen">
@@ -137,14 +250,14 @@
       <a class="card ink link" href="/practica/m6c3/guia-markdown-mseny.pdf" download>
         <span class="k">[ Descargar · PDF ]</span>
         <h4>Guía de Markdown [m].seny</h4>
-        <p>Nueve capítulos, del primer título a las tablas, las notas al pie, los diagramas y la cabecera YAML, con cada elemento en dos columnas: lo que se escribe y lo que se ve. El capítulo 9, «Markdown para Claude», explica <code>CLAUDE.md</code>, la anatomía de <code>SKILL.md</code> con una plantilla comentada, el archivo de un agente y los errores más frecuentes. Es la lectura previa del laboratorio.</p>
+        <p>Nueve capítulos, del primer título a las tablas, las notas al pie, los diagramas y la cabecera YAML, con cada elemento en dos columnas: lo que se escribe y lo que se ve. El capítulo 9, «Markdown para Claude», explica <code>CLAUDE.md</code>, la anatomía de <code>SKILL.md</code> con una plantilla comentada, el archivo de un agente y los errores más frecuentes. Es la lectura de consulta del laboratorio.</p>
       </a>
     </section>
 
-    <!-- 03 · Anatomía de una skill -->
+    <!-- 04 · Anatomía de una skill -->
     <section class="sec respira" id="skills" data-label="Skills">
       <div class="sec-head"><span class="sec-num"></span><h2 class="display">Anatomía de una skill: una carpeta y un manual.</h2></div>
-      <p class="sec-intro">Una skill es un manual de procedimiento que Claude consulta cuando el trabajo lo pide. Físicamente es una carpeta con un archivo obligatorio, <code>SKILL.md</code>, y, si hace falta, tres subcarpetas: <code>references/</code> para la documentación de consulta, <code>assets/</code> para plantillas y otros recursos, y <code>scripts/</code> para el código. El nombre de la carpeta coincide con el nombre de la skill. La de esta clase, <code>memorandum-cierre</code>, redacta el memorándum de cierre con el formato de las normas de la casa.</p>
+      <p class="sec-intro">Una skill es un manual de procedimiento que Claude consulta cuando el trabajo lo pide. Físicamente es una carpeta con un archivo obligatorio, <code>SKILL.md</code>, y, si hace falta, tres subcarpetas: <code>references/</code> para la documentación de consulta, <code>assets/</code> para plantillas y otros recursos, y <code>scripts/</code> para el código. El nombre de la carpeta coincide con el nombre de la skill. La que sirve de ejemplo en esta sección, <code>memorandum-cierre</code>, redacta el memorándum de cierre con el formato de las normas de la casa; en el laboratorio se construyen otras dos sin escribirlas a mano.</p>
 
       <div class="code"><div class="ch"><span class="k">[ Árbol · memorandum-cierre/ ]</span></div><pre class="tree"><span class="hl">memorandum-cierre/</span>
 ├── SKILL.md                    <span class="cm">← obligatorio: cabecera e instrucciones</span>
@@ -152,15 +265,23 @@
     ├── formato-memorandum.md   <span class="cm">← plantilla de los cinco apartados</span>
     └── kpi.md                  <span class="cm">← definiciones de las normas de cierre</span></pre></div>
 
-      <h3>Los tres archivos de la skill</h3>
-      <p>El cuerpo de <code>SKILL.md</code> sigue un orden que conviene copiar en cualquier skill: cuándo usarla, qué entradas necesita, los pasos, el formato, las reglas, las comprobaciones finales y lo que no debe hacer. Las referencias guardan el detalle que no hace falta leer siempre: la plantilla del memorándum y las definiciones de los KPI.</p>
-      <div class="tabs">
-        <div role="tablist" aria-label="Archivos de la skill memorandum-cierre">
-          <button type="button" role="tab" aria-selected="true" aria-controls="tab-skill" id="tabb-skill">SKILL.md</button>
-          <button type="button" role="tab" aria-selected="false" aria-controls="tab-formato" id="tabb-formato">formato-memorandum.md</button>
-          <button type="button" role="tab" aria-selected="false" aria-controls="tab-kpi" id="tabb-kpi">kpi.md</button>
-        </div>
-        <div role="tabpanel" id="tab-skill" aria-labelledby="tabb-skill"><div class="code wrap"><div class="ch"><span class="k">[ Archivo · memorandum-cierre/SKILL.md ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre>---
+      <h3>Lectura comentada del manual</h3>
+      <p>El cuerpo de <code>SKILL.md</code> sigue un orden que conviene copiar en cualquier skill: cuándo usarla, qué entradas necesita, los pasos, el formato, las reglas, las comprobaciones finales y lo que no debe hacer. Se lee con las notas al margen; la plantilla del memorándum, en la segunda pestaña, es la referencia que el cuerpo cita en su paso 4. Es material de lectura, no para copiar: en el laboratorio, las skills las escribe Claude a partir del trabajo hecho.</p>
+      <div class="lectura">
+        <aside class="margen">
+          <span class="k">Cómo leerlo</span>
+          1 · La cabecera: <code>name</code> igual que la carpeta; la descripción dice qué hace y cuándo usarla.<br><br>
+          2 · «Cuándo usarla» y «Entradas» acotan el trabajo. Si falta una entrada obligatoria, la skill indica a Claude que lo diga y no siga, en lugar de inventar.<br><br>
+          3 · Los pasos 2 y 4 citan <code>kpi.md</code> y <code>formato-memorandum.md</code>: es lo único que entra del nivel 3.<br><br>
+          4 · «Comprobaciones finales» son los puntos de control del paso 1 del recorrido, ya escritos.<br><br>
+          5 · «Qué no hacer» termina con no enviar: la skill redacta y el envío lo decide una persona.
+        </aside>
+        <div class="tabs">
+          <div role="tablist" aria-label="Archivos de la skill memorandum-cierre">
+            <button type="button" role="tab" aria-selected="true" aria-controls="tab-skill" id="tabb-skill">SKILL.md</button>
+            <button type="button" role="tab" aria-selected="false" aria-controls="tab-formato" id="tabb-formato">formato-memorandum.md</button>
+          </div>
+          <div role="tabpanel" id="tab-skill" aria-labelledby="tabb-skill"><div class="code wrap"><div class="ch"><span class="k">[ Lectura · memorandum-cierre/SKILL.md ]</span></div><pre>---
 name: memorandum-cierre
 description: Redacta el memorándum de cierre mensual para Dirección General con los cinco apartados y el formato de cifras de las normas de cierre. Úsala al preparar o revisar el cierre de un mes.
 ---
@@ -230,7 +351,7 @@ Antes de entregar, comprueba y enumera el resultado de cada punto:
 - No copies cifras del memorándum del mes anterior.
 - No envíes el memorándum: la skill lo redacta; el envío lo decide una persona.
 - No incluyas datos personales ni credenciales.</pre></div></div>
-        <div role="tabpanel" id="tab-formato" aria-labelledby="tabb-formato" hidden><div class="code wrap"><div class="ch"><span class="k">[ Archivo · references/formato-memorandum.md ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre># Plantilla del memorándum de cierre
+          <div role="tabpanel" id="tab-formato" aria-labelledby="tabb-formato" hidden><div class="code wrap"><div class="ch"><span class="k">[ Lectura · references/formato-memorandum.md ]</span></div><pre># Plantilla del memorándum de cierre
 
 Sustituye cada `{…}` por su valor. No añadas apartados ni cambies los títulos. Cifras en euros sin decimales y con punto de millar; porcentajes con un decimal.
 
@@ -267,28 +388,7 @@ Saldo de bancos conciliado a {fecha D}: {saldo conciliado} €. Asientos de ajus
 {Gastos reimputados por devengo (criterio 3.2), con importe y mes de destino.} {Ajustes de inventario superiores al 1 % (criterio 3.5), o «Sin ajustes de inventario superiores al 1 %.»} {Supuestos aplicados y cualquier otra incidencia.}
 
 Dirección Financiera</pre></div></div>
-        <div role="tabpanel" id="tab-kpi" aria-labelledby="tabb-kpi" hidden><div class="code wrap"><div class="ch"><span class="k">[ Archivo · references/kpi.md ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre># Definiciones de KPI (normas de cierre, apartado 5)
-
-Estas definiciones reproducen las de las normas de cierre. Si las normas cambian, mandan las normas.
-
-| KPI | Definición | Cómo se calcula con la hoja de ventas |
-|---|---|---|
-| Ventas | Unidades vendidas por PVP medio, netas de devoluciones aceptadas. | Suma de la columna «Ventas (€)» del mes, para todas las familias de la tienda (o de todas las tiendas, para el total). |
-| Margen bruto | Ventas menos coste de las ventas. | Suma de «Margen bruto (€)» o, si no existe, «Ventas (€)» − «Coste de las ventas (€)». |
-| Margen bruto % | Margen bruto / ventas. | Margen bruto del mes / ventas del mes. Nunca se promedian porcentajes de tiendas o familias. |
-| Variación interanual | (Ventas del mes / ventas del mismo mes del año anterior) − 1. | Ventas del mes en la hoja del año en curso / ventas del mismo mes en la hoja del año anterior − 1. |
-
-## Criterios de imputación que afectan a los KPI
-
-- **3.1** Toda venta se imputa a la tienda que la realiza; las ventas web, al canal Online (T08).
-- **3.3** Las devoluciones minoran la venta del canal de origen en el mes en que se aceptan.
-- **3.4** Los gastos centrales (CC-LOG, CC-MKT, CC-ADM) no se reparten entre tiendas en el cierre mensual.
-
-## Precisión
-
-- Calcula con todos los decimales y redondea solo al presentar.
-- Euros sin decimales con punto de millar (`1.083.815 €`); porcentajes con un decimal (`60,1 %`).
-- Una variación se presenta con signo: `+5,2 %`, `−3,4 %`.</pre></div></div>
+        </div>
       </div>
 
       <h3>Los campos de la cabecera</h3>
@@ -296,7 +396,7 @@ Estas definiciones reproducen las de las normas de cierre. Si las normas cambian
         <thead><tr><th>Campo</th><th>¿Obligatorio?</th><th>Reglas</th></tr></thead>
         <tbody>
           <tr><td><code>name</code></td><td>Sí</td><td>Hasta 64 caracteres; solo minúsculas, números y guiones; no puede contener «anthropic» ni «claude». Coincide con el nombre de la carpeta.</td></tr>
-          <tr><td><code>description</code></td><td>Sí</td><td>Qué hace la skill y cuándo usarla. El estándar admite hasta 1.024 caracteres; la ayuda de Claude recomienda no pasar de 200. La de <code>memorandum-cierre</code> tiene 183.</td></tr>
+          <tr><td><code>description</code></td><td>Sí</td><td>Qué hace la skill y cuándo usarla. El máximo admitido es de 1.024 caracteres: la app rechaza las descripciones más largas. El criterio del curso es que sea breve y concreta; la de <code>memorandum-cierre</code> tiene 183.</td></tr>
           <tr><td><code>license</code></td><td>No</td><td>La licencia con que se comparte la skill.</td></tr>
           <tr><td><code>compatibility</code></td><td>No</td><td>Los requisitos de entorno, si los hay.</td></tr>
           <tr><td><code>metadata</code></td><td>No</td><td>Datos adicionales, como el autor o la versión.</td></tr>
@@ -417,7 +517,7 @@ Estas definiciones reproducen las de las normas de cierre. Si las normas cambian
           <rect class="ln" x="260" y="432" width="18" height="18" rx="2" stroke-dasharray="4 3"/>
           <text class="lb" x="288" y="447">Fuera del contexto</text>
         </svg>
-        <figcaption>[ Diagrama 02 ] Siempre la descripción; el cuerpo, si la petición encaja; el resto, si el cuerpo lo cita</figcaption>
+        <figcaption>[ Diagrama 03 ] Siempre la descripción; el cuerpo, si la petición encaja; el resto, si el cuerpo lo cita</figcaption>
       </figure>
 
       <div class="grid-cards three">
@@ -454,17 +554,17 @@ Estas definiciones reproducen las de las normas de cierre. Si las normas cambian
           <h4>«Redacta el memorándum de cierre mensual… Úsala al preparar o revisar el cierre de un mes.»</h4>
           <ul class="list-mono">
             <li class="check">En tercera persona: describe la skill, no habla en su nombre.</li>
-            <li class="check">Dice qué hace y cuándo usarla, en menos de 200 caracteres.</li>
+            <li class="check">Dice qué hace y cuándo usarla, en dos frases breves y concretas.</li>
             <li class="check">Usa las palabras con que el equipo pide ese trabajo.</li>
           </ul>
         </div>
       </div>
 
       <h3>Texto o script</h3>
-      <p>El texto de una skill sirve para lo que requiere criterio: el tono, el formato, qué destacar, qué no hacer. Cuando un proceso tiene que dar siempre el mismo resultado —cuadrar, convertir, validar—, es mejor un script: lo calcula de forma determinista y solo su salida entra en el contexto. La conciliación bancaria es el ejemplo de manual.</p>
+      <p>El texto de una skill sirve para lo que requiere criterio: el tono, el formato, qué destacar, qué no hacer. Cuando un proceso tiene que dar siempre el mismo resultado —cuadrar, convertir, validar—, es mejor un script: lo calcula de forma determinista y solo su salida entra en el contexto. La conciliación bancaria es el ejemplo de manual, y en el laboratorio se le pide a Claude una skill de conciliación con su propio script.</p>
       <div class="ba">
         <div class="before"><p class="k">Con instrucciones en texto</p><h4>Claude empareja los movimientos leyéndolos</h4><p>Lee los 31 movimientos del extracto y los 30 del mayor y los compara uno a uno. El resultado puede variar entre ejecuciones y todo el detalle ocupa contexto.</p></div>
-        <div class="after"><p class="k">Con un script</p><h4>Claude ejecuta <code>conciliar.py</code> e interpreta la salida</h4><p>El script empareja por importe con una tolerancia de cinco días, detecta duplicados y transposiciones y devuelve un resumen. Con los mismos archivos, el mismo resultado: 376.334,62 €.</p></div>
+        <div class="after"><p class="k">Con un script</p><h4>Claude ejecuta el script de la skill e interpreta la salida</h4><p>El script (por ejemplo, <code>scripts/conciliar.py</code>) empareja por importe con una tolerancia de días, detecta duplicados y transposiciones y devuelve un resumen. Con los mismos archivos, el mismo resultado: 376.334,62 €.</p></div>
       </div>
 
       <h3>Buenas prácticas</h3>
@@ -485,36 +585,69 @@ Estas definiciones reproducen las de las normas de cierre. Si las normas cambian
       </div>
     </section>
 
-    <!-- 04 · Crear una skill -->
-    <section class="sec respira" id="crear" data-label="Crear skill">
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Crear una skill: dos caminos y tres pruebas.</h2></div>
-      <p class="sec-intro">Para crear una skill no hace falta escribir la carpeta a mano. Hay dos caminos, y los dos terminan en el mismo sitio: la skill instalada en «Personalización» → «Skills», con su interruptor. Los dos requieren que esté activado el interruptor «Ejecución de código en la nube y creación de archivos», en Configuración → «Capacidades».</p>
+    <!-- 05 · Crear una skill: pasos 1 y 2 -->
+    <section class="sec respira" id="crear" data-label="Crear">
+      <p class="sec-eyebrow">[ Pasos 1–2 ]</p>
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Crear una skill: primero el proceso, después el manual.</h2></div>
+      <p class="sec-intro">Una skill no se empieza escribiendo, sino trabajando. El paso 1 del recorrido consiste en hacer el trabajo con Claude sobre un caso real hasta que salga bien; el paso 2, en convertir lo aprendido en una skill. Para el segundo hay cuatro vías, y en tres de ellas no hace falta escribir el archivo. Todas requieren el interruptor «Ejecución de código en la nube y creación de archivos», en Configuración → «Capacidades», que es necesario para las skills.</p>
+
+      <h3>Paso 1 · Pulir el proceso conversando</h3>
+      <p>Se elige un caso real y acotado —el Excel de ventas del cierre, la checklist de octubre— y se trabaja con Opus 5.5 hasta que ejecute bien todos los pasos. Cada corrección que se le hace es una instrucción que la skill tendrá que llevar escrita, y cada vez que se le pregunta cómo sabría que el resultado está bien aparece un punto de control. Antes de pasar al paso 2, la conversación debe haber dejado claras cinco cosas:</p>
+      <ul class="list-mono">
+        <li class="check">Las entradas: qué archivos necesita y cuáles son imprescindibles.</li>
+        <li class="check">Los pasos, en orden, con las reglas de las normas que aplica cada uno.</li>
+        <li class="check">El formato de salida: tabla, documento, apartados y formato de cifras.</li>
+        <li class="check">Los puntos de control: lo que comprobaría una persona para dar el resultado por bueno.</li>
+        <li class="check">Lo que no debe hacer: mover fechas sin decirlo, inventar cifras, enviar nada.</li>
+      </ul>
+      <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Los puntos de control ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «¿Qué comprobaciones harías para saber que este resultado está bien? Enuméralas y aplícalas al que acabas de preparar.»</pre></div>
+      <div class="callout regla"><span class="k">[ Regla de trabajo ]</span><p>Un proceso que todavía se corrige en cada conversación no está listo para ser skill: empaquetarlo solo serviría para fijar sus errores. Primero sale bien varias veces; después se convierte.</p></div>
+
+      <h3>Paso 2 · Cuatro vías para crear la skill</h3>
       <figure class="figure"><img src="/img/m6c3-personalizacion.png" alt="Captura de la app de Claude en la página «Personalización»: arriba, las pestañas «Skills», «Conectores» y «Plugins», los filtros «Tuyos» y «Descubrir» (activo), el cuadro «Buscar», los iconos de filtrar y ordenar y el botón «+ Agregar» con desplegable; debajo, tarjetas de skills con su nombre, una descripción breve, su origen («de Anthropic» o «Anthropic Directory») y un botón «+» para añadirlas, agrupadas en la sección «Nuevas Skills» y en la de «Skills más instaladas»." width="1600" height="869" loading="lazy"><figcaption>[ Captura ] «Personalización» → «Skills» en la vista «Descubrir»: el catálogo, con el origen de cada skill y el botón «+» para añadirla</figcaption></figure>
-      <p>La página «Personalización» reúne las tres piezas de esta clase en pestañas: «Skills», «Conectores» y «Plugins». En cada una, «Tuyos» y «Descubrir» separan lo que ya se tiene del catálogo, en el que cada tarjeta indica el origen de la pieza —«de Anthropic» o «Anthropic Directory»— y se añade con el botón «+». El botón «Agregar», con su desplegable, es el punto de partida para incorporar una pieza propia.</p>
-      <!-- CAPTURA PENDIENTE: el desplegable «Agregar» de «Skills» abierto y la vista «Tuyos» con los interruptores de las skills instaladas -->
+      <p>La página «Personalización» reúne las tres piezas de esta clase en pestañas: «Skills», «Conectores» y «Plugins». En cada una, «Tuyos» y «Descubrir» separan lo que ya se tiene del catálogo, en el que cada tarjeta indica el origen de la pieza —«de Anthropic» o «Anthropic Directory»— y se añade con el botón «+». El botón «+ Agregar», con su desplegable, es el punto de partida para incorporar una pieza propia. Las skills propias aparecen en «Tuyos», cada una con su interruptor.</p>
+      <!-- CAPTURA PENDIENTE: el desplegable «+ Agregar» de «Skills» abierto y la vista «Tuyos» con los interruptores de las skills instaladas -->
 
-      <div class="grid-cards two">
-        <div class="card">
-          <span class="k">[ Camino A ] Conversando</span>
-          <h4>Pedírsela a Claude</h4>
-          <p>Se describe en una conversación el procedimiento que se quiere convertir en skill. Claude usa su propia skill de creación de skills: hace preguntas, redacta la cabecera y el cuerpo, y entrega la skill empaquetada, lista para instalar.</p>
-        </div>
-        <div class="card">
-          <span class="k">[ Camino B ] Subiendo un ZIP</span>
-          <h4>Subir la carpeta comprimida</h4>
-          <p>Si la skill ya está escrita, se comprime su carpeta y se sube en «Personalización» → «Skills». El nivel superior del ZIP debe ser la carpeta de la skill, no los archivos sueltos. Es el camino de las plantillas de esta clase.</p>
-        </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Vía</th><th>Dónde</th><th>Qué haces</th><th>Qué obtienes</th><th>Límites</th></tr></thead>
+        <tbody>
+          <tr><td>1 · Conversando</td><td>Una conversación o una tarea de Cowork</td><td>Describes el proceso y adjuntas plantillas o ejemplos. Claude, con su skill de creación de skills, pregunta por los casos de uso y por lo que es un buen resultado.</td><td>El <code>SKILL.md</code> escrito, los recursos organizados y, si hacen falta, scripts</td><td>Hay que saber explicar el proceso; conviene haberlo pulido antes (paso 1).</td></tr>
+          <tr><td>2 · Convirtiendo una conversación o tarea ya hecha</td><td>El menú de la tarea (la flecha junto a su nombre) → «Convertir en Skill», o la propia conversación al terminar</td><td>Eliges «Convertir en Skill» o pides «convierte lo que acabamos de hacer en una skill».</td><td>Una tarjeta con la skill propuesta y un botón para guardarla; si ya existe una con ese nombre, para actualizarla, con opción de deshacer</td><td>Recoge lo que se hizo en esa conversación. Para corregirla, se le pide que la actualice.</td></tr>
+          <tr><td>3 · Grabando la pantalla mientras narras</td><td>Cowork en Claude para Mac: «+» → «Grabar una habilidad», o «Personalización» → «Skills» → «+ Agregar» (en la ayuda, «Añadir») → «Grabar tu pantalla»</td><td>Haces la tarea y explicas en voz alta tu razonamiento.</td><td>Claude revisa la grabación en una tarea de Cowork y propone la skill en una tarjeta</td><td>Solo Cowork en Mac: no está en la conversación, ni en Windows, ni en cuentas Enterprise (sí en Team). Unos 10 minutos por grabación.</td></tr>
+          <tr><td>4 · Subiendo un ZIP</td><td>«Personalización» → «Skills» → «+ Agregar» (en la ayuda, «+ Crear habilidad») → «Cargar una habilidad»</td><td>Escribes la carpeta de la skill y la comprimes.</td><td>La skill instalada tal como la escribiste</td><td>La carpeta de la skill debe ser el nivel superior del ZIP. También se aceptan archivos <code>.skill</code>.</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Vía 1, conversando ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Quiero crear una skill para imputar las facturas de gastos a su centro de coste, un proceso que estoy cansado de volver a explicar cada mes. Te adjunto las normas de cierre. Pregúntame lo que necesites saber.»</pre></div>
+      <p>El prompt sigue el modelo que propone la ayuda oficial: decir qué proceso se quiere convertir y dejar que Claude pregunte. La vía 2 es todavía más corta, porque el proceso ya está hecho: al final de una tarea que ha salido bien, basta con abrir el menú de la tarea —la flecha que hay junto a su nombre, en la cabecera— y elegir «Convertir en Skill», o pedírselo con una frase. Claude propone la skill en una tarjeta, con un botón para guardarla.</p>
+      <figure class="figure">
+        <img src="/img/m6c3-convertir-skill.png" alt="Captura del menú de una tarea de Cowork, abierto desde la flecha que hay junto al nombre de la tarea en la cabecera. Opciones: Programar, Convertir en Skill (resaltada), Copiar ID de sesión, Fijar, Cambiar nombre, Cambiar de proyecto, Quitar del proyecto, Archivar y Eliminar. El nombre del proyecto y de la tarea y la conversación de fondo aparecen difuminados." width="845" height="605" loading="lazy">
+        <figcaption>[ Captura ] El menú de una tarea: «Convertir en Skill» y, encima, «Programar»</figcaption>
+      </figure>
+
+      <h3>Grabar una habilidad</h3>
+      <p>La tercera vía sirve para los procesos que se entienden mejor viéndolos que leyéndolos: los pasos por varias aplicaciones, el orden en que se abren los archivos, el criterio con que se decide. Se hace la tarea una vez, narrando el razonamiento, y Claude escribe la skill a partir de lo que ha visto y oído.</p>
+      <div class="flow">
+        <div class="node"><span class="k">01</span><h4>Iniciar</h4><p>«Iniciar grabación», desde «+» → «Grabar una habilidad» o desde «Personalización» → «Skills».</p></div><span class="arrow" aria-hidden="true">→</span>
+        <div class="node"><span class="k">02</span><h4>Hacer y narrar</h4><p>La tarea completa, explicando en voz alta qué se hace y por qué.</p></div><span class="arrow" aria-hidden="true">→</span>
+        <div class="node"><span class="k">03</span><h4>Terminar</h4><p>«Listo» para enviarla, o «Descartar».</p></div><span class="arrow" aria-hidden="true">→</span>
+        <div class="node ink"><span class="k">04</span><h4>Decidir</h4><p>Claude la revisa en una tarea de Cowork y propone la skill: «Guardar» o «Descartar»; si se parece a una existente, «Actualizar».</p></div>
       </div>
+      <ul class="list-mono">
+        <li class="check">Requisitos: Cowork en Claude para Mac, también en cuentas Team; macOS pide los permisos de «Accesibilidad» y «Grabación de pantalla». El micrófono es opcional, aunque narrar es lo que da a Claude el criterio.</li>
+        <li class="check">Duración: unos 10 minutos por grabación, con una cuenta atrás en el último minuto.</li>
+        <li class="check">Qué queda: el vídeo y el audio no se conservan; en la tarea quedan capturas.</li>
+        <li class="cross">No disponible en la conversación, en Windows ni en cuentas Enterprise.</li>
+      </ul>
+      <div class="callout aviso"><span class="k">[ ! ] Lo que se graba</span><p>La grabación capta todo lo que hay en la pantalla y todo lo que se dice. Antes de empezar, se cierran las ventanas que no tienen que ver con la tarea; durante la grabación, no se teclean contraseñas ni se muestran datos sensibles. Para el curso, se graba con los archivos sintéticos del caso.</p></div>
 
-      <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Camino A ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Quiero crear una skill llamada imputacion-gastos para el departamento financiero. Debe asignar a cada factura de gastos su centro de coste según los criterios 3.1 a 3.4 de las normas de cierre adjuntas, imputar por devengo al mes del servicio y señalar como supuesto cualquier factura que llegue sin centro. Hazme las preguntas que necesites, propón la descripción y entrégame la skill empaquetada.»</pre></div>
-
-      <h3>De la carpeta al uso</h3>
+      <h3>De la skill al uso</h3>
       <div class="stepper vertical">
-        <div class="step"><span class="n">01</span><h4>Activar</h4><p>Cada skill instalada tiene un interruptor en «Personalización» → «Skills». Una skill desactivada no se carga nunca.</p></div>
-        <div class="step"><span class="n">02</span><h4>Invocar</h4><p>Se invoca sola cuando la petición encaja con su descripción. También se puede llamar a propósito: al escribir «/» en el cuadro de prompt aparecen las skills y los comandos disponibles.</p></div>
-        <div class="step"><span class="n">03</span><h4>Probar</h4><p>Tres pruebas como mínimo: una petición que debe activarla, otra que no debe activarla y una invocación explícita con «/». La tabla siguiente las detalla.</p></div>
-        <div class="step"><span class="n">04</span><h4>Iterar</h4><p>Si no se activa cuando debe, la descripción no contiene las palabras con que se pide ese trabajo; si se activa cuando no debe, es demasiado general. Se corrige la descripción, se vuelve a subir y se repiten las pruebas.</p></div>
-        <div class="step final"><span class="n">[✓]</span><h4>Compartir</h4><p>Las skills personales son privadas. En las cuentas de empresa se pueden compartir con compañeros o publicar en la organización, para que todo el departamento trabaje con el mismo procedimiento.</p></div>
+        <div class="step"><span class="n">01</span><h4>Activar</h4><p>Cada skill tiene un interruptor en «Personalización» → «Skills» → «Tuyos». Una skill desactivada no se carga nunca.</p></div>
+        <div class="step"><span class="n">02</span><h4>Invocar</h4><p>Se carga sola cuando la petición encaja con su descripción. También se puede pedir por su nombre o elegir con «/»; la sección 08 explica los tres gestos.</p></div>
+        <div class="step"><span class="n">03</span><h4>Probar</h4><p>Tres pruebas como mínimo: una petición que debe activarla, otra que no debe activarla y una invocación explícita. La skill de creación de skills también puede evaluarla: en Cowork ejecuta las mismas pruebas con la skill y sin ella y compara los resultados; en la conversación, las pruebas van una a una.</p></div>
+        <div class="step"><span class="n">04</span><h4>Iterar</h4><p>Si no se activa cuando debe, a la descripción le faltan las palabras con que se pide ese trabajo; si se activa cuando no debe, es demasiado general. Se pide a Claude que actualice la skill, se guarda la versión corregida y se repiten las pruebas.</p></div>
+        <div class="step final"><span class="n">[✓]</span><h4>Compartir</h4><p>En las cuentas Team y Enterprise, con personas, con grupos o con toda la organización, para que el departamento trabaje con el mismo procedimiento. La tabla final de esta sección resume cómo.</p></div>
       </div>
 
       <div class="table-wrap"><table>
@@ -523,15 +656,29 @@ Estas definiciones reproducen las de las normas de cierre. Si las normas cambian
           <tr><td>Debe activarse</td><td>«Prepara el memorándum de cierre de octubre.»</td><td>Claude carga la skill y sigue sus pasos sin que se le pida.</td></tr>
           <tr><td>No debe activarse</td><td>«Resume este correo en tres líneas.»</td><td>Claude responde sin cargar la skill: la petición no tiene nada que ver con su descripción.</td></tr>
           <tr><td>Invocación explícita</td><td>«/memorandum-cierre» seguido del encargo</td><td>La skill se aplica porque se ha pedido por su nombre.</td></tr>
+          <tr><td>Evaluación</td><td>«Evalúa la skill memorandum-cierre con tres casos de prueba y compara los resultados con la skill y sin ella.»</td><td>En Cowork, las mismas pruebas con la skill y sin ella, y una comparación; en la conversación, las pruebas de una en una.</td></tr>
         </tbody>
       </table></div>
 
-      <div class="callout nota"><span class="k">[ Skills de serie ]</span><p>Anthropic incluye skills para Excel, Word, PowerPoint y PDF. Son las que Claude usa cuando se le pide un archivo de esos formatos, y explican por qué el interruptor «Ejecución de código en la nube y creación de archivos» es imprescindible.</p></div>
+      <div class="callout nota"><span class="k">[ Skills de serie ]</span><p>Anthropic incluye skills para Excel, Word, PowerPoint y PDF. Son las que Claude usa cuando se le pide un archivo de esos formatos; en Cowork aparecen en el menú «/» como <code>/xlsx</code>, <code>/docx</code>, <code>/pptx</code> y <code>/pdf</code>.</p></div>
 
-      <div class="callout regla"><span class="k">[ Regla de trabajo ]</span><p>Una skill no está terminada hasta que pasa las tres pruebas. Si falla una, se corrige primero la descripción, que es lo que Claude lee para decidir; el cuerpo, solo después.</p></div>
+      <h3>Compartir y gobernar las skills</h3>
+      <p>En las cuentas Team y Enterprise, una skill propia puede dejar de ser personal. Antes, un propietario de la organización tiene que activar el compartir en la configuración de la organización; después, cada skill se comparte desde su propio menú.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Compartir</th><th>Quién</th><th>Efecto</th></tr></thead>
+        <tbody>
+          <tr><td>Activar el compartir</td><td>Un propietario, en la configuración de la organización</td><td>Sin este paso, la opción de compartir no está disponible.</td></tr>
+          <tr><td>Con personas, o con grupos en Enterprise</td><td>Quien creó la skill, desde su menú → «Compartir»</td><td>Quien la recibe la ve en solo lectura: puede activarla y usarla, pero no editarla. Recibe las actualizaciones solas, y el acceso se puede retirar.</td></tr>
+          <tr><td>Con toda la organización</td><td>Los propietarios</td><td>La skill llega activada a todos, y cada persona puede apagarla.</td></tr>
+          <tr><td>En la biblioteca de la organización</td><td>Quien la publica</td><td>La publicación puede exigir una revisión previa.</td></tr>
+          <tr><td>Desactivar las skills propias</td><td>Un propietario</td><td>Nadie en la organización puede crear skills propias.</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout regla"><span class="k">[ Regla de trabajo ]</span><p>Una skill no está terminada hasta que pasa las tres pruebas. Si falla una, se corrige primero la descripción, que es lo que Claude lee para decidir; el cuerpo, solo después. Y no se comparte una skill que no ha pasado sus pruebas: quien la recibe confía en ella sin poder editarla.</p></div>
     </section>
 
-    <!-- 05 · Conectores y extensiones -->
+    <!-- 06 · Conectores y extensiones -->
     <section class="sec respira" id="conectores" data-label="Conectores">
       <div class="sec-head"><span class="sec-num"></span><h2 class="display">Conectores: la llave de las otras oficinas.</h2></div>
       <p class="sec-intro">Una skill enseña a hacer un trabajo, pero no da acceso a los datos que viven en otras aplicaciones. Para eso están los conectores: conectan Claude con una aplicación externa —Google Drive, Gmail, Slack, Notion, Salesforce…— para que pueda leer y, si se le permite, actuar en ella. Todos funcionan con <strong>MCP</strong> (Model Context Protocol), un estándar abierto creado por Anthropic.</p>
@@ -570,7 +717,7 @@ Estas definiciones reproducen las de las normas de cierre. Si las normas cambian
           <text class="lb" x="785" y="240" text-anchor="middle">(MCP local)</text>
           <text class="lb" x="642" y="300">Solo las aprobadas por IT</text>
         </svg>
-        <figcaption>[ Diagrama 03 ] Un mismo enchufe para todas las aplicaciones; cada conector trabaja con la cuenta de quien lo conecta</figcaption>
+        <figcaption>[ Diagrama 04 ] Un mismo enchufe para todas las aplicaciones; cada conector trabaja con la cuenta de quien lo conecta</figcaption>
       </figure>
 
       <h3>Lo esencial</h3>
@@ -586,12 +733,13 @@ Estas definiciones reproducen las de las normas de cierre. Si las normas cambian
           <p>En cada conversación, los conectores que se van a usar se activan desde el botón «+» del cuadro de prompt. <strong>Cuándo:</strong> al empezar una conversación que necesita datos de esa aplicación.</p>
         </div>
         <div class="card ink">
-          <span class="k">[ Cowork ]</span>
-          <h4>Permisos por herramienta</h4>
-          <p>Cada herramienta de un conector puede estar en permitir siempre, pedir aprobación o bloqueada. <strong>Cuándo:</strong> antes de dejar trabajar a Cowork con un conector que puede escribir, enviar o borrar.</p>
+          <span class="k">[ Permisos de herramientas ]</span>
+          <h4>Qué puede hacer sin preguntar</h4>
+          <p>En «Personalización» → «Conectores» → «Permisos de herramientas», cada conector se regula por categoría —lectura; escritura y borrado— o herramienta a herramienta: «Siempre permitir», «Necesita aprobación» o «Bloqueado». <strong>Cuándo:</strong> antes de dejar trabajar a Claude con un conector que puede escribir, enviar o borrar.</p>
         </div>
       </div>
-      <!-- CAPTURA PENDIENTE: Personalización → Conectores, y los permisos por herramienta de un conector en Cowork -->
+      <p>Si el administrador de la organización no permite «Siempre permitir», las herramientas que escriben se aprueban en cada tarea. Es una de las dos pausas fiables del recorrido: una tarea programada que prepara un correo con un conector cuya herramienta de envío está en «Necesita aprobación» se detiene antes de enviarlo.</p>
+      <!-- CAPTURA PENDIENTE: «Personalización» → «Conectores» → «Permisos de herramientas» de un conector, con las categorías y las opciones «Siempre permitir», «Necesita aprobación» y «Bloqueado» -->
 
       <h3>Conector, extensión y plugin</h3>
       <p>Tres piezas que se confunden con facilidad, porque las tres amplían lo que Claude puede hacer. La diferencia está en dónde se ejecutan y en quién debe aprobarlas.</p>
@@ -602,11 +750,11 @@ Estas definiciones reproducen las de las normas de cierre. Si las normas cambian
           <tr><td>Dónde se gestiona</td><td>«Personalización» → «Conectores»</td><td>Configuración → «Extensiones»</td><td>«Personalización» → «Plugins»</td></tr>
           <tr><td>Dónde se ejecuta</td><td>Fuera del equipo, en un servidor remoto</td><td>En el propio equipo: es código que corre en él</td><td>Depende de lo que contenga</td></tr>
           <tr><td>Quién lo aprueba</td><td>En empresa, un propietario de la organización</td><td>Solo las aprobadas por IT; la organización decide cuáles se permiten</td><td>En empresa, la organización puede publicarlo para todos</td></tr>
-          <tr><td>Dónde funciona</td><td>Conversación, Cowork y Code</td><td>Solo en el equipo donde se instala</td><td>Según la pieza: ver la sección 06</td></tr>
+          <tr><td>Dónde funciona</td><td>Conversación, Cowork y Code</td><td>Solo en el equipo donde se instala</td><td>Según la pieza: ver la sección 07</td></tr>
         </tbody>
       </table></div>
 
-      <div class="callout aviso"><span class="k">[ ! ] Aviso</span><p>Un conector trabaja con la cuenta de la persona que lo conecta: lo que esa cuenta puede ver, Claude puede consultarlo. En Cowork, con datos de clientes o información financiera, las herramientas que escriben, envían o borran se dejan en «pedir aprobación». Y una extensión de escritorio es código que se ejecuta en el equipo: solo se instalan las aprobadas por IT.</p></div>
+      <div class="callout aviso"><span class="k">[ ! ] Aviso</span><p>Un conector trabaja con la cuenta de la persona que lo conecta: lo que esa cuenta puede ver, Claude puede consultarlo. Con datos de clientes o información financiera, las herramientas que escriben, envían o borran se dejan en «Necesita aprobación». Y una extensión de escritorio es código que se ejecuta en el equipo: solo se instalan las aprobadas por IT.</p></div>
 
       <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Con el conector de Google Drive ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «En la carpeta compartida "Cierres" de Google Drive, busca el memorándum de cierre de septiembre y las normas de cierre. Dime en qué apartado de las normas se define el formato del memorándum y qué partidas en tránsito se listaron en septiembre. No modifiques ningún archivo.»</pre></div>
 
@@ -616,38 +764,39 @@ Estas definiciones reproducen las de las normas de cierre. Si las normas cambian
       </div>
     </section>
 
-    <!-- 06 · Plugins -->
+    <!-- 07 · Plugins: paso 3 -->
     <section class="sec respira" id="plugins" data-label="Plugins">
+      <p class="sec-eyebrow">[ Paso 3 ]</p>
       <div class="sec-head"><span class="sec-num"></span><h2 class="display">Plugins: el maletín completo del departamento.</h2></div>
       <p class="sec-intro">Cuando un procedimiento necesita varias piezas a la vez —dos skills, un agente que revisa, quizá un conector—, instalarlas una a una en cada cuenta del equipo es lento y deja versiones distintas en cada mesa. Un plugin las reúne en un solo paquete, de modo que cualquier persona tiene el equipo de trabajo configurado desde la primera conversación.</p>
 
       <div class="callout analogia"><span class="k">[ Analogía ]</span><p>El maletín que recibe quien se incorpora al departamento: los manuales de procedimiento, las llaves de las oficinas y el teléfono de los especialistas, todo junto y en su versión vigente.</p></div>
 
+      <div class="callout clave"><span class="k">[ Paso 3 del recorrido ]</span><p>Un plugin en reposo es solo capacidad: una caja de herramientas bien ordenada que no hace nada hasta que alguien la abre. Lo que lo pone a trabajar —una petición, una tarea programada, unas instrucciones que piden decidir— llega en los pasos 4 y 5.</p></div>
+
       <h3>Qué contiene el plugin del cierre</h3>
+      <p>El árbol muestra el plugin <code>cierre-mensual</code> que se monta en el laboratorio: las dos skills que se crean en los ejercicios y, si se quiere, la del memorándum y un revisor. No hace falta escribirlo: se le pide a Claude que lo cree a partir de las skills que ya se tienen.</p>
       <div class="code"><div class="ch"><span class="k">[ Árbol · cierre-mensual/ ]</span></div><pre class="tree"><span class="hl">cierre-mensual/</span>
 ├── <span class="hl">.claude-plugin/</span>
 │   └── plugin.json               <span class="cm">← manifiesto: nombre, versión, descripción y autor</span>
 ├── README.md                     <span class="cm">← qué hace, cómo se usa y qué datos maneja</span>
-├── LICENSE                       <span class="cm">← licencia MIT</span>
 ├── <span class="hl">skills/</span>
+│   ├── <span class="hl">checklist-cierre/</span>
+│   │   └── SKILL.md              <span class="cm">← la del laboratorio, pasos 1 y 2</span>
 │   ├── <span class="hl">conciliacion-bancaria/</span>
 │   │   ├── SKILL.md
-│   │   └── scripts/conciliar.py  <span class="cm">← el cuadre, siempre con el mismo resultado</span>
-│   └── <span class="hl">memorandum-cierre/</span>        <span class="cm">← la skill de la sección 03</span>
-│       ├── SKILL.md
-│       └── references/
+│   │   └── scripts/              <span class="cm">← el cuadre, siempre con el mismo resultado</span>
+│   └── <span class="hl">memorandum-cierre/</span>        <span class="cm">← la de la sección 04 (opcional)</span>
 └── <span class="hl">agents/</span>
-    └── revisor-cierre.md         <span class="cm">← el especialista que revisa (sección 07)</span></pre></div>
+    └── revisor-cierre.md         <span class="cm">← un revisor de solo lectura (opcional; la sección 09 muestra uno de ejemplo)</span></pre></div>
 
-      <div class="code wrap"><div class="ch"><span class="k">[ Archivo · .claude-plugin/plugin.json ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre>{
+      <div class="code wrap"><div class="ch"><span class="k">[ Lectura · .claude-plugin/plugin.json ]</span></div><pre>{
   "name": "cierre-mensual",
-  "displayName": "Cierre mensual",
   "version": "1.0.0",
-  "description": "Herramientas del cierre mensual de Dirección Financiera: conciliación bancaria con un script reproducible, memorándum de cierre con el formato de la casa y un agente que lo revisa contra las normas.",
+  "description": "Herramientas del cierre mensual de Dirección Financiera: checklist con las fechas reales del calendario de cierre, conciliación bancaria con un script reproducible y un agente que revisa contra las normas.",
   "author": {
-    "name": "[m].seny · curso IA Generativa"
-  },
-  "license": "MIT"
+    "name": "Dirección Financiera"
+  }
 }</pre></div>
 
       <p>Solo el manifiesto va dentro de <code>.claude-plugin/</code>; todo lo demás, en el nivel superior del plugin. En Claude Code, el único campo obligatorio del manifiesto es <code>name</code>. Para publicar en el directorio público de Claude hacen falta, además, un <code>README</code> de al menos 40 palabras y una licencia. Un plugin puede llevar también <code>commands/</code>, <code>hooks/hooks.json</code> y un <code>.mcp.json</code> con sus conectores; el del cierre no los necesita.</p>
@@ -656,7 +805,7 @@ Estas definiciones reproducen las de las normas de cierre. Si las normas cambian
       <div class="table-wrap"><table>
         <thead><tr><th>Componente</th><th>Conversación</th><th>Cowork</th><th>Claude Code</th></tr></thead>
         <tbody>
-          <tr><td>Skills y comandos</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
+          <tr><td>Skills y comandos</td><td>Sí; un comando del plugin se carga como skill</td><td>Sí; los comandos se ejecutan con <code>/plugin:comando</code></td><td>Sí</td></tr>
           <tr><td>Agentes y hooks</td><td>No: la conversación los ignora</td><td>Sí</td><td>Sí</td></tr>
           <tr><td>MCP remoto</td><td>Sí, como conector</td><td>Sí</td><td>Sí</td></tr>
           <tr><td>MCP local</td><td>No</td><td>Sí, solo en ese equipo</td><td>Sí</td></tr>
@@ -670,22 +819,23 @@ Estas definiciones reproducen las de las normas de cierre. Si las normas cambian
         <li class="check">Los comandos (<code>commands/</code>) se mantienen por compatibilidad; para un procedimiento, se prefiere una skill.</li>
       </ul>
 
-      <h3>Instalar</h3>
+      <h3>Instalar o crear</h3>
       <p>Todo se hace en «Personalización» → «Plugins», desde donde un plugin también se desactiva o se elimina. Lo que se instala ahí se sincroniza con Cowork y con Claude Code.</p>
       <div class="stepper">
         <div class="step"><span class="n">01</span><h4>Descubrir</h4><p>El catálogo de plugins disponibles para la cuenta.</p></div>
         <div class="step"><span class="n">02</span><h4>Marketplace</h4><p>Añadir un repositorio de GitHub que publica plugins.</p></div>
         <div class="step"><span class="n">03</span><h4>Subir</h4><p>Un <code>.zip</code> o un <code>.plugin</code>, hasta 200 MB y 5.000 archivos.</p></div>
-        <div class="step"><span class="n">04</span><h4>Crear con Claude</h4><p>Describirlo en una conversación y dejar que Claude lo monte.</p></div>
+        <div class="step"><span class="n">04</span><h4>Crear con Claude</h4><p>Decirle qué skills debe reunir y dejar que Claude lo monte. Es el camino del laboratorio.</p></div>
       </div>
-      <p>En Cowork, los comandos de un plugin se invocan con <code>/plugin:comando</code>; las skills del plugin se cargan solas cuando la petición encaja, o se eligen con «/».</p>
+      <!-- CAPTURA PENDIENTE: «Personalización» → «Plugins», con la opción de crear un plugin con Claude y la ficha de un plugin instalado con sus piezas -->
+      <p>Una vez instalado, al escribir «/» cada skill aparece con el nombre de su plugin, y la lista se filtra escribiendo el plugin o <code>plugin:skill</code>; por ejemplo, <code>cierre-mensual:checklist-cierre</code>. En la conversación, un comando del plugin se carga como skill; en Cowork se ejecuta con <code>/plugin:comando</code>. Si se tiene la misma skill suelta y dentro del plugin, conviene desactivar la suelta para no tener dos versiones del mismo procedimiento.</p>
 
       <h3>Compartir, publicar y evaluar</h3>
       <div class="grid-cards three">
         <div class="card dim">
           <span class="k">[ Equipo ]</span>
-          <h4>Personas concretas</h4>
-          <p>Un plugin se comparte con compañeros determinados, que lo instalan en su cuenta.</p>
+          <h4>Personas o grupos</h4>
+          <p>Un plugin se comparte con compañeros determinados, que lo instalan en su cuenta. En Enterprise, además, se puede asignar a un grupo.</p>
         </div>
         <div class="card dim">
           <span class="k">[ Organización ]</span>
@@ -703,15 +853,69 @@ Estas definiciones reproducen las de las normas de cierre. Si las normas cambian
       <div class="callout aviso"><span class="k">[ ! ] Seguridad</span><p>Un plugin amplía lo que Claude puede hacer: sus skills pueden ejecutar scripts y sus conectores, acceder a otras aplicaciones. Se instalan solo plugins de fuentes de confianza, y antes de instalar uno conviene leer su <code>README</code> y abrir sus skills.</p></div>
     </section>
 
-    <!-- 07 · Agentes -->
-    <section class="sec respira" id="agentes" data-label="Agentes">
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Agentes: el orquestador y sus especialistas.</h2></div>
-      <p class="sec-intro">En una tarea larga, un solo Claude que lo hace todo acaba con el contexto lleno de detalles que no necesita: los movimientos del banco cuando redacta, las cifras de ventas cuando concilia. Los agentes resuelven ese problema. El Claude principal actúa como <strong>orquestador</strong>: divide el trabajo y lo encarga a <strong>subagentes</strong>, especialistas con su propio prompt de sistema, sus propias herramientas y su propia ventana de contexto, que comparten los archivos de la carpeta o del proyecto.</p>
+    <!-- 08 · Invocar: «/», «+», el nombre y «@» -->
+    <section class="sec respira" id="invocar" data-label="Invocar">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Invocar: «/», «+», el nombre y «@».</h2></div>
+      <p class="sec-intro">Una skill o un plugin instalados se usan casi siempre sin nombrarlos: se describe la tarea y Claude carga la skill cuya descripción encaja. Cuando se quiere asegurar cuál se aplica, hay tres gestos en la app y uno más en Claude Code. Conviene no confundirlos, porque cada símbolo hace una cosa distinta y no todos existen en todas partes.</p>
 
-      <div class="callout analogia"><span class="k">[ Analogía ]</span><p>La redacción de la clase 2, vista ahora desde dentro: cada especialista tiene por escrito su propio encargo, que se redacta una vez y sirve para cada cierre. Ninguno de los redactores necesita leer lo que escriben los demás para hacer bien su parte.</p></div>
+      <h3>Lo esencial</h3>
+      <div class="grid-cards three">
+        <div class="card ink">
+          <span class="k">[ «/» ]</span>
+          <h4>El menú de skills y comandos</h4>
+          <p>Al escribir «/» al principio del mensaje aparecen las skills, con el nombre de su plugin, y los comandos; la lista se filtra escribiendo el plugin o <code>plugin:skill</code>. Un mensaje que empieza por «/» se interpreta como comando. <strong>Cuándo:</strong> cuando ya se sabe qué procedimiento se quiere aplicar.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ Por su nombre ]</span>
+          <h4>Pedirla en lenguaje natural</h4>
+          <p>Se nombra la skill en el encargo; el ejemplo de la ayuda oficial es «Usa mi skill de pautas de marca para crear una presentación». <strong>Cuándo:</strong> si Claude no ha aplicado la skill que tocaba, se le pide por su nombre.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ «+» ]</span>
+          <h4>Dar contexto y capacidades</h4>
+          <p>El menú del cuadro añade archivos («Subir o agregar archivos», Ctrl+U), activa skills, conectores y plugins, y ofrece «Investigación», «Búsqueda web» y «Memoria». <strong>Cuándo:</strong> antes de pedir, para que Claude tenga lo que necesita.</p>
+        </div>
+      </div>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>Símbolo</th><th>En la app (conversación y Cowork)</th><th>En Claude Code</th><th>Ejemplo</th></tr></thead>
+        <tbody>
+          <tr><td>«/»</td><td>Abre las skills, con el nombre de su plugin, y los comandos. En la conversación, un comando de plugin se carga como skill; en Cowork se ejecuta con <code>/plugin:comando</code>. Entre los integrados de Cowork están <code>/docx</code>, <code>/pdf</code>, <code>/pptx</code> y <code>/xlsx</code>.</td><td><code>/nombre argumentos</code> ejecuta una skill (<code>/plugin:skill</code> si viene de un plugin); <code>/skills</code> las lista.</td><td><code>/checklist-cierre octubre de 2026</code></td></tr>
+          <tr><td>«+»</td><td>«Subir o agregar archivos» (Ctrl+U), «Agregar al proyecto», «Agregar desde GitHub», «Skills», «Conectores», «Sistema de diseño», «Plugins», «Investigación», «Búsqueda web» y «Memoria». En Cowork en Mac, además, «Grabar una habilidad».</td><td>—</td><td>«+» → «Subir o agregar archivos» → <code>normas-cierre.docx</code></td></tr>
+          <tr><td>El nombre</td><td>Se pide la skill por su nombre, en lenguaje natural. Lo normal, de todos modos, es describir la tarea y dejar que Claude elija.</td><td>Igual; y también se pide así un subagente concreto.</td><td>«Usa la skill conciliacion-bancaria con el extracto de octubre.»</td></tr>
+          <tr><td>«@»</td><td>La ayuda no lo documenta. Los archivos se dan con «+», arrastrándolos o con la carpeta del proyecto o de la tarea.</td><td>Menciona archivos y carpetas (<code>@ruta/archivo</code>; de una carpeta llega el listado), recursos de un servidor MCP y subagentes (<code>@agent-nombre</code>, o <code>@agent-plugin:nombre</code> si viene de un plugin).</td><td><code>@agent-cierre-mensual:revisor-cierre</code> en Claude Code</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Una skill por su nombre ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Usa la skill checklist-cierre para preparar la checklist del cierre de noviembre de 2026 y señala cualquier hito que caiga en fin de semana.»</pre></div>
+
+      <div class="callout aviso"><span class="k">[ ! ] «@» no es «/»</span><p>En la app, la ayuda no documenta «@»: para una skill se usa «/» o su nombre, y para un archivo, «+» o arrastrarlo. «@» es de Claude Code, donde además sirve para elegir qué subagente trabaja.</p></div>
+      <!-- CAPTURA PENDIENTE: el menú «/» abierto en Cowork, con las skills agrupadas por plugin -->
+
+      <h3>En Claude Code: las órdenes de sesión</h3>
+      <p>Para los equipos técnicos, la pestaña «Code» tiene sus propias órdenes, que empiezan también por «/». Las instrucciones del proyecto viven allí en <code>CLAUDE.md</code>, que Claude Code lee al empezar cada sesión (el del proyecto y el del usuario; si no encuentra ninguno, lee <code>AGENTS.md</code>). Su contenido se trata como contexto, no como una regla que se cumpla siempre: lo que deba cumplirse sin excepción se configura en un hook. Claude Code tiene además una memoria automática propia, <code>MEMORY.md</code>, distinta de la memoria de la app.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Orden</th><th>Qué hace</th><th>Cuándo usarla</th></tr></thead>
+        <tbody>
+          <tr><td><code>/init</code></td><td>Genera un <code>CLAUDE.md</code> a partir del proyecto.</td><td>Al empezar a trabajar en un proyecto que no lo tiene.</td></tr>
+          <tr><td><code>/memory</code></td><td>Abre <code>CLAUDE.md</code> para editarlo.</td><td>Cuando una norma del proyecto cambia.</td></tr>
+          <tr><td><code>/compact</code></td><td>Resume la conversación para liberar contexto.</td><td>En una sesión larga, antes de cambiar de tarea dentro del mismo tema.</td></tr>
+          <tr><td><code>/clear</code></td><td>Empieza con el contexto vacío.</td><td>Al pasar a una tarea que no tiene relación con la anterior.</td></tr>
+          <tr><td><code>/skills</code></td><td>Lista las skills disponibles.</td><td>Para comprobar qué skills ve la sesión.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 09 · Agentes: paso 4 -->
+    <section class="sec respira" id="agentes" data-label="Agentes">
+      <p class="sec-eyebrow">[ Paso 4 ]</p>
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Agentes: el orquestador, sus especialistas y el criterio para decidir.</h2></div>
+      <p class="sec-intro">En una tarea larga, un solo Claude que lo hace todo acaba con el contexto lleno de detalles que no necesita: los movimientos del banco cuando redacta, las cifras de ventas cuando concilia. Los subagentes resuelven ese problema. El Claude principal actúa como <strong>orquestador</strong>: divide el trabajo y lo encarga a <strong>subagentes</strong>, especialistas con su propio prompt de sistema, sus propias herramientas y su propia ventana de contexto, que comparten los archivos de la carpeta o del proyecto. El paso 4 del recorrido añade otra cosa: que el conjunto decida qué hacer según lo que encuentra.</p>
+
+      <div class="callout analogia"><span class="k">[ Analogía ]</span><p>La redacción de la clase 2, vista ahora desde dentro: el orquestador reparte el trabajo y cada especialista se ocupa de su parte; el revisor, además, tiene su encargo por escrito, que se redacta una vez y sirve para cada cierre. Ninguno necesita leer lo que escriben los demás para hacer bien su parte.</p></div>
 
       <figure class="figure esquema">
-        <svg viewBox="0 0 960 368" role="img" aria-label="Dentro de un marco que representa la carpeta compartida cierre-octubre, el orquestador, destacado en oscuro, se encarga del plan y del montaje y reparte el trabajo a dos especialistas en paralelo: el conciliador, que trabaja con el extracto y el mayor, y el analista de ventas, que calcula ventas y margen. Sus resultados confluyen en el borrador del memorándum, que pasa al revisor, que devuelve los hallazgos.">
+        <svg viewBox="0 0 960 404" role="img" aria-label="Dentro de un marco que representa la carpeta compartida cierre-octubre, el orquestador, destacado en oscuro, se encarga del plan y del montaje y reparte el trabajo a dos subagentes en paralelo, dibujados con borde discontinuo porque los crea el propio orquestador para esta tarea: uno concilia el extracto y el mayor, y el otro calcula ventas y margen con la hoja de ventas. Sus resultados confluyen en el borrador del memorándum, dibujado como un documento, que pasa al revisor, dibujado con borde continuo porque es un subagente definido en un archivo del plugin, y que devuelve los hallazgos. Debajo, una leyenda distingue los dos tipos.">
           <rect class="bx" x="16" y="16" width="928" height="336" rx="6"/>
           <rect class="fill-ink" x="40" y="120" width="180" height="84" rx="4"/>
           <text class="ti on-dark" x="130" y="158" text-anchor="middle">Orquestador</text>
@@ -722,18 +926,18 @@ Estas definiciones reproducen las de las normas de cierre. Si las normas cambian
           <path class="ln ac" d="M272 72 L280 78 L272 84"/>
           <line class="ln ac" x1="250" y1="246" x2="280" y2="246"/>
           <path class="ln ac" d="M272 240 L280 246 L272 252"/>
-          <rect class="bx fill" x="280" y="40" width="230" height="76" rx="4"/>
-          <text class="lb b" x="395" y="72" text-anchor="middle">Conciliador</text>
+          <rect class="ln" x="280" y="40" width="230" height="76" rx="4" stroke-dasharray="6 6"/>
+          <text class="lb b" x="395" y="72" text-anchor="middle">Conciliación</text>
           <text class="lb" x="395" y="98" text-anchor="middle">Extracto y mayor</text>
-          <rect class="bx fill" x="280" y="208" width="230" height="76" rx="4"/>
-          <text class="lb b" x="395" y="240" text-anchor="middle">Analista de ventas</text>
-          <text class="lb" x="395" y="266" text-anchor="middle">Ventas y margen</text>
+          <rect class="ln" x="280" y="208" width="230" height="76" rx="4" stroke-dasharray="6 6"/>
+          <text class="lb b" x="395" y="240" text-anchor="middle">Ventas y margen</text>
+          <text class="lb" x="395" y="266" text-anchor="middle">Hoja de ventas</text>
           <line class="ln ac" x1="510" y1="78" x2="540" y2="78"/>
           <line class="ln ac" x1="510" y1="246" x2="540" y2="246"/>
           <line class="ln ac" x1="540" y1="78" x2="540" y2="246"/>
           <line class="ln ac" x1="540" y1="162" x2="570" y2="162"/>
           <path class="ln ac" d="M562 156 L570 162 L562 168"/>
-          <rect class="bx fill" x="570" y="120" width="170" height="84" rx="4"/>
+          <path class="bx" d="M570 120 H720 L740 140 V204 H570 Z M720 120 V140 H740"/>
           <text class="lb b" x="655" y="158" text-anchor="middle">Memorándum</text>
           <text class="lb" x="655" y="185" text-anchor="middle">Borrador</text>
           <line class="ln ac" x1="740" y1="162" x2="776" y2="162"/>
@@ -742,24 +946,30 @@ Estas definiciones reproducen las de las normas de cierre. Si las normas cambian
           <text class="lb b" x="849" y="158" text-anchor="middle">Revisor</text>
           <text class="lb" x="849" y="185" text-anchor="middle">Hallazgos</text>
           <text class="lb" x="40" y="334">Carpeta compartida · cierre-octubre/</text>
+          <rect class="ln" x="40" y="372" width="22" height="18" rx="2" stroke-dasharray="4 3"/>
+          <text class="lb" x="74" y="387">Subagente que crea el orquestador</text>
+          <rect class="bx fill" x="520" y="372" width="22" height="18" rx="2"/>
+          <text class="lb" x="554" y="387">Subagente definido en el plugin</text>
         </svg>
-        <figcaption>[ Diagrama 04 ] El orquestador reparte; cada especialista trabaja con su propio contexto sobre la misma carpeta</figcaption>
+        <figcaption>[ Diagrama 05 ] El orquestador reparte; cada especialista trabaja con su propio contexto sobre la misma carpeta</figcaption>
       </figure>
+
+      <p>El dibujo distingue dos clases de especialista. Los de borde discontinuo no existen como archivo: el orquestador de Cowork crea subagentes por su cuenta cuando decide dividir una tarea. El de borde continuo, el revisor, está definido en un archivo del plugin y Cowork lo carga con él; aun así, es el orquestador quien decide cuándo recurrir a él.</p>
 
       <h3>Cowork y Claude Code no delegan igual</h3>
       <div class="table-wrap"><table>
         <thead><tr><th>Aspecto</th><th>Cowork</th><th>Claude Code</th></tr></thead>
         <tbody>
-          <tr><td>Quién decide delegar</td><td>El orquestador, por sí solo: decide cuándo dividir el trabajo y lanza subagentes en paralelo.</td><td>El orquestador o la persona, que puede invocar a cada agente con control fino.</td></tr>
-          <tr><td>De dónde salen los agentes</td><td>De los plugins instalados.</td><td>De <code>.claude/agents/</code> (proyecto), <code>~/.claude/agents/</code> (usuario) y los plugins.</td></tr>
-          <tr><td>Qué hace la persona</td><td>Da el objetivo al orquestador y supervisa el plan; no invoca a los subagentes uno a uno.</td><td>Diseña el reparto, elige qué agente interviene y revisa cada resultado.</td></tr>
+          <tr><td>Quién decide delegar</td><td>El orquestador, por sí solo: crea subagentes para dividir la tarea y decide cuándo delegar.</td><td>El orquestador o la persona, que puede pedir un agente concreto en lenguaje natural o con <code>@agent-nombre</code>.</td></tr>
+          <tr><td>De dónde salen los agentes</td><td>Los crea el orquestador sobre la marcha o vienen de los plugins instalados.</td><td>De <code>.claude/agents/</code> (proyecto), <code>~/.claude/agents/</code> (usuario) y los plugins.</td></tr>
+          <tr><td>Qué hace la persona</td><td>Da el objetivo y supervisa el plan. No hay forma documentada de lanzar a mano un agente concreto: se pide por el objetivo («revisa la checklist contra las normas»), no por el nombre del agente.</td><td>Diseña el reparto, elige qué agente interviene y revisa cada resultado.</td></tr>
           <tr><td>Contexto y archivos</td><td colspan="2">Cada subagente trabaja con su propia ventana de contexto, sin arrastrar el historial completo, y todos comparten los archivos de la carpeta o del proyecto.</td></tr>
         </tbody>
       </table></div>
 
-      <h3>El archivo de un agente</h3>
-      <p>Un agente es un archivo Markdown con cabecera YAML cuyo cuerpo es su prompt de sistema: las instrucciones permanentes del especialista. Son obligatorios <code>name</code> y <code>description</code>; entre los opcionales, <code>tools</code> fija la lista blanca de herramientas que puede usar y <code>model</code> elige el modelo (<code>sonnet</code>, <code>opus</code>, <code>haiku</code>, <code>fable</code> o <code>inherit</code>, que hereda el de la sesión). El revisor del plugin solo lee archivos y escribe su informe, y trabaja con Sonnet porque su tarea está bien definida.</p>
-      <div class="code wrap"><div class="ch"><span class="k">[ Archivo · agents/revisor-cierre.md ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre>---
+      <h3>El archivo de un subagente</h3>
+      <p>Un subagente definido en un plugin es un archivo Markdown con cabecera YAML cuyo cuerpo es su prompt de sistema: las instrucciones permanentes del especialista. Son obligatorios <code>name</code> y <code>description</code>; entre los opcionales, <code>tools</code> fija la lista blanca de herramientas que puede usar y <code>model</code> elige el modelo (<code>sonnet</code>, <code>opus</code>, <code>haiku</code>, <code>fable</code> o <code>inherit</code>, que hereda el de la sesión). El revisor del ejemplo solo lee archivos y escribe su informe, y trabaja con Sonnet porque su tarea está bien definida. Se reproduce para leerlo: en el laboratorio, si se quiere un revisor, se le pide a Claude al crear el plugin.</p>
+      <div class="code wrap"><div class="ch"><span class="k">[ Lectura · agents/revisor-cierre.md ]</span></div><pre>---
 name: revisor-cierre
 description: Revisa un memorándum de cierre mensual contra las normas de cierre (fecha, apartados, cifras y conciliación) y devuelve una lista de hallazgos. Úsalo antes de dar por bueno el memorándum.
 tools: Read, Grep, Glob, Write
@@ -805,157 +1015,235 @@ Si te lo piden, guarda la tabla en `revision-memorandum.md` en la carpeta de tra
 
       <div class="callout regla"><span class="k">[ Regla de trabajo ]</span><p>Un especialista, una tarea y las herramientas justas para ella. Un revisor que puede modificar el documento que revisa deja de ser un revisor.</p></div>
 
+      <h3>¿Agente o automatización?</h3>
+      <p>Con un plugin y una tarea programada se puede montar cualquiera de las dos cosas, y la diferencia está en las instrucciones. Una tarea que cada lunes concilia, prepara la checklist e informa, encuentre lo que encuentre, es una automatización: útil, pero ciega a lo que hay en la carpeta. Una tarea que cada lunes mira la carpeta de entrada y decide qué skill usar según lo que hay es un agente. El diagrama da tres vueltas al mismo lunes.</p>
+
+      <figure class="figure esquema">
+        <svg class="ag-diagram" viewBox="0 0 960 468" role="img" aria-label="Diagrama animado: dos carriles para el caso del cierre. Arriba, «Automatización»: Lunes 8:00, concilia, checklist e informe, siempre en el mismo orden. Abajo, «Agente»: Lunes 8:00, mira la carpeta entrada y llega a un rombo de decisión con tres salidas, según lo que encuentra: si hay extracto y mayor, concilia; si es la primera semana del mes, prepara la checklist del mes anterior; si no hay nada nuevo, escribe «Sin novedades». En la animación, el carril de arriba recorre en cada vuelta la misma ruta, mientras que el de abajo enciende en cada vuelta una salida distinta. Al final quedan visibles las tres salidas.">
+          <style>
+            @keyframes ag-t1{0%{opacity:0}1%,21%{opacity:1}22%,23%{opacity:0}24%,44%{opacity:1}45%,46%{opacity:0}47%,96%{opacity:1}100%{opacity:0}}
+            @keyframes ag-t2{0%,4%{opacity:0}5%,21%{opacity:1}22%,27%{opacity:0}28%,44%{opacity:1}45%,50%{opacity:0}51%,96%{opacity:1}100%{opacity:0}}
+            @keyframes ag-t3{0%,8%{opacity:0}9%,21%{opacity:1}22%,31%{opacity:0}32%,44%{opacity:1}45%,54%{opacity:0}55%,96%{opacity:1}100%{opacity:0}}
+            @keyframes ag-t4{0%,12%{opacity:0}13%,21%{opacity:1}22%,35%{opacity:0}36%,44%{opacity:1}45%,58%{opacity:0}59%,96%{opacity:1}100%{opacity:0}}
+            @keyframes ag-l1{0%,10%{stroke-dashoffset:142}13%,21%{stroke-dashoffset:0}22%,60%{stroke-dashoffset:142}63%,96%{stroke-dashoffset:0}100%{stroke-dashoffset:142}}
+            @keyframes ag-o1{0%,12%{opacity:0}13%,21%{opacity:1}22%,62%{opacity:0}63%,96%{opacity:1}100%{opacity:0}}
+            @keyframes ag-l2{0%,33%{stroke-dashoffset:60}36%,44%{stroke-dashoffset:0}45%,60%{stroke-dashoffset:60}63%,96%{stroke-dashoffset:0}100%{stroke-dashoffset:60}}
+            @keyframes ag-o2{0%,35%{opacity:0}36%,44%{opacity:1}45%,62%{opacity:0}63%,96%{opacity:1}100%{opacity:0}}
+            @keyframes ag-l3{0%,56%{stroke-dashoffset:142}59%,96%{stroke-dashoffset:0}100%{stroke-dashoffset:142}}
+            @keyframes ag-o3{0%,58%{opacity:0}59%,96%{opacity:1}100%{opacity:0}}
+            .esquema .ag-diagram .ag-l{stroke-width:3}
+            .ag-diagram .ag-l1,.ag-diagram .ag-l3{stroke-dasharray:142}
+            .ag-diagram .ag-l2{stroke-dasharray:60}
+            .ag-diagram .ag-t1{animation:ag-t1 12s linear infinite}
+            .ag-diagram .ag-t2{animation:ag-t2 12s linear infinite}
+            .ag-diagram .ag-t3{animation:ag-t3 12s linear infinite}
+            .ag-diagram .ag-t4{animation:ag-t4 12s linear infinite}
+            .ag-diagram .ag-l1{animation:ag-l1 12s linear infinite}
+            .ag-diagram .ag-o1{animation:ag-o1 12s linear infinite}
+            .ag-diagram .ag-l2{animation:ag-l2 12s linear infinite}
+            .ag-diagram .ag-o2{animation:ag-o2 12s linear infinite}
+            .ag-diagram .ag-l3{animation:ag-l3 12s linear infinite}
+            .ag-diagram .ag-o3{animation:ag-o3 12s linear infinite}
+            @media (prefers-reduced-motion: reduce){
+              .ag-diagram *{animation:none!important}
+              .ag-diagram .ag-on{opacity:1!important}
+              .ag-diagram .ag-l{stroke-dashoffset:0!important}
+            }
+          </style>
+          <rect class="bx" x="20" y="16" width="920" height="134" rx="6"/>
+          <text class="ti" x="40" y="52">Automatización</text>
+          <text class="lb" x="230" y="52">Siempre la misma ruta</text>
+          <rect class="bx fill" x="40" y="74" width="190" height="52" rx="4"/><text class="lb b" x="135" y="106" text-anchor="middle">Lunes 8:00</text>
+          <g class="ag-on ag-t1"><rect class="fill-ink" x="40" y="74" width="190" height="52" rx="4"/><text class="lb on-dark" x="135" y="106" text-anchor="middle">Lunes 8:00</text></g>
+          <rect class="bx fill" x="270" y="74" width="190" height="52" rx="4"/><text class="lb b" x="365" y="106" text-anchor="middle">Concilia</text>
+          <g class="ag-on ag-t2"><rect class="fill-ink" x="270" y="74" width="190" height="52" rx="4"/><text class="lb on-dark" x="365" y="106" text-anchor="middle">Concilia</text></g>
+          <rect class="bx fill" x="500" y="74" width="190" height="52" rx="4"/><text class="lb b" x="595" y="106" text-anchor="middle">Checklist</text>
+          <g class="ag-on ag-t3"><rect class="fill-ink" x="500" y="74" width="190" height="52" rx="4"/><text class="lb on-dark" x="595" y="106" text-anchor="middle">Checklist</text></g>
+          <rect class="bx fill" x="730" y="74" width="190" height="52" rx="4"/><text class="lb b" x="825" y="106" text-anchor="middle">Informe</text>
+          <g class="ag-on ag-t4"><rect class="fill-ink" x="730" y="74" width="190" height="52" rx="4"/><text class="lb on-dark" x="825" y="106" text-anchor="middle">Informe</text></g>
+          <path class="ln ac" d="M230 100 H268 M460 100 H498 M690 100 H728"/>
+          <path class="ln ac" d="M260 94 L268 100 L260 106 M490 94 L498 100 L490 106 M720 94 L728 100 L720 106"/>
+
+          <rect class="bx" x="20" y="166" width="920" height="286" rx="6"/>
+          <text class="ti" x="40" y="202">Agente</text>
+          <text class="lb" x="140" y="202">Mira y decide</text>
+          <text class="lb b" x="566" y="202">Según lo que encuentra</text>
+          <rect class="bx fill" x="40" y="304" width="130" height="52" rx="4"/><text class="lb b" x="105" y="336" text-anchor="middle">Lunes 8:00</text>
+          <g class="ag-on ag-t1"><rect class="fill-ink" x="40" y="304" width="130" height="52" rx="4"/><text class="lb on-dark" x="105" y="336" text-anchor="middle">Lunes 8:00</text></g>
+          <rect class="bx fill" x="200" y="304" width="170" height="52" rx="4"/><text class="lb b" x="285" y="336" text-anchor="middle">Mira entrada/</text>
+          <g class="ag-on ag-t2"><rect class="fill-ink" x="200" y="304" width="170" height="52" rx="4"/><text class="lb on-dark" x="285" y="336" text-anchor="middle">Mira entrada/</text></g>
+          <polygon class="bx fill" points="450,274 506,330 450,386 394,330"/><text class="lb b" x="450" y="336" text-anchor="middle">Decide</text>
+          <g class="ag-on ag-t3"><polygon class="fill-ink" points="450,274 506,330 450,386 394,330"/><text class="lb on-dark" x="450" y="336" text-anchor="middle">Decide</text></g>
+          <path class="ln ac" d="M170 330 H198 M370 330 H392"/>
+          <path class="ln ac" d="M190 324 L198 330 L190 336 M384 324 L392 330 L384 336"/>
+
+          <path class="ln" d="M506 330 H536 V248 H564 M506 330 H564 M536 330 V412 H564"/>
+          <path class="ln" d="M556 242 L564 248 L556 254 M556 324 L564 330 L556 336 M556 406 L564 412 L556 418"/>
+          <path class="ln ac ag-l ag-l1" d="M506 330 H536 V248 H564"/>
+          <path class="ln ac ag-l ag-l2" d="M506 330 H564"/>
+          <path class="ln ac ag-l ag-l3" d="M506 330 H536 V412 H564"/>
+
+          <rect class="bx fill" x="566" y="218" width="374" height="60" rx="4"/>
+          <text class="lb b" x="584" y="243">Hay extracto y mayor</text><text class="lb" x="584" y="267">→ concilia</text>
+          <g class="ag-on ag-o1"><rect class="fill-ink" x="566" y="218" width="374" height="60" rx="4"/><text class="lb on-dark" x="584" y="243">Hay extracto y mayor</text><text class="lb on-dark soft" x="584" y="267">→ concilia</text></g>
+          <rect class="bx fill" x="566" y="300" width="374" height="60" rx="4"/>
+          <text class="lb b" x="584" y="325">Primera semana del mes</text><text class="lb" x="584" y="349">→ checklist del mes anterior</text>
+          <g class="ag-on ag-o2"><rect class="fill-ink" x="566" y="300" width="374" height="60" rx="4"/><text class="lb on-dark" x="584" y="325">Primera semana del mes</text><text class="lb on-dark soft" x="584" y="349">→ checklist del mes anterior</text></g>
+          <rect class="bx fill" x="566" y="382" width="374" height="60" rx="4"/>
+          <text class="lb b" x="584" y="407">Nada nuevo</text><text class="lb" x="584" y="431">→ «Sin novedades»</text>
+          <g class="ag-on ag-o3"><rect class="fill-ink" x="566" y="382" width="374" height="60" rx="4"/><text class="lb on-dark" x="584" y="407">Nada nuevo</text><text class="lb on-dark soft" x="584" y="431">→ «Sin novedades»</text></g>
+        </svg>
+        <figcaption>[ Diagrama 06 ] La misma hora y el mismo plugin: la automatización repite la ruta; el agente elige la salida según lo que encuentra</figcaption>
+      </figure>
+
+      <div class="ba">
+        <div class="before"><p class="k">Instrucciones de una automatización</p><h4>Una secuencia fija</h4><p>«Cada lunes, concilia el banco, prepara la checklist del cierre y escribe el informe.» Se ejecuta igual aunque la carpeta esté vacía, y produce un informe sin datos o un error.</p></div>
+        <div class="after"><p class="k">Instrucciones de un agente</p><h4>Un criterio para decidir</h4><p>«Revisa la carpeta entrada. Si hay un extracto y un mayor, concílialos; si es la primera semana del mes, prepara la checklist del mes anterior; si no hay nada nuevo, escribe "Sin novedades".» Cada lunes hace lo que la carpeta pide.</p></div>
+      </div>
+      <p>Es la distinción de Anthropic citada en la sección 02, aplicada al cierre: la primera tarea sigue una ruta predefinida; la segunda decide su propio camino. Y es también la razón para empezar por lo simple: si el proceso no necesita decidir nada, una automatización es suficiente y más fácil de revisar.</p>
+
       <div class="glossary">
         <div class="row"><h3 class="term">Orquestador</h3><p class="def">El Claude principal de una tarea: recibe el objetivo, lo divide, reparte las partes entre subagentes y monta el resultado. <span class="an">[ Analogía ] El redactor jefe que encarga las secciones y compone la portada.</span></p></div>
         <div class="row"><h3 class="term">Subagente<small>Especialista</small></h3><p class="def">Un Claude con un encargo acotado, su propio prompt de sistema, sus herramientas y su propia ventana de contexto. Entrega su parte al orquestador. <span class="an">[ Ejemplo ] El revisor del cierre, que solo comprueba el memorándum contra las normas.</span></p></div>
+        <div class="row"><h3 class="term">Agente<small>Paso 4 del recorrido</small></h3><p class="def">En el marco del curso, un plugin con un disparador y la capacidad de decidir qué skill usar según lo que encuentra. Lo que lo define es la decisión. <span class="an">[ Ejemplo ] La revisión semanal del laboratorio, que concilia, prepara la checklist o anota «Sin novedades» según la carpeta.</span></p></div>
+        <div class="row"><h3 class="term">Automatización</h3><p class="def">Una secuencia fija que se ejecuta igual cada vez que se dispara, sin mirar lo que encuentra. <span class="an">[ Analogía ] Una orden permanente en el banco: se paga el mismo importe cada mes, haya o no factura.</span></p></div>
         <div class="row"><h3 class="term">Ventana de contexto</h3><p class="def">Todo lo que Claude tiene presente en un momento dado: instrucciones, conversación, archivos leídos y resultados. Repartir el trabajo entre subagentes evita llenarla de detalles ajenos a cada tarea. <span class="an">[ Analogía ] La mesa de trabajo: cuantos más papeles ajenos hay encima, más cuesta encontrar el que importa.</span></p></div>
       </div>
     </section>
 
-    <!-- 08 · Claude Code y mods -->
-    <section class="sec respira" id="code" data-label="Code y mods">
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Code y mods: el peldaño de los equipos técnicos.</h2></div>
-      <p class="sec-intro">La pestaña «Code» abre Claude Code, el entorno de programación agéntico de Claude, que trabaja con sesiones locales, en la nube, por SSH o en WSL. Un departamento financiero rara vez lo necesitará, pero conviene saber qué es para entenderse con el equipo técnico: allí viven las instrucciones del proyecto en <code>CLAUDE.md</code> y allí se construyen los mods, el último peldaño de la escalera.</p>
+    <!-- 10 · Programar: pasos 5 y 6 -->
+    <section class="sec respira" id="programar" data-label="Programar">
+      <p class="sec-eyebrow">[ Pasos 5–6 ]</p>
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Programar y encadenar: el trabajo que se hace sin pedirlo.</h2></div>
+      <p class="sec-intro">El paso 5 da a la skill o al plugin un horario: una tarea programada lo invoca a una hora fija, con acceso a las carpetas de entrada, y la responsabilidad diaria del equipo pasa a ser dejar los documentos en su sitio antes de esa hora. El paso 6 es la consecuencia de repetir el 5 con varios procesos y encadenarlos. La clase 2 explicó el formulario de «Programadas»; esta sección trata de qué puede poner en marcha una tarea, cómo usa una skill y dónde se detiene.</p>
 
-      <h3><code>CLAUDE.md</code>: las instrucciones del proyecto</h3>
-      <p>Claude Code lee <code>CLAUDE.md</code> al empezar cada sesión: el del proyecto (<code>./CLAUDE.md</code>) y el del usuario (<code>~/.claude/CLAUDE.md</code>). Si no encuentra ninguno, lee <code>AGENTS.md</code>. Su contenido se trata como contexto, no como una regla que se cumpla siempre: lo que deba cumplirse sin excepción se configura en un hook. Es el equivalente, en Code, de las instrucciones del proyecto de la clase 1.</p>
-      <div class="code wrap"><div class="ch"><span class="k">[ Archivo · CLAUDE.md ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre><span class="hl"># Informes de cierre · Dirección Financiera</span>
-
-Repositorio con los scripts que generan los informes del cierre mensual.
-
-<span class="hl">## Normas</span>
-- Español de España. Cifras en euros sin decimales y con punto de millar; porcentajes con un decimal.
-- Los datos de origen están en `datos/` y no se modifican nunca.
-- Antes de dar por terminado un cambio, ejecuta la conciliación de prueba y comprueba que cuadra.
-
-<span class="hl">## Estructura</span>
-- `scripts/`: conciliación y cálculo de KPI.
-- `plantillas/`: plantilla del memorándum.</pre></div>
-
+      <h3>Los disparadores que existen hoy</h3>
       <div class="table-wrap"><table>
-        <thead><tr><th>Orden o archivo</th><th>Qué hace</th><th>Cuándo usarlo</th></tr></thead>
+        <thead><tr><th>Disparador</th><th>Dónde</th><th>Ejemplo de Finanzas</th></tr></thead>
         <tbody>
-          <tr><td><code>/init</code></td><td>Genera un <code>CLAUDE.md</code> a partir del proyecto.</td><td>Al empezar a trabajar en un proyecto que no lo tiene.</td></tr>
-          <tr><td><code>/memory</code></td><td>Abre <code>CLAUDE.md</code> para editarlo.</td><td>Cuando una norma del proyecto cambia.</td></tr>
-          <tr><td><code>/compact</code></td><td>Resume la conversación para liberar contexto.</td><td>En una sesión larga, antes de cambiar de tarea dentro del mismo tema.</td></tr>
-          <tr><td><code>/clear</code></td><td>Empieza con el contexto vacío.</td><td>Al pasar a una tarea que no tiene relación con la anterior.</td></tr>
-          <tr><td><code>MEMORY.md</code></td><td>La memoria automática de Claude Code: notas que toma por su cuenta, distintas de la memoria de la app.</td><td>Se revisa de vez en cuando, como la memoria de la app.</td></tr>
+          <tr><td>Hora fija: cada hora, diaria, días laborables o semanal</td><td>«Programadas» de la app</td><td>Lunes 8:00: revisar la carpeta del cierre.</td></tr>
+          <tr><td>A demanda</td><td>«Programadas», con la frecuencia «Manual» o ejecutándola ahora</td><td>Lanzar la conciliación cuando llega el extracto.</td></tr>
+          <tr><td>Mención @Claude en un canal</td><td>Slack, si la organización tiene Claude en Slack</td><td>Pedir el estado del cierre desde el canal del equipo.</td></tr>
+          <tr><td>API y eventos de GitHub</td><td>Claude Code (equipos técnicos)</td><td>—</td></tr>
+          <tr><td>«Llega un correo», «se sube un archivo»</td><td><strong>No existe</strong> como disparador</td><td>Alternativa: una tarea cada hora que revise y decida.</td></tr>
         </tbody>
       </table></div>
+      <ul class="list-mono">
+        <li class="cross">No hay disparadores por correo ni por eventos de los conectores: lo que llega se recoge con una tarea que revisa cada cierto tiempo.</li>
+        <li class="check">No hay frecuencia mensual: se resuelve con una tarea semanal y una condición en las instrucciones («si es la primera semana del mes…»).</li>
+      </ul>
 
-      <h3>Mods: reformar la oficina</h3>
-      <p>Un mod es una pequeña función, escrita en TypeScript o JavaScript dentro de un plugin, que se engancha a Claude Code y cambia cómo funciona. Funciona en la terminal y en la pestaña «Code» de la app. Es el peldaño más alto de la personalización y una herramienta pensada para equipos técnicos.</p>
+      <h3>Una tarea programada que usa una skill o un plugin</h3>
+      <p>Una tarea que ya ha salido bien también se puede programar desde su propio menú —la flecha junto a su nombre → «Programar»—, sin volver a escribir las instrucciones. Una tarea programada tiene las mismas capacidades que una tarea normal: las skills y los plugins instalados y los conectores. Para que use uno concreto, se nombra en sus instrucciones, y antes de dejarla programada se comprueba ejecutándola en el momento.</p>
+      <div class="stepper">
+        <div class="step"><span class="n">01</span><h4>Nombrar</h4><p>En «Instrucciones», la skill o el plugin por su nombre y lo que debe decidir.</p></div>
+        <div class="step"><span class="n">02</span><h4>Carpeta</h4><p>«Trabajar en un proyecto o carpeta»: donde se dejan los documentos de entrada.</p></div>
+        <div class="step"><span class="n">03</span><h4>Equipo</h4><p>Si la carpeta es local, «Requerir esta computadora»: solo se ejecuta con el equipo activo y la app abierta. La alternativa es una carpeta en un conector de almacenamiento.</p></div>
+        <div class="step"><span class="n">04</span><h4>Permisos</h4><p>«Manual» mientras se prueba y siempre que haya pasos sensibles.</p></div>
+        <div class="step final"><span class="n">[✓]</span><h4>Probar</h4><p>Ejecutarla en el momento y revisar el resultado antes de dejarla programada.</p></div>
+      </div>
+      <!-- CAPTURA PENDIENTE: formulario «Crear tarea programada» con el nombre de una skill o de un plugin escrito en «Instrucciones» -->
+      <div class="callout nota"><span class="k">[ Según la cuenta ]</span><p>El modo de permiso con que empieza una tarea depende de la cuenta y de la organización: en Enterprise, las tareas empiezan en «Manual»; en otras cuentas pueden empezar en automático. Se comprueba en el selector antes de encargar. En Enterprise, además, que Cowork se ejecute en la nube lo decide el administrador, y viene desactivado; por eso, con una carpeta local, «Requerir esta computadora» es lo habitual.</p></div>
+
+      <h3>Las pausas de aprobación</h3>
       <div class="grid-cards three">
         <div class="card ink">
-          <span class="k">[ Qué hace ]</span>
-          <h4>Cambia la herramienta</h4>
-          <p>Puede retener o reescribir una llamada a una herramienta, dibujar interfaz, añadir un comando o sustituir una función de serie.</p>
+          <span class="k">[ Modo de permiso ]</span>
+          <h4>«Manual»</h4>
+          <p>La tarea pide aprobación antes de cada acción. <strong>Cuándo:</strong> mientras se prueba una tarea y siempre que trabaje con datos reales de la empresa.</p>
         </div>
         <div class="card ink">
-          <span class="k">[ Cómo se pide ]</span>
-          <h4>Conversando, no programando</h4>
-          <p>No hace falta escribirlo a mano: se le pide a Claude en una sesión de Code y Claude lo escribe.</p>
+          <span class="k">[ Conectores ]</span>
+          <h4>«Necesita aprobación»</h4>
+          <p>Las herramientas de conector que escriben o envían se detienen hasta que una persona aprueba. <strong>Cuándo:</strong> en todo conector que pueda enviar un correo, publicar un mensaje o modificar un registro.</p>
         </div>
-        <div class="card ink">
-          <span class="k">[ Seguridad ]</span>
-          <h4>Con los permisos del usuario</h4>
-          <p>Se ejecuta con los permisos de quien lo usa y sin aislamiento. Los administradores pueden restringir los mods en la organización.</p>
+        <div class="card dim">
+          <span class="k">[ × ] No es una pausa</span>
+          <h4>Una frase en la skill</h4>
+          <p>Escribir en una skill «pide permiso antes de enviar» no garantiza la pausa: una skill no tiene un mecanismo propio para detenerse a pedir aprobación.</p>
         </div>
       </div>
-      <p>Los ejemplos de la documentación oficial dan una idea de la escala: una barra dibujada sobre el cuadro de prompt que muestra cuánto de la ventana de contexto está ocupado y que se activa con un comando, o un indicador con la rama de git en la que se está trabajando.</p>
+      <div class="callout regla"><span class="k">[ Patrón seguro ]</span><p>La tarea deja un borrador; decide una persona. Un memorándum, un correo al banco o una propuesta de asiento salen de una tarea programada como archivos en la carpeta, nunca enviados ni registrados por la propia tarea.</p></div>
 
-      <div class="callout clave"><span class="k">[ Para el departamento ]</span><p>No hace falta programar para aprovechar las clases 1 a 3 de este módulo. Instrucciones, skills, conectores y plugins se crean conversando con Claude o subiendo un ZIP; los mods y Claude Code quedan para cuando el equipo técnico se suma al proyecto.</p></div>
+      <h3>Encadenar</h3>
+      <p>En la app, encadenar significa que una tarea deja un archivo que la siguiente usa. No hay un orquestador oficial de tareas encadenadas fuera de Claude Code: el orden lo dan las horas de cada tarea y los archivos que se dejan en la carpeta.</p>
+      <div class="flow">
+        <div class="node"><span class="k">Lunes 8:00</span><h4>Revisión semanal</h4><p>Si hay extracto y mayor, concilia y deja el informe en la carpeta.</p></div><span class="arrow" aria-hidden="true">→</span>
+        <div class="node"><span class="k">Lunes 9:00</span><h4>Borrador del memorándum</h4><p>Si es la primera semana del mes y ya está el informe, deja un borrador.</p></div><span class="arrow" aria-hidden="true">→</span>
+        <div class="node ink"><span class="k">Una persona</span><h4>Revisa y envía</h4><p>Lee el borrador, lo corrige si hace falta y decide el envío.</p></div>
+      </div>
+
+      <h3>Escalar, con condiciones</h3>
+      <p>Cuando varios procesos del departamento funcionan así, el conjunto empieza a parecerse a la plantilla digital de la sección 02. Para que lo sea de verdad, cada tarea que se añade cumple las mismas condiciones:</p>
+      <ul class="list-mono">
+        <li class="check">Probada ejecutándola en el momento y con casos reales antes de programarla.</li>
+        <li class="check">Con una persona responsable, que revisa su historial de ejecuciones.</li>
+        <li class="check">Con permisos mínimos: solo la carpeta o el proyecto que necesita, y «Manual» o «Necesita aprobación» en lo que escribe o envía.</li>
+        <li class="cross">Nada que envíe, pague o toque datos sensibles sin revisión.</li>
+        <li class="cross">Tareas olvidadas: las que ya no se usan se borran, porque cada ejecución consume cuota.</li>
+      </ul>
+
+      <div class="glossary">
+        <div class="row"><h3 class="term">Disparador</h3><p class="def">Lo que pone en marcha una tarea sin que nadie la pida en ese momento. En la app, la hora de una tarea programada. <span class="an">[ Ejemplo ] «Cada lunes a las 8:00».</span></p></div>
+        <div class="row"><h3 class="term">Encadenar</h3><p class="def">Hacer que una tarea deje un archivo que la siguiente usa, de modo que el trabajo pase de una a otra sin intervención. <span class="an">[ Analogía ] Una carrera de relevos: cada corredor entrega el testigo al siguiente en un punto fijo.</span></p></div>
+      </div>
     </section>
 
-    <!-- 09 · Práctica (banda tinta) y test -->
+    <!-- 11 · Práctica (banda tinta) y test -->
     <section class="sec respira sec-dark" id="practica" data-label="Práctica">
-      <p class="sec-eyebrow">[ Parte práctica ]</p>
-      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Laboratorio: el plugin de cierre del departamento.</h2></div>
-      <p class="sec-intro">La práctica continúa el cierre de octubre de 2026 de las clases anteriores, con la misma carpeta <code>cierre-octubre</code> y el proyecto «Cierre mensual». Primero se escribe y se prueba una skill propia; después se instala el plugin del departamento y se usa en Cowork para conciliar, redactar y revisar. Al terminar, el procedimiento del cierre queda escrito y cualquier compañero puede repetirlo el mes siguiente con el mismo resultado.</p>
+      <p class="sec-eyebrow">[ Parte práctica · Pasos 1–6 ]</p>
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Laboratorio: del proceso al agente del cierre.</h2></div>
+      <p class="sec-intro">La práctica recorre los seis pasos con el cierre de octubre de 2026 de las clases anteriores. No se parte de ninguna skill ni de ningún plugin hecho: todo lo construye cada alumno a partir de su propio trabajo con Claude. Se hace en la app de escritorio, en el proyecto «Cierre mensual» de la clase 1; si no existe, se crea con la carpeta <code>cierre-octubre</code>. Al terminar, el departamento tiene dos skills probadas, un plugin que las reúne y una tarea semanal que decide qué hacer según lo que encuentra.</p>
 
       <h3>Archivos de la práctica</h3>
-      <div class="grid-cards three">
+      <div class="grid-cards two">
+        <a class="card link" href="/practica/m6c1/carpeta-cierre-octubre.zip" download>
+          <span class="k">[ Descargar · ZIP ]</span>
+          <h4>carpeta-cierre-octubre.zip</h4>
+          <p>Los datos del caso: las normas de cierre, el memorándum de septiembre, las ventas, el extracto bancario, el mayor de bancos y los gastos de octubre, en la carpeta <code>cierre-octubre</code>.</p>
+        </a>
         <a class="card link" href="/practica/m6c3/guia-markdown-mseny.pdf" download>
           <span class="k">[ Descargar · PDF ]</span>
           <h4>guia-markdown-mseny.pdf</h4>
-          <p>La guía de Markdown de [m].seny, en nueve capítulos. El capítulo 9, «Markdown para Claude», es la lectura previa del ejercicio 1.</p>
-        </a>
-        <a class="card link" href="/practica/m6c3/skill-memorandum-cierre.zip" download>
-          <span class="k">[ Descargar · ZIP ]</span>
-          <h4>skill-memorandum-cierre.zip</h4>
-          <p>La skill <code>memorandum-cierre</code>: <code>SKILL.md</code> y sus dos referencias, la plantilla del memorándum y las definiciones de KPI.</p>
-        </a>
-        <a class="card link" href="/practica/m6c3/plugin-cierre-mensual.zip" download>
-          <span class="k">[ Descargar · ZIP ]</span>
-          <h4>plugin-cierre-mensual.zip</h4>
-          <p>El plugin <code>cierre-mensual</code>: las skills de conciliación bancaria (con su script) y de memorándum, y el agente <code>revisor-cierre</code>.</p>
+          <p>La guía de Markdown de [m].seny, para consultar. El capítulo 9, «Markdown para Claude», sirve para leer las skills que escriba Claude y para la variante manual del ejercicio 2.</p>
         </a>
       </div>
-      <p>Si no se hicieron las prácticas anteriores, la carpeta de trabajo está en <a href="/practica/m6c1/carpeta-cierre-octubre.zip" download>carpeta-cierre-octubre.zip</a>: se descomprime en Documentos y se crea el proyecto «Cierre mensual» como se explica en la clase 1.</p>
+      <p>Si ya tienes la carpeta de las clases anteriores, úsala. El extracto y el mayor también se pueden descargar sueltos: <a href="/practica/m6c2/extracto-bancario-octubre.csv" download>extracto-bancario-octubre.csv</a> y <a href="/practica/m6c2/mayor-bancos-octubre.xlsx" download>mayor-bancos-octubre.xlsx</a>.</p>
 
       <ol class="exercises">
         <li>
-          <h4>Leer una skill antes de escribirla</h4>
-          <p>Primero, lee el capítulo 9 de la guía. Después, descomprime <code>skill-memorandum-cierre.zip</code> y abre <code>SKILL.md</code> con el Bloc de notas o con cualquier editor de texto. Por último, localiza sus tres partes: la cabecera YAML entre las dos líneas de guiones, el cuerpo con las instrucciones y las dos referencias que el cuerpo cita.</p>
-          <p><strong>Resultado esperado:</strong> <code>name: memorandum-cierre</code>, igual que el nombre de la carpeta; una descripción de 183 caracteres, por debajo de los 200 recomendados; un cuerpo de unas 65 líneas; y dos referencias, <code>references/kpi.md</code> (citada en el paso 2) y <code>references/formato-memorandum.md</code> (citada en el paso 4).</p>
+          <h4>Conversar el proceso</h4>
+          <p class="sec-eyebrow">[ Paso 1 · Cowork · permiso «Manual» ]</p>
+          <p>Abre una tarea de Cowork en el proyecto «Cierre mensual», con la carpeta <code>cierre-octubre</code>, Opus 5.5 y el permiso en «Manual». Pide la checklist y compárala con el resultado esperado; si algo no cuadra, corrígelo en la misma tarea («D+7 cae en sábado: aplica la regla de las normas») hasta que salga bien. Después, pregúntale por los puntos de control.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · La checklist ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Prepara la checklist del cierre de octubre de 2026 según el calendario de las normas de cierre: D, D+3, D+5 y D+7 con su día de la semana, qué se entrega en cada hito y qué archivo necesita. No modifiques ningún archivo.»</pre></div>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Los puntos de control ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «¿Qué comprobaciones harías para saber que esta checklist está bien?»</pre></div>
+          <p><strong>Resultado esperado:</strong> D es el sábado 31 de octubre; D+3, el martes 3 de noviembre; D+5, el jueves 5 de noviembre; D+7 cae en sábado 7, de modo que el memorándum se envía el <strong>lunes 9 de noviembre</strong>. Los puntos de control: el día de la semana de cada fecha, comprobado; la regla de fin de semana, aplicada solo a D+7; y cualquier otro hito que caiga en fin de semana, señalado sin moverlo.</p>
         </li>
         <li>
-          <h4>Escribir la skill <code>checklist-cierre</code></h4>
-          <p>Primero, crea una carpeta llamada <code>checklist-cierre</code>. Después, crea dentro un archivo de texto llamado <code>SKILL.md</code> y copia en él la plantilla siguiente; revísala contra las normas de cierre y ajústala si el departamento trabaja de otra manera.</p>
-          <div class="code"><div class="ch"><span class="k">[ Plantilla · checklist-cierre/SKILL.md ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre>---
-name: checklist-cierre
-description: Prepara la checklist del cierre mensual con la fecha real de cada hito del calendario de las normas de cierre. Úsala al planificar el cierre de un mes.
----
-
-# Checklist del cierre mensual
-
-## Cuándo usarla
-- Cuando se pide la checklist, el calendario o los plazos del cierre de un mes.
-
-## Entradas
-- Las normas de cierre (normas-cierre.docx), apartado 1: calendario de cierre.
-- El mes que se cierra.
-
-## Pasos
-1. Calcula D, el último día natural del mes que se cierra, y su día de la semana.
-2. Calcula D+3, D+5 y D+7 en días naturales, con el día de la semana de cada uno.
-3. Aplica la regla de las normas: si D+7 cae en sábado o domingo, el memorándum se envía el lunes siguiente.
-4. Si otro hito cae en fin de semana y las normas no fijan regla para él, señálalo como incidencia y no lo muevas.
-5. Para cada hito, indica qué se entrega, quién lo entrega y qué archivo necesita.
-
-## Formato de salida
-Una tabla: Hito · Fecha · Día · Qué se entrega · Responsable · Archivo.
-Debajo, un apartado «Supuestos e incidencias» con cada fecha señalada.
-
-## Qué no hacer
-- No inventes reglas de calendario que no figuren en las normas.
-- No muevas una fecha sin indicarlo.</pre></div>
-          <p>También puedes seguir el camino A y pedírsela a Claude en una conversación con las normas adjuntas:</p>
-          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · La skill, conversando ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Quiero crear una skill llamada checklist-cierre. Debe preparar la checklist del cierre mensual a partir del calendario de las normas de cierre adjuntas: calcular D (el último día natural del mes), D+3, D+5 y D+7 con su día de la semana; aplicar la regla de que, si D+7 cae en sábado o domingo, el memorándum se envía el lunes siguiente; y señalar, sin moverlo, cualquier otro hito que caiga en fin de semana. Hazme las preguntas que necesites y entrégamela empaquetada en un ZIP.»</pre></div>
+          <h4>Convertirlo en skill</h4>
+          <p class="sec-eyebrow">[ Paso 2 ]</p>
+          <p>En la misma tarea, abre el menú de la tarea (la flecha junto a su nombre) y elige «Convertir en Skill», o pide la conversión con el prompt siguiente; guarda la skill desde la tarjeta que propone Claude. Después, ábrela en «Personalización» → «Skills» → «Tuyos» y léela antes de seguir.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · De la tarea a la skill ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Convierte lo que acabamos de hacer en una skill llamada checklist-cierre, con los pasos y las comprobaciones.»</pre></div>
+          <p><strong>Resultado esperado:</strong> <code>name</code> igual a <code>checklist-cierre</code>; una descripción en tercera persona que dice qué hace y cuándo usarla; y apartados para los pasos y para las comprobaciones, entre ellas la regla de fin de semana solo para D+7.</p>
+          <p><strong>Variante A</strong> (Cowork en Mac, si la cuenta lo permite): graba la skill con «Grabar una habilidad», calculando las fechas en voz alta con las normas abiertas, y lee la tarjeta antes de guardarla. <strong>Variante B</strong>: escríbela a mano con la sección 04 y la guía de Markdown —cabecera, «Cuándo usarla», «Entradas», «Pasos», «Comprobaciones» y «Qué no hacer»—, comprime la carpeta y súbela como ZIP.</p>
         </li>
         <li>
-          <h4>Subirla y activarla</h4>
-          <p>Primero, comprime la carpeta <code>checklist-cierre</code> entera, no los archivos de su interior: el nivel superior del ZIP debe ser la carpeta. Después, en «Personalización» → «Skills», sube el ZIP. Por último, comprueba que el interruptor de la skill está activado. Si la subida falla, revisa que «Ejecución de código en la nube y creación de archivos» esté activada en Configuración → «Capacidades» y que la cabecera empiece y termine con tres guiones.</p>
-        </li>
-        <li>
-          <h4>Las tres pruebas</h4>
-          <p>Abre una conversación en el proyecto «Cierre mensual», con las normas en su contexto, y lanza los tres prompts siguientes, cada uno en una conversación distinta.</p>
-          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Debe activarse ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Prepara la checklist del cierre de noviembre de 2026.»</pre></div>
-          <p><strong>Resultado esperado:</strong> la skill se activa sola. D es el lunes 30 de noviembre; D+3, el jueves 3 de diciembre; D+5, el <strong>sábado 5 de diciembre</strong>, que debe aparecer señalado como incidencia, porque las normas no fijan regla de fin de semana para D+5 y la skill no debe moverlo por su cuenta; y D+7, el lunes 7 de diciembre.</p>
+          <h4>Tres pruebas y el menú «/»</h4>
+          <p class="sec-eyebrow">[ Paso 2 · Probar ]</p>
+          <p>Lanza cada prompt en una conversación o tarea distinta del proyecto. Antes del tercero, escribe solo «/» y comprueba que <code>checklist-cierre</code> aparece en la lista.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Debe activarse ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Prepara la checklist del cierre de noviembre.»</pre></div>
+          <p><strong>Resultado esperado:</strong> la skill se activa sola. D es el lunes 30 de noviembre; D+3, el jueves 3 de diciembre; D+5, el <strong>sábado 5 de diciembre</strong>, señalado porque las normas no fijan regla de fin de semana para D+5; y D+7, el lunes 7 de diciembre.</p>
           <div class="code prompt"><div class="ch"><span class="k">[ Prompt · No debe activarse ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Resume este correo en tres líneas: "Hola, os confirmo que el proveedor de transporte entregará el pedido de bolsos el miércoles por la mañana en el almacén central. Un saludo."»</pre></div>
           <p><strong>Resultado esperado:</strong> un resumen breve, sin rastro de la skill.</p>
           <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Invocación explícita ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; /checklist-cierre octubre de 2026</pre></div>
-          <p><strong>Resultado esperado:</strong> D es el sábado 31 de octubre; D+3, el martes 3 de noviembre; D+5, el jueves 5 de noviembre; D+7 cae en sábado 7, de modo que el memorándum se envía el <strong>lunes 9 de noviembre</strong>. Si alguna prueba falla, corrige la descripción, vuelve a subir la skill y repite.</p>
+          <p><strong>Resultado esperado:</strong> el memorándum, el <strong>lunes 9 de noviembre</strong>. Si alguna prueba falla, pide «actualiza la skill para…» con lo que ha fallado, aplica el cambio desde la tarjeta y repite la prueba.</p>
         </li>
         <li>
-          <h4>Instalar el plugin del departamento</h4>
-          <p>En «Personalización» → «Plugins», elige subir un plugin y selecciona <code>plugin-cierre-mensual.zip</code> sin descomprimirlo; el ZIP contiene la carpeta <code>cierre-mensual</code> con el manifiesto en <code>.claude-plugin/plugin.json</code>. Después, comprueba en la ficha del plugin que aparecen dos skills, <code>conciliacion-bancaria</code> y <code>memorandum-cierre</code>, y el agente <code>revisor-cierre</code>. Si instalaste por tu cuenta la skill suelta de <code>skill-memorandum-cierre.zip</code>, desactívala para no tener dos versiones del mismo procedimiento.</p>
-        </li>
-        <li>
-          <h4>El cierre en Cowork: conciliar, redactar y revisar</h4>
-          <p>Abre una tarea de Cowork en el proyecto «Cierre mensual», con la carpeta <code>cierre-octubre</code>. Con los datos reales de la empresa se trabajaría en «Manual»; con estos archivos sintéticos puedes probar el modo automático. Lanza los tres encargos siguientes en orden y revisa cada resultado antes de pasar al siguiente.</p>
-          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · 1 · Conciliación ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Concilia el banco de octubre con la skill conciliacion-bancaria del plugin, a partir de extracto-bancario-octubre.csv y mayor-bancos-octubre.xlsx. Guarda el informe en conciliacion-octubre.md y no modifiques los archivos originales.»</pre></div>
-          <p><strong>Resultado esperado:</strong> el mismo de la clase 2. Saldo final según el banco, 376.334,62 €; saldo contable, 373.614,27 €; diferencia, 2.720,35 €; y estas partidas:</p>
+          <h4>Convertir una tarea ya hecha</h4>
+          <p class="sec-eyebrow">[ Paso 2 · Con un script ]</p>
+          <p>Abre la tarea de la conciliación de la clase 2. Si no la conservas, rehazla antes en una tarea de Cowork: «Concilia extracto-bancario-octubre.csv con mayor-bancos-octubre.xlsx según el apartado 4 de las normas de cierre y deja el resultado en conciliacion-octubre.md. No modifiques los archivos originales.» Cuando la conciliación esté bien, pide la skill y guárdala. Después, ejecútala dos veces, en dos tareas distintas, con «Concilia el banco de octubre con la skill conciliacion-bancaria».</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · La conciliación, en skill ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Convierte esta conciliación en una skill llamada conciliacion-bancaria, con un script para emparejar los movimientos, para que el resultado sea siempre el mismo.»</pre></div>
+          <p><strong>Resultado esperado:</strong> las dos ejecuciones dan lo mismo: 376.334,62 € conciliados, ajustes netos de <strong>+6.202,50 €</strong> y estas cinco partidas.</p>
           <div class="table-wrap"><table>
             <thead><tr><th>Partida</th><th>Efecto en el mayor (€)</th><th>Tratamiento</th></tr></thead>
             <tbody>
@@ -966,25 +1254,32 @@ Debajo, un apartado «Supuestos e incidencias» con cada fecha señalada.
               <tr><td>Cobros TPV Online 30-31/10</td><td>— (3.482,15 en tránsito)</td><td>En tránsito: no se ajusta, se lista</td></tr>
             </tbody>
           </table></div>
-          <p>Ajustes netos, <strong>+6.202,50 €</strong>; saldo contable ajustado, 379.816,77 €; menos 3.482,15 € en tránsito, <strong>376.334,62 €</strong>, igual que el banco.</p>
-          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · 2 · Memorándum ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Redacta el memorándum de cierre de octubre de 2026 con la skill memorandum-cierre, a partir de las normas de cierre, ventas-tiendas-2026.xlsx, el memorándum de septiembre y conciliacion-octubre.md, y gastos-octubre-limpio.xlsx si existe. Entrégalo como memorandum-cierre-octubre.docx.»</pre></div>
-          <p><strong>Resultado esperado:</strong> fecha, lunes 9 de noviembre de 2026; ventas, 1.083.815 €, un +5,2 % sobre los 1.030.048 € de octubre de 2025; margen bruto, 60,1 %, el mismo que hace un año; las tres tiendas que más crecen, Online (+16,6 %), Lisboa (+14,6 %) y Sevilla (+5,1 %), y Bilbao (−3,4 %) como la única que cae; y un saldo de bancos conciliado de 376.335 €, con 3.482 € en tránsito. Si se hizo la limpieza de gastos de la clase 2, el apartado 5 recoge además los 2.400 € reimputados a septiembre y el supuesto de CC-ADM para la telefonía.</p>
-          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · 3 · Revisión ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Pide al agente revisor-cierre que revise memorandum-cierre-octubre.docx contra normas-cierre.docx y que guarde sus hallazgos en revision-memorandum.md. No corrijas nada todavía: primero quiero ver la lista.»</pre></div>
-          <p><strong>Resultado esperado:</strong> una tabla con una fila por comprobación: la fecha (D+7 cae en sábado, así que el envío es el lunes 9 de noviembre), los cinco apartados con sus títulos y en orden, el formato de las cifras, la coherencia entre la tabla y el resumen y la tesorería. Al final, «Listo para enviar» o el número de errores. Si hay errores, pide a Claude que los corrija y vuelve a pasar el revisor.</p>
         </li>
         <li>
-          <h4>Opcional · Un conector de documentos</h4>
-          <p>Si la organización tiene un conector de almacenamiento de documentos —por ejemplo, Google Drive o el gestor documental de la empresa—, comprueba primero que el memorándum de septiembre está en la carpeta compartida del departamento; si no está, súbelo desde la carpeta <code>cierre-octubre</code>. Después, abre una conversación en el proyecto «Cierre mensual», activa el conector desde «+» → «Conectores» y lanza el prompt siguiente. Mientras trabaja, observa qué herramientas del conector usa Claude y qué permisos te pide antes de usarlas.</p>
-          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Con un conector ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Localiza el memorándum de cierre de septiembre en la carpeta compartida del departamento y compara sus apartados con los cinco que fijan las normas de cierre del proyecto. Dime si falta alguno, si sobra alguno o si alguno cambia de título o de orden. Indica en qué carpeta y con qué nombre lo has encontrado. No modifiques ningún archivo.»</pre></div>
-          <p><strong>Resultado esperado:</strong> Claude encuentra el archivo con la cuenta de quien ha conectado el conector; si esa cuenta no tiene acceso a la carpeta, no lo encuentra. Indica la carpeta compartida y el nombre del archivo. Enumera los cinco apartados de las normas —«1. Resumen», «2. Ventas por tienda», «3. Margen», «4. Tesorería y conciliación» y «5. Incidencias y ajustes»— y confirma que el memorándum de septiembre los sigue con los mismos títulos y en el mismo orden. No modifica ningún archivo.</p>
+          <h4>Agrupar en un plugin</h4>
+          <p class="sec-eyebrow">[ Paso 3 ]</p>
+          <p>En «Personalización» → «Plugins», elige crear un plugin con Claude y pídeselo con el prompt siguiente. Cuando esté instalado, abre su ficha, escribe «/» en una conversación y desactiva las dos skills sueltas en «Personalización» → «Skills», para no tener duplicados.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · El plugin ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Crea un plugin llamado cierre-mensual que reúna mis skills checklist-cierre y conciliacion-bancaria. Añade también un agente revisor, de solo lectura, que revise la checklist del cierre contra las normas de cierre.»</pre></div>
+          <p><strong>Resultado esperado:</strong> la ficha del plugin muestra sus piezas: las dos skills y, si se pidió, el revisor. Al escribir «/», aparece <code>cierre-mensual:checklist-cierre</code>. El revisor es opcional: si no lo quieres, borra la segunda frase del prompt.</p>
         </li>
         <li>
-          <h4>Opcional · Compartir el plugin</h4>
-          <p>En una cuenta de empresa, comparte el plugin con un compañero desde «Personalización» → «Plugins», o publícalo en la biblioteca de la organización si tienes permiso para hacerlo. Pide a ese compañero que repita el ejercicio 6 y compara con él los resultados de la conciliación: deben coincidir al céntimo.</p>
+          <h4>Programar con decisión</h4>
+          <p class="sec-eyebrow">[ Pasos 4 y 5 ]</p>
+          <p>Crea dentro de <code>cierre-octubre</code> una subcarpeta llamada <code>entrada</code>. Después, en «Programadas» → «Nueva tarea», configúrala a mano: nombre «Revisión semanal del cierre»; frecuencia semanal, los lunes a las 8:00; «Trabajar en un proyecto o carpeta» → «Cierre mensual»; permisos «Manual»; y «Requerir esta computadora», activado. En «Instrucciones», pega este texto:</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Instrucciones · Revisión semanal del cierre ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre>Revisa la carpeta entrada. Si hay un extracto bancario y un mayor, concílialos con el plugin cierre-mensual y guarda el informe. Si es la primera semana del mes, prepara la checklist del mes anterior. Si no hay nada nuevo, escribe "Sin novedades" con la fecha en registro.md. No envíes nada a nadie.</pre></div>
+          <p>Pruébala ejecutándola en el momento dos veces, aprobando cada acción. La primera, con una copia del extracto y del mayor en <code>entrada</code>. La segunda, con <code>entrada</code> vacía: borra las copias y, si el informe se guardó dentro, muévelo fuera.</p>
+          <p><strong>Resultado esperado:</strong> en la primera ejecución, un informe de conciliación con el saldo conciliado de 376.334,62 €; en la segunda, la línea «Sin novedades» con la fecha en <code>registro.md</code>. Si la ejecutas durante la primera semana de un mes, también prepara la checklist del mes anterior.</p>
+          <p><strong>Por qué es un agente:</strong> la tarea no repite una secuencia fija; mira la carpeta y decide qué skill usar, o ninguna, según lo que encuentra. Si las instrucciones dijeran «concilia, prepara la checklist e informa», sería una automatización: haría lo mismo con la carpeta vacía.</p>
+        </li>
+        <li>
+          <h4>Opcional · Compartir o seguir en casa</h4>
+          <p class="sec-eyebrow">[ Opcional · Paso 2 ]</p>
+          <p>En una cuenta de empresa con el compartir activado, comparte la skill <code>checklist-cierre</code> con un compañero y comprueba con él que la ve en solo lectura: puede activarla y usarla, no editarla. O, para casa, convierte la tarea del memorándum de la clase 2 en una skill llamada <code>memorandum-cierre</code> y ejecútala.</p>
+          <p><strong>Resultado esperado del memorándum:</strong> fecha, lunes 9 de noviembre de 2026; ventas, 1.083.815 €, un +5,2 %; margen bruto, 60,1 %; Online, Lisboa y Sevilla, las tres tiendas que más crecen; y Bilbao, con un −3,4 %, la única que cae.</p>
         </li>
       </ol>
 
-      <div class="callout ok"><span class="k">[✓] Resultado esperado</span><p>Al terminar, el departamento tiene su procedimiento de cierre escrito en piezas que Claude aplica igual cada mes: una skill propia probada con tres casos, un plugin con dos skills y un revisor, y un cierre de octubre conciliado a 376.334,62 €, redactado con el formato de la casa y revisado contra las normas. El mes siguiente basta con cambiar los archivos de la carpeta.</p></div>
+      <div class="callout ok"><span class="k">[✓] Hacia el paso 6</span><p>Al terminar, el cierre tiene dos skills probadas, un plugin que las reúne y una tarea semanal que decide. Para que esa tarea sea una pieza fiable de la plantilla digital del departamento le falta lo que no se construye en una tarde: una persona responsable, varias semanas de ejecuciones revisadas en el historial, permisos limitados a la carpeta del cierre y ningún envío sin revisión. Con eso, la siguiente pieza, el borrador del memorándum, se encadena leyendo lo que deja la primera.</p></div>
 
       <div class="quiz" data-quiz="quizData" data-title="Test de la clase"></div>
     </section>
@@ -1000,37 +1295,15 @@ Debajo, un apartado «Supuestos e incidencias» con cada fecha señalada.
   // `var` (no `const`): curso.js lee el array como window[data-quiz].
   var quizData = [
     {
-      q: "¿Qué pieza de personalización conviene para un procedimiento que se repite cada mes con los mismos pasos, como redactar el memorándum de cierre?",
+      q: "¿Qué es correcto sobre la cabecera YAML de un SKILL.md guardado en la carpeta checklist-cierre?",
       opts: [
-        "Una instrucción de la cuenta, porque se aplica a todas las conversaciones y no hace falta invocarla nunca.",
-        "Una skill con los pasos, el formato y las comprobaciones del memorándum.",
-        "Un mod, porque es la única pieza capaz de cambiar cómo trabaja Claude con los documentos del departamento.",
-        "Un conector de Google Drive, que guarda el procedimiento en una carpeta compartida del equipo."
-      ],
-      a: 1,
-      why: "Las instrucciones dicen cómo es la casa; un procedimiento con pasos, formato y comprobaciones propias es el terreno de una skill."
-    },
-    {
-      q: "¿Qué es la cabecera YAML (frontmatter) de un archivo SKILL.md?",
-      opts: [
-        "Un bloque entre dos líneas de tres guiones con pares clave: valor, como name y description.",
-        "El primer título del archivo, escrito con una almohadilla, que Claude muestra como nombre de la skill en el menú.",
-        "Un archivo aparte, con extensión .yaml, que se guarda en la carpeta references/ junto a las plantillas.",
-        "La firma que añade la app al subir la skill para comprobar que nadie ha modificado el archivo."
+        "Va entre dos líneas de tres guiones, y su name es checklist-cierre, igual que la carpeta.",
+        "Es el primer título del archivo, escrito con una almohadilla, y el name admite mayúsculas y espacios.",
+        "Va en un archivo .yaml aparte, dentro de references/, y el name puede empezar por claude-.",
+        "La añade la app al subir la skill, y quien la escribe solo redacta el cuerpo con los pasos."
       ],
       a: 0,
-      why: "Va al principio del archivo, entre dos líneas de tres guiones, y Claude la lee antes que el cuerpo."
-    },
-    {
-      q: "¿Cuál de estos valores del campo name es válido para una skill guardada en la carpeta memorandum-cierre?",
-      opts: [
-        "Memorandum_Cierre",
-        "claude-memorandum",
-        "memorandum-cierre",
-        "memorándum de cierre mensual"
-      ],
-      a: 2,
-      why: "Solo minúsculas, números y guiones, hasta 64 caracteres, sin «anthropic» ni «claude», e igual al nombre de la carpeta."
+      why: "La cabecera va al principio, entre dos líneas de tres guiones; name solo admite minúsculas, números y guiones, sin «anthropic» ni «claude», y coincide con la carpeta."
     },
     {
       q: "Según la carga progresiva de las skills, ¿qué tiene Claude presente en todo momento?",
@@ -1055,15 +1328,26 @@ Debajo, un apartado «Supuestos e incidencias» con cada fecha señalada.
       why: "En tercera persona, dice qué hace y cuándo usarla con las palabras de quien la pide, y no lleva fechas que caduquen."
     },
     {
-      q: "¿Por qué la skill de conciliación bancaria del plugin usa un script en lugar de instrucciones en texto?",
+      q: "¿Qué opción describe dos de las vías para crear una skill sin escribir el SKILL.md?",
       opts: [
-        "Porque las instrucciones en texto no permiten a Claude abrir archivos CSV ni hojas de Excel.",
-        "Porque el cuadre debe dar siempre el mismo resultado, y del script solo entra su salida en el contexto.",
-        "Porque los scripts se ejecutan fuera de la cuenta y no consumen cuota de uso, mientras que el texto de una skill sí la consume.",
-        "Porque una skill sin script no se puede subir comprimida en un ZIP."
+        "Activar la memoria, que convierte en skills los temas que recuerda, o fijar la conversación en la barra lateral.",
+        "Convertir una tarea ya hecha o grabar la pantalla narrando; de la grabación no quedan ni el vídeo ni el audio.",
+        "Grabar la pantalla en una conversación de Windows, que guarda el vídeo completo dentro de la skill como referencia.",
+        "Ninguna: hay que escribir siempre la carpeta y subirla comprimida en un ZIP."
       ],
       a: 1,
-      why: "Cuadrar, convertir o validar exige un resultado determinista; el texto queda para el criterio, el tono y el formato."
+      why: "Al final de una tarea que ha salido bien, Claude propone la skill en una tarjeta; la grabación es solo de Cowork en Mac, y de ella quedan capturas, no el vídeo ni el audio."
+    },
+    {
+      q: "Una compañera comparte contigo su skill checklist-cierre. ¿Qué puedes hacer con ella?",
+      opts: [
+        "Editarla a tu gusto: desde ese momento es una copia tuya y sus cambios ya no te llegan.",
+        "Nada hasta que un propietario la publique en el directorio público de Claude.",
+        "Activarla y usarla en solo lectura; cuando ella la actualiza, te llegan los cambios.",
+        "Descargarla y volver a subirla como ZIP para que aparezca entre las tuyas."
+      ],
+      a: 2,
+      why: "Quien recibe una skill compartida la ve en solo lectura: puede activarla y usarla, no editarla, y recibe las actualizaciones solas."
     },
     {
       q: "¿Qué es MCP (Model Context Protocol)?",
@@ -1088,26 +1372,37 @@ Debajo, un apartado «Supuestos e incidencias» con cada fecha señalada.
       why: "Skills y comandos funcionan en la conversación, en Cowork y en Code; agentes y hooks, solo en Cowork y en Code."
     },
     {
-      q: "¿Qué diferencia hay entre trabajar con agentes en Cowork y en Claude Code?",
+      q: "¿Qué es correcto sobre «/» y «@»?",
       opts: [
-        "En Cowork el orquestador decide solo cuándo delegar; en Claude Code se invocan con control fino.",
-        "En Cowork cada agente necesita su propia cuenta de usuario; en Claude Code todos comparten la misma cuenta.",
-        "Ninguna: en los dos entornos hay que invocar a cada agente por su nombre y en el orden correcto.",
-        "En Cowork los agentes no pueden leer los archivos de la carpeta de trabajo; en Claude Code, sí."
+        "En la app, «/» adjunta archivos y «@» menciona las skills y los plugins instalados.",
+        "Los dos abren el mismo menú de conectores, en la app y en Claude Code.",
+        "«/» solo existe en Claude Code; en la app, todo se pide escribiendo «@» delante del nombre de la skill.",
+        "En la app, «/» abre las skills con el nombre de su plugin; «@» para archivos y subagentes es de Claude Code."
       ],
-      a: 0,
-      why: "En Cowork se da el objetivo al orquestador y se supervisa el plan; el control fino de cada agente es propio de Claude Code."
+      a: 3,
+      why: "En la app, «/» muestra las skills con el nombre de su plugin y los comandos; la ayuda no documenta «@» en la app: es Claude Code el que lo usa para archivos, carpetas, recursos MCP y subagentes."
     },
     {
-      q: "¿Qué afirmación sobre los mods es correcta?",
+      q: "Una tarea programada ejecuta cada lunes a las 8:00 los mismos tres pasos —conciliar, preparar la checklist e informar—, haya o no extracto en la carpeta. Según el recorrido del curso, ¿qué es?",
       opts: [
-        "Son skills con otro nombre y funcionan igual en la conversación, en Cowork y en Claude Code.",
-        "Solo se pueden escribir a mano en TypeScript, y para usarlos hay que publicarlos antes en el directorio de Claude.",
-        "Se le piden a Claude en una sesión de Code y se ejecutan con los permisos del usuario.",
-        "Son la forma recomendada de que un departamento financiero comparta sus procedimientos de cierre."
+        "Un agente, porque tiene un disparador y trabaja sin que nadie se lo pida.",
+        "Una automatización: lanza siempre la misma secuencia y no decide según lo que encuentra.",
+        "Un subagente, porque el orquestador de Cowork lo crea para dividir el trabajo del cierre.",
+        "Un plugin en reposo, porque reúne varias skills sin usarlas."
       ],
-      a: 2,
-      why: "Son el peldaño más alto, para equipos técnicos: funcionan en Claude Code, sin aislamiento, y los administradores pueden restringirlos."
+      a: 1,
+      why: "Lo que hace a un agente es la decisión, no el disparador: si lanza siempre la misma secuencia fija, es una automatización."
+    },
+    {
+      q: "El departamento quiere que Claude actúe cuando llegue el correo del banco con el extracto, y que nada se envíe sin revisión. ¿Qué se puede montar hoy en la app?",
+      opts: [
+        "Un disparador «llega un correo» que lance la conciliación y envíe el resultado a Dirección.",
+        "Una tarea que cada hora busque el extracto y deje el envío como borrador o en «Necesita aprobación».",
+        "Una instrucción dentro de la skill que le ordene detenerse a pedir permiso antes de enviar.",
+        "Un evento del conector de correo que active el plugin del cierre en cuanto entre un mensaje del banco."
+      ],
+      a: 1,
+      why: "«Llega un correo» no existe como disparador; la alternativa es una tarea que revise cada hora, y las pausas fiables son el modo «Manual» y «Necesita aprobación», no una instrucción en la skill."
     }
   ];
 </script>

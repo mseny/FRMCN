@@ -421,7 +421,7 @@
       <div class="table-wrap"><table>
         <thead><tr><th>Modo</th><th>Qué hace</th><th>Cuándo usarlo</th><th>Riesgo</th></tr></thead>
         <tbody>
-          <tr><td>«Manual»</td><td>Claude pide aprobación antes de cada acción. Es el modo predeterminado.</td><td>Con datos reales de la empresa y mientras se aprende a trabajar con Cowork.</td><td>Bajo: nada ocurre sin aprobación, a cambio de atención constante.</td></tr>
+          <tr><td>«Manual»</td><td>Claude pide aprobación antes de cada acción. En las cuentas Enterprise, las tareas empiezan en este modo.</td><td>Con datos reales de la empresa y mientras se aprende a trabajar con Cowork.</td><td>Bajo: nada ocurre sin aprobación, a cambio de atención constante.</td></tr>
           <tr><td>Automático</td><td>Claude aprueba por sí mismo lo seguro, un revisor de seguridad bloquea lo inseguro y la tarea se detiene cuando algo necesita revisión. Consume algo más. En las tareas programadas aparece como «Aprobar automáticamente».</td><td>Con tareas conocidas y archivos de poco riesgo, como los archivos sintéticos de la práctica.</td><td>Medio: se revisa el resultado, no cada paso.</td></tr>
           <tr><td>Omitir</td><td>No pide ninguna aprobación.</td><td>Según el criterio del curso, no en un departamento financiero.</td><td>Alto: Claude usa sin consulta todos los permisos concedidos.</td></tr>
         </tbody>
@@ -506,6 +506,7 @@
         <figcaption>[ Diagrama 04 ] Lo único que cambia entre modos es dónde se detiene Claude; el borrado permanente, siempre</figcaption>
       </figure>
       <ul class="list-mono">
+        <li class="check"><strong>El modo de partida depende de la cuenta y de la organización:</strong> en Enterprise las tareas empiezan en «Manual»; en otras cuentas pueden empezar en automático. Conviene comprobar el selector antes de encargar.</li>
         <li class="check"><strong>En todos los modos</strong>, Claude pide permiso antes de borrar un archivo de forma permanente.</li>
         <li class="check">Los conectores tienen además permisos propios por herramienta: permitir siempre, pedir aprobación o bloquear.</li>
         <li class="cross">El aislamiento protege el ordenador, pero no limita lo que Claude puede hacer con los permisos que se le conceden.</li>
@@ -513,7 +514,7 @@
 
       <div class="callout regla"><span class="k">[ Regla de trabajo ]</span><p>Con datos reales de la empresa, empieza en «Manual». La recomendación de Anthropic es empezar en ese modo con tareas reales de poco riesgo y no dar a Cowork acceso a documentos financieros sensibles ni a credenciales. Los archivos sintéticos de la práctica permiten, en cambio, probar el modo automático sin consecuencias.</p></div>
 
-      <div class="callout nota"><span class="k">[ Una sola experiencia ]</span><p>Anthropic está unificando Chat y Cowork en una sola experiencia. En ella no hace falta elegir: Claude decide si la petición necesita una respuesta o una tarea y, si no está claro, pregunta. Por defecto pide permiso antes de actuar, y se le puede dejar trabajar para que consulte solo cuando algo merezca revisión. Según la cuenta, el conmutador «Chat | Cowork» puede no aparecer; la diferencia entre conversar y encargar se mantiene igualmente, y lo explicado en esta sección sigue siendo válido.</p></div>
+      <div class="callout nota"><span class="k">[ Una sola experiencia ]</span><p>Anthropic está unificando Chat y Cowork en una sola experiencia. En ella no hace falta elegir: Claude decide si la petición necesita una respuesta o una tarea y, si no está claro, pregunta. Según el modo de permiso, pide aprobación antes de cada acción o trabaja y consulta solo cuando algo merece revisión. Según la cuenta, el conmutador «Chat | Cowork» puede no aparecer; la diferencia entre conversar y encargar se mantiene igualmente, y lo explicado en esta sección sigue siendo válido.</p></div>
 
       <blockquote class="pull">
         <p>«Chat para preguntas. Cowork para flujos de trabajo. Code para código.»</p>
@@ -916,7 +917,7 @@
         "El usuario hace cada paso y Claude lo revisa al final."
       ],
       a: 0,
-      why: "Es el modo predeterminado y el recomendado con datos reales; la tercera opción describe el modo automático."
+      why: "Es el modo recomendado con datos reales; la tercera opción describe el modo automático."
     },
     {
       q: "Incluso en el modo de permiso que no pide ninguna aprobación, ¿qué acción sigue requiriendo el permiso del usuario?",

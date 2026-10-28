@@ -31,7 +31,7 @@ Web del alumno del curso «IA Generativa» de [m].seny. Páginas HTML planas en 
 | M3 · Estudio Creativo IA (Imagen) | 3 | `modulo3-clase1..3.html` |
 | M4 · Estudio Creativo IA (Automatización) | 2 | `modulo4-clase1..2.html` |
 | M5 · Copilot suite | 1 | `modulo5-clase1.html` |
-| M6 · Claude suite | 3 | `modulo6-clase1..3.html` (práctica en `public/practica/m6c1..3/`; guía de Markdown y plantillas en `docs/guia-markdown/` y `docs/m6c3-plantillas/`) |
+| M6 · Claude suite | 3 | `modulo6-clase1..3.html` (práctica en `public/practica/m6c1..3/`; guía de Markdown en `docs/guia-markdown/`; `docs/m6c3-plantillas/` guarda una skill y un plugin de referencia que ya no se publican) |
 | M7 · Cerebros de IA | 3 | `modulo7-clase1..3.html` |
 | M8 · Desarrollo de software | 1 | `modulo8-clase1.html` |
 | M9 · MVP Empresarial (PFC) | 1 | `pfc-marketing.html` (bloqueado) |
@@ -47,7 +47,7 @@ El nivel viaja en el JWT de Supabase como `user_metadata.access_level` y se edit
 | `completo` | todos |
 | `diseno` | M1, M2, M3, M4 |
 | `marketing` | M1, M2, M6, M7, M8 |
-| `finanzas` | M1, M2, M5 y, del M6, las clases 1 y 2 (se le abren más módulos o clases según avanza el curso) |
+| `finanzas` | M1, M2, M5, M6 (se le abren más módulos o clases según avanza el curso) |
 | *(sin valor)* | M1 — red de seguridad, ver abajo |
 
 **Da siempre un `access_level` al crear un usuario.** Quien no lo lleve cae en `sin_asignar` y solo ve M1. Es deliberado: antes el valor por defecto era `completo` y un alta sin nivel regalaba el curso entero.

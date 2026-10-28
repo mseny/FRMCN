@@ -88,9 +88,9 @@
         { id: 'm6c2', file: 'modulo6-clase2.html', num: 2, kind: 'práctica', duration: 'Teoría 45 min · Práctica 60 min', topic: 'Tareas, artefactos y diseño',
           title: 'Producir con Claude: tareas, artefactos y diseño', short: 'Producir con Claude',
           tools: ['Cowork', 'Programadas', 'Artefactos', 'Claude Design', 'Dashboards', 'Motion'] },
-        { id: 'm6c3', file: 'modulo6-clase3.html', num: 3, kind: 'práctica', duration: 'Teoría 40 min · Práctica 60 min', topic: 'Skills, conectores, plugins y agentes',
+        { id: 'm6c3', file: 'modulo6-clase3.html', num: 3, kind: 'práctica', duration: 'Teoría 50 min · Práctica 70 min', topic: 'Del proceso al agente: skills, plugins y programación',
           title: 'Personalizar Claude: skills, conectores, plugins y agentes', short: 'Personalizar Claude',
-          tools: ['Skills', 'Conectores', 'Plugins', 'Agentes', 'Markdown'] }
+          tools: ['Skills', 'Plugins', 'Agentes', 'Programadas', 'Conectores', 'Markdown'] }
       ]
     },
     {
@@ -143,9 +143,9 @@
     completo:  { label: 'Acceso completo', modules: '*' },
     diseno:    { label: 'Diseño',    modules: ['m1', 'm2', 'm3', 'm4'] },
     marketing: { label: 'Marketing', modules: ['m1', 'm2', 'm6', 'm7', 'm8'] },
-    /* Finanzas abre por goteo: hoy M1, M2 y M5 enteros y, del M6, las clases
-       1 y 2. Marc va sumando módulos o clases a medida que avanza el curso. */
-    finanzas:  { label: 'Finanzas',  modules: ['m1', 'm2', 'm5'], classes: ['m6c1', 'm6c2'] },
+    /* Finanzas abre por goteo: hoy M1, M2, M5 y M6 enteros. Marc va sumando
+       módulos, o clases sueltas con `classes`, a medida que avanza el curso. */
+    finanzas:  { label: 'Finanzas',  modules: ['m1', 'm2', 'm5', 'm6'] },
     /* Red de seguridad, no un nivel que se reparta. Si a alguien se le olvida
        el access_level en Supabase, cae aquí y ve el mínimo, no el curso entero.
        Antes el defecto era 'completo' y un alta sin nivel regalaba todo. */
