@@ -848,7 +848,7 @@ Dirección Financiera</pre></div></div>
           <p>Se envía desde <code>claude.ai/directory/manage</code> a partir de un repositorio público de GitHub. Pasa una validación automática, un análisis de seguridad y la revisión de una persona.</p>
         </div>
       </div>
-      <p>Para los equipos técnicos, Claude Code añade dos órdenes: <code>claude plugin validate</code> revisa la sintaxis del plugin, y <code>claude plugin eval</code> ejecuta casos de prueba con el plugin y sin él y compara los resultados, que es la forma de medir si el plugin mejora el trabajo.</p>
+      <p>Para los equipos técnicos, Claude Code añade dos órdenes: <code>claude plugin validate</code> revisa la sintaxis del plugin, y <code>claude plugin eval</code> ejecuta casos de prueba con el plugin y sin él y compara los resultados, que es la forma de medir si el plugin mejora el trabajo. La clase 4 las pone en práctica.</p>
 
       <div class="callout aviso"><span class="k">[ ! ] Seguridad</span><p>Un plugin amplía lo que Claude puede hacer: sus skills pueden ejecutar scripts y sus conectores, acceder a otras aplicaciones. Se instalan solo plugins de fuentes de confianza, y antes de instalar uno conviene leer su <code>README</code> y abrir sus skills.</p></div>
     </section>
@@ -893,7 +893,7 @@ Dirección Financiera</pre></div></div>
       <!-- CAPTURA PENDIENTE: el menú «/» abierto en Cowork, con las skills agrupadas por plugin -->
 
       <h3>En Claude Code: las órdenes de sesión</h3>
-      <p>Para los equipos técnicos, la pestaña «Code» tiene sus propias órdenes, que empiezan también por «/». Las instrucciones del proyecto viven allí en <code>CLAUDE.md</code>, que Claude Code lee al empezar cada sesión (el del proyecto y el del usuario; si no encuentra ninguno, lee <code>AGENTS.md</code>). Su contenido se trata como contexto, no como una regla que se cumpla siempre: lo que deba cumplirse sin excepción se configura en un hook. Claude Code tiene además una memoria automática propia, <code>MEMORY.md</code>, distinta de la memoria de la app.</p>
+      <p>Para los equipos técnicos, la pestaña «Code» tiene sus propias órdenes, que empiezan también por «/». Las instrucciones del proyecto viven allí en <code>CLAUDE.md</code>, que Claude Code lee al empezar cada sesión (el del proyecto y el del usuario; si no encuentra ninguno, lee <code>AGENTS.md</code>). Su contenido se trata como contexto, no como una regla que se cumpla siempre: lo que deba cumplirse sin excepción se configura en un hook. Claude Code tiene además una memoria automática propia, <code>MEMORY.md</code>, distinta de la memoria de la app. La clase 4 recorre la pestaña «Code» entera.</p>
       <div class="table-wrap"><table>
         <thead><tr><th>Orden</th><th>Qué hace</th><th>Cuándo usarla</th></tr></thead>
         <tbody>

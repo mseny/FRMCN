@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M6 · Clase 4 — Claude Code: el taller donde se construyen las herramientas · [m].seny /academy</title>
+<meta name="description" content="Cowork es el despacho donde se trabaja con documentos; Claude Code es el taller donde se fabrican, se prueban y se mantienen las herramientas que después usa todo el equipo. La clase recorre la pestaña «Code» de la app de escritorio con el cierre mensual de octubre.">
+<link rel="stylesheet" href="/theme.css">
+<link rel="stylesheet" href="/curso.css">
+</head>
+<body data-class="m6c4">
+<main>
+
+  <header class="hero escena">
+    <h1 class="display">Claude Code: el <em>taller</em> donde se construyen las herramientas.</h1>
+    <p class="sub">Cowork es el despacho donde se trabaja con los documentos; Code es el taller donde se fabrican, se prueban y se mantienen las herramientas —scripts con pruebas, skills y plugins— que después usa todo el equipo. Esta clase recorre la pestaña «Code» de la app de escritorio sin necesidad de saber programar.</p>
+    <ul class="esc-cifras">
+      <li><b>5</b> modos de permiso</li>
+      <li><b>4</b> entornos</li>
+      <li><b>1</b> plugin con pruebas</li>
+    </ul>
+    <div class="chips"><span class="chip">Claude Code</span><span class="chip">CLAUDE.md</span><span class="chip">Permisos</span><span class="chip">Skills</span><span class="chip">Plugins</span><span class="chip">Cowork</span></div>
+  </header>
+
+  <div class="content aire">
+
+    <!-- 01 · Code y Cowork: el despacho y el taller -->
+    <section class="sec respira" id="taller" data-label="Taller">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Code y Cowork: el mismo motor en el despacho y en el taller.</h2></div>
+      <p class="sec-intro">Claude Code no es un asistente distinto: es el mismo motor agéntico que mueve Cowork —planifica, divide el trabajo, actúa sobre archivos y comprueba el resultado—, instalado en otro lugar de trabajo. Las tres clases anteriores se hicieron en Cowork; esta se hace en Code.</p>
+
+      <div class="callout analogia"><span class="k">[ Analogía ]</span><p>En una dirección financiera conviven dos espacios. En el despacho se trabaja con los documentos: el memorándum, la conciliación, la presentación del comité. En el taller se fabrican, se ajustan y se prueban, antes de entregarlas, las herramientas con las que trabaja el despacho: la plantilla del cuadre, la macro de la hoja de gastos, el cuadro de mando. Cowork es el despacho; Code, el taller.</p></div>
+
+      <figure class="figure esquema">
+        <svg viewBox="0 0 1100 336" role="img" aria-label="Tres bloques en fila. A la izquierda, «Cowork · el despacho»: trabaja sobre un proyecto o una carpeta, produce hojas e informes y se revisa el resultado. A la derecha, destacado, «Code · el taller»: trabaja sobre una carpeta o un repositorio, produce scripts y pruebas y muestra los cambios línea a línea. En el centro, en oscuro, hace de puente lo que comparten: la cuenta y su «Personalización», con las skills, los conectores y los plugins. Una flecha va de Code a la cuenta, «se publica», y otra de la cuenta a Cowork, «lo carga». Debajo, una franja: el mismo motor agéntico en dos lugares de trabajo.">
+          <rect class="bx" x="20" y="20" width="290" height="228" rx="6"/>
+          <text class="ti" x="40" y="60">Cowork · el despacho</text>
+          <rect class="bx fill" x="34" y="84" width="262" height="40" rx="4"/><text class="lb" x="50" y="110">Proyecto o carpeta</text>
+          <rect class="bx fill" x="34" y="140" width="262" height="40" rx="4"/><text class="lb" x="50" y="166">Hojas e informes</text>
+          <rect class="bx fill" x="34" y="196" width="262" height="40" rx="4"/><text class="lb" x="50" y="222">Revisas el resultado</text>
+
+          <rect class="bx on-bx" x="790" y="20" width="290" height="228" rx="6"/>
+          <text class="ti" x="810" y="60">Code · el taller</text>
+          <rect class="bx fill" x="804" y="84" width="262" height="40" rx="4"/><text class="lb b" x="818" y="110">Carpeta o repositorio</text>
+          <rect class="bx fill" x="804" y="140" width="262" height="40" rx="4"/><text class="lb b" x="818" y="166">Scripts y pruebas</text>
+          <rect class="bx fill" x="804" y="196" width="262" height="40" rx="4"/><text class="lb b" x="818" y="222">Cambios línea a línea</text>
+
+          <rect class="fill-ink" x="450" y="20" width="200" height="228" rx="6"/>
+          <text class="ti on-dark" x="550" y="64" text-anchor="middle">La cuenta</text>
+          <text class="lb on-dark" x="550" y="100" text-anchor="middle">Personalización</text>
+          <text class="lb on-dark soft" x="550" y="152" text-anchor="middle">Skills</text>
+          <text class="lb on-dark soft" x="550" y="184" text-anchor="middle">Conectores</text>
+          <text class="lb on-dark soft" x="550" y="216" text-anchor="middle">Plugins</text>
+
+          <line class="ln ac" x1="790" y1="136" x2="652" y2="136"/>
+          <path class="ln ac" d="M660 130 L652 136 L660 142"/>
+          <text class="lb b" x="720" y="122" text-anchor="middle">se publica</text>
+          <line class="ln ac" x1="450" y1="136" x2="312" y2="136"/>
+          <path class="ln ac" d="M320 130 L312 136 L320 142"/>
+          <text class="lb b" x="380" y="122" text-anchor="middle">lo carga</text>
+
+          <rect class="bx fill" x="20" y="268" width="1060" height="48" rx="4"/>
+          <text class="lb b" x="550" y="298" text-anchor="middle">El mismo motor agéntico · dos lugares de trabajo</text>
+        </svg>
+        <figcaption>[ Diagrama 01 ] El despacho, el taller y lo que comparten</figcaption>
+      </figure>
+
+      <p>Lo que comparten —la cuenta y su «Personalización»: skills, conectores y plugins— es lo que permite que una herramienta del taller acabe en el despacho, aunque no llega sola: hay que subirla o publicarla en la cuenta (sección 07).</p>
+
+      <div class="glossary">
+        <div class="row"><h3 class="term">Terminal</h3><p class="def">La ventana en la que se dan órdenes escritas al ordenador en lugar de pulsar botones. <span class="an">[ Analogía ] La ventanilla interna en la que todo se pide por escrito y con el formulario exacto.</span></p></div>
+        <div class="row"><h3 class="term">Script</h3><p class="def">Un archivo con instrucciones que el ordenador ejecuta siempre igual. Con los mismos datos, da el mismo resultado. <span class="an">[ Ejemplo ] El que lee el extracto y el mayor y propone los ajustes de la conciliación.</span></p></div>
+        <div class="row"><h3 class="term">Prueba automática</h3><p class="def">Un pequeño programa que ejecuta la herramienta con un caso de respuesta conocida y, si el resultado no coincide, falla y lo dice. <span class="an">[ Analogía ] La cuadratura de control antes de dar un mes por cerrado.</span></p></div>
+        <div class="row"><h3 class="term">Git y repositorio<small>Control de versiones</small></h3><p class="def">Git guarda versiones de una carpeta, cada una con un mensaje que explica qué cambió; la carpeta con ese historial es un repositorio. <span class="an">[ Analogía ] El registro de versiones de un expediente, con el motivo de cada cambio.</span></p></div>
+      </div>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>Aspecto</th><th>Cowork · el despacho</th><th>Code · el taller</th></tr></thead>
+        <tbody>
+          <tr><td>Para qué</td><td>Trabajo de conocimiento: archivos, hojas de cálculo, presentaciones, investigación.</td><td>Fabricar, probar y mantener herramientas: scripts con pruebas, skills, plugins, pequeñas aplicaciones internas.</td></tr>
+          <tr><td>Dónde trabaja</td><td>Dentro de la app, sobre un proyecto o una carpeta, sin terminal.</td><td>Sobre una carpeta o un repositorio, en uno de los cuatro entornos de la sección 03.</td></tr>
+          <tr><td>Qué puede tocar</td><td>Los archivos de la carpeta o del proyecto y las aplicaciones conectadas.</td><td>Además, la terminal, git, servidores de desarrollo, la vista de cambios y las <em>pull requests</em>.</td></tr>
+          <tr><td>Modos de permiso</td><td>Tres: «Manual», automático y «Omitir» (clase 1).</td><td>Cinco: «Plan», «Manual», «Accept edits», «Auto» y «Bypass permissions» (sección 04).</td></tr>
+          <tr><td>Subagentes</td><td>Los coordina Claude solo; la persona da el objetivo y supervisa.</td><td>Se definen en <code>.claude/agents/</code> y se pueden pedir por su nombre (clase 3).</td></tr>
+        </tbody>
+      </table></div>
+
+      <p>La clase 1 lo resumía como «Code para código». En el taller, sin embargo, el código es el medio y no el fin, y no hace falta escribirlo: se explica a Claude qué debe hacer la herramienta, se lee su plan, se revisan sus cambios y se exige una prueba que demuestre que el resultado es correcto.</p>
+    </section>
+
+    <!-- 02 · La pestaña Code, zona a zona -->
+    <section class="sec respira" id="interfaz" data-label="Interfaz">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">La pestaña «Code», zona a zona.</h2></div>
+      <p class="sec-intro">En la app de escritorio, arriba a la izquierda, están las pestañas «Inicio» y «Code» (clase 1). En «Code», la barra lateral lista sesiones, la conversación ocupa el centro, los paneles se abren a la derecha y una barra bajo el cuadro de prompt decide dónde y cómo trabaja Claude. Las etiquetas de la pestaña solo se conocen en inglés y se citan tal cual, entre comillas.</p>
+
+      <!-- CAPTURA PENDIENTE: pestaña Code sin sesión, con la barra lateral -->
+      <figure class="figure esquema">
+        <svg viewBox="0 0 1000 520" role="img" aria-label="Esquema dibujado, no captura, de la pestaña Code de la app de escritorio. Arriba, las pestañas Inicio y Code, con Code activa. Zona 1, a la izquierda, la barra lateral: el botón + New para abrir una sesión, la lista de sesiones, Scheduled para las tareas programadas, la personalización y las sesiones archivadas. Zona 2, en el centro, la conversación de la sesión y, debajo, el cuadro de prompt con el botón +. Zona 3, bajo el cuadro, la barra de la sesión con el entorno, la carpeta, el modo de permiso y el modelo. Zona 4, a la derecha, los paneles Changes, abierto, Terminal, Browser y Files; en el panel abierto, una línea que se quita, 1.254,00, y otra que se añade, 1.524,00.">
+          <rect class="bx" x="20" y="20" width="960" height="480" rx="8"/>
+          <line class="ln" x1="20" y1="66" x2="980" y2="66"/>
+          <rect class="bx fill" x="36" y="31" width="100" height="26" rx="13"/>
+          <text class="lb b" x="86" y="50" text-anchor="middle">Inicio</text>
+          <rect class="fill-ink" x="144" y="31" width="88" height="26" rx="13"/>
+          <text class="lb on-dark" x="188" y="50" text-anchor="middle">Code</text>
+          <line class="ln" x1="252" y1="66" x2="252" y2="500"/>
+          <line class="ln" x1="700" y1="66" x2="700" y2="500"/>
+
+          <rect class="bx fill" x="36" y="82" width="200" height="34" rx="4"/>
+          <text class="lb b" x="52" y="105">+ New</text>
+          <text class="lb" x="36" y="148">sesiones</text>
+          <rect class="bx fill" x="36" y="158" width="200" height="28" rx="4"/><line class="ln" x1="50" y1="172" x2="170" y2="172"/>
+          <rect class="bx fill" x="36" y="194" width="200" height="28" rx="4"/><line class="ln" x1="50" y1="208" x2="200" y2="208"/>
+          <rect class="bx fill" x="36" y="230" width="200" height="28" rx="4"/><line class="ln" x1="50" y1="244" x2="140" y2="244"/>
+          <text class="lb b" x="36" y="300">Scheduled</text>
+          <text class="lb" x="36" y="336">personalización</text>
+          <text class="lb" x="36" y="372">archivadas</text>
+          <circle class="fill-ink" cx="50" cy="468" r="14"/><text class="lb on-dark" x="50" y="474" text-anchor="middle">1</text>
+          <text class="lb b" x="74" y="474">Barra lateral</text>
+
+          <circle class="fill-ink" cx="284" cy="100" r="14"/><text class="lb on-dark" x="284" y="106" text-anchor="middle">2</text>
+          <text class="lb b" x="308" y="106">Conversación y prompt</text>
+          <rect class="bx fill" x="566" y="84" width="114" height="40" rx="6"/><line class="ln" x1="582" y1="104" x2="664" y2="104"/>
+          <line class="ln" x1="276" y1="158" x2="664" y2="158"/>
+          <line class="ln" x1="276" y1="182" x2="640" y2="182"/>
+          <line class="ln" x1="276" y1="206" x2="590" y2="206"/>
+          <line class="ln" x1="276" y1="230" x2="520" y2="230"/>
+          <text class="lb" x="276" y="280">cuadro de prompt</text>
+          <rect class="bx fill" x="270" y="296" width="412" height="96" rx="8"/>
+          <line class="ln" x1="290" y1="328" x2="520" y2="328"/>
+          <text class="lb b" x="290" y="378">+</text>
+          <circle class="bx" cx="656" cy="370" r="13"/>
+          <rect class="bx fill" x="270" y="404" width="96" height="30" rx="15"/><text class="lb" x="318" y="425" text-anchor="middle">entorno</text>
+          <rect class="bx fill" x="374" y="404" width="96" height="30" rx="15"/><text class="lb" x="422" y="425" text-anchor="middle">carpeta</text>
+          <rect class="bx fill" x="478" y="404" width="96" height="30" rx="15"/><text class="lb" x="526" y="425" text-anchor="middle">modo</text>
+          <rect class="bx fill" x="582" y="404" width="100" height="30" rx="15"/><text class="lb" x="632" y="425" text-anchor="middle">modelo</text>
+          <circle class="fill-ink" cx="284" cy="468" r="14"/><text class="lb on-dark" x="284" y="474" text-anchor="middle">3</text>
+          <text class="lb b" x="308" y="474">Barra de la sesión</text>
+
+          <rect class="fill-ink" x="716" y="82" width="248" height="34" rx="4"/><text class="lb on-dark" x="732" y="105">Changes</text>
+          <rect class="bx fill" x="716" y="124" width="248" height="34" rx="4"/><text class="lb b" x="732" y="147">Terminal</text>
+          <rect class="bx fill" x="716" y="166" width="248" height="34" rx="4"/><text class="lb b" x="732" y="189">Browser</text>
+          <rect class="bx fill" x="716" y="208" width="248" height="34" rx="4"/><text class="lb b" x="732" y="231">Files</text>
+          <rect class="bx" x="716" y="258" width="248" height="176" rx="4"/>
+          <text class="lb" x="734" y="292">− 1.254,00</text>
+          <text class="lb b" x="734" y="322">+ 1.524,00</text>
+          <line class="ln" x1="734" y1="354" x2="930" y2="354"/>
+          <line class="ln" x1="734" y1="378" x2="890" y2="378"/>
+          <line class="ln" x1="734" y1="402" x2="910" y2="402"/>
+          <circle class="fill-ink" cx="730" cy="468" r="14"/><text class="lb on-dark" x="730" y="474" text-anchor="middle">4</text>
+          <text class="lb b" x="754" y="474">Paneles</text>
+        </svg>
+        <figcaption>[ Diagrama 02 ] Esquema de la pestaña Code, no una captura: en inglés, los rótulos de la interfaz; en minúscula, la función de cada zona; en «Changes», la corrección del alquiler de Lisboa</figcaption>
+      </figure>
+
+      <h3>Lo esencial</h3>
+      <div class="grid-cards two">
+        <div class="card ink">
+          <span class="k">[ 1 ] Barra lateral</span>
+          <h4>Las sesiones, en paralelo</h4>
+          <p>Lista las sesiones —cada una, una conversación con su carpeta— para trabajar en varias a la vez; debajo, las tareas programadas, la personalización y las archivadas. <strong>Cuándo:</strong> para pasar de un trabajo a otro sin mezclar contextos (sección 03).</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ 2 ] Conversación y cuadro de prompt</span>
+          <h4>Pedir, parar y corregir en marcha</h4>
+          <p>En el centro, la conversación y, debajo, el cuadro de prompt: Enter envía, el botón de parar interrumpe y, si se envía una corrección mientras Claude trabaja, la tiene en cuenta al terminar la acción en curso. «@» menciona archivos y Tab acepta las sugerencias de prompt. <strong>Cuándo:</strong> siempre; corregir sobre la marcha ahorra volver a empezar.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ 3 ] Barra de la sesión</span>
+          <h4>Dónde y cómo trabaja Claude</h4>
+          <p>Bajo el cuadro, en este orden: el entorno, la carpeta del proyecto (en la nube, los repositorios), el modo de permiso y el modelo. <strong>Cuándo:</strong> antes del primer mensaje, porque decide sobre qué archivos trabaja Claude y con cuánta autonomía.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ 4 ] Paneles</span>
+          <h4>Ver lo que pasa</h4>
+          <p>A la derecha, «Changes», «Terminal», «Browser» y «Files». <strong>Cuándo:</strong> «Changes», antes de aceptar cualquier cambio; los demás, según el trabajo (sección 05).</p>
+        </div>
+      </div>
+
+      <h3>El menú «+» del cuadro</h3>
+      <p>Como en Cowork, el botón «+» da a Claude lo que necesita antes de pedirle nada:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Opción</th><th>Qué hace</th><th>Cuándo usarla</th></tr></thead>
+        <tbody>
+          <tr><td>«Add files or photos»</td><td>Adjunta archivos o imágenes al mensaje.</td><td>Para enseñar un ejemplo, la captura de un error o el modelo de un informe.</td></tr>
+          <tr><td>«Slash commands»</td><td>Muestra los comandos que empiezan por «/» (sección 06).</td><td>Cuando no se recuerda el nombre de un comando o de una skill.</td></tr>
+          <tr><td>«Add connectors»</td><td>Activa conectores en la sesión.</td><td>Cuando la herramienta necesita datos de otra aplicación.</td></tr>
+          <tr><td>«Add plugins»</td><td>Añade plugins a la sesión.</td><td>Para probar un plugin antes de repartirlo (sección 07).</td></tr>
+          <tr><td>«Add folder»</td><td>Añade una carpeta de trabajo a la sesión.</td><td>Cuando los datos de entrada están en otra carpeta del equipo.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Otras formas de usar Claude Code</h3>
+      <p>Las demás superficies usan el mismo motor, el mismo <code>CLAUDE.md</code> y los mismos ajustes; solo cambia dónde se escribe.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Superficie</th><th>Qué es</th><th>Para quién</th></tr></thead>
+        <tbody>
+          <tr><td>Terminal y extensiones de VS Code y JetBrains</td><td>La terminal es la versión completa y automatizable; las extensiones llevan Claude Code al editor de código.</td><td>Equipos técnicos.</td></tr>
+          <tr><td>Web (<code>claude.ai/code</code>) y móvil</td><td>Desde el navegador y el teléfono; por ejemplo, para seguir una sesión con Remote Control (sección 03).</td><td>Quien trabaja fuera de su mesa.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 03 · Sesiones -->
+    <section class="sec respira" id="sesiones" data-label="Sesiones">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Sesiones: cada trabajo con su carpeta y su historial.</h2></div>
+      <p class="sec-intro">En la pestaña «Code», cada conversación es una sesión, con su propio historial y su carpeta. Separar los trabajos en sesiones permite tener abiertas a la vez la herramienta de conciliación y un tablero de ventas sin que Claude mezcle una cosa con otra.</p>
+
+      <div class="stepper">
+        <div class="step"><span class="n">01</span><h4>Abrir</h4><p>«+ New» en la barra lateral, o Ctrl+N.</p></div>
+        <div class="step"><span class="n">02</span><h4>Entorno</h4><p>«Local» para trabajar con los archivos del equipo.</p></div>
+        <div class="step"><span class="n">03</span><h4>Carpeta</h4><p>La del proyecto.</p></div>
+        <div class="step"><span class="n">04</span><h4>Worktree</h4><p>Un interruptor, solo si la carpeta es un repositorio git.</p></div>
+        <div class="step final"><span class="n">[✓]</span><h4>Modo y modelo</h4><p>En la barra de la sesión, antes de escribir.</p></div>
+      </div>
+
+      <h3>Los cuatro entornos</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Entorno</th><th>Dónde se ejecuta</th><th>Cuándo usarlo</th></tr></thead>
+        <tbody>
+          <tr><td>«Local»</td><td>En el propio equipo, sobre una carpeta local.</td><td>Lo habitual para un profesional: los archivos del cierre están en su ordenador. Es el de esta clase.</td></tr>
+          <tr><td>«Cloud»</td><td>En la infraestructura de Anthropic. Sigue trabajando aunque se cierre la app y admite varios repositorios.</td><td>Cuando el proyecto vive en un repositorio y el trabajo es largo o no debe depender del equipo.</td></tr>
+          <tr><td>«SSH»</td><td>En una máquina remota.</td><td>Equipos técnicos.</td></tr>
+          <tr><td>«WSL»</td><td>En Linux, dentro de Windows.</td><td>Equipos técnicos.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Worktree: trabajar sobre una copia</h3>
+      <div class="lectura">
+        <aside class="margen">
+          <span class="k">Al margen</span>
+          El ejercicio 8 del laboratorio convierte en repositorio la carpeta de la práctica.
+        </aside>
+        <div>
+          <p>Con el interruptor de worktree, que se activa antes de empezar y solo en un repositorio git, Claude trabaja en una copia aislada del proyecto, con su propia rama (por defecto, en <code>.claude/worktrees/</code>), sin tocar el original; al terminar, la copia se conserva o se borra. Así se prueban dos cambios a la vez, en dos sesiones, sin que uno pise al otro.</p>
+          <div class="callout analogia"><span class="k">[ Analogía ]</span><p>Trabajar sobre una fotocopia del expediente: se subraya, se tacha y se prueba en la copia, y el original sigue limpio en el archivador hasta que la copia convence.</p></div>
+        </div>
+      </div>
+
+      <h3>Ordenar y seguir las sesiones</h3>
+      <ul class="list-mono">
+        <li class="check">Vista dividida («Open in» → «Split view», en el menú de la sesión), y agrupar, ordenar, buscar y renombrar sesiones (con un clic en el título) en la barra lateral.</li>
+        <li class="check">«Archive» para las que ya no se usan; «Auto-archive after PR merge or close», en los ajustes, archiva solo al cerrarse el trabajo en GitHub.</li>
+        <li class="check">Notificaciones del sistema cuando una sesión termina.</li>
+        <li class="check">Los ajustes de la pestaña están en Configuración → «Claude Code» (clase 1); ninguno hace falta para empezar.</li>
+      </ul>
+
+      <div class="card dim">
+        <span class="k">[ Remote Control ]</span>
+        <h4>Seguir la sesión desde fuera de la mesa</h4>
+        <p>Una sesión local se sigue y se dirige desde <code>claude.ai/code</code> o desde la app del móvil mientras Claude sigue trabajando en el equipo. Se activa con <code>/remote-control</code> o, para las sesiones nuevas, en los ajustes. En Team y Enterprise lo habilita antes un propietario: si no aparece, es una decisión de la organización, no un fallo de la app.</p>
+      </div>
+    </section>
+
+    <!-- 04 · Permisos -->
+    <section class="sec respira" id="permisos" data-label="Permisos">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Permisos: cuánta autonomía se le da a Claude en el taller.</h2></div>
+      <p class="sec-intro">Cowork tiene tres modos de permiso; Code, cinco, porque en el taller Claude ejecuta órdenes, instala bibliotecas y modifica scripts, y conviene graduar qué hace por su cuenta. El modo se elige en la barra de la sesión y se cambia en cualquier momento.</p>
+
+      <figure class="figure esquema">
+        <svg viewBox="0 48 1000 418" role="img" aria-label="Escalera de cinco peldaños que sube de izquierda a derecha, de menos a más autonomía. 01, Plan, con borde de acento: lee y propone. 02, Manual, destacado en oscuro: pregunta antes. 03, Accept edits, destacado en oscuro: edita y se revisa después. 04, Auto: un clasificador revisa. 05, Bypass permissions, con borde discontinuo: sin avisos. Una flecha vertical indica más autonomía hacia arriba. Leyenda: en oscuro, la recomendación oficial para empezar; con borde discontinuo, el modo que hay que evitar; con borde de acento, el modo para preparar una tarea compleja, donde empieza el laboratorio.">
+          <path class="ln ac" d="M64 300 V88"/>
+          <path class="ln ac" d="M58 98 L64 88 L70 98"/>
+          <text class="lb b" x="84" y="104">Más autonomía</text>
+
+          <rect class="bx fill on-bx" x="40" y="320" width="540" height="52" rx="4"/>
+          <text class="lb" x="58" y="353">01</text>
+          <text class="ti" x="96" y="354">Plan</text>
+          <text class="lb" x="310" y="353">Lee y propone</text>
+
+          <rect class="fill-ink" x="130" y="258" width="540" height="52" rx="4"/>
+          <text class="lb on-dark soft" x="148" y="291">02</text>
+          <text class="ti on-dark" x="186" y="292">Manual</text>
+          <text class="lb on-dark" x="400" y="291">Pregunta antes</text>
+
+          <rect class="fill-ink" x="220" y="196" width="540" height="52" rx="4"/>
+          <text class="lb on-dark soft" x="238" y="229">03</text>
+          <text class="ti on-dark" x="276" y="230">Accept edits</text>
+          <text class="lb on-dark" x="490" y="229">Edita; revisas después</text>
+
+          <rect class="bx fill" x="310" y="134" width="540" height="52" rx="4"/>
+          <text class="lb" x="328" y="167">04</text>
+          <text class="ti" x="366" y="168">Auto</text>
+          <text class="lb" x="580" y="167">Un clasificador revisa</text>
+
+          <rect class="ln" x="400" y="72" width="540" height="52" rx="4" stroke-dasharray="6 6"/>
+          <text class="lb" x="418" y="105">05</text>
+          <text class="ti" x="456" y="106">Bypass permissions</text>
+          <text class="lb" x="690" y="105">Sin avisos</text>
+
+          <rect class="fill-ink" x="40" y="398" width="22" height="18" rx="2"/>
+          <text class="lb" x="72" y="413">Recomendación oficial para empezar</text>
+          <rect class="ln" x="560" y="398" width="22" height="18" rx="2" stroke-dasharray="4 3"/>
+          <text class="lb" x="592" y="413">Evitar</text>
+          <rect class="bx fill on-bx" x="40" y="430" width="22" height="18" rx="2"/>
+          <text class="lb" x="72" y="445">Para preparar una tarea compleja (el laboratorio empieza aquí)</text>
+        </svg>
+        <figcaption>[ Diagrama 03 ] Los cinco modos de Code, de menos a más autonomía</figcaption>
+      </figure>
+
+      <div class="callout analogia"><span class="k">[ Analogía ]</span><p>Los niveles de autorización de pagos de un departamento. En «Plan», el colaborador presenta una propuesta y no paga nada; en «Manual», cada pago lleva firma previa; en «Accept edits», los pagos habituales salen sin firma y se revisan al cierre del día; en «Auto», un control automático filtra cada pago; en «Bypass permissions», se entrega un talonario firmado en blanco.</p></div>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>Modo</th><th>Qué hace</th><th>Cuándo usarlo</th><th>Con cuidado</th></tr></thead>
+        <tbody>
+          <tr><td>«Plan»</td><td>Explora la carpeta y propone un plan sin editar nada.</td><td>Al empezar una tarea compleja, antes de tocar nada.</td><td>Hay que leer el plan y corregirlo antes de aprobarlo.</td></tr>
+          <tr><td>«Manual»</td><td>Pregunta antes de editar, de ejecutar una orden y de leer o escribir fuera de la carpeta de trabajo.</td><td>Al empezar con Claude Code y siempre que haya datos reales de la empresa.</td><td>Un comando aprobado puede escribir en cualquier lugar al que el usuario tenga acceso.</td></tr>
+          <tr><td>«Accept edits»</td><td>Acepta por sí mismo las ediciones y las órdenes habituales sobre archivos.</td><td>Con el plan aprobado y el rumbo claro.</td><td>La revisión no desaparece: se hace después, en «Changes».</td></tr>
+          <tr><td>«Auto»</td><td>Un clasificador revisa cada acción y decide si la permite.</td><td>Tareas largas de poco riesgo, con archivos de prueba.</td><td>No garantiza la seguridad, y los administradores pueden desactivarlo.</td></tr>
+          <tr><td>«Bypass permissions»</td><td>Trabaja sin ningún aviso.</td><td>En este curso, nunca.</td><td>En Team y Enterprise lo controla la política de la organización, y en la nube no existe.</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout regla"><span class="k">[ Recomendación oficial ]</span><p>Empezar en «Manual» y pasar a «Accept edits» revisando los cambios; preparar en «Plan» las tareas complejas. Y una responsabilidad que no se delega: quien usa Claude Code revisa el código y las órdenes que propone Claude antes de aprobarlos.</p></div>
+
+      <h3>Frente a los modos de Cowork (lectura del curso)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Cowork (clase 1)</th><th>Code</th><th>Lo que cambia</th></tr></thead>
+        <tbody>
+          <tr><td>«Manual»</td><td>«Manual»</td><td>En los dos, Claude pide aprobación antes de actuar.</td></tr>
+          <tr><td>Automático</td><td>«Auto»</td><td>En los dos, algo revisa por la persona; en Code, un clasificador.</td></tr>
+          <tr><td>«Omitir»</td><td>«Bypass permissions»</td><td>Sin aprobaciones; en Code, bajo el control de la organización.</td></tr>
+          <tr><td>—</td><td>«Plan» y «Accept edits»</td><td>Solo existen en Code.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 05 · Paneles -->
+    <section class="sec respira" id="paneles" data-label="Paneles">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Paneles: ver lo que cambia antes de aceptarlo.</h2></div>
+      <p class="sec-intro">Los paneles de la derecha enseñan lo que Claude hace mientras lo hace: los cambios línea a línea, la terminal, la vista previa de una web y los archivos de la carpeta. Se arrastran y se redimensionan a gusto.</p>
+
+      <div class="callout analogia"><span class="k">[ Analogía ]</span><p>Revisar los cambios de Claude es revisar el control de cambios de un documento antes de aceptarlo: lo tachado en rojo, lo añadido en verde y un comentario al margen donde algo no convence.</p></div>
+
+      <h3>Lo esencial</h3>
+      <div class="grid-cards three">
+        <div class="card ink">
+          <span class="k">[ «Changes» ]</span>
+          <h4>Los cambios, línea a línea</h4>
+          <p>Lo que se quita y lo que se añade en la sesión. <strong>Cuándo:</strong> antes de aceptar cualquier cambio.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ «Terminal» ]</span>
+          <h4>Las órdenes, a la vista</h4>
+          <p>Comparte la carpeta y el entorno con Claude. <strong>Cuándo:</strong> para ejecutar uno mismo la prueba y ver el resultado sin intermediarios.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ «Browser» ]</span>
+          <h4>La vista previa de una web</h4>
+          <p>Claude arranca un servidor de desarrollo y verifica sus cambios en una vista previa; la configuración va en <code>.claude/launch.json</code>. <strong>Cuándo:</strong> al construir un tablero interno sencillo.</p>
+        </div>
+      </div>
+
+      <!-- CAPTURA PENDIENTE: panel «Changes» abierto con un diff en rojo y verde y un comentario en una línea -->
+      <h3>Revisar un cambio</h3>
+      <div class="flow">
+        <div class="node"><span class="k">01</span><h4>Abrir</h4><p>Los contadores de líneas abren «Changes».</p></div><span class="arrow" aria-hidden="true">→</span>
+        <div class="node"><span class="k">02</span><h4>Leer</h4><p>Rojo, lo que se quita; verde, lo que se añade.</p></div><span class="arrow" aria-hidden="true">→</span>
+        <div class="node"><span class="k">03</span><h4>Comentar</h4><p>Un comentario en la línea que no convence.</p></div><span class="arrow" aria-hidden="true">→</span>
+        <div class="node"><span class="k">04</span><h4>Enviar</h4><p>Los comentarios llegan a Claude, que corrige.</p></div><span class="arrow" aria-hidden="true">→</span>
+        <div class="node ink"><span class="k">05</span><h4>Revisar</h4><p><code>/code-review</code> muestra hallazgos y permite aplicar correcciones.</p></div>
+      </div>
+
+      <h3>El resto de los paneles</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Panel o función</th><th>Qué hace</th><th>Cuándo usarlo</th></tr></thead>
+        <tbody>
+          <tr><td>«Files»</td><td>Abre y edita los archivos de la carpeta, con guardado automático.</td><td>Para leer el <code>CLAUDE.md</code> o retocar una línea sin pedírselo a Claude.</td></tr>
+          <tr><td>«Background tasks»</td><td>Lista los subagentes y las órdenes en segundo plano.</td><td>Para saber si algo largo sigue en marcha.</td></tr>
+          <tr><td>«Plan»</td><td>Muestra el plan de la sesión.</td><td>Para releer lo aprobado mientras Claude lo ejecuta.</td></tr>
+          <tr><td>Pull request y CI</td><td>Estado de la <em>pull request</em>, «Auto-fix» para las comprobaciones fallidas y fusión automática; requiere GitHub.</td><td>Equipos técnicos.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>El ciclo del taller</h3>
+      <p>Con los modos de la sección 04 y el panel «Changes», el método de la clase cabe en cuatro pasos, los que sigue el laboratorio en los ejercicios 2 a 5.</p>
+      <figure class="figure esquema">
+        <svg viewBox="0 0 1000 508" role="img" aria-label="Ciclo de cuatro pasos, de arriba abajo. 01, «Plan»: Claude propone y la persona lee el plan y lo corrige. 02, «Manual» o «Accept edits»: Claude construye el script y la prueba. 03, «Changes»: la persona lee el rojo y el verde y comenta. 04, la prueba, con borde de acento: exige 376.334,62 euros y +6.202,50 euros. Si la prueba pasa, una flecha baja a «Se acepta», en oscuro. Si falla, una flecha vuelve al paso 02: se corrige el script, no la prueba.">
+          <rect class="bx fill" x="40" y="24" width="580" height="76" rx="4"/>
+          <text class="lb" x="60" y="56">01</text>
+          <text class="ti" x="104" y="57">«Plan»</text>
+          <text class="lb" x="104" y="86">Claude propone; lees y corriges</text>
+
+          <rect class="bx fill" x="40" y="124" width="580" height="76" rx="4"/>
+          <text class="lb" x="60" y="156">02</text>
+          <text class="ti" x="104" y="157">«Manual» o «Accept edits»</text>
+          <text class="lb" x="104" y="186">Claude construye el script y la prueba</text>
+
+          <rect class="bx fill" x="40" y="224" width="580" height="76" rx="4"/>
+          <text class="lb" x="60" y="256">03</text>
+          <text class="ti" x="104" y="257">«Changes»</text>
+          <text class="lb" x="104" y="286">Lees el rojo y el verde; comentas</text>
+
+          <rect class="bx fill on-bx" x="40" y="324" width="580" height="76" rx="4"/>
+          <text class="lb" x="60" y="356">04</text>
+          <text class="ti" x="104" y="357">La prueba</text>
+          <text class="lb b" x="104" y="386">Exige 376.334,62 € y +6.202,50 €</text>
+
+          <path class="ln" d="M330 100 V123 M330 200 V223 M330 300 V323"/>
+          <path class="ln" d="M324 115 L330 123 L336 115 M324 215 L330 223 L336 215 M324 315 L330 323 L336 315"/>
+
+          <path class="ln ac" d="M330 400 V437"/>
+          <path class="ln ac" d="M324 429 L330 437 L336 429"/>
+          <text class="lb b" x="346" y="425">Pasa</text>
+          <rect class="fill-ink" x="230" y="438" width="200" height="52" rx="4"/>
+          <text class="ti on-dark" x="330" y="471" text-anchor="middle">Se acepta</text>
+
+          <path class="ln ac" d="M620 362 H700 V162 H622"/>
+          <path class="ln ac" d="M630 156 L622 162 L630 168"/>
+          <text class="lb b" x="720" y="238">Falla: vuelve a 02</text>
+          <text class="lb" x="720" y="266">Se corrige el script,</text>
+          <text class="lb" x="720" y="292">no la prueba</text>
+        </svg>
+        <figcaption>[ Diagrama 04 ] El ciclo del taller: la prueba decide y, si falla, se corrige el script, no la prueba</figcaption>
+      </figure>
+
+      <div class="callout regla"><span class="k">[ Regla de trabajo ]</span><p>Ningún cambio se acepta sin haber pasado por «Changes». En una herramienta que calcula cifras, una línea que parece inocente puede mover un importe; el único modo de saberlo es leerla.</p></div>
+    </section>
+
+    <!-- 06 · CLAUDE.md y comandos -->
+    <section class="sec respira" id="memoria" data-label="CLAUDE.md">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">CLAUDE.md: las normas del proyecto, por escrito.</h2></div>
+      <p class="sec-intro">Una sesión nueva no arrastra la conversación de las anteriores. Lo que Claude debe saber siempre de un proyecto se escribe una vez en <code>CLAUDE.md</code>, que Claude lee al empezar cada sesión; si la carpeta no lo tiene pero sí un <code>AGENTS.md</code>, lee ese. <code>/init</code> lo genera a partir del proyecto y <code>/memory</code> lo abre para editarlo.</p>
+
+      <div class="lectura">
+        <aside class="margen">
+          <span class="k">Cómo leerlo</span>
+          1 · Los originales se declaran de solo lectura: es la norma que más protege.<br><br>
+          2 · El formato de cifras evita que cada sesión invente el suyo.
+        </aside>
+        <div class="code wrap"><div class="ch"><span class="k">[ Ejemplo · CLAUDE.md del cierre ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre><span class="hl"># Herramienta de conciliación del cierre</span>
+
+<span class="hl">## Rol</span>
+Trabajas para Dirección Financiera: mantienes la herramienta que concilia
+el extracto bancario con el mayor de bancos (cuenta 572) en cada cierre.
+
+<span class="hl">## Carpetas y archivos</span>
+- extracto-bancario-octubre.csv y mayor-bancos-octubre.xlsx: originales,
+  de solo lectura. No los modifiques nunca.
+- informes/: los informes que genera la herramienta.
+
+<span class="hl">## Normas</span>
+- Aplica las normas de cierre 4.2, 4.3 y 4.4.
+- Importes en euros con dos decimales, punto de millar y coma decimal:
+  376.334,62 €.
+
+<span class="hl">## Pruebas</span>
+- Ejecuta la prueba antes de dar por terminado cualquier cambio.
+- Con los archivos de octubre, la prueba exige: saldo del banco 376.334,62 €,
+  ajustes netos +6.202,50 € y cinco partidas.
+- Si la prueba falla, corrige el script; no cambies la prueba sin permiso.</pre></div>
+      </div>
+
+      <div class="callout nota"><span class="k">[ Contexto, no candado ]</span><p>Claude tiene muy presente <code>CLAUDE.md</code>, pero lo trata como contexto, no como una regla que se cumpla siempre por fuerza: lo que deba cumplirse sin excepción va en un hook (clase 3), y lo que no debe tocarse se protege también con el modo de permiso.</p></div>
+
+      <h3>Los comandos que más se usan</h3>
+      <p>En el cuadro de prompt, un mensaje que empieza por «/» es un comando. Los que más sirven a quien no programa:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Comando</th><th>Qué hace</th><th>Cuándo usarlo</th></tr></thead>
+        <tbody>
+          <tr><td><code>/init</code></td><td>Genera un <code>CLAUDE.md</code> a partir del proyecto.</td><td>En un proyecto que no lo tiene.</td></tr>
+          <tr><td><code>/memory</code></td><td>Abre <code>CLAUDE.md</code> para editarlo.</td><td>Cuando cambia una norma.</td></tr>
+          <tr><td><code>/compact</code></td><td>Resume la conversación para liberar contexto.</td><td>En una sesión larga, sin cambiar de tema.</td></tr>
+          <tr><td><code>/clear</code></td><td>Empieza con el contexto vacío.</td><td>Al pasar a otro trabajo.</td></tr>
+          <tr><td><code>/context</code></td><td>Muestra qué ocupa el contexto.</td><td>Para ver si los plugins o los archivos lo llenan.</td></tr>
+          <tr><td><code>/model</code></td><td>Cambia el modelo y el esfuerzo.</td><td>Más esfuerzo para el plan; menos para un cambio mecánico.</td></tr>
+          <tr><td><code>/plugin</code></td><td>Gestiona los plugins (sección 07).</td><td>Para instalar, activar o revisar uno.</td></tr>
+          <tr><td><code>/skills</code></td><td>Lista las skills disponibles.</td><td>Para ver cuáles tiene la sesión.</td></tr>
+          <tr><td><code>/schedule</code></td><td>Crea tareas en la nube (sección 08).</td><td>Para comprobaciones que no dependan del equipo.</td></tr>
+          <tr><td><code>/code-review</code></td><td>Revisa los cambios y propone correcciones.</td><td>Antes de dar por bueno un cambio.</td></tr>
+          <tr><td><code>/remote-control</code></td><td>Activa el control remoto (sección 03).</td><td>Para seguir la sesión desde el móvil o la web.</td></tr>
+          <tr><td><code>/doctor</code></td><td>Revisa la instalación y el <code>CLAUDE.md</code>.</td><td>Cuando algo no se carga.</td></tr>
+          <tr><td><code>/btw</code></td><td>Hace una pregunta lateral sin desviar la tarea.</td><td>Para una duda mientras Claude trabaja.</td></tr>
+        </tbody>
+      </table></div>
+      <p>En la app no funcionan los comandos que abren un diálogo propio de la terminal; «Slash commands», en el menú «+», muestra los que sí funcionan en la sesión.</p>
+    </section>
+
+    <!-- 07 · Skills y plugins en Code -->
+    <section class="sec respira" id="skills" data-label="Plugins">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Skills y plugins en Code: fabricar, probar y repartir.</h2></div>
+      <p class="sec-intro">La clase 3 convirtió un proceso en una skill dentro de un plugin, desde Cowork, y explicó su anatomía. En el taller se hace lo mismo con garantías: la skill se guarda con el proyecto y el plugin se valida y se mide antes de repartirlo.</p>
+
+      <h3>Dónde viven las skills</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Origen</th><th>Dónde está</th><th>Quién la tiene</th></tr></thead>
+        <tbody>
+          <tr><td>Personal</td><td><code>~/.claude/skills/&lt;nombre&gt;/SKILL.md</code></td><td>Solo esa persona, en ese equipo y en todos sus proyectos.</td></tr>
+          <tr><td>Del proyecto</td><td><code>.claude/skills/&lt;nombre&gt;/SKILL.md</code></td><td>Quien trabaje con el proyecto: la skill se versiona con él.</td></tr>
+          <tr><td>De un plugin</td><td><code>&lt;plugin&gt;/skills/</code></td><td>Quien tenga el plugin; se invoca con <code>/plugin:skill</code>.</td></tr>
+          <tr><td>Sincronizada de la cuenta</td><td><code>~/.claude/skills/synced/</code>; los plugins llegan como <code>nombre@synced</code></td><td>Lo activado en «Personalización» de la cuenta.</td></tr>
+        </tbody>
+      </table></div>
+      <p>El signo <code>~</code> es la carpeta personal del usuario; en el taller, la skill más útil es la del proyecto, que viaja con la carpeta.</p>
+
+      <h3>Campos que entiende Code</h3>
+      <p>Además de <code>name</code> y <code>description</code>, la cabecera de una skill admite en Code estos campos:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Campo</th><th>Qué hace</th><th>Cuándo usarlo</th></tr></thead>
+        <tbody>
+          <tr><td><code>disable-model-invocation: true</code></td><td>Solo la lanza la persona, con <code>/nombre</code>; Claude no la carga por su cuenta.</td><td>En skills con efectos: mover, archivar o modificar archivos.</td></tr>
+          <tr><td><code>allowed-tools</code></td><td>Herramientas que Claude usa sin pedir permiso durante ese turno.</td><td>Con mesura: cada una es una pregunta menos.</td></tr>
+          <tr><td><code>user-invocable: false</code>, <code>model</code>, <code>effort</code>, <code>when_to_use</code>, <code>argument-hint</code></td><td>Que solo la lance Claude; el modelo y el esfuerzo; cuándo usarla; una pista de sus argumentos.</td><td>Para skills auxiliares que solo usa Claude, o para afinar una que ya funciona.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="code wrap"><div class="ch"><span class="k">[ Lectura · una skill con efectos ]</span></div><pre><span class="cm">---</span>
+<span class="hl">name:</span> archivar-cierre
+<span class="hl">description:</span> Mueve los archivos del cierre de un mes a la carpeta de cierres archivados y deja un índice. Úsala cuando Dirección Financiera dé el cierre por terminado.
+<span class="hl">disable-model-invocation:</span> true
+<span class="cm">---</span></pre></div>
+      <p>Así, Claude no archivará un cierre porque una conversación «encajaba» con la descripción: la skill solo se ejecuta cuando alguien escribe <code>/archivar-cierre</code>.</p>
+
+      <h3>Instalar dentro de Code</h3>
+      <ul class="list-mono">
+        <li class="check">Se añade con «+» → «Add plugins» o con <code>/plugin</code> (pestañas «Discover», «Installed», «Marketplaces» y «Errors»); tras cambiarlo, <code>/reload-plugins</code> lo recarga sin cerrar la sesión.</li>
+        <li class="check">El manifiesto, <code>.claude-plugin/plugin.json</code>, exige un <code>name</code> en minúsculas y con guiones; los demás campos son opcionales. Las piezas van en <code>skills/</code>, <code>agents/</code>, <code>hooks/hooks.json</code> y <code>.mcp.json</code> (clase 3).</li>
+        <li class="cross">Cada plugin habilitado añade el nombre y la descripción de sus skills al contexto de cada turno: los que no se usan, se desactivan.</li>
+      </ul>
+
+      <h3>Probar antes de repartir</h3>
+      <div class="grid-cards two">
+        <div class="card ink">
+          <span class="k">[ ¿Está bien hecho? ]</span>
+          <h4><code>claude plugin validate</code></h4>
+          <p>Revisa la estructura: el manifiesto, las carpetas, las cabeceras. Una pasada limpia termina con «Validation passed». <strong>Cuándo:</strong> cada vez que se cambia el plugin, antes de subirlo.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ ¿Sirve para algo? ]</span>
+          <h4><code>claude plugin eval</code></h4>
+          <p>Ejecuta casos con el plugin y sin él y da dos puntuaciones, WITH y W/OUT, y su diferencia, con un informe. <strong>Cuándo:</strong> antes de publicarlo, para saber cuánto aporta.</p>
+        </div>
+      </div>
+      <p>Para una skill suelta, el equivalente es la skill de creación de skills, que se instala en Code desde el marketplace oficial y compara, con casos guardados, el resultado con la skill y sin ella.</p>
+      <div class="callout analogia"><span class="k">[ Analogía ]</span><p><code>validate</code> comprueba que el formulario está bien rellenado; <code>eval</code>, que con ese formulario el trámite sale mejor que sin él. Un plugin puede pasar la primera prueba y suspender la segunda.</p></div>
+
+      <h3>Repartir</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Vía</th><th>A quién llega</th><th>Cómo le llega</th></tr></thead>
+        <tbody>
+          <tr><td>«Share»</td><td>A personas concretas.</td><td>Les aparece desactivado hasta que lo activan.</td></tr>
+          <tr><td>«Publish to org»</td><td>A la biblioteca de la organización.</td><td>Si el propietario exige revisión, lo aprueba antes. Después puede dejarlo disponible, instalado por defecto u obligatorio.</td></tr>
+          <tr><td>Subirlo a la cuenta</td><td>A la propia cuenta, y con ella a Cowork.</td><td>Comprimido, en «Personalización» → «Plugins» (clase 3).</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Un solo sentido</h3>
+      <figure class="figure esquema">
+        <svg viewBox="0 0 1000 496" role="img" aria-label="Arriba, en oscuro, la cuenta y su «Personalización», con las skills, los conectores y los plugins. Abajo a la izquierda, «Cowork · el despacho». Abajo a la derecha, con borde de acento, «Code · este equipo», con tres filas: las skills personales, en ~/.claude/skills; las del proyecto, en .claude/skills; y las sincronizadas, en ~/.claude/skills/synced, con los plugins como nombre@synced. Una flecha va de la cuenta a Cowork: lo carga. Otra va de la cuenta a la fila de las sincronizadas: se descarga solo. Una flecha discontinua y tachada va de Code a Cowork: no llega solo, porque Cowork no lee ~/.claude. Una flecha de acento sube de Code a la cuenta: con un .zip, «Share» o «Publish to org».">
+          <rect class="fill-ink" x="300" y="20" width="400" height="88" rx="6"/>
+          <text class="ti on-dark" x="500" y="56" text-anchor="middle">La cuenta · Personalización</text>
+          <text class="lb on-dark soft" x="500" y="88" text-anchor="middle">Skills · conectores · plugins</text>
+
+          <rect class="bx fill" x="20" y="230" width="260" height="80" rx="6"/>
+          <text class="ti" x="150" y="277" text-anchor="middle">Cowork · el despacho</text>
+
+          <rect class="bx on-bx" x="620" y="180" width="330" height="296" rx="6"/>
+          <text class="ti" x="640" y="216">Code · este equipo</text>
+          <rect class="bx fill" x="636" y="232" width="298" height="60" rx="4"/>
+          <text class="lb b" x="652" y="257">Personales</text>
+          <text class="lb" x="652" y="281">~/.claude/skills</text>
+          <rect class="bx fill" x="636" y="302" width="298" height="60" rx="4"/>
+          <text class="lb b" x="652" y="327">Del proyecto</text>
+          <text class="lb" x="652" y="351">.claude/skills</text>
+          <rect class="bx fill" x="636" y="372" width="298" height="88" rx="4"/>
+          <text class="lb b" x="652" y="397">Sincronizadas</text>
+          <text class="lb" x="652" y="421">~/.claude/skills/synced</text>
+          <text class="lb" x="652" y="445">nombre@synced</text>
+
+          <path class="ln" d="M340 108 V170 H150 V228"/>
+          <path class="ln" d="M144 220 L150 228 L156 220"/>
+          <text class="lb b" x="245" y="160" text-anchor="middle">lo carga</text>
+
+          <path class="ln" d="M700 64 H976 V416 H936"/>
+          <path class="ln" d="M944 410 L936 416 L944 422"/>
+          <text class="lb b" x="838" y="52" text-anchor="middle">se descarga solo</text>
+
+          <path class="ln ac" d="M660 180 V110"/>
+          <path class="ln ac" d="M654 118 L660 110 L666 118"/>
+          <text class="lb b" x="676" y="136">.zip, «Share» o</text>
+          <text class="lb b" x="676" y="160">«Publish to org»</text>
+
+          <path class="ln" d="M620 270 H282" stroke-dasharray="6 6"/>
+          <path class="ln" d="M290 264 L282 270 L290 276"/>
+          <path class="ln" d="M440 260 L460 280 M460 260 L440 280" style="stroke-width:2.4"/>
+          <text class="lb b" x="450" y="244" text-anchor="middle">No llega solo</text>
+          <text class="lb" x="450" y="306" text-anchor="middle">Cowork no lee ~/.claude</text>
+        </svg>
+        <figcaption>[ Diagrama 05 ] La cuenta, Code y Cowork: qué llega solo y qué hay que subir</figcaption>
+      </figure>
+      <div class="callout clave"><span class="k">[ Lo que hay que recordar ]</span><p>Lo activado en la cuenta baja a Code sin hacer nada, pero un plugin instalado solo en Code se queda en ese equipo: Cowork no lee <code>~/.claude</code>. El último paso de cualquier herramienta del taller es subirla o publicarla en la cuenta.</p></div>
+
+      <p>De un plugin, además, Cowork no lo carga todo:</p>
+      <ul class="list-mono">
+        <li class="check">Cowork carga las skills, los comandos, los agentes, los hooks y los conectores; los MCP locales, solo si la sesión corre en el equipo.</li>
+        <li class="cross">No carga los ejecutables <code>bin/</code> (con esa carpeta, el plugin no se instala), los servidores de lenguaje, los estilos de salida, los temas ni los ajustes, que solo usa Code.</li>
+      </ul>
+    </section>
+
+    <!-- 08 · Programar en Code -->
+    <section class="sec respira" id="programar" data-label="Programar">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Programar en Code: en el equipo o en la nube.</h2></div>
+      <p class="sec-intro">Las clases 2 y 3 programaron tareas en «Programadas» de Cowork. La pestaña «Code» tiene dos formas propias: tareas locales, en el equipo y sobre una carpeta, y tareas en la nube, con <code>/schedule</code>, que traen los disparadores que la clase 3 dejó para Claude Code: por API y por eventos de GitHub.</p>
+
+      <!-- CAPTURA PENDIENTE: formulario «New task» de «Scheduled» en la pestaña Code, con «Only on this computer» y la frecuencia -->
+      <div class="callout aviso"><span class="k">[ ! ] La condición de las tareas locales</span><p>Una tarea local solo se ejecuta si la app está abierta y el equipo despierto. Si se salta una ejecución —el portátil estaba cerrado el lunes a las 8:00—, al volver se lanza una única ejecución de recuperación, no todas las perdidas. «Keep computer awake», en los ajustes de la app, evita que el equipo se suspenda.</p></div>
+
+      <h3>Las tres formas de programar, juntas</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Aspecto</th><th>«Programadas» de Cowork</th><th>«Scheduled» de Code</th><th><code>/schedule</code> de Code</th></tr></thead>
+        <tbody>
+          <tr><td>Dónde se crea</td><td>«Programadas» → «Nueva tarea» (clase 2).</td><td>Pestaña «Code» → «Scheduled» → «New task», con «Only on this computer»; cada tarea lleva su modo de permiso y su modelo, y admite «Run now», pausa, edición e historial de ejecuciones.</td><td>Con <code>/schedule</code> en una sesión.</td></tr>
+          <tr><td>Dónde se ejecuta</td><td>Como una sesión de Cowork; con «Requerir esta computadora», en el equipo.</td><td>En el equipo, sobre una carpeta local.</td><td>En la nube.</td></tr>
+          <tr><td>Con el equipo apagado</td><td>Sin «Requerir esta computadora», puede ejecutarse en la nube.</td><td>No se ejecuta; al volver, una ejecución de recuperación.</td><td>Se ejecuta igual.</td></tr>
+          <tr><td>Cuándo se dispara</td><td>Cada hora, diaria, días laborables, semanal o manual.</td><td>Horaria, diaria, días laborables, semanal, manual o personalizada.</td><td>Por horario (como mínimo, cada hora), por API o por eventos de GitHub.</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout clave"><span class="k">[ La regla para elegir ]</span><p>Un trabajo de despacho con horario —la revisión semanal de la carpeta del cierre— va a «Programadas» de Cowork.</p><p>Un trabajo de taller con horario —ejecutar cada lunes la prueba de la conciliación— va a «Scheduled» de Code.</p><p>Si no puede depender de que un portátil esté encendido, va a la nube, con <code>/schedule</code>.</p><p>Lo que envía, publica o registra algo no se programa sin una persona que lo revise (clase 3).</p></div>
+    </section>
+
+    <!-- 09 · Qué usar en cada caso -->
+    <section class="sec respira" id="cuando" data-label="Qué usar">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Qué usar en cada caso: producir o fabricar.</h2></div>
+      <p class="sec-intro">Con la conversación, Cowork y Code a mano, la pregunta práctica es dónde se hace cada encargo. Lo que sigue es criterio del curso, no una guía oficial: Anthropic explica en qué se diferencian Cowork y Code (sección 01), pero no publica una guía de cuándo usar cada uno.</p>
+
+      <blockquote class="pull">
+        <p>«Cowork para producir; Code para fabricar las herramientas con las que se produce.»</p>
+        <footer class="src">Frase clave · M6 · C4</footer>
+      </blockquote>
+
+      <h3>Señales de que un trabajo pide el taller</h3>
+      <ul class="list-mono">
+        <li class="check">Se repite cada mes con las mismas reglas.</li>
+        <li class="check">El resultado tiene que cuadrar al céntimo, y cuadrar siempre igual.</li>
+        <li class="check">Lo van a usar varias personas que no lo han construido.</li>
+        <li class="check">Hay que saber qué ha cambiado, cuándo y por qué.</li>
+        <li class="cross">Un trabajo que se hace una sola vez: para eso está el despacho.</li>
+      </ul>
+
+      <h3>Dónde se hace cada encargo</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Necesito…</th><th>Dónde</th><th>Por qué</th></tr></thead>
+        <tbody>
+          <tr><td>Una respuesta rápida: «¿qué dice la norma 4.3?»</td><td>Conversación</td><td>Pregunta y respuesta; no hay archivos que tocar.</td></tr>
+          <tr><td>El memorándum del mes o el informe de campaña</td><td>Cowork</td><td>Un documento que se produce a partir de los archivos y se revisa.</td></tr>
+          <tr><td>Un informe que se repite cada lunes sobre la carpeta del cierre</td><td>«Programadas» de Cowork</td><td>Un trabajo de despacho con horario.</td></tr>
+          <tr><td>Un script que siempre dé el mismo resultado, con pruebas</td><td>Code</td><td>Se fabrica, se prueba y se mantiene; la prueba vigila las cifras.</td></tr>
+          <tr><td>Un tablero interno sencillo</td><td>Code, con vista previa en «Browser»</td><td>Claude arranca la web en local y comprueba sus propios cambios.</td></tr>
+          <tr><td>Detectar cada semana los anuncios de bajo rendimiento y proponer variantes</td><td>Code</td><td>Es el caso del equipo de marketing de crecimiento de Anthropic (abajo).</td></tr>
+          <tr><td>Que una comprobación se ejecute con el equipo apagado</td><td>Tarea en la nube de Code (<code>/schedule</code>)</td><td>Las tareas locales necesitan la app abierta y el equipo despierto.</td></tr>
+          <tr><td>Que todo el departamento aplique el mismo procedimiento</td><td>Una skill en un plugin publicado</td><td>Se fabrica y se valida en Code; el equipo la usa en Cowork.</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout nota"><span class="k">[ Consejos de los equipos de Anthropic ]</span><p>En el artículo «How Anthropic teams use Claude Code», Anthropic cuenta que sus equipos no técnicos también lo usan —el de marketing de crecimiento, para leer los CSV de sus anuncios, detectar los de bajo rendimiento y generar variantes—, y esos equipos dan tres consejos para empezar: partir del flujo de trabajo humano, empezar por tareas simples y apoyarse en los compañeros técnicos.</p></div>
+    </section>
+
+    <!-- 10 · El caso: el cierre de punta a punta -->
+    <section class="sec respira" id="caso" data-label="Caso">
+      <p class="sec-eyebrow">[ Caso · Cierre de octubre ]</p>
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">El cierre de punta a punta: del despacho al taller y de vuelta.</h2></div>
+      <p class="sec-intro">El caso es el cierre de octubre de las clases 1 a 3, con los mismos datos y las mismas cifras. La clase 3 dejó la conciliación convertida en una skill dentro de un plugin; aquí se sigue el camino completo de esa herramienta por el taller.</p>
+
+      <figure class="figure esquema">
+        <svg class="cc-diagram" viewBox="0 0 1000 312" role="img" aria-label="Diagrama animado: seis estaciones en fila, unidas por una vía. Estación 1, en Cowork: se prueba el proceso, y de ella salen las cifras de control. Estación 2, en Code: script y pruebas; la prueba exige 376.334,62 euros. Estación 3, en Code: skill y plugin, validado, con el resultado Validation passed. Estación 4, en la organización: se publica, con revisión si el propietario la exige. Estación 5, en Cowork: el equipo lo usa y obtiene las mismas cifras. Estación 6, en Programadas: cada lunes, y la prueba vigila. Un marcador recorre la vía de estación en estación y cada una se enciende al llegar, con su comprobación debajo; al final, las seis quedan encendidas.">
+          <style>
+            @keyframes cc-mk{0%{transform:translateX(-800px);opacity:0}3%,9%{transform:translateX(-800px);opacity:1}15%,20%{transform:translateX(-640px);opacity:1}26%,31%{transform:translateX(-480px);opacity:1}37%,42%{transform:translateX(-320px);opacity:1}48%,53%{transform:translateX(-160px);opacity:1}59%,96%{transform:translateX(0);opacity:1}100%{transform:translateX(0);opacity:0}}
+            @keyframes cc-pr{0%,9%{stroke-dashoffset:800}15%,20%{stroke-dashoffset:640}26%,31%{stroke-dashoffset:480}37%,42%{stroke-dashoffset:320}48%,53%{stroke-dashoffset:160}59%,96%{stroke-dashoffset:0}100%{stroke-dashoffset:800}}
+            @keyframes cc-s1{0%,4%{opacity:0}6%,96%{opacity:1}100%{opacity:0}}
+            @keyframes cc-s2{0%,14%{opacity:0}16%,96%{opacity:1}100%{opacity:0}}
+            @keyframes cc-s3{0%,25%{opacity:0}27%,96%{opacity:1}100%{opacity:0}}
+            @keyframes cc-s4{0%,36%{opacity:0}38%,96%{opacity:1}100%{opacity:0}}
+            @keyframes cc-s5{0%,47%{opacity:0}49%,96%{opacity:1}100%{opacity:0}}
+            @keyframes cc-s6{0%,58%{opacity:0}60%,96%{opacity:1}100%{opacity:0}}
+            @keyframes cc-r1{0%,4%{opacity:.25}6%,96%{opacity:1}100%{opacity:.25}}
+            @keyframes cc-r2{0%,14%{opacity:.25}16%,96%{opacity:1}100%{opacity:.25}}
+            @keyframes cc-r3{0%,25%{opacity:.25}27%,96%{opacity:1}100%{opacity:.25}}
+            @keyframes cc-r4{0%,36%{opacity:.25}38%,96%{opacity:1}100%{opacity:.25}}
+            @keyframes cc-r5{0%,47%{opacity:.25}49%,96%{opacity:1}100%{opacity:.25}}
+            @keyframes cc-r6{0%,58%{opacity:.25}60%,96%{opacity:1}100%{opacity:.25}}
+            .cc-diagram .cc-ring{fill:none;stroke:var(--color-accent-deep);stroke-width:3}
+            .esquema .cc-diagram .cc-pr{stroke-width:3;stroke-dasharray:800}
+            .cc-diagram .cc-mk{animation:cc-mk 12s linear infinite}
+            .cc-diagram .cc-pr{animation:cc-pr 12s linear infinite}
+            .cc-diagram .cc-s1{animation:cc-s1 12s linear infinite}
+            .cc-diagram .cc-s2{animation:cc-s2 12s linear infinite}
+            .cc-diagram .cc-s3{animation:cc-s3 12s linear infinite}
+            .cc-diagram .cc-s4{animation:cc-s4 12s linear infinite}
+            .cc-diagram .cc-s5{animation:cc-s5 12s linear infinite}
+            .cc-diagram .cc-s6{animation:cc-s6 12s linear infinite}
+            .cc-diagram .cc-r1{animation:cc-r1 12s linear infinite}
+            .cc-diagram .cc-r2{animation:cc-r2 12s linear infinite}
+            .cc-diagram .cc-r3{animation:cc-r3 12s linear infinite}
+            .cc-diagram .cc-r4{animation:cc-r4 12s linear infinite}
+            .cc-diagram .cc-r5{animation:cc-r5 12s linear infinite}
+            .cc-diagram .cc-r6{animation:cc-r6 12s linear infinite}
+            @media (prefers-reduced-motion: reduce){
+              .cc-diagram *{animation:none!important}
+              .cc-diagram .cc-on,.cc-diagram .cc-r,.cc-diagram .cc-mk{opacity:1!important;transform:none!important}
+              .esquema .cc-diagram .cc-pr{stroke-dashoffset:0!important}
+            }
+          </style>
+          <rect class="bx fill" x="26" y="24" width="148" height="36" rx="4"/><text class="lb b" x="100" y="48" text-anchor="middle">Cowork</text>
+          <rect class="fill-ink" x="186" y="24" width="148" height="36" rx="4"/><text class="lb on-dark" x="260" y="48" text-anchor="middle">Code</text>
+          <rect class="fill-ink" x="346" y="24" width="148" height="36" rx="4"/><text class="lb on-dark" x="420" y="48" text-anchor="middle">Code</text>
+          <rect class="bx fill" x="506" y="24" width="148" height="36" rx="4"/><text class="lb b" x="580" y="48" text-anchor="middle">Organización</text>
+          <rect class="bx fill" x="666" y="24" width="148" height="36" rx="4"/><text class="lb b" x="740" y="48" text-anchor="middle">Cowork</text>
+          <rect class="bx fill" x="826" y="24" width="148" height="36" rx="4"/><text class="lb b" x="900" y="48" text-anchor="middle">Programadas</text>
+          <path class="ln" d="M100 60 V108 M260 60 V108 M420 60 V108 M580 60 V108 M740 60 V108 M900 60 V108"/>
+
+          <line class="ln" x1="100" y1="134" x2="900" y2="134"/>
+          <path class="ln ac cc-pr" d="M100 134 H900"/>
+
+          <circle class="bx fill" cx="100" cy="134" r="26"/><text class="lb b" x="100" y="140" text-anchor="middle">1</text>
+          <g class="cc-on cc-s1"><circle class="fill-ink" cx="100" cy="134" r="26"/><text class="lb on-dark" x="100" y="140" text-anchor="middle">1</text></g>
+          <circle class="bx fill" cx="260" cy="134" r="26"/><text class="lb b" x="260" y="140" text-anchor="middle">2</text>
+          <g class="cc-on cc-s2"><circle class="fill-ink" cx="260" cy="134" r="26"/><text class="lb on-dark" x="260" y="140" text-anchor="middle">2</text></g>
+          <circle class="bx fill" cx="420" cy="134" r="26"/><text class="lb b" x="420" y="140" text-anchor="middle">3</text>
+          <g class="cc-on cc-s3"><circle class="fill-ink" cx="420" cy="134" r="26"/><text class="lb on-dark" x="420" y="140" text-anchor="middle">3</text></g>
+          <circle class="bx fill" cx="580" cy="134" r="26"/><text class="lb b" x="580" y="140" text-anchor="middle">4</text>
+          <g class="cc-on cc-s4"><circle class="fill-ink" cx="580" cy="134" r="26"/><text class="lb on-dark" x="580" y="140" text-anchor="middle">4</text></g>
+          <circle class="bx fill" cx="740" cy="134" r="26"/><text class="lb b" x="740" y="140" text-anchor="middle">5</text>
+          <g class="cc-on cc-s5"><circle class="fill-ink" cx="740" cy="134" r="26"/><text class="lb on-dark" x="740" y="140" text-anchor="middle">5</text></g>
+          <circle class="bx fill" cx="900" cy="134" r="26"/><text class="lb b" x="900" y="140" text-anchor="middle">6</text>
+          <g class="cc-on cc-s6"><circle class="fill-ink" cx="900" cy="134" r="26"/><text class="lb on-dark" x="900" y="140" text-anchor="middle">6</text></g>
+          <g class="cc-mk"><circle class="cc-ring" cx="900" cy="134" r="34"/></g>
+
+          <text class="lb b" x="100" y="190" text-anchor="middle">Se prueba</text><text class="lb b" x="100" y="214" text-anchor="middle">el proceso</text>
+          <text class="lb b" x="260" y="190" text-anchor="middle">Script y</text><text class="lb b" x="260" y="214" text-anchor="middle">pruebas</text>
+          <text class="lb b" x="420" y="190" text-anchor="middle">Skill y plugin,</text><text class="lb b" x="420" y="214" text-anchor="middle">validado</text>
+          <text class="lb b" x="580" y="190" text-anchor="middle">Se publica</text>
+          <text class="lb b" x="740" y="190" text-anchor="middle">El equipo</text><text class="lb b" x="740" y="214" text-anchor="middle">lo usa</text>
+          <text class="lb b" x="900" y="190" text-anchor="middle">Cada lunes</text>
+
+          <g class="cc-r cc-r1"><rect class="bx fill" x="26" y="236" width="148" height="60" rx="4"/><text class="lb" x="100" y="261" text-anchor="middle">Cifras de</text><text class="lb" x="100" y="285" text-anchor="middle">control</text></g>
+          <g class="cc-r cc-r2"><rect class="bx fill" x="186" y="236" width="148" height="60" rx="4"/><text class="lb" x="260" y="261" text-anchor="middle">La prueba</text><text class="lb b" x="260" y="285" text-anchor="middle">376.334,62 €</text></g>
+          <g class="cc-r cc-r3"><rect class="bx fill" x="346" y="236" width="148" height="60" rx="4"/><text class="lb" x="420" y="261" text-anchor="middle">Validation</text><text class="lb" x="420" y="285" text-anchor="middle">passed</text></g>
+          <g class="cc-r cc-r4"><rect class="bx fill" x="506" y="236" width="148" height="60" rx="4"/><text class="lb" x="580" y="261" text-anchor="middle">Revisión,</text><text class="lb" x="580" y="285" text-anchor="middle">si se exige</text></g>
+          <g class="cc-r cc-r5"><rect class="bx fill" x="666" y="236" width="148" height="60" rx="4"/><text class="lb" x="740" y="261" text-anchor="middle">Mismas</text><text class="lb" x="740" y="285" text-anchor="middle">cifras</text></g>
+          <g class="cc-r cc-r6"><rect class="bx fill" x="826" y="236" width="148" height="60" rx="4"/><text class="lb" x="900" y="261" text-anchor="middle">La prueba</text><text class="lb" x="900" y="285" text-anchor="middle">vigila</text></g>
+        </svg>
+        <figcaption>[ Diagrama 06 ] Seis estaciones, cada una con su comprobación</figcaption>
+      </figure>
+
+      <h3>Quién hace qué, y qué se comprueba</h3>
+      <div class="stepper vertical">
+        <div class="step"><span class="n">01</span><h4>Cowork · Se prueba el proceso</h4><p>Una persona de Finanzas concilia octubre conversando en Cowork (clases 2 y 3). <strong>Se comprueba:</strong> 376.334,62 €, +6.202,50 € y cinco partidas, que desde ahora son las cifras de control.</p></div>
+        <div class="step"><span class="n">02</span><h4>Code · Script y pruebas</h4><p>En «Plan», Claude propone el script y una prueba que exige las cifras de control, y la persona lee el plan; en «Manual», Claude los construye y ella revisa «Changes». <strong>Se comprueba:</strong> la prueba pasa.</p></div>
+        <div class="step"><span class="n">03</span><h4>Code · Skill y plugin, validado</h4><p>Claude empaqueta la herramienta como skill <code>conciliacion-bancaria</code> del plugin <code>cierre-mensual</code>. <strong>Se comprueba:</strong> «Validation passed» con <code>claude plugin validate</code> y, si se quiere medir lo que aporta, <code>claude plugin eval</code>.</p></div>
+        <div class="step"><span class="n">04</span><h4>Organización · Se publica</h4><p>El plugin se sube a la cuenta o se publica con «Publish to org», que el propietario aprueba antes si exige revisión (sección 07). <strong>Se comprueba:</strong> que aparece en «Personalización» → «Plugins».</p></div>
+        <div class="step"><span class="n">05</span><h4>Cowork · El equipo lo usa</h4><p>Cualquier persona del departamento pide la conciliación en Cowork y la skill hace el cuadre con su script. <strong>Se comprueba:</strong> las mismas cifras que en el taller.</p></div>
+        <div class="step"><span class="n">06</span><h4>Programadas · Cada lunes</h4><p>La revisión semanal de la clase 3 usa el plugin desde «Programadas»; en el taller, una tarea de «Scheduled» ejecuta la prueba. <strong>Se comprueba:</strong> el historial de ejecuciones.</p></div>
+        <div class="step final"><span class="n">[✓]</span><h4>Cuando cambian las normas</h4><p>Se cambia la herramienta en Code, la prueba vigila que las cifras de control sigan cuadrando y se valida y se publica la versión revisada, que el equipo encuentra sin que nadie vuelva a explicar el procedimiento.</p></div>
+      </div>
+
+      <div class="callout clave"><span class="k">[ Por qué el taller da garantías ]</span><p>La conciliación de Cowork se vuelve a conversar cada mes; la del taller se escribe una vez y se demuestra con una prueba que, con los archivos de octubre —un caso cuya respuesta se sabe de antemano—, exige 376.334,62 € conciliados, +6.202,50 € de ajustes y las cinco partidas. Si un cambio altera ese resultado, la prueba falla en el taller, antes de que llegue a nadie del despacho.</p></div>
+    </section>
+
+    <!-- 11 · Práctica (banda tinta) y test -->
+    <section class="sec respira sec-dark" id="practica" data-label="Práctica">
+      <p class="sec-eyebrow">[ Parte práctica · Pestaña «Code» ]</p>
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Laboratorio: la herramienta de conciliación del cierre.</h2></div>
+      <p class="sec-intro">Todo el laboratorio se hace en la pestaña «Code», con los datos del cierre de octubre de las clases anteriores. No hay archivo de solución: cada alumno construye la herramienta con Claude, leyendo su plan, revisando sus cambios y exigiéndole una prueba.</p>
+
+      <h3>Datos de la práctica</h3>
+      <div class="grid-cards two">
+        <a class="card link" href="/practica/m6c2/extracto-bancario-octubre.csv" download>
+          <span class="k">[ Descargar · CSV ]</span>
+          <h4>extracto-bancario-octubre.csv</h4>
+          <p>El extracto del Banco Mediterráneo, con 31 movimientos.</p>
+        </a>
+        <a class="card link" href="/practica/m6c2/mayor-bancos-octubre.xlsx" download>
+          <span class="k">[ Descargar · XLSX ]</span>
+          <h4>mayor-bancos-octubre.xlsx</h4>
+          <p>El mayor de la cuenta 572, con 30 movimientos.</p>
+        </a>
+        <a class="card link" href="/practica/m6c1/carpeta-cierre-octubre.zip" download>
+          <span class="k">[ Descargar · ZIP ]</span>
+          <h4>carpeta-cierre-octubre.zip</h4>
+          <p>La carpeta completa del cierre, con las normas de cierre, para el ejercicio 7 en Cowork.</p>
+        </a>
+        <a class="card link" href="/practica/m6c3/guia-markdown-mseny.pdf" download>
+          <span class="k">[ Descargar · PDF ]</span>
+          <h4>guia-markdown-mseny.pdf</h4>
+          <p>La guía de Markdown de [m].seny; su capítulo 9 ayuda a leer el <code>CLAUDE.md</code> y la skill que escriba Claude.</p>
+        </a>
+      </div>
+
+      <ol class="exercises">
+        <li>
+          <h4>Preparación</h4>
+          <p class="sec-eyebrow">[ Sesión · «Local» · modo «Plan» ]</p>
+          <p>Crea una carpeta <code>cierre-code</code> y copia en ella <code>extracto-bancario-octubre.csv</code> y <code>mayor-bancos-octubre.xlsx</code>. En la pestaña «Code», pulsa «+ New» y elige en la barra de la sesión el entorno «Local», la carpeta <code>cierre-code</code> y el modo «Plan».</p>
+          <p><strong>Resultado esperado:</strong> la sesión abierta sobre <code>cierre-code</code>, con «Local» y «Plan» en la barra.</p>
+        </li>
+        <li>
+          <h4>El plan</h4>
+          <p class="sec-eyebrow">[ Modo «Plan» ]</p>
+          <p>Pide el plan de la herramienta:</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · El plan ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Quiero una herramienta para conciliar el banco en cada cierre mensual. En esta carpeta están extracto-bancario-octubre.csv (separador punto y coma, decimales con coma) y mayor-bancos-octubre.xlsx (mayor de la cuenta 572). Propón un plan para un script de Python que lea los dos archivos, empareje los movimientos por importe y fecha, detecte los pagos duplicados en el mayor y proponga los ajustes según las normas de cierre: 4.2, lo que está en el banco y no en contabilidad se ajusta con un asiento; 4.3, lo que está en contabilidad y no en el banco queda en tránsito y se lista sin ajustarlo; 4.4, una diferencia divisible entre 9 es una posible transposición. Incluye una prueba automática que exija las cifras de control de octubre —saldo del banco 376.334,62 €, saldo contable 373.614,27 €, ajustes netos +6.202,50 € y cinco partidas— y explica cómo se ejecuta. No crees ni modifiques ningún archivo.»</pre></div>
+          <p>Lee el plan entero y, si le falta algo, corrígelo antes de aprobarlo; por ejemplo:</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Corregir el plan ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Cambia el plan: el informe se guarda en una carpeta informes y los dos archivos originales no se modifican nunca.»</pre></div>
+          <p><strong>Resultado esperado:</strong> un plan con el script, la prueba y cómo ejecutarla, y «Changes» vacío: nada tocado todavía.</p>
+        </li>
+        <li>
+          <h4>CLAUDE.md</h4>
+          <p class="sec-eyebrow">[ Modo «Manual» ]</p>
+          <p>Sin aprobar todavía el plan, pasa a «Manual»: desde aquí, Claude pedirá permiso antes de crear o modificar cada archivo. Pide el <code>CLAUDE.md</code> (o empieza con <code>/init</code> y pide después lo que falte) y apruébalo tras leerlo.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · CLAUDE.md ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Crea el CLAUDE.md de este proyecto con cuatro apartados: el rol (herramienta de conciliación bancaria de Dirección Financiera); la regla de no modificar nunca extracto-bancario-octubre.csv ni mayor-bancos-octubre.xlsx; el formato de cifras (euros con dos decimales, punto de millar y coma decimal: 376.334,62 €); y cómo se ejecuta la prueba.»</pre></div>
+          <p><strong>Resultado esperado:</strong> <code>CLAUDE.md</code> en la carpeta, legible en «Files» o con <code>/memory</code>, con los cuatro apartados del prompt; compáralo con el ejemplo de la sección 06.</p>
+        </li>
+        <li>
+          <h4>Construir y probar</h4>
+          <p class="sec-eyebrow">[ «Manual» o «Accept edits» · panel «Changes» ]</p>
+          <p>Sigue en «Manual» o pasa a «Accept edits»; en los dos casos, lee «Changes» antes de dar nada por bueno. Si hace falta instalar una biblioteca para leer el Excel, en «Manual» verás la orden antes de aprobarla.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Construir ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Construye el script y la prueba según el plan y el CLAUDE.md. Ejecuta la prueba y, si pasa, genera el informe de octubre en informes/conciliacion-octubre.md con los saldos, las partidas y los ajustes propuestos.»</pre></div>
+          <p><strong>Resultado esperado:</strong> la prueba pasa y el informe da estas cifras:</p>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Concepto</th><th>Importe (€)</th></tr></thead>
+            <tbody>
+              <tr><td>Saldo según el banco</td><td>376.334,62</td></tr>
+              <tr><td>Saldo contable</td><td>373.614,27</td></tr>
+              <tr><td>Diferencia</td><td>2.720,35</td></tr>
+              <tr><td>Ajustes contables netos</td><td>+6.202,50</td></tr>
+              <tr><td>Saldo contable ajustado</td><td>379.816,77</td></tr>
+              <tr><td>En tránsito (cobros TPV Online)</td><td>3.482,15</td></tr>
+              <tr><td>Conciliado</td><td>376.334,62</td></tr>
+            </tbody>
+          </table></div>
+          <p>Y estas cinco partidas:</p>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Partida</th><th>Efecto en el mayor (€)</th><th>Tratamiento</th></tr></thead>
+            <tbody>
+              <tr><td>Comisión de mantenimiento (31/10)</td><td>−45,60</td><td>Solo en el banco: asiento de ajuste</td></tr>
+              <tr><td>Devolución de recibo Boutique Azul y su comisión (17/10)</td><td>−2.115,40 y −6,50</td><td>Solo en el banco: asientos de ajuste</td></tr>
+              <tr><td>Pago a Curtidos Levante, F-2026-0912</td><td>+8.640,00</td><td>Duplicado en el mayor: anular</td></tr>
+              <tr><td>Alquiler del local de Lisboa (20/10)</td><td>−270,00</td><td>Transposición (1.524 frente a 1.254): corregir</td></tr>
+              <tr><td>Cobros TPV Online 30-31/10</td><td>— (3.482,15 en tránsito)</td><td>En tránsito: no se ajusta, se lista</td></tr>
+            </tbody>
+          </table></div>
+          <p><strong>Si la prueba falla:</strong> «La prueba falla en …; corrige el script, no la prueba», con lo que ha fallado en lugar de los puntos suspensivos; después, vuelve a ejecutarla.</p>
+        </li>
+        <li>
+          <h4>Un cambio con red de seguridad</h4>
+          <p class="sec-eyebrow">[ La prueba vigila ]</p>
+          <p>Pide un cambio en el informe sin tocar la prueba; si quieres una segunda lectura, escribe después <code>/code-review</code>.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · El cambio ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Cambia el informe para que cada partida indique el criterio de las normas de cierre que se le aplica: 4.2, 4.3 o 4.4; si alguna no encaja en ninguno, dilo en el informe. No cambies la prueba y vuelve a ejecutarla.»</pre></div>
+          <p><strong>Resultado esperado:</strong> la prueba sigue pasando con las mismas cifras, y en «Changes» solo aparecen las líneas que escriben el informe. Cada partida lleva su criterio:</p>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Partida</th><th>Criterio esperado</th></tr></thead>
+            <tbody>
+              <tr><td>Comisión de mantenimiento</td><td>4.2</td></tr>
+              <tr><td>Devolución de Boutique Azul y su comisión</td><td>4.2</td></tr>
+              <tr><td>Cobros TPV Online</td><td>4.3</td></tr>
+              <tr><td>Alquiler del local de Lisboa</td><td>4.4</td></tr>
+              <tr><td>Pago duplicado a Curtidos Levante</td><td>Aparte: error del mayor</td></tr>
+            </tbody>
+          </table></div>
+        </li>
+        <li>
+          <h4>Empaquetar</h4>
+          <p class="sec-eyebrow">[ Skill y plugin · validate ]</p>
+          <p>El plugin que vas a crear sustituye al <code>cierre-mensual</code> de la clase 3, así que incorpora también la skill <code>checklist-cierre</code>, que Code recibe sincronizada de tu cuenta; si no hiciste aquella práctica, basta con la conciliación.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · El plugin ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Convierte esta herramienta en una skill llamada conciliacion-bancaria, con el script y la prueba dentro de la skill, en un plugin llamado cierre-mensual con su .claude-plugin/plugin.json. Incluye también, sin cambiarla, mi skill checklist-cierre de la clase 3 si la tienes disponible. No uses una carpeta bin/. Después, valida el plugin con claude plugin validate y enséñame el resultado.»</pre></div>
+          <p><strong>Resultado esperado:</strong> «Validation passed». El prompt excluye <code>bin/</code> porque, con esa carpeta, el plugin no se instalaría en Cowork (sección 07).</p>
+          <p><strong>Opcional:</strong> mide lo que aporta el plugin.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Evaluar ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Ejecuta claude plugin eval sobre cierre-mensual con tres casos: conciliar octubre, explicar la diferencia del alquiler de Lisboa y listar lo que queda en tránsito. Compara los resultados con el plugin y sin él.»</pre></div>
+          <p><strong>Resultado esperado:</strong> dos puntuaciones, WITH y W/OUT, y su diferencia, con un informe.</p>
+        </li>
+        <li>
+          <h4>Llevarlo a Cowork</h4>
+          <p class="sec-eyebrow">[ Del taller al despacho ]</p>
+          <div class="callout aviso"><span class="k">[ ! ] Si conservas el cierre-mensual de la clase 3</span><p>Elimínalo antes de subir este, que lo sustituye y trae las dos skills; así, la revisión semanal de la clase 3 sigue funcionando.</p></div>
+          <ul class="list-mono">
+            <li>Comprimir: pide a Claude un <code>.zip</code> del plugin, listo para subirlo.</li>
+            <li>Subir o publicar: en «Personalización» → «Plugins»; en una cuenta de empresa, también con «Share» o «Publish to org».</li>
+            <li>Abrir la tarea: en Cowork, una tarea en el proyecto «Cierre mensual», con la carpeta <code>cierre-octubre</code>, y este prompt:</li>
+          </ul>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · En Cowork ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Concilia el banco de octubre con la skill conciliacion-bancaria del plugin cierre-mensual y deja el informe en conciliacion-octubre-plugin.md. No modifiques los archivos originales.»</pre></div>
+          <p><strong>Resultado esperado:</strong> las mismas cifras que en el taller: 376.334,62 € conciliados y ajustes netos de +6.202,50 €.</p>
+        </li>
+        <li>
+          <h4>Opcional · Una versión guardada o una prueba cada lunes</h4>
+          <p class="sec-eyebrow">[ Opcional · git o «Scheduled» ]</p>
+          <p><strong>Variante A, guardar una versión.</strong> En la sesión de <code>cierre-code</code>, en «Manual»:</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Guardar una versión ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Inicializa git en esta carpeta y guarda una versión con el mensaje "Conciliación de octubre con prueba automática".»</pre></div>
+          <p><strong>Resultado esperado:</strong> Claude pide permiso para cada orden de git; la carpeta queda como repositorio, con una primera versión y su mensaje, y ya admite worktrees.</p>
+          <p><strong>Variante B, una prueba cada lunes.</strong> En la barra lateral, «Scheduled» → «New task», con «Only on this computer», la carpeta <code>cierre-code</code>, frecuencia semanal (los lunes), modo «Manual» —la tarea pedirá permiso antes de ejecutar la prueba, lo razonable mientras la estrenas— y estas instrucciones:</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Instrucciones · Prueba semanal ]</span><button type="button" class="btn-ghost" data-copy>Copiar</button></div><pre>Ejecuta la prueba de la herramienta de conciliación y anota en registro-pruebas.md la fecha y el resultado. No modifiques ningún otro archivo.</pre></div>
+          <p><strong>Resultado esperado:</strong> con «Run now», la tarea se ejecuta, queda en el historial y <code>registro-pruebas.md</code> recoge la fecha y que la prueba pasa.</p>
+        </li>
+      </ol>
+
+      <div class="callout ok"><span class="k">[✓] Lo que se ha construido</span><p>Una herramienta de conciliación con su prueba, sus normas en <code>CLAUDE.md</code> y un plugin validado en uso en Cowork. Es más fiable que repetir la conciliación a mano en cada cierre porque el script da siempre el mismo resultado con los mismos datos, la prueba avisa si un cambio altera las cifras de control y cada cambio se lee en «Changes» antes de aceptarlo.</p></div>
+
+      <div class="quiz" data-quiz="quizData" data-title="Test de la clase"></div>
+    </section>
+
+  </div><!-- /.content -->
+  <!-- nav inferior y pie: los genera curso.js -->
+</main>
+
+<script src="/curso-data.js"></script>
+<script src="/curso.js"></script>
+<script>
+  // Test de la clase. a = índice de la opción correcta; why = explicación de una frase.
+  // `var` (no `const`): curso.js lee el array como window[data-quiz].
+  var quizData = [
+    {
+      q: "¿Qué puede hacer una sesión de la pestaña «Code» que una tarea de Cowork no hace?",
+      opts: [
+        "Leer y escribir archivos de Excel, Word y PowerPoint en una carpeta.",
+        "Usar la terminal, git y un servidor de desarrollo con vista previa.",
+        "Repartir una tarea larga entre subagentes que trabajan en paralelo.",
+        "Cargar las skills activadas en «Personalización» de la cuenta."
+      ],
+      a: 1,
+      why: "Cowork trabaja con documentos dentro de la app y sin terminal; Code trabaja sobre una carpeta o un repositorio con terminal, git, servidores de desarrollo, vista de cambios y pull requests."
+    },
+    {
+      q: "Vas a pedir a Claude Code una herramienta de conciliación que todavía no existe. ¿Para qué sirve empezar en el modo «Plan»?",
+      opts: [
+        "Para que Claude lo ejecute todo sin pedir permiso y se gane tiempo.",
+        "Para dejar la tarea programada y que se ejecute cada lunes.",
+        "Para que explore y proponga un plan sin tocar ningún archivo.",
+        "Para activar el clasificador que revisa cada acción."
+      ],
+      a: 2,
+      why: "«Plan» explora y propone sin editar nada; es el modo recomendado para empezar una tarea compleja, antes de tocar ningún archivo."
+    },
+    {
+      q: "Ya has aprobado el plan y pasas a «Accept edits». ¿Qué te toca hacer a ti?",
+      opts: [
+        "Nada: en ese modo Claude solo propone un plan y no modifica ningún archivo.",
+        "Aprobar cada edición antes de que Claude la escriba en el archivo.",
+        "Activar «Bypass permissions» para que Claude no se detenga.",
+        "Revisar después los cambios en «Changes»."
+      ],
+      a: 3,
+      why: "«Accept edits» acepta por sí mismo las ediciones y las órdenes habituales sobre archivos; la revisión se hace después, en «Changes», como el control de cambios de un documento."
+    },
+    {
+      q: "¿Qué es un worktree en la pestaña «Code»?",
+      opts: [
+        "Una copia aislada del proyecto con su propia rama, solo en repositorios git.",
+        "El árbol de carpetas que muestra el panel «Files».",
+        "Una sesión en la nube que sigue trabajando aunque se cierre la app.",
+        "La lista de sesiones archivadas de la barra lateral."
+      ],
+      a: 0,
+      why: "Se activa antes de empezar y solo en repositorios git: Claude trabaja sobre una fotocopia del expediente con su propia rama, que al terminar se conserva o se borra."
+    },
+    {
+      q: "¿Qué es CLAUDE.md y cómo se crea?",
+      opts: [
+        "Un registro de las conversaciones anteriores, que Claude Code escribe al cerrar la app.",
+        "El manifiesto de un plugin, que va dentro de la carpeta .claude-plugin/.",
+        "Las instrucciones que Claude lee al empezar cada sesión; /init lo genera.",
+        "Un ajuste de Configuración → «Claude Code» que se activa con un interruptor."
+      ],
+      a: 2,
+      why: "CLAUDE.md recoge las normas del proyecto y Claude lo lee al empezar cada sesión; /init lo genera y /memory lo edita. Si no existe y hay un AGENTS.md, lee ese."
+    },
+    {
+      q: "Instalas el plugin cierre-mensual solo en la pestaña «Code» de tu equipo. ¿Lo verá Cowork?",
+      opts: [
+        "No, hasta que lo subas o lo publiques en la cuenta.",
+        "Sí: todo lo que se instala en Code se sincroniza solo con la cuenta y llega a Cowork.",
+        "Sí, pero solo en las tareas programadas de Cowork.",
+        "No: Cowork no puede cargar ningún plugin."
+      ],
+      a: 0,
+      why: "La sincronización es de un solo sentido: lo activado en la cuenta llega a Code, pero lo instalado solo en Code se queda en esa máquina, porque Cowork no lee ~/.claude del equipo."
+    },
+    {
+      q: "¿Qué diferencia hay entre claude plugin validate y claude plugin eval?",
+      opts: [
+        "validate publica el plugin en la organización; eval lo instala en Cowork.",
+        "Son la misma orden: eval es otro nombre de validate.",
+        "validate ejecuta la prueba automática del script con las cifras de control; eval corrige la ortografía de las skills.",
+        "validate revisa la estructura del plugin; eval mide lo que aporta, con él y sin él."
+      ],
+      a: 3,
+      why: "validate comprueba que el plugin está bien formado («Validation passed»); eval ejecuta casos con el plugin y sin él y da dos puntuaciones, WITH y W/OUT, y su diferencia."
+    },
+    {
+      q: "Según el criterio del curso, ¿dónde se hace el memorándum del mes y dónde un script que siempre dé el mismo resultado, con pruebas?",
+      opts: [
+        "Los dos en la conversación, porque no necesitan archivos.",
+        "El memorándum en Cowork; el script con pruebas, en Code.",
+        "El memorándum en Code, por el panel «Changes»; el script, en Cowork.",
+        "Los dos en Code, porque Cowork no puede crear documentos de Word."
+      ],
+      a: 1,
+      why: "Cowork para producir; Code para fabricar las herramientas con las que se produce. Es un criterio del curso: no hay una guía oficial «Cowork frente a Code»."
+    },
+    {
+      q: "Creas en la pestaña «Code» una tarea programada local, con «Only on this computer», para los lunes a las 8:00. Ese lunes el portátil está cerrado hasta las 10:00. ¿Qué ocurre?",
+      opts: [
+        "Se ejecuta igualmente a las 8:00, en la nube.",
+        "Se pierde esa ejecución y la tarea queda pausada hasta que la vuelvas a activar a mano.",
+        "A las 8:00 no; al volver, con la app abierta, se lanza una ejecución de recuperación.",
+        "Se ejecuta dos veces seguidas al encender, para recuperar el retraso."
+      ],
+      a: 2,
+      why: "Las tareas locales solo se ejecutan con la app abierta y el equipo despierto; si se salta una, al volver se lanza una única ejecución de recuperación. Las de /schedule corren aunque el equipo esté apagado."
+    },
+    {
+      q: "Cambias el script de conciliación para que el informe cite el criterio de las normas en cada partida. ¿Por qué da seguridad la prueba automática con las cifras de control?",
+      opts: [
+        "Porque, si el cambio altera el resultado, la prueba falla y se ve antes de publicar la versión.",
+        "Porque impide que nadie modifique el script sin permiso del propietario.",
+        "Porque guarda una copia del informe anterior en la carpeta.",
+        "Porque Claude ya no puede equivocarse con los importes."
+      ],
+      a: 0,
+      why: "La prueba ejecuta la herramienta con los archivos de octubre y exige 376.334,62 € y +6.202,50 €: si un cambio mueve una cifra, falla en el taller, antes de que llegue al equipo."
+    }
+  ];
+</script>
+</body>
+</html>

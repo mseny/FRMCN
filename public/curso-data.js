@@ -80,7 +80,7 @@
     {
       id: 'm6', num: 6, title: 'Claude suite', short: 'Claude suite',
       quote: '«Claude no es una ventana de chat, sino un espacio de trabajo: se le da contexto, se le encargan tareas y se le enseñan los procedimientos de la casa.»', quoteSrc: 'M6 · C1 — La app de Claude',
-      desc: 'La app de Claude a día de hoy: conversación y tareas, proyectos y ajustes; entregables con Cowork, artefactos y diseño; y una Claude a medida con skills, conectores, plugins y agentes.',
+      desc: 'La app de Claude a día de hoy: conversación y tareas, proyectos y ajustes; entregables con Cowork, artefactos y diseño; una Claude a medida con skills, conectores, plugins y agentes; y Claude Code, el taller donde se construyen las herramientas.',
       classes: [
         { id: 'm6c1', file: 'modulo6-clase1.html', num: 1, kind: 'teórica', duration: 'Teoría 45 min · Práctica 45 min', topic: 'La app de Claude y sus ajustes',
           title: 'La app de Claude: espacio de trabajo, modos y ajustes', short: 'La app de Claude',
@@ -90,7 +90,10 @@
           tools: ['Cowork', 'Programadas', 'Artefactos', 'Claude Design', 'Dashboards', 'Motion'] },
         { id: 'm6c3', file: 'modulo6-clase3.html', num: 3, kind: 'práctica', duration: 'Teoría 50 min · Práctica 70 min', topic: 'Del proceso al agente: skills, plugins y programación',
           title: 'Personalizar Claude: skills, conectores, plugins y agentes', short: 'Personalizar Claude',
-          tools: ['Skills', 'Plugins', 'Agentes', 'Programadas', 'Conectores', 'Markdown'] }
+          tools: ['Skills', 'Plugins', 'Agentes', 'Programadas', 'Conectores', 'Markdown'] },
+        { id: 'm6c4', file: 'modulo6-clase4.html', num: 4, kind: 'práctica', duration: 'Teoría 45 min · Práctica 60 min', topic: 'Claude Code para equipos de negocio',
+          title: 'Claude Code: el taller donde se construyen las herramientas', short: 'Claude Code',
+          tools: ['Claude Code', 'CLAUDE.md', 'Skills', 'Plugins', 'Cowork'] }
       ]
     },
     {
