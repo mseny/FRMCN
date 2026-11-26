@@ -30,7 +30,7 @@ Web del alumno del curso «IA Generativa» de [m].seny. Páginas HTML planas en 
 | M2 · Glosario y Fundamentos | 1 | `modulo2.html` |
 | M3 · Estudio Creativo IA (Imagen) | 3 | `modulo3-clase1..3.html` |
 | M4 · Estudio Creativo IA (Automatización) | 2 | `modulo4-clase1..2.html` |
-| M5 · Copilot suite | 1 | `modulo5-clase1.html` |
+| M5 · Copilot suite | 2 | `modulo5-clase1..2.html` (práctica en `public/practica/m5c1/`, compartida por todas las clases del módulo) |
 | M6 · Claude suite | 4 | `modulo6-clase1..4.html` (C4: Claude Code; práctica en `public/practica/m6c1..3/`; guía de Markdown en `docs/guia-markdown/`; `docs/m6c3-plantillas/` guarda una skill y un plugin de referencia que ya no se publican) |
 | M7 · Cerebros de IA | 3 | `modulo7-clase1..3.html` |
 | M8 · Desarrollo de software | 1 | `modulo8-clase1.html` |

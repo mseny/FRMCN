@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M5 · Clase 2 — Copilot en las aplicaciones: Word, Excel, PowerPoint, Outlook y Teams · [m].seny /academy</title>
+<meta name="description" content="El asistente dentro del archivo abierto: los modos de edición y de solo chat, y lo que Copilot hace, y no hace, en Word, Excel, PowerPoint, Outlook y Teams durante el cierre mensual.">
+<link rel="stylesheet" href="/theme.css">
+<link rel="stylesheet" href="/curso.css">
+</head>
+<body data-class="m5c2">
+<main>
+
+  <header class="hero escena">
+    <h1 class="display">Copilot en las aplicaciones: el mismo asistente en cinco <em>lugares</em> de trabajo.</h1>
+    <p class="sub">Cómo se cambia entre conversar y editar, qué hace Copilot en Word, Excel, PowerPoint, Outlook y Teams, y cómo cruza un mismo cierre mensual los cinco programas.</p>
+    <ul class="esc-cifras">
+      <li><b>5</b> aplicaciones</li>
+      <li><b>3</b> modos en Excel</li>
+      <li><b>1</b> regla: revisar</li>
+    </ul>
+    <div class="chips"><span class="chip">Modos</span><span class="chip">Word</span><span class="chip">Excel</span><span class="chip">PowerPoint</span><span class="chip">Outlook</span><span class="chip">Teams</span></div>
+  </header>
+
+  <div class="content aire">
+
+    <!-- 01 · El panel y los modos -->
+    <section class="sec respira" id="modos" data-label="Modos">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Dentro de cada programa: el panel de Copilot y sus modos.</h2></div>
+      <p class="sec-intro">La clase 1 trató de la app de Copilot, el lugar donde se conversa con el asistente y se le delegan encargos. Esta trata de la otra forma de encontrarlo: como un panel lateral dentro de Word, Excel, PowerPoint, Outlook y Teams. Es el mismo asistente, con una diferencia decisiva: aquí trabaja sobre el archivo que está abierto, y puede limitarse a hablar de él o cambiarlo. Los Cuadernos y la app se quedan en la clase 1; los agentes, en la clase 3.</p>
+
+      <figure class="figure esquema">
+        <!-- CAPTURA PENDIENTE: el panel de Copilot abierto en Word o en Excel, con el selector de modo y el cuadro de prompt visibles. Marc enviará la captura; este esquema la sustituye entretanto. -->
+        <svg viewBox="0 0 960 320" role="img" aria-label="Esquema del panel de Copilot dentro de una aplicación. A la izquierda, el archivo abierto, con unas líneas que representan su contenido y el rótulo «Los cambios se aplican aquí». A la derecha, destacado en oscuro, el panel de Copilot con tres zonas: respuesta o plan, selector de modo y prompt con la barra «/» para archivos. Una flecha va del panel al archivo.">
+          <rect class="bx" x="40" y="30" width="500" height="260" rx="4"/>
+          <text class="ti" x="64" y="68">El archivo abierto</text>
+          <line class="ln" x1="64" y1="100" x2="516" y2="100"/>
+          <line class="ln" x1="64" y1="130" x2="516" y2="130"/>
+          <line class="ln" x1="64" y1="160" x2="440" y2="160"/>
+          <line class="ln" x1="64" y1="190" x2="516" y2="190"/>
+          <line class="ln" x1="64" y1="220" x2="380" y2="220"/>
+          <text class="lb b" x="64" y="266">Los cambios se aplican aquí</text>
+          <rect class="fill-ink" x="600" y="30" width="320" height="260" rx="4"/>
+          <text class="ti on-dark" x="760" y="68" text-anchor="middle">Panel de Copilot</text>
+          <rect class="bx on-bx" x="624" y="92" width="272" height="52" rx="4"/>
+          <text class="lb on-dark" x="760" y="124" text-anchor="middle">Respuesta o plan</text>
+          <rect class="bx on-bx" x="624" y="156" width="272" height="52" rx="4"/>
+          <text class="lb on-dark" x="760" y="188" text-anchor="middle">Selector de modo</text>
+          <rect class="bx on-bx" x="624" y="220" width="272" height="52" rx="4"/>
+          <text class="lb on-dark" x="760" y="252" text-anchor="middle">Prompt · «/» archivos</text>
+          <line class="ln ac" x1="600" y1="165" x2="548" y2="165"/>
+          <path class="ln ac" d="M556 159 L548 165 L556 171"/>
+        </svg>
+        <figcaption>[ Diagrama 01 ] Esquema del panel de Copilot, no una captura: el asistente a un lado, el archivo al otro</figcaption>
+      </figure>
+
+      <p>La diferencia puede entenderse con una analogía: no es lo mismo mostrar la hoja de cierre a un compañero para pedirle su opinión que cederle el teclado. En el primer caso, el compañero comenta; en el segundo, modifica celdas. Ambas situaciones son útiles, pero no en el mismo momento ni con el mismo grado de confianza. El panel ofrece esas dos posiciones y, en Excel, una intermedia.</p>
+
+      <figure class="figure esquema">
+        <svg viewBox="0 0 960 300" role="img" aria-label="Tres carriles. Arriba, Solo chat: Copilot lee y responde, y el archivo no cambia. En medio, el modo Plan de Excel: Copilot lee, propone un plan, el usuario confirma y después cambia. Abajo, sobre una banda destacada, el modo de edición: Copilot lee, cambia y muestra los cambios, que son revisables y reversibles.">
+          <text class="ti" x="64" y="56">Solo chat</text>
+          <rect class="bx" x="276" y="30" width="80" height="40" rx="4"/>
+          <text class="lb b" x="316" y="56" text-anchor="middle">Lee</text>
+          <line class="ln" x1="356" y1="50" x2="392" y2="50"/>
+          <path class="ln" d="M384 44 L392 50 L384 56"/>
+          <rect class="bx" x="392" y="30" width="130" height="40" rx="4"/>
+          <text class="lb b" x="457" y="56" text-anchor="middle">Responde</text>
+          <text class="lb" x="556" y="56">El archivo no cambia</text>
+          <text class="ti" x="64" y="124">Modo Plan</text>
+          <text class="lb" x="64" y="148">Solo en Excel</text>
+          <rect class="bx" x="276" y="98" width="80" height="40" rx="4"/>
+          <text class="lb b" x="316" y="124" text-anchor="middle">Lee</text>
+          <line class="ln" x1="356" y1="118" x2="392" y2="118"/>
+          <path class="ln" d="M384 112 L392 118 L384 124"/>
+          <rect class="bx" x="392" y="98" width="190" height="40" rx="4"/>
+          <text class="lb b" x="487" y="124" text-anchor="middle">Propone un plan</text>
+          <line class="ln" x1="582" y1="118" x2="618" y2="118"/>
+          <path class="ln" d="M610 112 L618 118 L610 124"/>
+          <rect class="bx" x="618" y="98" width="150" height="40" rx="4"/>
+          <text class="lb b" x="693" y="124" text-anchor="middle">Tú confirmas</text>
+          <line class="ln" x1="768" y1="118" x2="804" y2="118"/>
+          <path class="ln" d="M796 112 L804 118 L796 124"/>
+          <rect class="bx" x="804" y="98" width="90" height="40" rx="4"/>
+          <text class="lb b" x="849" y="124" text-anchor="middle">Cambia</text>
+          <rect class="bx fill" x="40" y="172" width="880" height="108" rx="4"/>
+          <text class="ti" x="64" y="232">Modo de edición</text>
+          <rect class="bx" x="276" y="196" width="80" height="40" rx="4"/>
+          <text class="lb b" x="316" y="222" text-anchor="middle">Lee</text>
+          <line class="ln ac" x1="356" y1="216" x2="392" y2="216"/>
+          <path class="ln ac" d="M384 210 L392 216 L384 222"/>
+          <rect class="bx" x="392" y="196" width="100" height="40" rx="4"/>
+          <text class="lb b" x="442" y="222" text-anchor="middle">Cambia</text>
+          <line class="ln ac" x1="492" y1="216" x2="528" y2="216"/>
+          <path class="ln ac" d="M520 210 L528 216 L520 222"/>
+          <rect class="bx" x="528" y="196" width="250" height="40" rx="4"/>
+          <text class="lb b" x="653" y="222" text-anchor="middle">Muestra los cambios</text>
+          <text class="lb b" x="276" y="264">Cambios revisables y reversibles</text>
+        </svg>
+        <figcaption>[ Diagrama 02 ] Tres posiciones: el modo decide si el archivo cambia y cuándo</figcaption>
+      </figure>
+
+      <div class="grid-cards three">
+        <div class="card">
+          <span class="k">[ Solo chat ]</span>
+          <h4>Conversar sobre el archivo</h4>
+          <p>Copilot lee el documento, responde, resume y propone. El archivo queda exactamente como estaba. Es el punto de partida recomendable ante una hoja o un documento que no se conoce.</p>
+        </div>
+        <div class="card dim">
+          <span class="k">[ Modo Plan · Excel ]</span>
+          <h4>Revisar un plan antes de cambiar</h4>
+          <p>Copilot genera un plan, el usuario lo lee y lo confirma, y solo entonces se cambia la hoja. Es el término medio cuando se quiere ceder el teclado, pero con la mano cerca del freno.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ Modo de edición ]</span>
+          <h4>Dejar que Copilot actúe</h4>
+          <p>Copilot escribe, da formato y crea contenido dentro del archivo. Los cambios son revisables y reversibles. En Word y en Excel es el modo con el que se abre el panel.</p>
+        </div>
+      </div>
+
+      <p>En Word, la documentación lo expresa así: el panel se abre con el modo de edición activado, y la posición «Solo chat» responde sin cambiar el documento. En Excel, el modo de edición es el predeterminado, y los tres modos —edición, Plan y solo chat— se eligen en un menú de opciones de modo. La etiqueta que conviene buscar es «modo de edición», no «modo agente». En Word, cuando el documento está compartido, Copilot muestra primero en el chat una vista previa de lo que va a cambiar.</p>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>Dispositivo</th><th>Excel permite</th><th>Cuándo importa</th></tr></thead>
+        <tbody>
+          <tr><td>Windows, Mac y navegador</td><td>Edición, chat y Plan</td><td>Para el trabajo de cierre completo.</td></tr>
+          <tr><td>iPad</td><td>Chat y Plan</td><td>Para consultar y preparar un cambio que se ejecuta después en el ordenador.</td></tr>
+          <tr><td>iPhone y Android</td><td>Solo chat</td><td>Para preguntar por una cifra fuera de la oficina.</td></tr>
+        </tbody>
+      </table></div>
+
+      <p>Si la organización lo permite, el panel ofrece además un selector de modelos, con una posición «Automático» en Word, y puede incluir el de Anthropic cuando el administrador lo ha habilitado. Las funciones que aparecen dependen siempre de cómo la organización haya configurado Copilot.</p>
+
+      <div class="callout regla"><span class="k">[ Regla de trabajo ]</span><p>Comprobar el modo antes de escribir, sin dar por supuesto el modo activo: como el panel se abre en modo de edición, la primera consulta exploratoria exige cambiar antes a «Solo chat». Pasar a editar solo cuando esté claro qué debe cambiar, pedir el plan cuando exista, y revisar los cambios uno a uno con el mismo criterio con que se revisa un asiento propuesto por otra persona antes de contabilizarlo.</p></div>
+
+      <div class="glossary">
+        <div class="row"><h3 class="term">Solo chat<small>Sin cambios en el archivo</small></h3><p class="def">Posición del panel en la que Copilot lee el archivo y conversa sobre él: responde, resume y propone, pero no lo modifica. <span class="an">[ Analogía ] El auditor que revisa los papeles sin tocar el bolígrafo.</span></p></div>
+        <div class="row"><h3 class="term">Modo de edición<small>Edit with Copilot</small></h3><p class="def">Posición del panel en la que Copilot actúa sobre el archivo: escribe, da formato y crea contenido, con cambios que se pueden revisar y deshacer. <span class="an">[ Analogía ] Pasar de pedir una opinión a conceder permiso de edición en un archivo compartido.</span></p></div>
+        <div class="row"><h3 class="term">Modo Plan<small>Excel</small></h3><p class="def">Modo de Excel en el que Copilot genera un plan que el usuario revisa y confirma antes de que se cambie nada. <span class="an">[ Analogía ] El orden del día de una reunión: se sabe qué se va a tratar antes de tratarlo.</span></p></div>
+      </div>
+    </section>
+
+    <!-- 02 · Copilot en Word -->
+    <section class="sec respira" id="word" data-label="Word">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Copilot en Word.</h2></div>
+      <p class="sec-intro">En Word, Copilot actúa como redactor y como lector: prepara borradores a partir de archivos de referencia, reescribe fragmentos, resume documentos extensos y responde preguntas sobre su contenido. La documentación agrupa sus acciones en cuatro verbos: crear, refinar, comprender y colaborar. Puede pensarse en él como en un redactor que trabaja con el expediente delante: cuanto mejores son los documentos que se le entregan, más fiable es el borrador que devuelve.</p>
+
+      <h3>Lo esencial</h3>
+      <div class="grid-cards three">
+        <div class="card ink">
+          <span class="k">[ 01 · Crear ]</span>
+          <h4>Redactar con Copilot</h4>
+          <p>Borrador desde la página en blanco, con archivos de referencia que se indican escribiendo <code>/</code> en el panel: un documento, un correo o una reunión. <strong>Cuándo:</strong> el memorándum de cierre o un informe recurrente.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ 02 · Comprender ]</span>
+          <h4>Resumir y preguntar</h4>
+          <p>Resume el documento y responde preguntas sobre él: «¿qué plazos de pago fija este contrato?». <strong>Cuándo:</strong> contratos, condiciones de proveedores y documentos extensos.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ 03 · Refinar ]</span>
+          <h4>Editar con Copilot</h4>
+          <p>En modo de edición, Copilot modifica el documento y los cambios se pueden revisar y deshacer. En un documento compartido, antes enseña una vista previa en el chat. <strong>Cuándo:</strong> al retocar un documento existente.</p>
+        </div>
+      </div>
+
+      <h3>Otras funciones</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Función</th><th>Qué hace</th><th>Cuándo usarla</th></tr></thead>
+        <tbody>
+          <tr><td>Reescribir</td><td>Se selecciona un texto y se elige la opción «Reescribir»: ofrece otra versión que puede sustituir al original, insertarse debajo o regenerarse.</td><td>Para adaptar un párrafo a otro público o a menos espacio.</td></tr>
+          <tr><td>Coaching (nombre en inglés de la documentación)</td><td>En Word para la web, analiza un texto propio y sugiere mejoras de claridad, estilo y tono sin reescribirlo.</td><td>Antes de enviar un informe.</td></tr>
+          <tr><td>Imágenes</td><td>Puede generar e insertar una imagen a partir de una descripción; el resultado se revisa como cualquier otro cambio.</td><td>Para ilustrar la portada o un apartado.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Límites</h3>
+      <ul class="list-mono">
+        <li class="cross">Inventa cifras si no se le proporciona la fuente.</li>
+        <li class="cross">El resumen no sustituye la lectura crítica: el resumen de un contrato no es el contrato.</li>
+        <li class="cross">Admite menos idiomas que la interfaz de Word y no se conecta a herramientas externas.</li>
+        <li class="cross">Sus funciones dependen de la configuración de la organización: no todas las cuentas ven lo mismo.</li>
+      </ul>
+
+      <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Word ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Resume este contrato de suministro en una tabla de cuatro columnas: cláusula, obligación, plazo e importe. Indica el número de cláusula en cada fila y no incluyas nada que no figure en el texto.»</pre></div>
+
+      <div class="callout regla"><span class="k">[ Regla de trabajo ]</span><p>Toda cifra de un borrador debe proceder de un archivo de referencia, y todo cambio sobre un documento existente se revisa antes de darlo por bueno. Así, cada dato tiene un origen y cada modificación pasa por una persona.</p></div>
+
+      <div class="glossary">
+        <div class="row"><h3 class="term">Archivo de referencia<small>Se indica con «/»</small></h3><p class="def">Documento, correo o reunión que se indica a Copilot, escribiendo <code>/</code> en el panel, para que el borrador parta de él. La documentación no fija un número máximo de referencias. <span class="an">[ Analogía ] Los papeles que se dejan sobre la mesa de quien va a redactar el informe.</span></p></div>
+        <div class="row"><h3 class="term">Coaching<small>Claridad · estilo · tono</small></h3><p class="def">Función que revisa un texto propio y sugiere mejoras, sin reescribirlo por completo. En Word está disponible en la versión para la web. <span class="an">[ Analogía ] El compañero que lee el informe antes de que llegue a Dirección y señala los párrafos confusos.</span></p></div>
+      </div>
+    </section>
+
+    <!-- 03 · Copilot en Excel -->
+    <section class="sec respira" id="excel" data-label="Excel">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Copilot en Excel.</h2></div>
+      <p class="sec-intro">En Excel, Copilot actúa como analista de la hoja: explica y escribe fórmulas, crea columnas calculadas, resume con tablas dinámicas y gráficos, aplica formato condicional y, en modo de edición, ejecuta los cambios; en modo Plan, los propone antes. Puede pensarse en él como en un analista que domina las funciones pero necesita el libro ordenado. Un criterio del curso —no una exigencia de Microsoft— es mantener los datos en una Tabla: así Copilot lee cada columna por su nombre, en lugar de adivinar qué contiene cada celda de un rango suelto.</p>
+
+      <div class="callout aviso"><span class="k">[ Antes de empezar ]</span>
+        <ul class="list-mono">
+          <li class="check"><strong>El cálculo en automático:</strong> la edición con Copilot solo funciona con las opciones de cálculo en automático.</li>
+          <li class="check"><strong>El formato de libro de Excel:</strong> no funciona con archivos en formato Strict Open XML; se corrige guardando otra vez el libro como <code>.xlsx</code>.</li>
+          <li class="check"><strong>Los datos ordenados:</strong> sin cabeceras duplicadas, celdas combinadas ni totales intercalados, y mejor en una Tabla (Ctrl+T), como criterio de trabajo del curso.</li>
+        </ul>
+      </div>
+
+      <h3>Lo esencial</h3>
+      <div class="grid-cards three">
+        <div class="card ink">
+          <span class="k">[ 01 ]</span>
+          <h4>Fórmulas y columnas calculadas</h4>
+          <p>Explica y escribe fórmulas («¿qué calcula el BUSCARX de la columna F?») y crea columnas calculadas. <strong>Cuándo:</strong> al revisar una hoja ajena o al añadir el margen bruto por tienda.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ 02 ]</span>
+          <h4>Tablas dinámicas y gráficos</h4>
+          <p>Resume los datos en tablas dinámicas y gráficos: ventas por tienda y por familia en una sola vista. <strong>Cuándo:</strong> al preparar la hoja de seguimiento del cierre.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ 03 ]</span>
+          <h4>Modo Plan</h4>
+          <p>Genera un plan que el usuario revisa y confirma antes de que se cambie la hoja. <strong>Cuándo:</strong> antes de cualquier cambio que afecte a muchas celdas.</p>
+        </div>
+      </div>
+
+      <h3>Otras funciones</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Función</th><th>Qué hace</th><th>Cuándo usarla</th></tr></thead>
+        <tbody>
+          <tr><td>Formato condicional y validación de datos</td><td>Resalta las celdas que cumplen una condición y restringe lo que se puede escribir en una columna.</td><td>Para señalar las tiendas que quedan por debajo del objetivo.</td></tr>
+          <tr><td>Ordenar y filtrar</td><td>Ordena y filtra los datos a partir de una petición en lenguaje natural.</td><td>Antes de analizar un listado, como el de proveedores.</td></tr>
+          <tr><td>Tendencias y valores atípicos</td><td>Señala patrones y datos que se salen de lo habitual.</td><td>Al buscar la tienda o el mes que rompe la serie.</td></tr>
+          <tr><td>Datos de otros libros y de la web</td><td>Importa datos de otros libros y busca en la web con citas.</td><td>Para completar una hoja con un dato externo que se pueda citar.</td></tr>
+          <tr><td>Conciliación (Finanzas en Copilot)</td><td>Compara dos conjuntos de datos y señala las diferencias.</td><td>Extracto bancario frente al mayor de bancos, si la organización lo ha activado.</td></tr>
+          <tr><td>Análisis de desviaciones (Finanzas en Copilot)</td><td>Ayuda a explicar las diferencias entre presupuesto y real a partir de una tabla dinámica.</td><td>En el cierre, si la organización lo ha activado.</td></tr>
+        </tbody>
+      </table></div>
+      <p>Mientras Copilot trabaja, el botón «Detener», a la derecha del cuadro de prompt, interrumpe la petición. Es el equivalente de levantar la mano antes de que el compañero siga tocando la hoja.</p>
+
+      <h3>Límites</h3>
+      <ul class="list-mono">
+        <li class="cross">No detecta por sí mismo un dato mal introducido: la cifra errónea se propaga a fórmulas, tablas dinámicas y gráficos.</li>
+        <li class="cross">Con datos sucios (celdas combinadas, cabeceras duplicadas, totales intercalados) interpreta mal la hoja, aunque esté en una Tabla.</li>
+        <li class="cross">Con el cálculo en manual no edita la hoja, y en iPhone y Android solo conversa.</li>
+      </ul>
+
+      <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Excel ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «A partir de la Tabla Ventas2026, crea en una hoja aparte una tabla dinámica con las ventas y el margen bruto por tienda y por mes, y añade un gráfico de columnas con las ventas por tienda. Antes de cambiar nada, dime qué pasos vas a seguir.»</pre></div>
+
+      <div class="callout regla"><span class="k">[ Regla de trabajo ]</span><p>Cálculo en automático y datos ordenados antes de abrir el panel, y la primera consulta en «Solo chat»: primero se comprueba que Copilot ha entendido la hoja y después se le permite modificarla, con el plan delante.</p></div>
+
+      <div class="glossary">
+        <div class="row"><h3 class="term">Tabla de Excel<small>Ctrl+T</small></h3><p class="def">Un rango convertido en tabla con Ctrl+T, con cabeceras y columnas con nombre. No es un requisito documentado de Copilot, pero facilita que el asistente lea la hoja por columnas. <span class="an">[ Analogía ] El libro mayor con sus columnas rotuladas, frente a una pila de tickets sueltos.</span></p></div>
+        <div class="row"><h3 class="term">Finanzas en Copilot<small>Conciliación · desviaciones</small></h3><p class="def">Capacidad de Excel para equipos financieros, si la organización la ha activado. La conciliación compara dos conjuntos de datos y señala las diferencias; el análisis de desviaciones trabaja sobre una tabla dinámica para ayudar a explicarlas. <span class="an">[ Ejemplo ] Conciliar el extracto bancario con el mayor de la cuenta de bancos y obtener la lista de partidas que no casan.</span></p></div>
+      </div>
+    </section>
+
+    <!-- 04 · Copilot en PowerPoint -->
+    <section class="sec respira" id="powerpoint" data-label="PowerPoint">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Copilot en PowerPoint.</h2></div>
+      <p class="sec-intro">En PowerPoint, Copilot actúa como autor de presentaciones: las crea a partir de una descripción o de un archivo existente, propone la narrativa, sigue el diseño y la marca de la presentación y redacta las notas del orador. Una analogía útil: en un informe, el índice se aprueba antes de redactar los capítulos; en PowerPoint, la lista de temas se revisa antes de que exista ninguna diapositiva.</p>
+
+      <h3>Lo esencial</h3>
+      <div class="grid-cards three">
+        <div class="card ink">
+          <span class="k">[ 01 ]</span>
+          <h4>Presentación desde un archivo</h4>
+          <p>En el menú de indicaciones, «Crear presentación a partir de un archivo» parte de un documento de Word, un PDF o un archivo de texto guardado en OneDrive o SharePoint. <strong>Cuándo:</strong> el memorándum de cierre ya revisado, convertido en presentación para dirección.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ 02 ]</span>
+          <h4>Temas antes que diapositivas</h4>
+          <p>Copilot construye primero la narrativa, y permite añadir, quitar y reordenar temas antes de generar las diapositivas. <strong>Cuándo:</strong> en toda presentación para dirección; la estructura se corrige en la lista de temas, no en veinte diapositivas.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ 03 ]</span>
+          <h4>Marca de la organización</h4>
+          <p>Los Brand Kits (así los llama la documentación, en inglés) se crean y se gestionan en la app de Copilot, y se eligen en el cuadro de indicaciones del chat de PowerPoint. <strong>Cuándo:</strong> siempre, antes de generar la primera diapositiva.</p>
+        </div>
+      </div>
+
+      <h3>Otras funciones</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Función</th><th>Qué hace</th><th>Cuándo usarla</th></tr></thead>
+        <tbody>
+          <tr><td>Desde una descripción</td><td>Crea la presentación a partir de un texto que explica el tema, el público y la extensión.</td><td>Cuando no hay un documento previo del que partir.</td></tr>
+          <tr><td>Plantilla propia</td><td>Si se abre el archivo como plantilla (<code>.potx</code>) y después se pide a Copilot, la presentación hereda su diseño.</td><td>Cuando no hay Brand Kit y se dispone de la plantilla de la casa.</td></tr>
+          <tr><td>Notas del orador</td><td>Redacta un borrador de notas para cada diapositiva al crear la presentación desde un archivo.</td><td>Antes de presentar ante el comité.</td></tr>
+          <tr><td>Reescribir o resumir una diapositiva</td><td>Reformula o condensa el texto de una diapositiva, en modo de edición.</td><td>Cuando una diapositiva acumula demasiado texto.</td></tr>
+          <tr><td>Revisar y preparar preguntas</td><td>Revisa la presentación, mejora visualmente una diapositiva y ayuda a preparar las preguntas que pueden hacer.</td><td>El día antes de presentar al comité.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Límites</h3>
+      <ul class="list-mono">
+        <li class="cross">Si no se elige un Brand Kit ni se parte de la plantilla, el diseño puede no ser el de la organización.</li>
+        <li class="cross">Las presentaciones grandes o complejas pueden superar los límites del sistema, y el resultado puede no ser exacto.</li>
+        <li class="cross">Al crear una presentación desde un archivo no se puede añadir contexto en el mismo mensaje: los ajustes se piden después, en un segundo mensaje.</li>
+      </ul>
+
+      <div class="code prompt"><div class="ch"><span class="k">[ Prompt · PowerPoint ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Ajusta la presentación a diez diapositivas para el comité de dirección. Muéstrame primero los temas en el orden en que aparecerán y, cuando los apruebe, genera las diapositivas con notas del orador.»</pre></div>
+
+      <div class="callout regla"><span class="k">[ Regla de trabajo ]</span><p>Temas antes que diapositivas y marca elegida antes de generar. Corregir la estructura en la lista de temas lleva un minuto; corregirla en veinte diapositivas terminadas, una tarde.</p></div>
+
+      <div class="glossary">
+        <div class="row"><h3 class="term">Brand Kit<small>Marca de la organización</small></h3><p class="def">Conjunto de elementos de marca que se crea y se gestiona en la app de Copilot y que se elige en el cuadro de indicaciones de PowerPoint para que la presentación siga el diseño de la casa. <span class="an">[ Analogía ] El papel con membrete que ya está cargado en la bandeja de la impresora.</span></p></div>
+        <div class="row"><h3 class="term">Narrativa previa<small>Temas antes que diapositivas</small></h3><p class="def">Fase en la que Copilot propone los temas de la presentación y el usuario los añade, quita o reordena antes de que se generen las diapositivas. <span class="an">[ Analogía ] El índice del informe, aprobado antes de abrir Word.</span></p></div>
+      </div>
+    </section>
+
+    <!-- 05 · Copilot en Outlook -->
+    <section class="sec respira" id="outlook" data-label="Outlook">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Copilot en Outlook.</h2></div>
+      <p class="sec-intro">En Outlook, Copilot actúa como lector y redactor de correo: resume hilos largos, redacta respuestas, revisa el tono antes del envío y ayuda a ordenar la bandeja de entrada. Puede pensarse en él como en un asistente que lee toda la correspondencia de un asunto, entrega un resumen de un párrafo antes de la reunión y revisa el borrador de la respuesta antes de que salga.</p>
+
+      <h3>Lo esencial</h3>
+      <div class="grid-cards three">
+        <div class="card ink">
+          <span class="k">[ 01 ]</span>
+          <h4>Resumen por Copilot</h4>
+          <p>Resume un hilo largo en un párrafo, con citas numeradas; en Outlook clásico y en Mac, la opción se llama «Resumir». <strong>Cuándo:</strong> antes de responder a un hilo con importes o compromisos.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ 02 ]</span>
+          <h4>Borrador con Copilot</h4>
+          <p>Redacta la respuesta al escribir <code>/</code> en el cuerpo del correo; aquí <code>/</code> abre la redacción, no un agente. Después se ajusta con «Acortar», «Alargar» o «Cambiar tono». <strong>Cuándo:</strong> al contestar a proveedores y clientes, con el hilo ya resumido.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ 03 ]</span>
+          <h4>Entrenamiento de correo</h4>
+          <p>Sugiere mejoras de tono, claridad y sentimiento del lector en un correo propio antes de enviarlo. La opción no está disponible mientras Copilot redacta el borrador. <strong>Cuándo:</strong> antes de enviar una reclamación, para que no se lea como un reproche.</p>
+        </div>
+      </div>
+
+      <h3>Otras funciones</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Función</th><th>Qué hace</th><th>Cuándo usarla</th></tr></thead>
+        <tbody>
+          <tr><td>Priorizar mi bandeja de entrada</td><td>En Windows se activa con la flecha junto al botón de Copilot, en «Priorizar». Marca los correos con prioridad alta, normal o baja y da el motivo en el panel de lectura.</td><td>Para decidir qué atender primero sin abrir cada mensaje.</td></tr>
+          <tr><td>Órdenes en lenguaje natural</td><td>Fija, marca, archiva o elimina uno o varios correos desde el chat de Copilot, y crea o cambia reglas de Outlook.</td><td>Para despejar la bandeja con una sola instrucción.</td></tr>
+          <tr><td>Programación con Copilot</td><td>Propone y programa una reunión a partir de lo que dice el hilo.</td><td>Cuando un asunto pide una conversación y no más correos.</td></tr>
+        </tbody>
+      </table></div>
+      <p>Sobre la prioridad hay tres matices que conviene conocer: la prioridad baja está desactivada de forma predeterminada; solo se priorizan los correos que llegan a la bandeja de entrada después de activar la función; y los criterios propios se definen en Configuración, en el apartado de Copilot, bajo «Prioridades».</p>
+
+      <h3>Límites</h3>
+      <ul class="list-mono">
+        <li class="cross">El resumen de un hilo no sustituye la lectura de los mensajes que contienen compromisos: importes, plazos y condiciones.</li>
+        <li class="cross">Un borrador puede incluir datos que no figuran en el hilo: importes y fechas se comprueban antes de enviar.</li>
+        <li class="cross">No está disponible en correos firmados o cifrados, ni en buzones de grupo, ni en cuentas que no sean de Exchange Online, como las de tipo Gmail.</li>
+        <li class="cross">Trabaja sobre el buzón y los hilos a los que el usuario tiene acceso; lo que no está en el correo, no lo conoce.</li>
+      </ul>
+
+      <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Outlook ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Resume este hilo con el proveedor en cinco puntos: qué se reclama, qué importes y fechas se mencionan, qué se ha acordado, qué queda pendiente y quién debe responder.»</pre></div>
+
+      <div class="callout regla"><span class="k">[ Regla de trabajo ]</span><p>Resumir antes de responder y pasar el entrenamiento de correo antes de enviar. El resumen asegura que la respuesta tiene en cuenta todo el hilo; el entrenamiento, que el tono corresponde a lo que se quiere transmitir.</p></div>
+
+      <div class="glossary">
+        <div class="row"><h3 class="term">Entrenamiento de correo<small>Coaching</small></h3><p class="def">Sugerencias de tono, claridad y sentimiento del lector sobre un correo propio antes de enviarlo. <span class="an">[ Analogía ] El compañero que lee la reclamación al proveedor antes de que se pulse Enviar.</span></p></div>
+        <div class="row"><h3 class="term">Prioridad<small>Alta · normal · baja</small></h3><p class="def">Marca que Copilot asigna al correo entrante, con el motivo que la justifica; la baja viene desactivada de forma predeterminada. <span class="an">[ Analogía ] El correo clasificado a primera hora con una nota en cada sobre: «urgente: vence hoy el plazo de pago».</span></p></div>
+      </div>
+    </section>
+
+    <!-- 06 · Copilot en Teams -->
+    <section class="sec respira" id="teams" data-label="Teams">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Copilot en Teams: reuniones, chats y mensajes.</h2></div>
+      <p class="sec-intro">En Teams, Copilot actúa como secretario: resume lo que se ha dicho en una reunión, responde a preguntas sobre ella, pone al día a quien llega tarde, resume chats y canales y ayuda a redactar mensajes. Su límite es el de cualquier secretario: solo puede levantar acta de lo que ha quedado por escrito. Para una reunión, eso significa la transcripción; para un chat, los propios mensajes. Sin transcripción no hay resumen de lo hablado.</p>
+
+      <p>El organizador de la reunión decide, en las opciones de la reunión —«Permitir Copilot y facilitador»—, cómo se usa Copilot, dentro de lo que permita la política de la organización y las etiquetas de confidencialidad. Hay tres posibilidades.</p>
+
+      <figure class="figure esquema">
+        <svg viewBox="0 0 960 330" role="img" aria-label="Esquema de las tres opciones del organizador. A la izquierda, en oscuro, el organizador elige el modo. De él parten tres ramas. «Durante y después de la reunión»: con transcripción obligatoria, se puede preguntar también después. «Solo durante la reunión»: usa voz a texto, y al terminar lo no transcrito deja de estar disponible. «Apagado»: sin Copilot, ni grabación ni transcripción.">
+          <rect class="fill-ink" x="40" y="110" width="250" height="120" rx="4"/>
+          <text class="ti on-dark" x="165" y="162" text-anchor="middle">Organizador</text>
+          <text class="lb on-dark soft" x="165" y="196" text-anchor="middle">elige el modo</text>
+          <line class="ln" x1="290" y1="170" x2="334" y2="170"/>
+          <line class="ln" x1="334" y1="72" x2="334" y2="268"/>
+          <line class="ln" x1="334" y1="72" x2="380" y2="72"/>
+          <line class="ln" x1="334" y1="170" x2="380" y2="170"/>
+          <line class="ln" x1="334" y1="268" x2="380" y2="268"/>
+          <rect class="bx" x="380" y="36" width="540" height="72" rx="4"/>
+          <text class="lb b" x="404" y="68">«Durante y después de la reunión»</text>
+          <text class="lb" x="404" y="94">Con transcripción: preguntas después</text>
+          <rect class="bx fill" x="380" y="134" width="540" height="72" rx="4"/>
+          <text class="lb b" x="404" y="166">«Solo durante la reunión»</text>
+          <text class="lb" x="404" y="192">Lo no transcrito deja de estar disponible</text>
+          <rect class="bx" x="380" y="232" width="540" height="72" rx="4"/>
+          <text class="lb b" x="404" y="264">«Apagado»</text>
+          <text class="lb" x="404" y="290">Sin Copilot, grabación ni transcripción</text>
+        </svg>
+        <figcaption>[ Diagrama 03 ] Tres opciones del organizador: lo que no se transcribe no se puede preguntar</figcaption>
+      </figure>
+
+      <h3>Lo esencial</h3>
+      <div class="grid-cards three">
+        <div class="card ink">
+          <span class="k">[ 01 · Reuniones ]</span>
+          <h4>Durante y después</h4>
+          <p>Durante la reunión, el botón de Copilot resume los puntos clave, sugiere elementos de acción y responde en un chat privado; quien se une con retraso puede pedir el resumen con «Abrir Copilot». Después, desde el chat de la reunión o la pestaña «Resumen», responde con citas. <strong>Cuándo:</strong> acta de la reunión de cierre.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ 02 · Chats y canales ]</span>
+          <h4>Poner al día</h4>
+          <p>En un chat, «Abrir Copilot» ofrece sugerencias como «Resumir lo que me he perdido»; por defecto mira los últimos 30 días, y «Fuentes» lleva al mensaje original. En un canal, «Resumir hilo». <strong>Cuándo:</strong> al volver de unos días fuera.</p>
+        </div>
+        <div class="card ink">
+          <span class="k">[ 03 · Mensajes ]</span>
+          <h4>Reescribir con Copilot</h4>
+          <p>Bajo el cuadro de redacción, «Reescribir» ofrece otra versión con mejor gramática y estilo, y «Ajustar» cambia la extensión o el tono. <strong>Cuándo:</strong> un aviso al equipo que debe sonar profesional.</p>
+        </div>
+      </div>
+
+      <h3>Otras funciones</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Función</th><th>Qué hace</th><th>Cuándo usarla</th></tr></thead>
+        <tbody>
+          <tr><td>Facilitador</td><td>Agente de las reuniones programadas que genera «Notas de IA» en tiempo real a partir de la transcripción, en una página que se puede editar. Lo activan el organizador o los moderadores.</td><td>En reuniones de seguimiento con decisiones que deben quedar escritas.</td></tr>
+          <tr><td>«Abrir en Word» y «Abrir en Excel»</td><td>Una respuesta larga, de más de 1300 caracteres, se lleva a un documento de Word; una respuesta en forma de tabla, a Excel.</td><td>Para convertir el acta en un borrador de memorándum.</td></tr>
+          <tr><td>Resumir un hilo de canal</td><td>Desde «Más acciones», «Resumir hilo»; necesita un hilo de al menos 1000 caracteres.</td><td>Cuando un canal acumula una discusión larga.</td></tr>
+          <tr><td>Ajustar un mensaje</td><td>«Hazlo» conciso o más largo; «Hazlo sonar» casual, profesional, seguro o entusiasta.</td><td>Antes de enviar un recordatorio a las tiendas.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Límites</h3>
+      <ul class="list-mono">
+        <li class="cross">Sin transcripción no hay preguntas sobre lo hablado: en el chat de la reunión, Copilot solo usa el chat. Con «Solo durante la reunión», al terminar, lo no transcrito y las interacciones con Copilot dejan de estar disponibles.</li>
+        <li class="cross">No funciona en reuniones organizadas fuera de la organización del participante.</li>
+        <li class="cross">No resume imágenes, componentes de Loop ni archivos compartidos, ni contesta a lo que no sea del chat o de la reunión.</li>
+        <li class="cross">En reuniones periódicas, el historial anterior deja de estar disponible cuando se transcribe una reunión posterior de la serie.</li>
+        <li class="cross">Admite ocho idiomas, entre ellos el español; las preguntas en inglés suelen dar mejores respuestas, y las reuniones de más de dos horas pueden dar respuestas limitadas o más lentas.</li>
+      </ul>
+
+      <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Teams ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Resume los acuerdos de esta reunión en una lista. Para cada acuerdo, indica quién lo propuso y quién debe ejecutarlo. Si algo no consta en la transcripción, dilo en lugar de suponerlo.»</pre></div>
+
+      <div class="callout regla"><span class="k">[ Regla de trabajo ]</span><p>Decidir antes de la reunión si se transcribe, de acuerdo con la política de la organización sobre grabaciones y transcripciones, y comprobar después el resumen contra las citas que Copilot ofrece. Un acta que atribuye un acuerdo a quien no lo dijo es peor que no tener acta.</p></div>
+
+      <div class="glossary">
+        <div class="row"><h3 class="term">Transcripción<small>Texto de lo hablado</small></h3><p class="def">El texto de lo que se dice en una reunión. Es distinta de la grabación y es lo que Copilot necesita para responder preguntas sobre lo hablado, durante y después de la reunión. <span class="an">[ Analogía ] El acta literal, frente a la cinta de la reunión: para consultar lo dicho basta con el acta.</span></p></div>
+        <div class="row"><h3 class="term">Facilitador<small>Notas de IA</small></h3><p class="def">Agente de Teams, propio de las reuniones programadas, que toma notas en tiempo real a partir de la transcripción y las deja en una página editable, accesible después desde el resumen de la reunión. <span class="an">[ Analogía ] El compañero que toma notas en el cuaderno compartido mientras los demás hablan.</span></p></div>
+      </div>
+    </section>
+
+    <!-- 07 · Qué programa para qué -->
+    <section class="sec respira" id="elegir" data-label="Elegir">
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Qué programa para qué: el recorrido del cierre.</h2></div>
+      <p class="sec-intro">Un cierre mensual no ocurre en un solo programa. Las cifras salen de una hoja, el memorándum se redacta en un documento, la presentación se prepara para el comité, el correo la acompaña y la reunión de cierre pasa por Teams. Copilot está en los cinco, y lo importante es saber en cuál conviene pedir cada cosa: el archivo donde vive el trabajo suele ser el lugar correcto.</p>
+
+      <figure class="figure esquema">
+        <svg viewBox="0 0 960 250" role="img" aria-label="Recorrido del cierre en cuatro pasos: Excel, con las cifras; Word, con el memorándum; PowerPoint, con la presentación; Outlook, con el correo. Debajo, una banda atraviesa los cuatro pasos: Teams, con la reunión de cierre y el chat del equipo.">
+          <rect class="bx" x="40" y="24" width="190" height="84" rx="4"/>
+          <text class="ti" x="135" y="60" text-anchor="middle">Excel</text>
+          <text class="lb" x="135" y="88" text-anchor="middle">Las cifras</text>
+          <line class="ln ac" x1="230" y1="66" x2="270" y2="66"/>
+          <path class="ln ac" d="M262 60 L270 66 L262 72"/>
+          <rect class="bx" x="270" y="24" width="190" height="84" rx="4"/>
+          <text class="ti" x="365" y="60" text-anchor="middle">Word</text>
+          <text class="lb" x="365" y="88" text-anchor="middle">El memorándum</text>
+          <line class="ln ac" x1="460" y1="66" x2="500" y2="66"/>
+          <path class="ln ac" d="M492 60 L500 66 L492 72"/>
+          <rect class="bx" x="500" y="24" width="190" height="84" rx="4"/>
+          <text class="ti" x="595" y="60" text-anchor="middle">PowerPoint</text>
+          <text class="lb" x="595" y="88" text-anchor="middle">La presentación</text>
+          <line class="ln ac" x1="690" y1="66" x2="730" y2="66"/>
+          <path class="ln ac" d="M722 60 L730 66 L722 72"/>
+          <rect class="fill-ink" x="730" y="24" width="190" height="84" rx="4"/>
+          <text class="ti on-dark" x="825" y="60" text-anchor="middle">Outlook</text>
+          <text class="lb on-dark soft" x="825" y="88" text-anchor="middle">El correo</text>
+          <rect class="bx fill" x="40" y="148" width="880" height="76" rx="4"/>
+          <text class="ti" x="64" y="194">Teams</text>
+          <text class="lb" x="200" y="194">Reunión de cierre y chat del equipo, en cada paso</text>
+        </svg>
+        <figcaption>[ Diagrama 04 ] Cuatro programas en cadena y uno que los acompaña: Teams</figcaption>
+      </figure>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>Tarea del cierre</th><th>Dónde pedirla</th><th>Primer paso</th></tr></thead>
+        <tbody>
+          <tr><td>Calcular ventas y margen por tienda</td><td>Excel</td><td>Preguntar en «Solo chat» por la estructura de la Tabla; después, pedir el cambio con el plan delante.</td></tr>
+          <tr><td>Redactar el memorándum</td><td>Word</td><td>Indicar con <code>/</code> las normas y el memorándum del mes anterior como referencias.</td></tr>
+          <tr><td>Preparar la presentación para dirección</td><td>PowerPoint</td><td>Crear la presentación a partir del memorándum ya revisado y elegir el Brand Kit.</td></tr>
+          <tr><td>Remitir el memorándum y contestar al proveedor</td><td>Outlook</td><td>Resumir el hilo, pedir el borrador y pasar el entrenamiento de correo.</td></tr>
+          <tr><td>Levantar acta de la reunión de cierre</td><td>Teams</td><td>Asegurar la transcripción y preguntar desde el chat de la reunión.</td></tr>
+          <tr><td>Preguntar a la vez por varios documentos del cierre</td><td>La app de Copilot, con un Cuaderno</td><td>Es el tema de la clase 1.</td></tr>
+          <tr><td>Encargar un trabajo de varios pasos que cruza programas</td><td>Cowork, en la app</td><td>Es el tema de la clase 1; los agentes, el de la clase 3.</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout clave"><span class="k">[ Criterio ]</span><p>El programa se elige por dónde vive el archivo y por quién va a leer el resultado. Lo que se hace dentro del archivo se revisa en el archivo; lo que cruza programas se delega en la app.</p></div>
+    </section>
+
+    <!-- 08 · Práctica -->
+    <section class="sec respira sec-dark" id="practica" data-label="Práctica">
+      <p class="sec-eyebrow">[ Parte práctica ]</p>
+      <div class="sec-head"><span class="sec-num"></span><h2 class="display">Laboratorio: el cierre de septiembre en cinco programas.</h2></div>
+      <p class="sec-intro">La práctica continúa el caso de la clase 1: el cierre de septiembre de la marca de calzado y marroquinería con ocho tiendas. Se parte de los mismos tres archivos y de la carpeta «Práctica M5» de OneDrive. En esta ocasión el trabajo se hace dentro de cada programa: primero la hoja de seguimiento en Excel, después el memorándum en Word, la presentación en PowerPoint, el correo en Outlook y, por último, Teams. Cada resultado se compara con unas cifras de control calculadas a partir de los archivos.</p>
+
+      <h3>Archivos de la práctica</h3>
+      <div class="grid-cards three">
+        <a class="card link" href="/practica/m5c1/ventas-tiendas-2026.xlsx" download>
+          <span class="k">[ Descargar ]</span>
+          <h4>ventas-tiendas-2026.xlsx</h4>
+          <p>Hojas «Ventas 2026» (enero a septiembre, Tabla «Ventas2026») y «Ventas 2025» (año completo, Tabla «Ventas2025»): una fila por mes, tienda y familia, con ventas, coste y margen bruto.</p>
+        </a>
+        <a class="card link" href="/practica/m5c1/memorandum-cierre-agosto.docx" download>
+          <span class="k">[ Descargar ]</span>
+          <h4>memorandum-cierre-agosto.docx</h4>
+          <p>El memorándum del mes anterior, con sus cinco apartados fijos: modelo de estructura y fuente de control.</p>
+        </a>
+        <a class="card link" href="/practica/m5c1/normas-imputacion.docx" download>
+          <span class="k">[ Descargar ]</span>
+          <h4>normas-imputacion.docx</h4>
+          <p>Las normas de la Dirección Financiera: calendario de cierre, centros de coste, criterios de imputación y, en el apartado 5, el formato del memorándum.</p>
+        </a>
+      </div>
+
+      <ol class="exercises">
+        <li>
+          <h4>Preparación</h4>
+          <p>Si no los tienes ya, descarga los tres archivos y guárdalos en la carpeta «Práctica M5» de OneDrive. Abre el libro de ventas en Excel con la cuenta de trabajo y comprueba que el cálculo está en automático. Abre el panel de Copilot y anota en qué modo se ha abierto. Para el ejercicio de Teams, ten a mano una reunión propia reciente con transcripción o un chat con actividad de la última semana.</p>
+        </li>
+        <li>
+          <h4>Excel · la hoja de seguimiento</h4>
+          <p>Primero, pon el panel en «Solo chat» y lanza la pregunta siguiente. La respuesta debe enumerar nueve columnas (Mes, Tienda, Familia, Unidades, PVP medio, Coste medio, Ventas, Coste y Margen bruto) y 32 filas de septiembre de 2026: ocho tiendas por cuatro familias.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Solo chat ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «¿Qué columnas tiene la Tabla Ventas2026 y cuántas filas corresponden a septiembre de 2026?»</pre></div>
+          <p>Después, pasa al modo de edición o al modo Plan, lanza el prompt siguiente, lee el plan y apruébalo solo si usa ambas Tablas y no modifica las hojas originales.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Seguimiento ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «En una hoja aparte llamada Resumen, crea una Tabla con una fila por tienda y estas columnas: ventas de septiembre de 2026 (de la Tabla Ventas2026), ventas de septiembre de 2025 (de la Tabla Ventas2025), variación interanual en porcentaje y margen bruto de septiembre de 2026 en porcentaje, con fórmulas y una fila de totales. Muéstrame el plan antes de ejecutarlo.»</pre></div>
+          <p><strong>Cifras de control:</strong> la fila de totales debe dar 789.497 € frente a 738.258 €, una variación del +6,9 % y un margen bruto del 61,3 %. Por tienda:</p>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Tienda</th><th>Sept. 2026</th><th>Sept. 2025</th><th>Variación</th><th>Margen bruto</th></tr></thead>
+            <tbody>
+              <tr><td>Palma</td><td>107.343 €</td><td>100.810 €</td><td>+6,5 %</td><td>60,4 %</td></tr>
+              <tr><td>Barcelona</td><td>120.536 €</td><td>116.677 €</td><td>+3,3 %</td><td>61,5 %</td></tr>
+              <tr><td>Madrid</td><td>129.306 €</td><td>125.645 €</td><td>+2,9 %</td><td>61,9 %</td></tr>
+              <tr><td>Valencia</td><td>74.794 €</td><td>76.519 €</td><td>−2,3 %</td><td>61,1 %</td></tr>
+              <tr><td>Bilbao</td><td>62.470 €</td><td>61.320 €</td><td>+1,9 %</td><td>61,7 %</td></tr>
+              <tr><td>Sevilla</td><td>68.999 €</td><td>63.017 €</td><td>+9,5 %</td><td>61,9 %</td></tr>
+              <tr><td>Lisboa</td><td>68.543 €</td><td>59.739 €</td><td>+14,7 %</td><td>61,7 %</td></tr>
+              <tr><td>Online</td><td>157.506 €</td><td>134.531 €</td><td>+17,1 %</td><td>60,9 %</td></tr>
+            </tbody>
+          </table></div>
+          <p>Por último, pide el formato condicional, con el plan delante, y comprueba que Valencia queda en rojo y que Palma, Sevilla, Lisboa y Online quedan en verde; Barcelona, Madrid y Bilbao no se colorean.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Formato ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Aplica formato condicional a la columna de variación interanual, sin contar la fila de totales: rojo si es negativa, verde si es igual o superior al 5 %. Muéstrame el plan antes de ejecutarlo.»</pre></div>
+        </li>
+        <li>
+          <h4>Word · el memorándum</h4>
+          <p>Primero, abre un documento en blanco en Word y el panel de Copilot. Después, escribe <code>/</code> y elige como referencias las normas de imputación, el memorándum de agosto y el libro de ventas; si Copilot no logra leer el libro, copia la tabla de la hoja «Resumen» y pégala en el mensaje. Por último, lanza el prompt siguiente y revisa el resultado contra las cifras de control del ejercicio anterior.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Memorándum ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Redacta el memorándum de cierre de septiembre de 2026 para Dirección General, con el formato del apartado 5 de las normas de imputación y la misma estructura que el memorándum de agosto. Toma las cifras de la hoja Resumen del libro de ventas. Incluye la tabla de ventas por tienda con la variación interanual y el margen bruto en porcentaje. Una página.»</pre></div>
+          <p><strong>Cifras de control:</strong> el resumen ejecutivo debe dar 789.497 €, un +6,9 % interanual y un margen bruto del 61,3 %, y la tabla por tienda debe coincidir con la del ejercicio anterior. Si el apartado de márgenes da cifras por familia, deben ser: Zapatos, 60,0 %; Bolsos, 61,5 %; Cinturones, 67,3 % y Accesorios, 63,5 %. Ningún archivo recoge las incidencias de septiembre: si el apartado 4 repite las de agosto como si fueran de septiembre, es un error que se corrige.</p>
+        </li>
+        <li>
+          <h4>PowerPoint · la presentación para dirección</h4>
+          <p>Primero, guarda el memorándum de septiembre ya revisado en la carpeta «Práctica M5» y abre una presentación en blanco. Después, en el cuadro de indicaciones de Copilot, elige «Crear presentación a partir de un archivo» y selecciona ese memorándum; si la organización ofrece un Brand Kit, elígelo también. A continuación, y en un segundo mensaje, pide los ajustes con el prompt siguiente.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Presentación ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Ajusta la presentación a ocho diapositivas para Dirección General: portada, resumen ejecutivo, ventas por tienda, márgenes, incidencias, próximos pasos, conclusión y preguntas. Con notas del orador en cada diapositiva.»</pre></div>
+          <p><strong>Qué comprobar:</strong> que la lista de temas, si Copilot la muestra, sigue el orden pedido; que hay ocho diapositivas; y que las notas del orador de la diapositiva de ventas por tienda citan las mismas cifras que el memorándum (789.497 € y +6,9 %).</p>
+        </li>
+        <li>
+          <h4>Remate · refinar en modo de edición</h4>
+          <p>Primero, en Word y en modo de edición, lanza el primer prompt; el resumen resultante debe tener 80 palabras como máximo y conservar las tres cifras (789.497 €, +6,9 % y 61,3 %). Después, en PowerPoint, duplica la diapositiva del resumen ejecutivo, lanza el segundo prompt y compara la diapositiva resultante con la copia. En ambos casos, revisa cada cambio antes de aceptarlo y deshaz los que no te convenzan.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Word ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Acorta el resumen ejecutivo a 80 palabras sin perder la cifra de ventas, la variación interanual ni el margen.»</pre></div>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · PowerPoint ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Reescribe la diapositiva del resumen ejecutivo en tres viñetas de menos de diez palabras.»</pre></div>
+        </li>
+        <li>
+          <h4>Outlook · el correo a dirección</h4>
+          <p>Primero, abre un mensaje en blanco dirigido a ti mismo, no a Dirección General, y adjunta el memorándum. Después, escribe <code>/</code> en el cuerpo, elige la opción de redactar con Copilot («Borrador» o «Borrador con Copilot», según la versión) y lanza el prompt siguiente. Por último, pasa el entrenamiento de correo y aplica solo las sugerencias que mantengan las cifras. No lo envíes: guárdalo como borrador.</p>
+          <div class="code prompt"><div class="ch"><span class="k">[ Prompt · Outlook ]</span><button type="button" class="btn-ghost" data-copy data-copy-mode="strip-chevron">Copiar</button></div><pre>&gt; «Redacta un correo para Dirección General que acompañe el memorándum de cierre de septiembre: tres líneas con las ventas totales (789.497 €), la variación interanual (+6,9 %) y el margen bruto (61,3 %), y la indicación de que el documento va adjunto. Tono formal.»</pre></div>
+          <p><strong>Qué comprobar:</strong> que las tres cifras son exactamente las del prompt, que el correo menciona el adjunto y que Copilot no ha añadido fechas, importes ni compromisos que tú no le diste. Si tienes un hilo largo con un proveedor, prueba además «Resumen por Copilot» sobre él y comprueba que cada punto del resumen lleva su cita.</p>
+        </li>
+        <li>
+          <h4>Teams · una reunión o un chat reales</h4>
+          <p>Primero, si tienes una reunión propia reciente con transcripción, abre su chat o su pestaña «Resumen», pulsa «Abrir Copilot» y lanza el prompt de la sección de Teams sobre sus acuerdos. Si no la tienes, abre un chat con actividad reciente, pulsa «Abrir Copilot» y elige «Resumir lo que me he perdido». Después, redacta en un chat de práctica un mensaje con este contenido: «Recordad que el cierre de caja, las devoluciones y el recuento de existencias deben llegar el 3 de octubre (D+3)». Pulsa «Reescribir con Copilot» y, en «Ajustar», pide «Hazlo sonar» profesional.</p>
+          <p><strong>Qué comprobar:</strong> en el resumen de reunión, que cada acuerdo se apoya en una cita de la transcripción y que no se atribuye nada a quien no lo dijo; si la reunión no tenía transcripción, que Copilot lo indique y se limite al chat. En el resumen de chat, que cubre el periodo previsto —30 días por defecto— y que «Fuentes» lleva al mensaje original. En el mensaje reescrito, que la fecha y el código D+3 no han cambiado. No inventes el contenido de la reunión: la corrección se juzga contra lo que realmente se dijo.</p>
+        </li>
+      </ol>
+
+      <div class="callout ok"><span class="k">[✓] Resultado esperado</span><p>Al terminar, tienes una hoja de seguimiento con las cifras de control, un memorándum y una presentación que citan las mismas cifras, un correo en borrador que no se ha enviado y un resumen de Teams contrastado con sus citas. Además, has comprobado en cada programa la diferencia entre conversar sobre un archivo y dejar que Copilot lo cambie, y has revisado cada cambio antes de aceptarlo.</p></div>
+
+      <div class="quiz" data-quiz="quizData" data-title="Test de la clase"></div>
+    </section>
+
+  </div><!-- /.content -->
+  <!-- nav inferior y pie: los genera curso.js -->
+</main>
+
+<script src="/curso-data.js"></script>
+<script src="/curso.js"></script>
+<script>
+  // Test de la clase. a = índice de la opción correcta; why = explicación de una frase.
+  // `var` (no `const`): curso.js lee el array como window[data-quiz].
+  var quizData = [
+    {
+      q: "Dentro de Word, Excel o PowerPoint, ¿qué distingue «Solo chat» del modo de edición?",
+      opts: [
+        "«Solo chat» solo funciona sin conexión a internet, y el modo de edición necesita conexión permanente para consultar los modelos.",
+        "En «Solo chat» el archivo no cambia; en el modo de edición, Copilot escribe y da formato con cambios revisables.",
+        "El modo de edición solo corrige la ortografía y la puntuación; cualquier otro cambio se hace desde «Solo chat».",
+        "No hay diferencia práctica: los dos modifican el archivo de la misma forma, pero «Solo chat» lo hace más rápido y sin avisar."
+      ],
+      a: 1,
+      why: "El modo decide si el archivo cambia; como el panel se abre en modo de edición, conviene pasar a «Solo chat» para explorar y volver a editar cuando esté claro qué debe cambiar."
+    },
+    {
+      q: "¿Cuál de estas condiciones debe cumplirse para que Copilot pueda editar una hoja de Excel?",
+      opts: [
+        "Que el libro esté guardado en el escritorio del equipo, en formato CSV y con las macros activadas desde el centro de confianza.",
+        "Que los datos estén en un PDF adjunto a la conversación.",
+        "Que las opciones de cálculo del libro estén en automático.",
+        "Que el libro esté protegido con contraseña y con cada hoja bloqueada, para que ninguna celda cambie por error mientras Copilot trabaja."
+      ],
+      a: 2,
+      why: "Con el cálculo en manual la edición con Copilot no funciona; y si el libro está en formato Strict Open XML, hay que guardarlo otra vez como .xlsx."
+    },
+    {
+      q: "¿Qué permite hacer PowerPoint antes de generar las diapositivas?",
+      opts: [
+        "Añadir, quitar y reordenar los temas de la narrativa.",
+        "Elegir el color de cada diapositiva a partir de una biblioteca de plantillas que la organización ha cargado previamente.",
+        "Colocar cada elemento con precisión de píxel.",
+        "Cargar las cifras de la hoja de Excel para que se calculen otra vez dentro de la presentación, sin pasar por el memorándum."
+      ],
+      a: 0,
+      why: "La narrativa se revisa antes de que exista ninguna diapositiva: temas antes que diapositivas."
+    },
+    {
+      q: "¿Qué hace el entrenamiento de correo electrónico (Coaching) en Outlook?",
+      opts: [
+        "Resume un hilo largo de correos en un párrafo con los puntos clave, los importes y los plazos que se mencionan.",
+        "Marca el correo entrante con prioridad alta, normal o baja y explica el motivo de la marca en el panel de lectura.",
+        "Envía solas las respuestas pendientes a proveedores y clientes.",
+        "Sugiere mejoras de tono, claridad y sentimiento del lector en un correo propio antes de enviarlo."
+      ],
+      a: 3,
+      why: "Es la revisión previa al envío; resumir el hilo corresponde a otra función, Resumen por Copilot."
+    },
+    {
+      q: "Un compañero no pudo asistir a la reunión de cierre y quiere preguntar a Copilot por lo que se dijo. ¿Qué tiene que haber ocurrido durante la reunión?",
+      opts: [
+        "Que alguien haya grabado la reunión en vídeo y la haya subido a OneDrive antes de cerrar la sesión, porque Copilot solo lee archivos de vídeo.",
+        "Que se haya activado la transcripción.",
+        "Que todos los asistentes hayan activado la cámara y el micrófono, para que Copilot pueda identificar quién habla.",
+        "Que el chat haya estado cerrado."
+      ],
+      a: 1,
+      why: "Sin transcripción no hay preguntas sobre lo hablado: en el chat de la reunión, Copilot solo usa el chat."
+    },
+    {
+      q: "Si el organizador elige «Solo durante la reunión», ¿qué ocurre al terminar la reunión?",
+      opts: [
+        "Copilot envía de forma automática un resumen a todos los invitados y lo archiva en la pestaña «Resumen» durante treinta días.",
+        "La reunión se transcribe por completo y se guarda, de modo que se puede consultar igual que con la otra opción de Copilot.",
+        "Lo no transcrito y las interacciones con Copilot dejan de estar disponibles.",
+        "Copilot sigue disponible solo para el organizador."
+      ],
+      a: 2,
+      why: "Esa opción usa voz a texto durante la reunión; para consultar lo hablado después hace falta «Durante y después de la reunión», con transcripción."
+    },
+    {
+      q: "En «Priorizar mi bandeja de entrada», ¿qué prioridades puede asignar Copilot y cuál viene desactivada de forma predeterminada?",
+      opts: [
+        "Alta, normal y baja; la baja está desactivada de forma predeterminada.",
+        "Solo alta y baja; la alta viene desactivada.",
+        "Alta, normal y baja; todas vienen activadas, y el usuario puede desactivar la normal en la configuración de Copilot.",
+        "Urgente, importante y rutinaria; la rutinaria viene desactivada y se activa desde las reglas de la bandeja de entrada."
+      ],
+      a: 0,
+      why: "Copilot marca los correos con prioridad alta, normal o baja y muestra el motivo; la baja se activa a petición del usuario."
+    },
+    {
+      q: "¿Qué hace el modo Plan de Excel?",
+      opts: [
+        "Programa los cambios para ejecutarlos por la noche, cuando nadie tiene el libro abierto, y envía un aviso al terminar.",
+        "Convierte la hoja en un plan de cuentas con sus centros de coste y lo guarda en la carpeta de OneDrive del equipo.",
+        "Genera un plan que el usuario revisa y confirma antes de que se cambie la hoja.",
+        "Impide cualquier cambio en el libro y solo permite consultar sus datos, como ocurre en los teléfonos móviles."
+      ],
+      a: 2,
+      why: "Es el término medio entre conversar y editar: el plan se lee antes de ejecutarlo, como el orden del día antes de la reunión."
+    },
+    {
+      q: "Para convertir el memorándum de septiembre, ya revisado, en una presentación para dirección, ¿dónde conviene pedirlo y con qué opción?",
+      opts: [
+        "En Outlook, adjuntando el memorándum a un correo para Copilot.",
+        "En Excel, con el modo Plan, que genera las diapositivas a partir de la hoja de seguimiento y las guarda en la misma Tabla.",
+        "En PowerPoint, con «Crear presentación a partir de un archivo», eligiendo el memorándum y el Brand Kit.",
+        "En Teams, con «Abrir en Word», que transforma cada respuesta larga del chat en una presentación de diez diapositivas."
+      ],
+      a: 2,
+      why: "El programa se elige por dónde vive el archivo y quién va a leer el resultado: el archivo de partida es un documento de Word y el destino, una presentación."
+    },
+    {
+      q: "Copilot resume un hilo de correos con un proveedor y menciona un importe y un plazo. ¿Qué conviene hacer antes de responder?",
+      opts: [
+        "Responder con esos datos, porque el resumen incluye citas numeradas y por eso ya está verificado.",
+        "Leer los mensajes que contienen el importe y el plazo, porque el resumen no sustituye la lectura de los compromisos.",
+        "Pedir a Copilot que resuma el resumen, para que el segundo resultado compense los posibles errores del primero.",
+        "Pasar el entrenamiento de correo al hilo, que comprueba si los importes y las fechas son correctos."
+      ],
+      a: 1,
+      why: "Los importes, plazos y condiciones se comprueban en el mensaje de origen; las citas ayudan a localizarlo, no lo sustituyen."
+    }
+  ];
+</script>
+</body>
+</html>

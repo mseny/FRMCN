@@ -68,12 +68,15 @@
 
     {
       id: 'm5', num: 5, title: 'Copilot suite', short: 'Copilot suite',
-      quote: '«Copilot es una familia de productos con un mismo nombre; el primer paso es saber cuál se tiene delante.»', quoteSrc: 'M5 · C1 — Introducción a Copilot',
-      desc: 'La IA que ya vive en Microsoft 365: qué variante de Copilot es cuál, dónde guarda el contexto y qué hace dentro de Word, Excel, PowerPoint y Outlook.',
+      quote: '«Copilot es una familia de productos con un mismo nombre; el primer paso es saber cuál se tiene delante.»', quoteSrc: 'M5 · C1 — La app de Copilot',
+      desc: 'La IA que ya vive en Microsoft 365: la app de Copilot y su contexto, Copilot dentro de Word, Excel, PowerPoint, Outlook y Teams, los agentes y una introducción a Power Platform.',
       classes: [
-        { id: 'm5c1', file: 'modulo5-clase1.html', num: 1, kind: 'teórica', duration: 'Teoría 45 min · Práctica 60 min', topic: 'Copilot dentro de Microsoft 365',
-          title: 'Introducción a Copilot', short: 'Introducción a Copilot',
-          tools: ['Copilot', 'Cuadernos', 'Word', 'Excel', 'PowerPoint', 'Outlook'] }
+        { id: 'm5c1', file: 'modulo5-clase1.html', num: 1, kind: 'teórica', duration: 'Teoría 45 min · Práctica 45 min', topic: 'La app de Copilot y su app de escritorio',
+          title: 'La app de Copilot: interfaz, opciones y Cuadernos', short: 'La app de Copilot',
+          tools: ['Copilot', 'Cuadernos', 'Páginas', 'Cowork'] },
+        { id: 'm5c2', file: 'modulo5-clase2.html', num: 2, kind: 'práctica', duration: 'Teoría 45 min · Práctica 60 min', topic: 'Copilot dentro de cada programa',
+          title: 'Copilot en las aplicaciones: Word, Excel, PowerPoint, Outlook y Teams', short: 'Copilot en las apps',
+          tools: ['Word', 'Excel', 'PowerPoint', 'Outlook', 'Teams'] }
       ]
     },
 
